@@ -14,7 +14,7 @@ private:
 	VkPrimitiveTopology topology;
 	VkPolygonMode polygonMode;
 public:
-	Pipeline(VkDevice device, VkRenderPass renderPass, VkViewport viewport, VkRect2D scissor);
+	Pipeline(VkDevice device, VkRenderPass renderPass, VkViewport viewport, VkRect2D scissor, VkPolygonMode polygonMode = VK_POLYGON_MODE_FILL, VkPrimitiveTopology topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST);
 	~Pipeline();
 
 	void Create(VkShaderModule vertexShader, VkShaderModule pixelShader, std::string vertexEntry, std::string pixelEntry);

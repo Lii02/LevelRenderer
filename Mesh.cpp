@@ -20,12 +20,12 @@ Mesh::~Mesh() {
 	vkFreeMemory(device, indexMemory, nullptr);
 }
 
-void Mesh::SetData(std::vector<float> vertices, std::vector<int> indices) {
+void Mesh::SetData(const Vertices& vertices, const Indices& indices) {
 	this->indexCount = indices.size();
-	GvkHelper::create_buffer(phys, device, vertices.size() * sizeof(float),
+	GvkHelper::create_buffer(phys, device, vertices.size() * sizeof(Vertex),
 		VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
 		VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, &vertexBuffer, &vertexMemory);
-	GvkHelper::write_to_buffer(device, vertexMemory, vertices.data(), vertices.size() * sizeof(float));
+	GvkHelper::write_to_buffer(device, vertexMemory, vertices.data(), vertices.size() * sizeof(Vertex));
 
 	GvkHelper::create_buffer(phys, device, indices.size() * sizeof(int),
 		VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |

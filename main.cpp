@@ -81,10 +81,23 @@ int main(int argc, char** argv) {
 			getViewportScissor(viewport, scissor);
 			Pipeline* pipeline = new Pipeline(device, renderPass, viewport, scissor);
 			pipeline->Create(compiledShaders.vertexShader, compiledShaders.pixelShader, vertexEntry, pixelEntry);
+			Mesh* mesh = new Mesh(device, phys);
+			
+			std::vector<Vertex> vertices = {
+				{{-0.5f, -0.5f, 0.0f}, {}, {}},
+				{{0.5f, 0.5f, 0.0f}, {}, {}},
+				{{-0.5f, 0.5f, 0.0f}, {}, {}}
+			};
+
+			std::vector<int> indices = {
+				0, 1, 2
+			};
+			mesh->SetData(vertices, indices);
 
 			shutdown.Create(vulkan, [&]() {
 				if (+shutdown.Find(GW::GRAPHICS::GVulkanSurface::Events::RELEASE_RESOURCES, true)) {
 					vkDeviceWaitIdle(device);
+					delete mesh;
 					vkDestroyShaderModule(device, compiledShaders.vertexShader, nullptr);
 					vkDestroyShaderModule(device, compiledShaders.pixelShader, nullptr);
 					delete pipeline;
@@ -101,6 +114,7 @@ int main(int argc, char** argv) {
 
 					getViewportScissor(viewport, scissor);
 					pipeline->Bind(commandBuffer, viewport, scissor);
+					mesh->Draw(commandBuffer);
 
 					vulkan.EndFrame(true);
 					deltaStopwatch.End();

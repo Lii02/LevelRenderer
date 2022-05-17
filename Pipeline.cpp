@@ -6,13 +6,13 @@ struct ImplVertex {
 	float nrm[3];
 };
 
-Pipeline::Pipeline(VkDevice device, VkRenderPass renderPass, VkViewport viewport, VkRect2D scissor) {
+Pipeline::Pipeline(VkDevice device, VkRenderPass renderPass, VkViewport viewport, VkRect2D scissor, VkPolygonMode polygonMode, VkPrimitiveTopology topology) {
 	this->device = device;
 	this->renderPass = renderPass;
 	this->viewport = viewport;
 	this->scissor = scissor;
-	this->topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
-	this->polygonMode = VK_POLYGON_MODE_FILL;
+	this->topology = topology;
+	this->polygonMode = polygonMode;
 }
 
 Pipeline::~Pipeline() {

@@ -3,6 +3,15 @@
 #include <vulkan/vulkan.h>
 #include <vector>
 
+struct Vertex {
+	float pos[3];
+	float uv[2];
+	float nrm[3];
+};
+
+typedef std::vector<Vertex> Vertices;
+typedef std::vector<int> Indices;
+
 class Mesh {
 private:
 	VkDevice device;
@@ -14,7 +23,7 @@ public:
 	Mesh(VkDevice device, VkPhysicalDevice phys);
 	~Mesh();
 
-	void SetData(std::vector<float> vertices, std::vector<int> indices);
+	void SetData(const Vertices& vertices, const Indices& indices);
 	void Draw(VkCommandBuffer commandBuffer);
 };
 

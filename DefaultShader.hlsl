@@ -17,10 +17,11 @@ VS_OUTPUT VS(VS_INPUT input)
     VS_OUTPUT output;
     float4 position = float4(input.Pos, 1);
     output.Pos = position;
+    output.Norm = input.Norm;
     return output;
 }
 
 float4 PS(VS_OUTPUT input) : SV_TARGET
 {
-    return float4(0.25f, 0.6f, 0.1f, 1);
+    return float4(1, 0, 0, 1);
 }

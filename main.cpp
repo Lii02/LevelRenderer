@@ -54,6 +54,8 @@ int main(int argc, char** argv) {
 			vulkan.GetDevice((void**)&device);
 			vulkan.GetPhysicalDevice((void**)&phys);
 			vulkan.GetRenderPass((void**)&renderPass);
+			uint32_t frameCount;
+			vulkan.GetSwapchainImageCount(frameCount);
 			VkPhysicalDeviceProperties deviceProperties;
 			vkGetPhysicalDeviceProperties(phys, &deviceProperties);
 			std::cout << "Using device: " << deviceProperties.deviceName << std::endl;
@@ -79,7 +81,13 @@ int main(int argc, char** argv) {
 			VkViewport viewport;
 			VkRect2D scissor;
 			getViewportScissor(viewport, scissor);
-			Pipeline* pipeline = new Pipeline(device, renderPass, viewport, scissor);
+			std::vector<VkVertexInputAttributeDescription> attribs = {
+				{ 0, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(Vertex, pos) },
+				{ 1, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(Vertex, uv) },
+				{ 2, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(Vertex, nrm) }
+			};
+
+			Pipeline* pipeline = new Pipeline(device, renderPass, viewport, scissor, attribs, frameCount);
 			pipeline->Create(compiledShaders.vertexShader, compiledShaders.pixelShader, vertexEntry, pixelEntry);
 			Mesh* mesh = new Mesh(device, phys);
 			

@@ -17,7 +17,7 @@ namespace FileHelper {
 		std::string str;
 		buffer.resize(stream.tellg(), ' ');
 		stream.seekg(0, stream.beg);
-		stream.read((char*)buffer.data(), buffer.size());
+		stream.read((char*)&buffer[0], buffer.size());
 		stream.close();
 		return true;
 	}

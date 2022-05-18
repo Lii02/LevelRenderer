@@ -1,21 +1,20 @@
 #include "Pipeline.h"
 
-struct ImplVertex {
-	float pos[3];
-	float uvw[2];
-	float nrm[3];
-};
-
-Pipeline::Pipeline(VkDevice device, VkRenderPass renderPass, VkViewport viewport, VkRect2D scissor, VkPolygonMode polygonMode, VkPrimitiveTopology topology) {
+Pipeline::Pipeline(VkDevice device, VkRenderPass renderPass, VkViewport viewport, VkRect2D scissor, std::vector<VkVertexInputAttributeDescription> attribs, uint32_t frameCount, size_t stride, std::vector<VkPushConstantRange> pushConstantRanges, VkPolygonMode polygonMode, VkPrimitiveTopology topology) {
 	this->device = device;
 	this->renderPass = renderPass;
 	this->viewport = viewport;
 	this->scissor = scissor;
-	this->topology = topology;
+	this->attribs = attribs;
+	this->frameCount = frameCount;
+	this->stride = stride;
+	this->pushConstantRanges = pushConstantRanges;
 	this->polygonMode = polygonMode;
+	this->topology = topology;
 }
 
 Pipeline::~Pipeline() {
+	vkDestroyDescriptorPool(device, descriptorPool, nullptr);
 	vkDestroyPipelineLayout(device, layout, nullptr);
 	vkDestroyPipeline(device, pipeline, nullptr);
 }
@@ -39,20 +38,15 @@ void Pipeline::Create(VkShaderModule vertexShader, VkShaderModule pixelShader, s
 
 	VkVertexInputBindingDescription vertexBindingDescription = {};
 	vertexBindingDescription.binding = 0;
-	vertexBindingDescription.stride = sizeof(ImplVertex);
+	vertexBindingDescription.stride = stride;
 	vertexBindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-	VkVertexInputAttributeDescription vertexAttribDescriptions[3] = {
-		{ 0, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(ImplVertex, pos) },
-		{ 1, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(ImplVertex, uvw) },
-		{ 2, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(ImplVertex, nrm) }
-	};
 
 	VkPipelineVertexInputStateCreateInfo inputVertexInfo = {};
 	inputVertexInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
 	inputVertexInfo.vertexBindingDescriptionCount = 1;
 	inputVertexInfo.pVertexBindingDescriptions = &vertexBindingDescription;
-	inputVertexInfo.vertexAttributeDescriptionCount = 3;
-	inputVertexInfo.pVertexAttributeDescriptions = vertexAttribDescriptions;
+	inputVertexInfo.vertexAttributeDescriptionCount = attribs.size();
+	inputVertexInfo.pVertexAttributeDescriptions = attribs.data();
 
 	VkPipelineViewportStateCreateInfo viewportCreateInfo = {};
 	viewportCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
@@ -122,12 +116,22 @@ void Pipeline::Create(VkShaderModule vertexShader, VkShaderModule pixelShader, s
 	dynamicCreateInfo.dynamicStateCount = 2;
 	dynamicCreateInfo.pDynamicStates = dynamicState;
 
+	VkDescriptorPoolSize poolSize = {};
+	poolSize.type = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+	poolSize.descriptorCount = frameCount;
+	VkDescriptorPoolCreateInfo poolInfo = {};
+	poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
+	poolInfo.poolSizeCount = 1;
+	poolInfo.pPoolSizes = &poolSize;
+	poolInfo.maxSets = frameCount;
+	vkCreateDescriptorPool(device, &poolInfo, nullptr, &descriptorPool);
+
 	VkPipelineLayoutCreateInfo pipelineLayoutCreateInfo = {};
 	pipelineLayoutCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
 	pipelineLayoutCreateInfo.setLayoutCount = 0;
 	pipelineLayoutCreateInfo.pSetLayouts = nullptr;
-	pipelineLayoutCreateInfo.pushConstantRangeCount = 0;
-	pipelineLayoutCreateInfo.pPushConstantRanges = nullptr;
+	pipelineLayoutCreateInfo.pushConstantRangeCount = pushConstantRanges.size();
+	pipelineLayoutCreateInfo.pPushConstantRanges = pushConstantRanges.data();
 	vkCreatePipelineLayout(device, &pipelineLayoutCreateInfo, nullptr, &layout);
 
 	VkGraphicsPipelineCreateInfo pipelineCreateInfo = {};
@@ -160,4 +164,9 @@ void Pipeline::Bind(VkCommandBuffer commandBuffer, VkViewport viewport, VkRect2D
 void Pipeline::SetTopology(VkCommandBuffer commandBuffer, VkPrimitiveTopology topology) {
 	this->topology = topology;
 	vkCmdSetPrimitiveTopology(commandBuffer, topology);
+}
+
+void Pipeline::PushConstant(VkCommandBuffer commandBuffer, uint32_t rangeIndex, void* block) {
+	VkPushConstantRange range = pushConstantRanges[rangeIndex];
+	vkCmdPushConstants(commandBuffer, layout, range.stageFlags, range.offset, range.size, block);
 }

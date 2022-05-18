@@ -1,7 +1,7 @@
 #ifndef GATEWARE_H
 #define GATEWARE_H
 
-/* File created by GW Header Compiler version 1.4.1 */
+/* File created by GW Header Compiler version 1.4.0 */
 
 /*
 The MIT License (MIT)
@@ -43,20 +43,19 @@ static_assert(sizeof(void*) == 8, "Gateware supports x64 platforms only.");
 // The Major version is auto-generated based on the current year.
 #define GATEWARE_MAJOR 22
 // The Minor version is auto-generated based on the current day of the year.
-#define GATEWARE_MINOR 129
+#define GATEWARE_MINOR 136
 // The Patch version is auto-generated based on the current UTC hour of the day.
-#define GATEWARE_PATCH 23
+#define GATEWARE_PATCH 19
 // Pulled directly from GIT  
-#define GATEWARE_BRANCH "Peck-LookAtRH"
+#define GATEWARE_BRANCH "Peck-LookAtRHFix"
 // Pulled directly from GIT
-#define GATEWARE_COMMIT_HASH 0xb8d92cd7
+#define GATEWARE_COMMIT_HASH 0xa168ef65
 // Standard Window Title Bar
-#define GATEWARE_VERSION_STRING "Gateware v22.129.23"
+#define GATEWARE_VERSION_STRING "Gateware v22.136.19"
 // Window Title Bar displayed in DEBUG builds
-#define GATEWARE_VERSION_STRING_LONG "Gateware v22.129.23 (Peck-LookAtRH) [b8d92cd7]"
+#define GATEWARE_VERSION_STRING_LONG "Gateware v22.136.19 (Peck-LookAtRHFix) [a168ef65]"
 
 #endif
-
 #ifndef G_WARNING_SUPPRESSIONS
 #define G_WARNING_SUPPRESSIONS
 
@@ -90,68 +89,50 @@ static_assert(sizeof(void*) == 8, "Gateware supports x64 platforms only.");
 #endif
 
 #endif
-
 /*---------------------------------
 |	Begin of GGraphicsDefines.h
 ----------------------------------*/
 #ifndef GGRAPHICSDEFINES_H
 #define GGRAPHICSDEFINES_H
 
-/*!
-	File: GGraphicsDefines.h
-	Purpose: A Gateware interface contains useful resources for GGraphics libraries.
-	Author: Andre Reid
-	Contributors: Trixie Aurelia Valentine
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all Gateware Graphics library interfaces must belong.
 	namespace GRAPHICS
 	{
-		/*! \addtogroup GraphicsOptions
-		*  @{
-		*/
-		//! GGraphicsInitOptions holds the special options that can be requested when initializing one of Gateware's graphics surfaces.
 		enum GGraphicsInitOptions
 		{
-			COLOR_10_BIT			= 0x1,		//!< Require high dynamic range (HDR) color format 
-			DEPTH_BUFFER_SUPPORT	= 0x2,		//!< Require Z-Buffer support
-			DEPTH_STENCIL_SUPPORT	= 0X4,		//!< Require Z-Buffer to contain an 8-bit stencil buffer
-			OPENGL_ES_SUPPORT		= 0x8,		//!< Require OpenGL to support for mobile platforms
-			DIRECT2D_SUPPORT		= 0x10,		//!< Require BGRA surface support for DirectX11
-			TRIPLE_BUFFER			= 0x20,		//!< Require Vulkan's Surface to allow 3 buffers
-			MSAA_2X_SUPPORT			= 0x40,		//!< Require to add MSAA Support
-			MSAA_4X_SUPPORT			= 0x80,		//!< Require to add MSAA Support
-			MSAA_8X_SUPPORT			= 0x100,	//!< Require to add MSAA Support
-			MSAA_16X_SUPPORT		= 0x200,	//!< Require to add MSAA Support
-			MSAA_32X_SUPPORT		= 0x400,	//!< Require to add MSAA Support
-			MSAA_64X_SUPPORT		= 0x800,	//!< Require to add MSAA Support
+			COLOR_10_BIT			= 0x1,		
+			DEPTH_BUFFER_SUPPORT	= 0x2,		
+			DEPTH_STENCIL_SUPPORT	= 0X4,		
+			OPENGL_ES_SUPPORT		= 0x8,		
+			DIRECT2D_SUPPORT		= 0x10,		
+			TRIPLE_BUFFER			= 0x20,		
+			MSAA_2X_SUPPORT			= 0x40,		
+			MSAA_4X_SUPPORT			= 0x80,		
+			MSAA_8X_SUPPORT			= 0x100,	
+			MSAA_16X_SUPPORT		= 0x200,	
+			MSAA_32X_SUPPORT		= 0x400,	
+			MSAA_64X_SUPPORT		= 0x800,	
 		};
 
-		//! List of bitflag options for GRasterSurface smart surface updating.
 		enum GRasterUpdateFlags
 		{
-			ALIGN_X_LEFT			= 0x1,		//!< Align raster with left edge of window
-			ALIGN_X_CENTER			= 0x2,		//!< Align raster with horizontal center of window (default)
-			ALIGN_X_RIGHT			= 0x4,		//!< Align raster with right edge of window
-			ALIGN_Y_TOP				= 0x8,		//!< Align raster with top edge of window
-			ALIGN_Y_CENTER			= 0x10,		//!< Align raster with vertical center of window (default)
-			ALIGN_Y_BOTTOM			= 0x20,		//!< Align raster with bottom edge of window
-			UPSCALE_2X				= 0x40,		//!< Upscale raster by factor of 2
-			UPSCALE_3X				= 0x80,		//!< Upscale raster by factor of 3
-			UPSCALE_4X				= 0x100,	//!< Upscale raster by factor of 4
-			UPSCALE_8X				= 0x200,	//!< Upscale raster by factor of 8
-			UPSCALE_16X				= 0x400,	//!< Upscale raster by factor of 16
-			STRETCH_TO_FIT			= 0x800,	//!< Expand raster to fill window when updating
-			INTERPOLATE_NEAREST		= 0x1000,	//!< Use color of nearest whole pixel when upscaling (default)
-			INTERPOLATE_BILINEAR	= 0x2000,	//!< Blend nearest pixel colors when upscaling
+			ALIGN_X_LEFT			= 0x1,		
+			ALIGN_X_CENTER			= 0x2,		
+			ALIGN_X_RIGHT			= 0x4,		
+			ALIGN_Y_TOP				= 0x8,		
+			ALIGN_Y_CENTER			= 0x10,		
+			ALIGN_Y_BOTTOM			= 0x20,		
+			UPSCALE_2X				= 0x40,		
+			UPSCALE_3X				= 0x80,		
+			UPSCALE_4X				= 0x100,	
+			UPSCALE_8X				= 0x200,	
+			UPSCALE_16X				= 0x400,	
+			STRETCH_TO_FIT			= 0x800,	
+			INTERPOLATE_NEAREST		= 0x1000,	
+			INTERPOLATE_BILINEAR	= 0x2000,	
 		};
-		/*! @} */
 	}
 }
 
@@ -168,15 +149,6 @@ namespace GW
 #ifndef GMATHDEFINES_H
 #define GMATHDEFINES_H
 
-/*!
-	File: GMathDefines.h
-	Purpose: A Gateware math define header that handles math structs, such as vector, quaternion and matrix.
-	Author: Shuo-Yi Chang
-	Contributors: Ryan Bickell, Ryan Powser, Colby Peck 
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 #define G_PI						3.14159265358979323846 //G_PI is deprecated! Use G_PI_D or G_PI_F instead. 
 #define G_PI_D				3.14159265358979323846
@@ -259,20 +231,14 @@ namespace GW
 #define G_RADIAN_TO_DEGREE_F(radian) ((radian) * 57.29578018f)
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all math library interface must belong.
 	namespace MATH
 	{
-		/*! \addtogroup MathStructures
-		*  @{
-		*/
 
 		// Ensure identical binary padding for structures on all platforms.
 #pragma pack(push, 1)
 
-		/*! Vector with 4 float elements */
 		struct GVECTORF
 		{
 			union
@@ -303,7 +269,6 @@ namespace GW
 			}
 		};
 
-		/*! Vector with 4 double elements */
 		struct GVECTORD
 		{
 			union
@@ -333,7 +298,6 @@ namespace GW
 				return *this;
 			}
 		};
-		/*! Matrix with 4 float vectors which represent for each row. */
 		struct GMATRIXF
 		{
 			union
@@ -350,7 +314,6 @@ namespace GW
 			};
 		};
 
-		/*! Matrix with 4 double vectors which represent for each row. */
 		struct GMATRIXD
 		{
 			union
@@ -366,7 +329,6 @@ namespace GW
 			};
 		};
 
-		/*! Quaternion with 4 float elements */
 		struct GQUATERNIONF
 		{
 			union
@@ -382,7 +344,6 @@ namespace GW
 			};
 		};
 
-		/*! Quaternion with 4 double elements */
 		struct GQUATERNIOND
 		{
 			union
@@ -398,7 +359,6 @@ namespace GW
 			};
 		};
 
-		/*! Line with 2 GVECTORFs representing start & end. */
 		struct GLINEF
 		{
 			union
@@ -422,7 +382,6 @@ namespace GW
 			}
 		};
 
-		/*! Line with 2 GVECTORDs representing start & end. */
 		struct GLINED
 		{
 			union
@@ -446,7 +405,6 @@ namespace GW
 			}
 		};
 
-		/*! Ray with 2 GVECTORFs representing position & direction. */
 		struct GRAYF
 		{
 			union
@@ -470,7 +428,6 @@ namespace GW
 			}
 		};
 
-		/*! Ray with 2 GVECTORDs representing position & direction. */
 		struct GRAYD
 		{
 			union
@@ -494,7 +451,6 @@ namespace GW
 			}
 		};
 
-		/*! Triangle with 3 GVECTORFs representing positions. */
 		struct GTRIANGLEF
 		{
 			union
@@ -519,7 +475,6 @@ namespace GW
 			}
 		};
 
-		/*! Triangle with 3 GVECTORDs representing positions. */
 		struct GTRIANGLED
 		{
 			union
@@ -544,7 +499,6 @@ namespace GW
 			}
 		};
 
-		/*! Plane with 4 floats: 3 representing a normal and 1 a distance along that normal from the origin. */
 		struct GPLANEF
 		{
 			union
@@ -570,7 +524,6 @@ namespace GW
 			}
 		};
 
-		/*! Plane with 4 doubles: 3 representing a normal and 1 a distance along that normal from the origin. */
 		struct GPLANED
 		{
 			union
@@ -596,7 +549,6 @@ namespace GW
 			}
 		};
 
-		/*! Sphere with 4 floats: 3 representing position and 1 radius. */
 		struct GSPHEREF
 		{
 			union
@@ -622,7 +574,6 @@ namespace GW
 			}
 		};
 
-		/*! Sphere with 4 doubles: 3 representing position and 1 radius. */
 		struct GSPHERED
 		{
 			union
@@ -648,7 +599,6 @@ namespace GW
 			}
 		};
 
-		/*! Capsule with 7 floats: 3 representing a start position, 3 representing an end position, 1 representing a radius. */
 		struct GCAPSULEF
 		{
 			union
@@ -678,7 +628,6 @@ namespace GW
 			}
 		};
 
-		/*! Capsule with 7 double: 3 representing a start position, 3 representing an end position, and 1 representing a radius. */
 		struct GCAPSULED
 		{
 			union
@@ -708,7 +657,6 @@ namespace GW
 			}
 		};
 
-		/*! AABB with 2 GVECTORFs representing center and extent. */
 		struct GAABBCEF
 		{
 			union
@@ -732,7 +680,6 @@ namespace GW
 			}
 		};
 
-		/*! AABB with 2 GVECTORDs representing center and extent. */
 		struct GAABBCED
 		{
 			union
@@ -756,7 +703,6 @@ namespace GW
 			}
 		};
 
-		/*! AABB with 2 GVECTORFs representing min and max. */
 		struct GAABBMMF
 		{
 			union
@@ -780,7 +726,6 @@ namespace GW
 			}
 		};
 
-		/*! AABB with 2 GVECTORDs representing min and max. */
 		struct GAABBMMD
 		{
 			union
@@ -804,7 +749,6 @@ namespace GW
 			}
 		};
 
-		/*! OBB with 2 GVECTORFs representing center and extent and 1 quaternion representing rotation. */
 		struct GOBBF
 		{
 			union
@@ -829,7 +773,6 @@ namespace GW
 			}
 		};
 
-		/*! OBB with 2 GVECTORDs representing center and extent and 1 quaternion representing rotation.  */
 		struct GOBBD
 		{
 			union
@@ -869,7 +812,6 @@ namespace GW
 		static const GQUATERNIOND GIdentityQuaternionD{{{0,0,0,1}}};
 		static const GQUATERNIONF GZeroQuaternionF{{{0,0,0,0}}};
 		static const GQUATERNIOND GZeroQuaternionD{{{0,0,0,0}}};
-		/*! @} */
 	}
 }
 #endif // GMATHDEFINES_H
@@ -886,184 +828,166 @@ namespace GW
 #ifndef GINPUTDEFINES_H
 #define GINPUTDEFINES_H
 
-/*!
-	File: GInputDefines.h
-	Purpose: The Gateware key representations and any other Input related defines or structs.
-	Dependencies: Windows[(none)] Linux[(none)] Mac[(none)]
-	Author: Peter Farber
-	Contributors: Lari H. Norri
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
-/*! \addtogroup GInputCodes
- *  @{
- */
 
 // All GInput/GBufferedInput Key definitions follow
-#define G_KEY_UNKNOWN			0		 //!< 
-#define G_KEY_ESCAPE			1		 //!< 
-#define G_KEY_MINUS				2		 //!< 
-#define G_KEY_EQUALS			3		 //!< 
-#define G_KEY_BACKSPACE			4		 //!< 
-#define G_KEY_TAB				5		 //!< 
-#define G_KEY_BRACKET_OPEN		6		 //!< 
-#define G_KEY_BRACKET_CLOSE		7		 //!< 
-#define G_KEY_ENTER				8		 //!< 
-#define G_KEY_LEFTCONTROL		9		 //!< 
-#define G_KEY_RIGHTCONTROL		10		 //!<
-#define G_KEY_SEMICOLON			11		 //!< 
-#define G_KEY_QUOTE				12		 //!< 
-#define G_KEY_TILDE				13		 //!< 
-#define G_KEY_LEFTSHIFT			14		 //!< 
-#define G_KEY_BACKSLASH			15		 //!< 
-#define G_KEY_COMMA				16		 //!< 
-#define G_KEY_PERIOD			17		 //!< 
-#define G_KEY_FORWARDSLASH		18		 //!< 
-#define G_KEY_RIGHTSHIFT		19		 //!< 
-#define G_KEY_PRINTSCREEN		20		 //!< 
-#define G_KEY_LEFTALT			21		 //!< 
-#define G_KEY_RIGHTALT			22		 //!< 
-#define G_KEY_SPACE				23		 //!< 
-#define G_KEY_CAPSLOCK			24		 //!< 
-#define G_KEY_NUMLOCK			25		 //!< 
-#define G_KEY_SCROLL_LOCK		26		 //!< 
-#define G_KEY_PAUSE				27		 //!<
-#define G_KEY_HOME				28		 //!< 
-#define G_KEY_UP				29		 //!< 
-#define G_KEY_PAGEUP			30		 //!< 
-#define G_KEY_LEFT				31		 //!< 
-#define G_KEY_RIGHT				32		 //!< 
-#define G_KEY_END				33		 //!< 
-#define G_KEY_DOWN				34		 //!< 
-#define G_KEY_PAGEDOWN			35		 //!< 
-#define G_KEY_INSERT			36		 //!< 
-#define G_KEY_DELETE			37		 //!< 
+#define G_KEY_UNKNOWN			0		 
+#define G_KEY_ESCAPE			1		 
+#define G_KEY_MINUS				2		 
+#define G_KEY_EQUALS			3		 
+#define G_KEY_BACKSPACE			4		 
+#define G_KEY_TAB				5		 
+#define G_KEY_BRACKET_OPEN		6		 
+#define G_KEY_BRACKET_CLOSE		7		 
+#define G_KEY_ENTER				8		 
+#define G_KEY_LEFTCONTROL		9		 
+#define G_KEY_RIGHTCONTROL		10		 
+#define G_KEY_SEMICOLON			11		 
+#define G_KEY_QUOTE				12		 
+#define G_KEY_TILDE				13		 
+#define G_KEY_LEFTSHIFT			14		 
+#define G_KEY_BACKSLASH			15		 
+#define G_KEY_COMMA				16		 
+#define G_KEY_PERIOD			17		 
+#define G_KEY_FORWARDSLASH		18		 
+#define G_KEY_RIGHTSHIFT		19		 
+#define G_KEY_PRINTSCREEN		20		 
+#define G_KEY_LEFTALT			21		 
+#define G_KEY_RIGHTALT			22		 
+#define G_KEY_SPACE				23		 
+#define G_KEY_CAPSLOCK			24		 
+#define G_KEY_NUMLOCK			25		 
+#define G_KEY_SCROLL_LOCK		26		 
+#define G_KEY_PAUSE				27		 
+#define G_KEY_HOME				28		 
+#define G_KEY_UP				29		 
+#define G_KEY_PAGEUP			30		 
+#define G_KEY_LEFT				31		 
+#define G_KEY_RIGHT				32		 
+#define G_KEY_END				33		 
+#define G_KEY_DOWN				34		 
+#define G_KEY_PAGEDOWN			35		 
+#define G_KEY_INSERT			36		 
+#define G_KEY_DELETE			37		 
 
 // Characters
-#define G_KEY_A					38		 //!< 
-#define G_KEY_B					39		 //!< 
-#define G_KEY_C					40		 //!< 
-#define G_KEY_D					41		 //!< 
-#define G_KEY_E					42		 //!< 
-#define G_KEY_F					43		 //!< 
-#define G_KEY_G					44		 //!< 
-#define G_KEY_H					45		 //!< 
-#define G_KEY_I					46		 //!< 
-#define G_KEY_J					47		 //!< 
-#define G_KEY_K					48		 //!< 
-#define G_KEY_L					49		 //!< 
-#define G_KEY_M					50		 //!< 
-#define G_KEY_N					51		 //!< 
-#define G_KEY_O					52		 //!< 
-#define G_KEY_P					53		 //!< 
-#define G_KEY_Q					54		 //!< 
-#define G_KEY_R					55		 //!< 
-#define G_KEY_S					56		 //!< 
-#define G_KEY_T					57		 //!< 
-#define G_KEY_U					58		 //!< 
-#define G_KEY_V					59		 //!< 
-#define G_KEY_W					60		 //!< 
-#define G_KEY_X					61		 //!< 
-#define G_KEY_Y					62		 //!< 
-#define G_KEY_Z					63		 //!< 
+#define G_KEY_A					38		 
+#define G_KEY_B					39		 
+#define G_KEY_C					40		 
+#define G_KEY_D					41		 
+#define G_KEY_E					42		 
+#define G_KEY_F					43		 
+#define G_KEY_G					44		 
+#define G_KEY_H					45		 
+#define G_KEY_I					46		 
+#define G_KEY_J					47		 
+#define G_KEY_K					48		 
+#define G_KEY_L					49		 
+#define G_KEY_M					50		 
+#define G_KEY_N					51		 
+#define G_KEY_O					52		 
+#define G_KEY_P					53		 
+#define G_KEY_Q					54		 
+#define G_KEY_R					55		 
+#define G_KEY_S					56		 
+#define G_KEY_T					57		 
+#define G_KEY_U					58		 
+#define G_KEY_V					59		 
+#define G_KEY_W					60		 
+#define G_KEY_X					61		 
+#define G_KEY_Y					62		 
+#define G_KEY_Z					63		 
 
 // Numbers
-#define G_KEY_0					64		 //!< 
-#define G_KEY_1					65		 //!< 
-#define G_KEY_2					66		 //!< 
-#define G_KEY_3					67		 //!< 
-#define G_KEY_4					68		 //!< 
-#define G_KEY_5					69		 //!< 
-#define G_KEY_6					70		 //!< 
-#define G_KEY_7					71		 //!< 
-#define G_KEY_8					72		 //!< 
-#define G_KEY_9					73		 //!< 
+#define G_KEY_0					64		 
+#define G_KEY_1					65		 
+#define G_KEY_2					66		 
+#define G_KEY_3					67		 
+#define G_KEY_4					68		 
+#define G_KEY_5					69		 
+#define G_KEY_6					70		 
+#define G_KEY_7					71		 
+#define G_KEY_8					72		 
+#define G_KEY_9					73		 
 
 // Function Keys
-#define G_KEY_F1				74		 //!< 
-#define G_KEY_F2				75		 //!< 
-#define G_KEY_F3				76		 //!< 
-#define G_KEY_F4				77		 //!< 
-#define G_KEY_F5				78		 //!< 
-#define G_KEY_F6				79		 //!< 
-#define G_KEY_F7				80		 //!< 
-#define G_KEY_F8				81		 //!< 
-#define G_KEY_F9				82		 //!< 
-#define G_KEY_F10				83		 //!< 
-#define G_KEY_F11				84		 //!< 
-#define G_KEY_F12				85		 //!< 
+#define G_KEY_F1				74		 
+#define G_KEY_F2				75		 
+#define G_KEY_F3				76		 
+#define G_KEY_F4				77		 
+#define G_KEY_F5				78		 
+#define G_KEY_F6				79		 
+#define G_KEY_F7				80		 
+#define G_KEY_F8				81		 
+#define G_KEY_F9				82		 
+#define G_KEY_F10				83		 
+#define G_KEY_F11				84		 
+#define G_KEY_F12				85		 
 
 // Numpad
-#define G_KEY_NUMPAD_ADD		86		 //!< 
-#define G_KEY_NUMPAD_SUBTRACT	87		 //!< 
-#define G_KEY_NUMPAD_MULTIPLY	88		 //!< 
-#define G_KEY_NUMPAD_DIVIDE		89	 	 //!< 
-#define G_KEY_NUMPAD_0			90 		 //!< 
-#define G_KEY_NUMPAD_1		 	91	 	 //!< 
-#define G_KEY_NUMPAD_2			92 		 //!< 
-#define G_KEY_NUMPAD_3			93 		 //!< 
-#define G_KEY_NUMPAD_4			94 		 //!< 
-#define G_KEY_NUMPAD_5			95 		 //!< 
-#define G_KEY_NUMPAD_6			96 		 //!< 
-#define G_KEY_NUMPAD_7			97 		 //!< 
-#define G_KEY_NUMPAD_8			98 		 //!< 
-#define G_KEY_NUMPAD_9			99 	 	 //!< 
-#define G_KEY_NUMPAD_PERIOD		100	 	 //!< 
-#define G_KEY_NUMPAD_ENTER		101	 	 //!<
+#define G_KEY_NUMPAD_ADD		86		 
+#define G_KEY_NUMPAD_SUBTRACT	87		 
+#define G_KEY_NUMPAD_MULTIPLY	88		 
+#define G_KEY_NUMPAD_DIVIDE		89	 	 
+#define G_KEY_NUMPAD_0			90 		 
+#define G_KEY_NUMPAD_1		 	91	 	 
+#define G_KEY_NUMPAD_2			92 		 
+#define G_KEY_NUMPAD_3			93 		 
+#define G_KEY_NUMPAD_4			94 		 
+#define G_KEY_NUMPAD_5			95 		 
+#define G_KEY_NUMPAD_6			96 		 
+#define G_KEY_NUMPAD_7			97 		 
+#define G_KEY_NUMPAD_8			98 		 
+#define G_KEY_NUMPAD_9			99 	 	 
+#define G_KEY_NUMPAD_PERIOD		100	 	 
+#define G_KEY_NUMPAD_ENTER		101	 	 
 
 // Special
-#define G_KEY_COMMAND           102      //!<
-#define G_KEY_FUNCTION          103      //!<
+#define G_KEY_COMMAND           102      
+#define G_KEY_FUNCTION          103      
 
 // Mouse 
-#define G_BUTTON_LEFT			200		 //!< 
-#define G_BUTTON_RIGHT			201		 //!< 
-#define G_BUTTON_MIDDLE			202		 //!< 
-#define G_MOUSE_SCROLL_UP		203		 //!< 
-#define G_MOUSE_SCROLL_DOWN		204		 //!< 
+#define G_BUTTON_LEFT			200		 
+#define G_BUTTON_RIGHT			201		 
+#define G_BUTTON_MIDDLE			202		 
+#define G_MOUSE_SCROLL_UP		203		 
+#define G_MOUSE_SCROLL_DOWN		204		 
 
 // Key Masks 
-#define G_MASK_SHIFT			0		 //!< 
-#define G_MASK_CAPS_LOCK		1		 //!< 
-#define G_MASK_CONTROL			2		 //!< 
-#define G_MASK_SCROLL_LOCK		3		 //!< 
-#define G_MASK_NUM_LOCK			4		 //!< 
-#define G_MASK_COMMAND          5		 //!< 
-#define G_MASK_ALT              6		 //!< 
-#define G_MASK_FUNCTION         7		 //!< 
+#define G_MASK_SHIFT			0		 
+#define G_MASK_CAPS_LOCK		1		 
+#define G_MASK_CONTROL			2		 
+#define G_MASK_SCROLL_LOCK		3		 
+#define G_MASK_NUM_LOCK			4		 
+#define G_MASK_COMMAND          5		 
+#define G_MASK_ALT              6		 
+#define G_MASK_FUNCTION         7		 
 
-/*! @}*/
 
-/*! \addtogroup GControllerCodes
- *  @{
- */
 
 // All GController Input definitions follow
-#define G_SOUTH_BTN						0 //!< 
-#define G_EAST_BTN						1 //!< 
-#define G_NORTH_BTN						2 //!< 
-#define G_WEST_BTN						3 //!< 
-#define G_LEFT_SHOULDER_BTN				4 //!< 
-#define G_RIGHT_SHOULDER_BTN			5 //!< 
-#define G_LEFT_TRIGGER_AXIS				6 //!< 
-#define G_RIGHT_TRIGGER_AXIS			7 //!< 
-#define G_DPAD_LEFT_BTN					8 //!< 
-#define G_DPAD_RIGHT_BTN				9 //!< 
-#define G_DPAD_UP_BTN					10 //!< 
-#define G_DPAD_DOWN_BTN					11 //!< 
-#define G_LEFT_THUMB_BTN				12 //!< 
-#define G_RIGHT_THUMB_BTN				13 //!< 
-#define G_START_BTN						14 //!< 
-#define G_SELECT_BTN					15 //!< 
-#define G_LX_AXIS						16 //!< 
-#define G_LY_AXIS						17 //!< 
-#define G_RX_AXIS						18 //!< 
-#define G_RY_AXIS						19 //!< 
-#define G_UNKNOWN_INPUT                 255 //!<
+#define G_SOUTH_BTN						0 
+#define G_EAST_BTN						1 
+#define G_NORTH_BTN						2 
+#define G_WEST_BTN						3 
+#define G_LEFT_SHOULDER_BTN				4 
+#define G_RIGHT_SHOULDER_BTN			5 
+#define G_LEFT_TRIGGER_AXIS				6 
+#define G_RIGHT_TRIGGER_AXIS			7 
+#define G_DPAD_LEFT_BTN					8 
+#define G_DPAD_RIGHT_BTN				9 
+#define G_DPAD_UP_BTN					10 
+#define G_DPAD_DOWN_BTN					11 
+#define G_LEFT_THUMB_BTN				12 
+#define G_RIGHT_THUMB_BTN				13 
+#define G_START_BTN						14 
+#define G_SELECT_BTN					15 
+#define G_LX_AXIS						16 
+#define G_LY_AXIS						17 
+#define G_RX_AXIS						18 
+#define G_RY_AXIS						19 
+#define G_UNKNOWN_INPUT                 255 
 
-/*! @}*/
 
 // Bit-manip macros
 #define G_CHECK_BIT(var,pos) ((var) & (1<<(pos)))
@@ -1080,24 +1004,21 @@ namespace GW
 // The interval daemon operation will run at for GController notify daemon
 #define G_CONTROLLER_NOTIFY_DAEMON_OPERATION_INTERVAL 2
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all Gateware library interfaces must belong.
 	namespace INPUT
 	{
-		//! GControllerType holds the possible types of game controllers.
 		enum class GControllerType
 		{
-			GENERAL,	//!< 
-			PS3,		//!<
-			PS4,		//!<
-			PS5,		//!<
-			STEAM,		//!<
-			SWITCHPRO,	//!<
-			XBOX360,	//!<
-			XBOXONE,	//!<
-			XBOXSERIES,	//!<
+			GENERAL,	
+			PS3,		
+			PS4,		
+			PS5,		
+			STEAM,		
+			SWITCHPRO,	
+			XBOX360,	
+			XBOXONE,	
+			XBOXSERIES,	
 		};
 	}
 }
@@ -1115,15 +1036,6 @@ namespace GW
 #ifndef GMATH2DDEFINES_H
 #define GMATH2DDEFINES_H
 
-/*!
-	File: GMath2DDefines.h
-	Purpose: A Gateware 2D math define header that handles 2D math structs, such as vector and matrix.
-	Author: Ryan Powser
-	Contributors: 
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 #define G2D_PI					3.14159265358979323846 //G2D_PI is deprecated! Use G2D_PI_D or G2D_PI_F instead. 
 #define G2D_PI_D				3.14159265358979323846
@@ -1174,20 +1086,14 @@ namespace GW
 
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all 2D math library interface must belong.
 	namespace MATH2D
 	{
-		/*! \addtogroup MathStructures
-		*  @{
-		*/
 
 		// Ensure identical byte alignment for structures on all platforms.
 #pragma pack(push, 1)
 
-		/*! Vector with 2 float elements. */
 		struct GVECTOR2F
 		{
 			union 
@@ -1201,7 +1107,6 @@ namespace GW
 			};
 		};
 
-		/*! Vector with 2 double elements. */
 		struct GVECTOR2D
 		{
 			union
@@ -1215,7 +1120,6 @@ namespace GW
 			};
 		};
 
-		/*! Vector with 3 float elements. */
 		struct GVECTOR3F
 		{
 			union
@@ -1235,7 +1139,6 @@ namespace GW
 			}
 		};
 
-		/*! Vector with 3 double elements. */
 		struct GVECTOR3D
 		{
 			union
@@ -1255,7 +1158,6 @@ namespace GW
 			}
 		};
 
-		/*! Matrix with 2 float vector2s each representing a row. */
 		struct GMATRIX2F
 		{
 			union
@@ -1269,7 +1171,6 @@ namespace GW
 			};
 		};
 
-		/*! Matrix with 2 double vector2s each representing a row. */
 		struct GMATRIX2D
 		{
 			union
@@ -1283,7 +1184,6 @@ namespace GW
 			};
 		};
 
-		/*! Matrix with 3 float vector3s each representing a row. */
 		struct GMATRIX3F
 		{
 			union
@@ -1298,7 +1198,6 @@ namespace GW
 			};
 		};
 
-		/*! Matrix with 3 double vector3s each representing a row. */
 		struct GMATRIX3D
 		{
 			union
@@ -1313,35 +1212,30 @@ namespace GW
 			};
 		};
 
-		/*! Line with 2 float vector2s representing start and end. */
 		struct GLINE2F
 		{
 			GVECTOR2F start;
 			GVECTOR2F end;
 		};
 
-		/*! Line with 2 double vector2s representing start and end. */
 		struct GLINE2D
 		{
 			GVECTOR2D start;
 			GVECTOR2D end;
 		};
 
-		/*! Ray with 2 float vector2s representing starting position and direction. */
 		struct GRAY2F
 		{
 			GVECTOR2F pos;
 			GVECTOR2F dir;
 		};
 
-		/*! Ray with 2 double vector2s representing starting position and direction. */
 		struct GRAY2D
 		{
 			GVECTOR2D pos;
 			GVECTOR2D dir;
 		};
 
-		/*! Circle with a float vector2 for position and a float for radius. */
 		struct GCIRCLE2F
 		{
 			union 
@@ -1355,7 +1249,6 @@ namespace GW
 			};
 		};
 
-		/*! Circle with a double vector2 for position and a double for radius. */
 		struct GCIRCLE2D
 		{
 			union
@@ -1369,7 +1262,6 @@ namespace GW
 			};
 		};
 
-		/*! Capsule with 2 float vector2s representing start and end, and a float for radius. */
 		struct GCAPSULE2F
 		{
 			GVECTOR2F start;
@@ -1377,7 +1269,6 @@ namespace GW
 			float radius;
 		};
 		
-		/*! Capsule with 2 double vector2s representing start and end, and a double for radius. */
 		struct GCAPSULE2D
 		{
 			GVECTOR2D start;
@@ -1385,21 +1276,18 @@ namespace GW
 			double radius;
 		};
 
-		/*! Rectangle with 2 float vector2s representing min xy and max xy. */
 		struct GRECTANGLE2F
 		{
 			GVECTOR2F min;
 			GVECTOR2F max;
 		};
 
-		/*! Rectangle with 2 double vector2s representing min xy and max xy. */
 		struct GRECTANGLE2D
 		{
 			GVECTOR2D min;
 			GVECTOR2D max;
 		};
 
-		/*! Container for barycentric coordinates with 3 floats representing alpha, beta and gamma. */
 		struct GBARYCENTRICF
 		{
 			union
@@ -1414,7 +1302,6 @@ namespace GW
 			};
 		};
 
-		/*! Container for barycentric coordinates with 3 doubles representing alpha, beta and gamma. */
 		struct GBARYCENTRICD
 		{
 			union
@@ -1444,7 +1331,6 @@ namespace GW
 		static const GMATRIX2D GZeroMatrix2D{ {{{{{0,0}}},{{{0,0}}}}} };
 		static const GMATRIX3F GZeroMatrix3F{ {{{{{0,0,0}}},{{{0,0,0}}},{{{0,0,0}}}}} };
 		static const GMATRIX3D GZeroMatrix3D{ {{{{{0,0,0}}},{{{0,0,0}}},{{{0,0,0}}}}} };
-		/*! @} */
 	}
 }
 #endif // GMATH2DDEFINES_H
@@ -1463,53 +1349,24 @@ namespace GW
 // Count of implemented GATTENUATION
 #define G_IMPLEMENTED_ATTENUATIONS 1
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all audio library interfaces must belong.
 	namespace AUDIO
 	{
-		/*! \addtogroup AudioOptions
-		*  @{
-		*/
 
-		//! Listing of types of distance model attenuation curves a GSound3D or GMusic3D can use.
 		enum GATTENUATION
 		{
-			//! This attenuation model is a 1/1 reduction in volume over distance.
-			/*! Good for general looping ambience and low-detail background sounds
-			 *  that do not need tight 3d falloff settings. Also good for crossfading
-			 *  large radius ambient sounds.
-			*/
 			LINEAR,
 
-			//! This attenuation model is a logarithmic reduction in volume over distance.
-			/*! Good for sounds that need more exact 3d positionalization.
-			 *  Also good for making sounds 'pop' at a close distance;
-			 *  good for incoming missiles and projectiles as well.
-			*/
 			// LOGARITHMIC,
 
-			//! This attenuation model is a reverse logarithmic reduction in volume over distance.
-			/*! Useful as a layer in weapons or other sounds that need to be
-			 *  loud up to their MaxRadius.
-			*/
 			// LOGREVERSE,
 
-			//! This attenuation model is an extremely steep falloff curve.
-			/*! Good for 3d sounds that are pinpoint loud by the MinRadius
-			 *  but need to be present from a distance.
-			*/
 			// INVERSE,
 
-			//! This attenuation model is a more 'realistic' falloff model that simulates sound in a real environment.
-			/*! Good for fires or other point-interest or high frequency content
-			 *  that the logarithmic attenuation does not feel 'right' for a sound's falloff.
-			*/
 			// NATURAL
 		};
 
-		/*! @} */
 	}
 }
 
@@ -1548,85 +1405,51 @@ namespace GW
 #ifndef GCOREDEFINES_H
 #define GCOREDEFINES_H
 
-/*!
-	File: GCoreDefines.h
-	Purpose: Lists the core #defines, enums, MACROS & root template/classes/structures used by the Gateware interfaces.
-	Dependencies: Any first-party per-platform libraries that need to be manually linked will be noted in these sections.
-	Author: Lari H. Norri
-	Contributors: Ryan Powser, Trixie Aurelia Valentine, Ozzie Mercado, Alexander Clemmons
-	Interface Status: Alpha (GatewareX)
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 // The Gateware proxy pattern is fundamentally built upon std::weak & std::shared
 // Gateware Event communication is based on a type erasure observer pattern <typeinfo>
 #include <memory>
 #include <algorithm>
 
-//! The core namespace to which all Gateware interfaces must belong.
 namespace GW
 {
-	/*! \addtogroup GReturnValues
-	*  @{
-	*/
 
-	//! Listing of common failure/success codes returned by Gateware functions.
 	enum class GReturn : int
 	{
 		// additional failure codes here
-		END_OF_FILE				= -18,  //!< The requested file has no more data to read in.
-		FORMAT_UNSUPPORTED		= -17,	//!< The requested file format is not supported by the current platform/object.
-		NO_IMPLEMENTATION		= -16,	//!< An interface function was called directly without a valid implementation.
-		HARDWARE_UNAVAILABLE	= -15,	//!< This feature requires hardware/drivers that are currently not present.
-		DEADLOCK				= -14,	//!< The thread on which you called this function would cause a deadlock.
-		UNEXPECTED_RESULT		= -13,	//!< A function has reached a spot it was never expected to be able to. (Report these!)
-		RESOURCE_LOCKED			= -12,	//!< This operation has failed because a shared resource could not be aquired.
-		DISCONNECTED			= -11,	//!< This operation has failed because you are no longer connected.
-		PREMATURE_DEALLOCATION	= -10,	//!< You have deallocated some Interface this object was using internally. (Hint::Share())
-		FUNCTION_DEPRECATED		= -9,	//!< This function has been disabled but has not been removed.
-		FEATURE_UNSUPPORTED		= -8,	//!< Attempted an operation that is currently not supported.
-		FILE_NOT_FOUND			= -7,	//!< A requested file is not found.
-		INTERFACE_UNSUPPORTED	= -6,	//!< The requested interface is not supported by the current platform/object.
-		MEMORY_CORRUPTION		= -5,	//!< A memory corruption occurred in the function.
-		INVALID_ARGUMENT		= -4,	//!< An invalid argument was passed into the function.
-		IGNORED					= -3,	//!< The requested operation has already been performed and cannot be done again.
-		EXPIRED_PROXY			= -2,	//!< The Interface referenced by this Proxy has been deallocated. (C++17 future support)
-		FAILURE					= -1,	//!< The function failed (Check function documentation for possible reasons).
-		EMPTY_PROXY				=  0,	//!< This Proxy was never (or is no longer) initialized to a valid Interface.
+		END_OF_FILE				= -18,  
+		FORMAT_UNSUPPORTED		= -17,	
+		NO_IMPLEMENTATION		= -16,	
+		HARDWARE_UNAVAILABLE	= -15,	
+		DEADLOCK				= -14,	
+		UNEXPECTED_RESULT		= -13,	
+		RESOURCE_LOCKED			= -12,	
+		DISCONNECTED			= -11,	
+		PREMATURE_DEALLOCATION	= -10,	
+		FUNCTION_DEPRECATED		= -9,	
+		FEATURE_UNSUPPORTED		= -8,	
+		FILE_NOT_FOUND			= -7,	
+		INTERFACE_UNSUPPORTED	= -6,	
+		MEMORY_CORRUPTION		= -5,	
+		INVALID_ARGUMENT		= -4,	
+		IGNORED					= -3,	
+		EXPIRED_PROXY			= -2,	
+		FAILURE					= -1,	
+		EMPTY_PROXY				=  0,	
 		// Here lies the split between success and failure codes
-		SUCCESS					= +1,	//!< The function succeeded.
-		REDUNDANT				= +2,	//!< The function succeeded but was not necessary.
+		SUCCESS					= +1,	
+		REDUNDANT				= +2,	
 		// additional success codes here
 
 	}; // MOST COMMON: +1 == SUCCESS, +2 == REDUNDANT, -1 == FAILURE, -3 == IGNORED, 0 == EMPTY_PROXY, -2 == EXPIRED_PROXY (future)
 
-	/*! @} */
 };
 
-/*! \addtogroup Operators
-*  @{
-*/
 
-//! Macro used to determine if a function succeeded.
-/*!
-*	\param [in] _greturn_ The GReturn value to check.
-*
-*	\retval true GReturn value passed in was a success code.
-*	\retval false GReturn value passed in was a failure code.
-*/
 #define G_PASS(_greturn_) (static_cast<int>(_greturn_) > 0)
 
-//! Macro used to determine if a function has failed.
-/*!
-*	\param [in] _greturn_ The GReturn value to check.
-*
-*	\retval true GReturn value passed in was a failure code.
-*	\retval false GReturn value passed in was a success code.
-*/
 #define G_FAIL(_greturn_) (static_cast<int>(_greturn_) < 1)
 
-/*! @} */
 
 
 // Internal definition, how large a GEvent is in memory.
@@ -1634,37 +1457,10 @@ namespace GW
 #define G_EVENT_BLOCK_SIZE 64u
 #define G_RAW_DATA_PACKET_SIZE (((G_EVENT_BLOCK_SIZE) - ((sizeof(std::size_t) << 1)) + 2))
 
-//! The core namespace to which all Gateware structures & classes must belong.
 namespace GW
 {
-	/*! \addtogroup Operators
-	*  @{
-	*/
-	/*! Allows Gateware users to use the prefix "+" operator as shorthand for calling the G_PASS Macro. 
-		\code
-		GW::SYSTEM GWindow win;
-
-		if (+win.Create()) {
-			// do cool stuff
-		} else {
-			// abort program
-		}
-		\endcode
-	*/
 	inline bool operator+(const GReturn&& _rvalue) { return G_PASS(_rvalue); }
-	/*! Allows Gateware users to use the prefix "-" operator as shorthand for calling the G_FAIL Macro. 
-		\code
-		GW::SYSTEM GWindow win;
-
-		if (-win.Create()) {
-			// abort program
-		} else {
-			// do cool stuff
-		}
-		\endcode
-	*/
 	inline bool operator-(const GReturn&& _rvalue) { return G_FAIL(_rvalue); }
-	/*! @} */
 
 	// Internal namespace for Gateware developers, Doxygen should be configured to ignore this namespace.
 	namespace I {
@@ -1957,12 +1753,6 @@ namespace GW
 	// (Copy)Constructors/Destructors/Assignment Operators etc... of stored types are NOT respected in any way!
 	// Future versions (c++17+) of Gateware could replace some of this with the FAR more robust std::any if needed.
 
-	//! Typesafe and Typeless communication of simplistic event data. Used by GEventGenerator & GEventReceiver. (Observer pattern)
-	/*!
-	*	This struct is how GEventGenerators communicate custom Events to any GEventReceiver who registers themselves to the object.
-	*	This struct alongside std::function/std::bind is used to circumvent the traditional derivation based observer model.
-	*	You can think of GEvent as a less-robust and more specialized version of std::any. (we currently only target c++11)
-	*/
 	struct GEvent
 	{
 	private:
@@ -1987,18 +1777,6 @@ namespace GW
 		}
 		
 	public:
-		//! Allows writing of any enum class & raw data to a GEvent while retaining internal type hashes.(typeerasure)
-		/*!
-		*	DEVNOTE: Written event data must be <= to (G_MESSAGE_BLOCK_SIZE - 16) - sizeof(chosen enum class type).
-		*	Only base type enums & raw data streams (C style structs) may be written as data (POD Plain Old Data)
-		*	Each stored type may not exceed 255 bytes for size verification/offset reasons.
-		*
-		*	\param _eventEnumValue Enum used to represent which event has occured.(any simple POD enum valid)
-		*	\param _eventData Extra data that acompanies this event.(any small POD works here)
-		*
-		*	\retval SUCCESS	Valid types were provided and the event data was successfully embedded.
-		*	\retval UNEXPECTED_RESULT Encoded type matched the provided type hash but does not match its size in bytes.
-		*/
 		template<class enumT, typename dataT>
 		GReturn Write(const enumT& _eventEnumValue, const dataT& _eventData)
 		{
@@ -2028,20 +1806,6 @@ namespace GW
 			// transfer to internal storage should now be successful
 			return GReturn::SUCCESS;
 		};
-		//! Safely extract G::Events and G::EVENT_DATA from a GEventGenerator if you know what type of information you need.
-		/*!
-		*	Once your GEventReceiver has responded to an event and is receiving a GEvent, you can use this operation
-		*	to safely extract information about a specific event. Not only can you establish which event was generated,
-		*	you can also receive detailed information about the event if that event contains additional data.
-		*
-		*	\param [out] _outEventID Variable used to capture which event has occured.(See interface docs)
-		*	\param [out] _outEventData Variable used to capture incoming data from an event.(See interface docs)
-		*
-		*	\retval SUCCESS	The proper types were provided and the event data was successfully extracted.
-		*	\retval FAILURE	This GEvent was never intialized with any event data. (Dataless Event)
-		*	\retval INVALID_ARGUMENT Provided template data types do NOT match internally stored hashes for this event.
-		*	\retval MEMORY_CORRUPTION Encoded type matched the provided type hash but does not match its size in bytes.
-		*/
 		template<class enumT, typename dataT>
 		GReturn Read(enumT& _outEventID, dataT& _outEventData) const
 		{
@@ -2072,19 +1836,6 @@ namespace GW
 			// if we made it this far everything checked out and transfered successfully.
 			return GReturn::SUCCESS;
 		}
-		//! Safely extract G::Events and G::EVENT_DATA from a GEventGenerator if you know what type of information you need.
-		/*!
-		*	Once your GEventReceiver has responded to an event and is receiving a GEvent, you can use this operation
-		*	to safely extract information about a specific event. Not only can you establish which event was generated,
-		*	you can also receive detailed information about the event if that event contains additional data.
-		*
-		*	\param [out] _outEventOrData Variable used to capture incoming data or event ID from an event.(See interface docs)
-		*
-		*	\retval SUCCESS	A proper type was provided and the information was successfully extracted.
-		*	\retval FAILURE	This GEvent was never intialized with any information. (Uninitialized Event)
-		*	\retval INVALID_ARGUMENT Provided template data type does NOT match any internal stored hash for this event.
-		*	\retval MEMORY_CORRUPTION Encoded type matched the provided type hash but does not match its size in bytes.
-		*/
 		template<class enumOrDataT>
 		GReturn Read(enumOrDataT& _outEventOrData) const
 		{
@@ -2236,16 +1987,6 @@ __attribute__ ((deprecated("use " #replacing_class " instead.")))
 #ifndef GSYSTEMDEFINES_H
 #define GSYSTEMDEFINES_H
 
-/*!
-	File: GSystemDefines.h
-	Purpose: Gateware system related defines or structs.
-	Dependencies: Windows[(none)] Linux[(none)] Mac[(none)]
-	Author: Peter Farber
-	Contributors: Lari H. Norri, Ryan Powser
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 // Maximum thread pool size allocated by thread pool. Only actual available hardware thread count is used.
 #define G_MAX_THREAD_POOL_SIZE		64
@@ -2256,35 +1997,27 @@ __attribute__ ((deprecated("use " #replacing_class " instead.")))
 // amount of bytes gconcurrent uses to determine how many elements should be allocated per-thread in BranchParallel
 #define G_CONCURRENT_AUTO_SECTION	131072
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all Gateware library interfaces must belong.
 	namespace SYSTEM
 	{
-		/*! \addtogroup SystemDefines
-		*  @{
-		*/
 
-		/*! The structure used to pass into input libraries on all platforms. */
 		struct UNIVERSAL_WINDOW_HANDLE
 		{
-			void* window;	/*!< Void pointer storing the window handle. You can cast this to your platform specific window handle like HWND. */
-			void* display;	/*!< Void pointer storing the display handle. Currently only used on Linux, possibly other systems in the future. */
+			void* window;	
+			void* display;	
 		};
 
-		//! GWindowStyle holds the possible types of window GWindow can create.
 		enum class GWindowStyle
 		{
-			WINDOWEDBORDERED,		//!< a standard window
-			WINDOWEDBORDERLESS,		//!< window with no title bar or borders
-			WINDOWEDLOCKED,			//!< same as WINDOWEDBORDERED but with no maximize or resize options
-			FULLSCREENBORDERED,		//!< as if you maximized a standard window
-			FULLSCREENBORDERLESS,	//!< common for modern video games
-			MINIMIZED				//!< as if you minimized a standard window
+			WINDOWEDBORDERED,		
+			WINDOWEDBORDERLESS,		
+			WINDOWEDLOCKED,			
+			FULLSCREENBORDERED,		
+			FULLSCREENBORDERLESS,	
+			MINIMIZED				
 		};
 
-		/*! @} */
 	}
 }
 #endif // GSYSTEMDEFINES_H
@@ -2675,64 +2408,18 @@ public:
 //
 // --- DIRECTIONS END ---
 
-//! Gets a reference to an Objective-C Runtime Library class.
-/*!
-*    Uses the class_name to return a reference to the Objective-C Runtime Library class. If the class hasn't been
-*    created yet, this function creates it at runtime before returning a reference to it.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*
-*    \retval Class& Reference to an Objective-C Runtime Library class.
-*/
 #define G_OBJC_GET_CLASS(class_name) Class##class_name()
 
 // G_OBJC Class Creation:
 
-//! Makes a static declaration of a class.
-/*!
-*    Uses the class_name to make a static declaration of the class.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*/
 #define G_OBJC_CLASS_DECLARE(class_name) static Class class_name
 
-//! Allocates the Objective-C Runtime Library class.
-/*!
-*    Uses the class_name to allocate the class. The class will be created as a subclass to class_parent. This must
-*    happen after G_OBJC_CLASS_DECLARE.
-*    Note: If 'class_parent' is NSObject, then you may not need to write your class in Objective-C.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] class_parent An Objective-C class that class_name will inherit from. Must at least be NSObject.
-*/
 #define G_OBJC_CLASS_ALLOCATE(class_name, class_parent) class_name = objc_allocateClassPair([class_parent class], #class_name, 0)
 
-//! Registers the Objective-C Runtime Library class.
-/*!
-*    Uses the class_name to register the class. This must happen after G_OBJC_CLASS_ALLOCATE.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*/
 #define G_OBJC_CLASS_REGISTER(class_name) objc_registerClassPair(class_name)
 
-//! Creates the function header for the G_OBJC_GET_CLASS function.
-/*!
-*    Uses the class_name to create the function header for the G_OBJC_GET_CLASS function. This can be used as a
-*    forward declaration before the implementation is written.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*/
 #define G_OBJC_CLASS_DEFINITION_HEADER(class_name) static Class& G_OBJC_GET_CLASS(class_name)
 
-//! Creates the first part (1 of 3) of the G_OBJC_GET_CLASS function implementation.
-/*!
-*    Uses the class_name and class_parent to create the implementation of the G_OBJC_GET_CLASS function. This macro
-*    handles creating the function header, class declaration, and class allocation. It also ensures that classes
-*    cannot be allocated more than once.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] class_parent An Objective-C class that class_name will inherit from. Must at least be NSObject.
-*/
 #define G_OBJC_CLASS_BEGIN(class_name, class_parent) G_OBJC_CLASS_DEFINITION_HEADER(class_name)\
 {\
     G_OBJC_CLASS_DECLARE(class_name);\
@@ -2741,63 +2428,15 @@ public:
         G_OBJC_CLASS_ALLOCATE(class_name, class_parent);\
         if (true) // Added to allow for a {code block}.
 
-//! Creates the last part (3 of 3) of the G_OBJC_GET_CLASS function implementation.
-/*!
-*    Uses the class_name to create the implementation of the G_OBJC_GET_CLASS function. This macro handles class
-*    registration and the returning of a reference to the class.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*/
 #define G_OBJC_CLASS_END(class_name) G_OBJC_CLASS_REGISTER(class_name);\
     }\
     return class_name; \
 }
 
-//! Creates a method for the second part (2 of 3) of the G_OBJC_GET_CLASS function implementation.
-/*!
-*    Uses the class_name, method_name, and method_types_string to add a method to the Objective-C Runtime Library class.
-*    The class_name and method_name are used to associate the method with its implementation name created with on of the
-*    the G_OBJC_HEADER or G_OBJC_IMPLEMENTATION macros.
-*    Note: method_types_string should be a string of type encodings that represent the types used in the function header.
-*          The 1st character must be the encoded character for the return type. The 2nd and 3rd characters must be "@:".
-*          Because G_OBJC calls functions directly, it is possible to use the wrong type encodings for the function
-*          without any issues. However, this may cause problems when overriding inherited functions.
-*    For more information about type encodings: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html#//apple_ref/doc/uid/TP40008048-CH100
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] method_name The name of the method.
-*    \param [in] method_types_string A string of type encodings representing each type in the function.
-*/
 #define G_OBJC_CLASS_METHOD(class_name, method_name, method_types_string) class_addMethod(class_name, @selector(method_name), (IMP)class_name##Method##method_name, method_types_string)
 
-//! Creates a method with arguments for the second part (2 of 3) of the G_OBJC_GET_CLASS function implementation.
-/*!
-*    Uses the class_name, method_name, method_types_string, and argument_colons to add a method to the Objective-C Runtime
-*    Library class. The class_name and method_name are used to associate the method with its implementation name. The
-*    implementation of the method can be defined by using one of the G_OBJC_HEADER macros ending with _WITH_ARGUMENTS and
-*    then writing the implementation inside a code block underneath it.
-*    Note: method_types_string should be a string of type encodings that represent the types used in the function header.
-*          The 1st character must be the encoded character for the return type. The 2nd and 3rd characters must be "@:".
-*          All 4th character and so on must be the encoded character for each argument type in the order they appear.
-*          Because G_OBJC calls functions directly, it is possible to use the wrong type encodings for the function
-*          without any issues. However, this may cause problems when overriding inherited functions.
-*    For more information about type encodings: https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ObjCRuntimeGuide/Articles/ocrtTypeEncodings.html#//apple_ref/doc/uid/TP40008048-CH100
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] method_name The name of the method.
-*    \param [in] method_types_string A string of type encodings representing each type in the function.
-*    \param [in] argument_colons A colon(:) for each argument in the function.
-*/
 #define G_OBJC_CLASS_METHOD_WITH_ARGUMENTS(class_name, method_name, method_types_string, argument_colons) class_addMethod(class_name, @selector(method_name argument_colons), (IMP)class_name##Method##method_name, method_types_string)
 
-//! Creates a property for the second part (2 of 3) of the G_OBJC_GET_CLASS function implementation.
-/*!
-*    Uses the class_name, type_name, and property_name to add a property to the Objective-C Runtime Library class.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] type_name The data member type.
-*    \param [in] property_name The data member name.
-*/
 #define G_OBJC_CLASS_ADD_PROPERTY(class_name, type_name, property_name) class_addIvar(class_name, "_"#property_name, sizeof(type_name), log2(sizeof(type_name)), @encode(type_name));\
 {\
     objc_property_attribute_t instance_variable_type = { "T", "@\""#type_name"\"" };\
@@ -2806,176 +2445,32 @@ public:
     class_addProperty(class_name, #property_name, instance_variable_attributes, 2);\
 }
 
-//! Creates a property get method for the second part (2 of 3) of the G_OBJC_GET_CLASS function implementation.
-/*!
-*    Uses the class_name and property_name to add the get method for a property to the Objective-C Runtime Library class.
-*    Note: This may cause problems if the property is inherited. In that case, G_OBJC_CLASS_METHOD should be used instead.
-*          This will not cause problems for non-inherited properties because G_OBJC calls the implementation of the get-
-*          method directly.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] property_name The data member type.
-*/
 #define G_OBJC_CLASS_GET_PROPERTY_METHOD(class_name, property_name) G_OBJC_CLASS_METHOD(class_name, property_name, "@@:")
 
-//! Creates a property set method for the second part (2 of 3) of the G_OBJC_GET_CLASS function implementation.
-/*!
-*    Uses the class_name and property_name to add the set method for a property to the Objective-C Runtime Library class.
-*    Note: This may cause problems if the property is inherited. In that case, G_OBJC_CLASS_METHOD_WITH_ARGUMENTS should
-*          be used instead. This will not cause problems for non-inherited properties because G_OBJC calls the
-*          implementation of the set method directly.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] property_name The data member type.
-*/
 #define G_OBJC_CLASS_SET_PROPERTY_METHOD(class_name, property_name) G_OBJC_CLASS_METHOD_WITH_ARGUMENTS(class_name, Set##property_name, "v@:@", :)
 
-//! Creates a property and its get/set methods for the second part (2 of 3) of the G_OBJC_GET_CLASS function implementation.
-/*!
-*    Uses the class_name, type_name, and property_name to add a property to the Objective-C Runtime Library class. It also
-*    adds both the get method and set method for the property to the class.
-*    Note: You can add each data member in your class as a property, but working with a large number of properties adds many
-*          extra lines to your code. Instead, I recommend using G_OBJC DATA_MEMBERS macros to reduce function calls and
-*          increase the readability of your code.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] type_name The data member type.
-*    \param [in] property_name The data member name.
-*/
 #define G_OBJC_CLASS_PROPERTY(class_name, type_name, property_name) G_OBJC_CLASS_ADD_PROPERTY(class_name, type_name, property_name);\
 G_OBJC_CLASS_GET_PROPERTY_METHOD(class_name, property_name);\
 G_OBJC_CLASS_SET_PROPERTY_METHOD(class_name, property_name)
 
 // G_OBJC Class Interface:
 
-//! Makes the header for a G_OBJC class static method.
-/*!
-*    Uses the class_name, method_return_type, and method_name to create the header for a static method. This can be used
-*    as a forward declaration before the implementation is written. In this case, this macro should be placed above
-*    G_OBJC_CLASS_BEGIN in your library file. This macro can also be placed above a code block containing implementation
-*    for the method.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] method_return_type The method return type.
-*    \param [in] method_name The name of the member function.
-*/
 #define G_OBJC_HEADER_STATIC_METHOD(class_name, method_return_type, method_name) static method_return_type class_name##Method##method_name(id self, SEL _cmd)
 
-//! Makes the header for a G_OBJC class static method with arguments.
-/*!
-*    Uses the class_name, method_return_type, method_name, and __VA_ARGS__ to create the header for a static method
-*    with arguments. This can be used as a forward declaration before the implementation is written. In this case,
-*    this macro should be placed above G_OBJC_CLASS_BEGIN in your library file. This macro can also be placed above
-*    a code block containing implementation for the method.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] method_return_type The method return type.
-*    \param [in] method_name The name of the member function.
-*    \param [in] __VA_ARGS__ Comma-seperated arguments with their types.
-*
-*    \retval method_return_type The return type given.
-*/
 #define G_OBJC_HEADER_STATIC_METHOD_WITH_ARGUMENTS(class_name, method_return_type, method_name, ...) static method_return_type class_name##Method##method_name(id self, SEL _cmd, __VA_ARGS__)
 
-//! Makes the header for a G_OBJC class instance method.
-/*!
-*    Uses the class_name, method_return_type, and method_name to create the header for an instance method. This can
-*    be used as a forward declaration before the implementation is written. In this case, this macro should be placed
-*    above G_OBJC_CLASS_BEGIN in your library file. This macro can also be placed above a code block containing
-*    implementation for the method.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] method_return_type The method return type.
-*    \param [in] method_name The name of the member function.
-*
-*    \retval method_return_type The return type given.
-*/
 #define G_OBJC_HEADER_INSTANCE_METHOD(class_name, method_return_type, method_name) inline method_return_type class_name##Method##method_name(id self, SEL _cmd)
 
-//! Makes the header for a G_OBJC class instance method with arguments.
-/*!
-*    Uses the class_name, method_return_type, method_name, and __VA_ARGS__ to create the header for an instance method
-*    with arguments. This can be used as a forward declaration before the implementation is written. In this case,
-*    this macro should be placed above G_OBJC_CLASS_BEGIN in your library file. This macro can also be placed above
-*    a code block containing implementation for the method.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] method_return_type The method return type.
-*    \param [in] method_name The name of the member function.
-*    \param [in] __VA_ARGS__ Comma-seperated arguments with their types.
-*
-*    \retval method_return_type The return type given.
-*/
 #define G_OBJC_HEADER_INSTANCE_METHOD_WITH_ARGUMENTS(class_name, method_return_type, method_name, ...) inline method_return_type class_name##Method##method_name(id self, SEL _cmd, __VA_ARGS__)
 
-//! Makes the header for a G_OBJC class property get method.
-/*!
-*    Uses the class_name, type_name, and property_name to create the header for a property get method. This can be
-*    used as a forward declaration before the implementation is written. In this case, this macro should be placed
-*    above G_OBJC_CLASS_BEGIN in your library file. This macro can also be placed above a code block containing
-*    implementation for the method.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] type_name The data member type.
-*    \param [in] property_name The data member name.
-*
-*    \retval type_name& A reference to the property.
-*/
 #define G_OBJC_HEADER_GET_PROPERTY_METHOD(class_name, type_name, property_name) G_OBJC_HEADER_INSTANCE_METHOD(class_name, type_name&, property_name)
 
-//! Makes the header for a G_OBJC class property get method. Note: Use for properties that are pointers.
-/*!
-*    Uses the class_name, type_name, and property_name to create the header for a property get method. This can be
-*    used as a forward declaration before the implementation is written. In this case, this macro should be placed
-*    above G_OBJC_CLASS_BEGIN in your library file. This macro can also be placed above a code block containing
-*    implementation for the method.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] type_name The data member type.
-*    \param [in] property_name The data member name.
-*
-*    \retval type_name A pointer to the property.
-*/
 #define G_OBJC_HEADER_GET_PROPERTY_METHOD_FOR_POINTER(class_name, type_name, property_name) G_OBJC_HEADER_INSTANCE_METHOD(class_name, type_name, property_name)
 
-//! Makes the header for a G_OBJC class property set method.
-/*!
-*    Uses the class_name, type_name, and property_name to create the header for a property set method. This can be
-*    used as a forward declaration before the implementation is written. In this case, this macro should be placed
-*    above G_OBJC_CLASS_BEGIN in your library file. This macro can also be placed above a code block containing
-*    implementation for the method.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] type_name The data member type.
-*    \param [in] property_name The data member name.
-*/
 #define G_OBJC_HEADER_SET_PROPERTY_METHOD(class_name, type_name, property_name) G_OBJC_HEADER_INSTANCE_METHOD_WITH_ARGUMENTS(class_name, void, Set##property_name, type_name newVal)
 
-//! Makes the header for a G_OBJC class property set method. Note: Use for properties that are pointers.
-/*!
-*    Uses the class_name, type_name, and property_name to create the header for a property set method. This can be
-*    used as a forward declaration before the implementation is written. In this case, this macro should be placed
-*    above G_OBJC_CLASS_BEGIN in your library file. This macro can also be placed above a code block containing
-*    implementation for the method.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] type_name The data member type.
-*    \param [in] property_name The data member name.
-*/
 #define G_OBJC_HEADER_SET_PROPERTY_METHOD_FOR_POINTER(class_name, type_name, property_name) G_OBJC_HEADER_INSTANCE_METHOD_WITH_ARGUMENTS(class_name, void, Set##property_name, type_name newVal)
 
-//! Defines the implementation for a G_OBJC class property get method.
-/*!
-*    Uses the class_name, type_name, and property_name to create the implementation for a property get method.
-*    The method gets the property from the instance of the class and returns a reference to it. This macro must
-*    be placed below G_OBJC_CLASS_END in your library file.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] type_name The data member type.
-*    \param [in] property_name The data member name.
-*
-*    \retval type_name& A reference to the property.
-*/
 #define G_OBJC_IMPLEMENTATION_GET_PROPERTY_METHOD(class_name, type_name, property_name) G_OBJC_HEADER_GET_PROPERTY_METHOD(class_name, type_name, property_name)\
 {\
     Ivar ivar = class_getInstanceVariable(G_OBJC_GET_CLASS(class_name), "_"#property_name);\
@@ -2984,34 +2479,12 @@ G_OBJC_CLASS_SET_PROPERTY_METHOD(class_name, property_name)
     return *varPtr;\
 }
 
-//! Defines the implementation for a G_OBJC class property get method. Note: Use for properties that are pointers.
-/*!
-*    Uses the class_name, type_name, and property_name to create the implementation for a property get method.
-*    The method gets the property from the instance of the class and returns a pointer to it. This macro must
-*    be placed below G_OBJC_CLASS_END in your library file.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] type_name The data member type.
-*    \param [in] property_name The data member name.
-*
-*    \retval type_name A pointer to the property.
-*/
 #define G_OBJC_IMPLEMENTATION_GET_PROPERTY_METHOD_FOR_POINTER(class_name, type_name, property_name) G_OBJC_HEADER_GET_PROPERTY_METHOD_FOR_POINTER(class_name, type_name, property_name)\
 {\
     Ivar ivar = class_getInstanceVariable(G_OBJC_GET_CLASS(class_name), "_"#property_name);\
     return (type_name)object_getIvar(self, ivar);\
 }
 
-//! Defines the implementation for a G_OBJC class property set method.
-/*!
-*    Uses the class_name, type_name, and property_name to create the implementation for a property set method.
-*    The method sets the property of the class instance. This macro must be placed below G_OBJC_CLASS_END
-*    in your library file.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] type_name The data member type.
-*    \param [in] property_name The data member name.
-*/
 #define G_OBJC_IMPLEMENTATION_SET_PROPERTY_METHOD(class_name, type_name, property_name) G_OBJC_HEADER_SET_PROPERTY_METHOD(class_name, type_name, property_name)\
 {\
     Ivar ivar = class_getInstanceVariable(G_OBJC_GET_CLASS(class_name), "_"#property_name);\
@@ -3020,16 +2493,6 @@ G_OBJC_CLASS_SET_PROPERTY_METHOD(class_name, property_name)
     *varPtr = newVal;\
 }
 
-//! Defines the implementation for a G_OBJC class property set method. Note: Use for properties that are pointers.
-/*!
-*    Uses the class_name, type_name, and property_name to create the implementation for a property set method.
-*    The method sets the pointer property of the class instance. This macro must be placed below G_OBJC_CLASS_END
-*    in your library file.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] type_name The data member type.
-*    \param [in] property_name The data member name.
-*/
 #define G_OBJC_IMPLEMENTATION_SET_PROPERTY_METHOD_FOR_POINTER(class_name, type_name, property_name) G_OBJC_HEADER_SET_PROPERTY_METHOD_FOR_POINTER(class_name, type_name, property_name)\
 {\
     Ivar ivar = class_getInstanceVariable(G_OBJC_GET_CLASS(class_name), "_"#property_name);\
@@ -3038,173 +2501,47 @@ G_OBJC_CLASS_SET_PROPERTY_METHOD(class_name, property_name)
         object_setIvar(self, ivar, (id)newVal);\
 }
 
-//! Convenience macro that makes the get method and set method headers for a G_OBJC class property.
-/*!
-*    Uses the class_name, type_name, and property_name to create the headers for a property get method and set method.
-*    This macro must be placed above G_OBJC_CLASS_BEGIN in your library file.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] type_name The data member type.
-*    \param [in] property_name The data member name.
-*/
 #define G_OBJC_HEADER_PROPERTY_METHODS(class_name, type_name, property_name)\
 G_OBJC_HEADER_GET_PROPERTY_METHOD(class_name, type_name, property_name);\
 G_OBJC_HEADER_SET_PROPERTY_METHOD(class_name, type_name, property_name)
 
-//! Convenience macro that makes the get method and set method headers for a G_OBJC class property. Note: Use for properties that are pointers.
-/*!
-*    Uses the class_name, type_name, and property_name to create the headers for a property get method and set method.
-*    This macro must be placed above G_OBJC_CLASS_BEGIN in your library file.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] type_name The data member type.
-*    \param [in] property_name The data member name.
-*/
 #define G_OBJC_HEADER_PROPERTY_METHODS_FOR_POINTER(class_name, type_name, property_name)\
 G_OBJC_HEADER_GET_PROPERTY_METHOD_FOR_POINTER(class_name, type_name, property_name);\
 G_OBJC_HEADER_SET_PROPERTY_METHOD_FOR_POINTER(class_name, type_name, property_name)
 
-//! Convenience macro that defines the get method and set method implementations for a G_OBJC class property.
-/*!
-*    Uses the class_name, type_name, and property_name to create the implementations for a property get method and set method.
-*    This macro must be placed below G_OBJC_CLASS_END in your library file.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] type_name The data member type.
-*    \param [in] property_name The data member name.
-*/
 #define G_OBJC_IMPLEMENTATION_PROPERTY_METHODS(class_name, type_name, property_name)\
 G_OBJC_IMPLEMENTATION_GET_PROPERTY_METHOD(class_name, type_name, property_name);\
 G_OBJC_IMPLEMENTATION_SET_PROPERTY_METHOD(class_name, type_name, property_name)
 
-//! Convenience macro that defines the get method and set method implementations for a G_OBJC class property. Note: Use for properties that are pointers.
-/*!
-*    Uses the class_name, type_name, and property_name to create the implementations for a property get method and set method.
-*    This macro must be placed below G_OBJC_CLASS_END in your library file.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] type_name The data member type.
-*    \param [in] property_name The data member name.
-*/
 #define G_OBJC_IMPLEMENTATION_PROPERTY_METHODS_FOR_POINTER(class_name, type_name, property_name)\
 G_OBJC_IMPLEMENTATION_GET_PROPERTY_METHOD_FOR_POINTER(class_name, type_name, property_name);\
 G_OBJC_IMPLEMENTATION_SET_PROPERTY_METHOD_FOR_POINTER(class_name, type_name, property_name)
 
 // G_OBJC Class Usage:
 
-//! Calls a G_OBJC method
-/*!
-*    Uses the class_name, class_instance, and method_name to call a G_OBJ function.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] class_instance An instance of the class.
-*    \param [in] method_name The member function name.
-*
-*    \retval Depends on the return type of the function called.
-*/
 #define G_OBJC_CALL_METHOD(class_name, class_instance, method_name) class_name##Method##method_name(class_instance, @selector(method_name))
 
-//! Calls a G_OBJC method with arguments.
-/*!
-*    Uses the class_name, class_instance, method_name, and __VA_ARGS__ to call a G_OBJ function.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] class_instance An instance of the class.
-*    \param [in] method_name The member function name.
-*    \param [in] __VA_ARGS__ Comma-seperated parameters.
-*
-*    \retval Depends on the return type of the function called.
-*/
 #define G_OBJC_CALL_METHOD_WITH_ARGUMENTS(class_name, class_instance, method_name, ...) class_name##Method##method_name(class_instance, @selector(method_name), __VA_ARGS__)
 
-//! Calls the G_OBJC get method of a property.
-/*!
-*    Uses the class_name, class_instance, and property_name to call the G_OBJ get method of a property.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] class_instance An instance of the class.
-*    \param [in] property_name The data member name.
-*
-*    \retval Reference(&) A reference to the property. Note: If the property was created with a G_OBJC macro ending with _PROPERTY_METHOD.
-*    \retval Pointer(*) A pointer to the property. Note: If the property was created with a G_OBJC macro ending with _PROPERTY_METHOD_FOR_POINTER.
-*/
 #define G_OBJC_GET_PROPERTY(class_name, class_instance, property_name) class_name##Method##property_name(class_instance, @selector(property_name))
 
-//! Calls the G_OBJC set method of a property.
-/*!
-*    Uses the class_name, class_instance, property_name, and new_value to call the G_OBJ set method of a property.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] class_instance An instance of the class.
-*    \param [in] property_name The data member name.
-*    \param [in] new_value The new value for the property. Note: If the property was created with a G_OBJC macro ending with _PROPERTY_METHOD.
-*    \param [in] new_value The new place in memory for the property to point to. Note: If the property was created with a G_OBJC macro ending with _PROPERTY_METHOD_FOR_POINTER.
-*/
 #define G_OBJC_SET_PROPERTY(class_name, class_instance, property_name, new_value) class_name##MethodSet##property_name(class_instance, @selector(property_name), new_value)
 
 // G_OBJC Class Data Members:
 
-//! Gets the data members type name for the G_OBJC class
-/*!
-*    Uses the class_name to create the type name for the data members struct.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*/
 #define G_OBJC_DATA_MEMBERS_TYPE(class_name) class_name##DataMembers
 
-//! Creates the data members struct header for the G_OBJC class.
-/*!
-*    Uses the class_name to create the struct header. A code block with a list of data members should immediately follow this macro in your library file.
-*    This macro must be placed above G_OBJC_CLASS_BEGIN in your library file.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*/
 #define G_OBJC_DATA_MEMBERS_STRUCT(class_name) struct class_name##DataMembers
 
-//! Creates a data members property and its get method for the second part (2 of 3) of the G_OBJC_GET_CLASS function implementation.
-/*!
-*    Uses the class_name to add a data members property to the Objective-C Runtime Library class. It also adds both the get method for the property to
-*    the class. The data members property type is equal to the expansion of G_OBJC_DATA_MEMBERS_TYPE. The data members the property contains is a result
-*    of the data members added in the code block below G_OBJC_DATA_MEMBERS_STRUCT.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*/
 #define G_OBJC_CLASS_DATA_MEMBERS_PROPERTY(class_name) G_OBJC_CLASS_ADD_PROPERTY(class_name, G_OBJC_DATA_MEMBERS_TYPE(class_name), dataMembersOf##class_name);\
 G_OBJC_CLASS_GET_PROPERTY_METHOD(class_name, dataMembersOf##class_name)
 
-//! Makes the header for a G_OBJC class data members property get method.
-/*!
-*    Uses the class_name to create the header for a data members property get method. This should be used as a forward declaration before the
-*    implementation is written. This macro should be placed above G_OBJC_CLASS_BEGIN in your library file.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*
-*    \retval G_OBJC_DATA_MEMBERS_TYPE& A reference to the data members property.
-*/
 #define G_OBJC_HEADER_DATA_MEMBERS_PROPERTY_METHOD(class_name)\
 G_OBJC_HEADER_GET_PROPERTY_METHOD(class_name, G_OBJC_DATA_MEMBERS_TYPE(class_name), dataMembersOf##class_name)
 
-//! Defines the implementation for a G_OBJC class data members property get method.
-/*!
-*    Uses the class_name to create the implementation for a data members property get method. The method gets the data members property from
-*    the instance of the class and returns a reference to it. This macro must be placed below G_OBJC_CLASS_END in your library file.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*
-*    \retval G_OBJC_DATA_MEMBERS_TYPE& A reference to the data members property.
-*/
 #define G_OBJC_IMPLEMENTATION_DATA_MEMBERS_PROPERTY_METHOD(class_name)\
 G_OBJC_IMPLEMENTATION_GET_PROPERTY_METHOD(class_name, G_OBJC_DATA_MEMBERS_TYPE(class_name), dataMembersOf##class_name)
 
-//! Calls the G_OBJC get method of a data members property.
-/*!
-*    Uses the class_name and class_instance to call the G_OBJ get method of the data members property.
-*
-*    \param [in] class_name The Objective-C Runtime Library class name.
-*    \param [in] class_instance An instance of the class.
-*
-*    \retval G_OBJC_DATA_MEMBERS_TYPE& A reference to the data members property.
-*/
 #define G_OBJC_GET_DATA_MEMBERS(class_name, class_instance) G_OBJC_GET_PROPERTY(class_name, class_instance, dataMembersOf##class_name)
 
 // G_OBJC MACROS END
@@ -4029,17 +3366,6 @@ namespace internal_gw {
 #ifndef GINTERFACE_H
 #define GINTERFACE_H
 
-/*!
-	File: GInterface.h
-	Purpose: The fundamental interface which all Gateware interfaces must adhere to at a minimum.
-	Dependencies: win32[] linux[] apple[]
-	Asynchronus: YES
-	Author: Lari H. Norri
-	Contributors: Ryan Powser
-	Interface Status: Release
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 // Contains all defined elements shared among base interfaces.
 
@@ -4120,63 +3446,18 @@ namespace GW {
 #endif
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The core namespace to which all Gateware fundamental interfaces must belong.
 	namespace CORE
 	{
-		//! A Proximity class that can be used to safely store and access ANY Gateware object.
-		/*!
-		*	The only purpose of this proxy is to store Gateware Objects and enable run-time polymorphisim.
-		*/
 		class GInterface final // Note to developers: this is a Proxy, what end users actually interact with. 
 		: public I::GProxy<I::GInterfaceInterface, I::GInterfaceImplementation>
 		{
 		public: // Only public functions are exposed via Proxy, never protected or private operations
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GInterface)
-			//! \endcond
 
 		// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Alloctaes a GInterface 
-			/*!
-			*	A GInterface has no real functionality on its own other than being able to be used to track object lifetime.
-			*
-			*	\retval GReturn::SUCCESS	This always succeeds. (unless you run out of memory)
-			*/
-			GReturn Create();
-
-			//! Shares ownership of a Proxy (if possible).
-			/*!
-			*	By default when proxies are copied they do not share ownership, this allows them to.
-			*	After sharing, a Proxy retains shared ownership of memory.
-			*
-			*	\returns GInterface	An owned proxy, if this proxy does not own the object it will be invalid.
-			*/
-			GInterface Share() const;
-
-			//! Gives ownership of one Proxy to another (if possible).
-			/*!
-			*	Allows a Proxy to yield its ownership to another Proxy.
-			*	If a Proxy does not have ownership of its memory then it can not yield it.
-			*	After a successful yield this Proxy will still retain access but not memory ownership. 
-			*
-			*	\returns GInterface	Proxy owning internal memory or an invalid handle if it cannot be yielded.
-			*/
-			GInterface Relinquish();
-
-			//! Copies a Proxy while retaining it's ownership state.
-			/*!
-			*	Allows a Proxy to be Shared but unlike "Share()" it will not fail if the object is not owned.
-			*	An unowned Proxy will transfer normally while an owned proxy will share ownership.
-			*
-			*	\returns GInterface	Proxy refrencing same object with same ownership model perserved.
-			*/
-			GInterface Mirror() const;
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -4193,17 +3474,6 @@ namespace GW
 #ifndef GTHREADSHARED_H
 #define GTHREADSHARED_H
 
-/*!
-	File: GThreadShared.h
-	Purpose: Identify a Gateware interface which supports(if possible) asynchronus resource access across multiple threads.
-	Dependencies: win32[] linux[] apple[]
-	Asynchronus: YES
-	Author: Lari H. Norri
-	Contributors: Ryan Powser
-	Interface Status: Release
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -4506,92 +3776,22 @@ namespace GW {
 
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The core namespace to which all Gateware fundamental interfaces must belong.
 	namespace CORE
 	{
-		//! A Proxy class that can be used to lock & unlock an asynchronus resource.
-		/*!
-		*	Proxy to a base class that can efficiently lock and unlock resources for Gateware developers.
-		*	Most end users should note that most Gateware thread safe interfaces will privately inherit this interface.
-		*	This means that casting these Proxys to this base Proxy will fail. This is intended behavior by the designer.
-		*/
 		class GThreadShared final
 			: public I::GProxy<I::GThreadSharedInterface, I::GThreadSharedImplementation>
 		{
 		public: // Only public functions are exposed via Proxy, never protected or private operations
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GThreadShared)
 			GATEWARE_CONST_FUNCTION(LockAsyncRead)
 			GATEWARE_CONST_FUNCTION(UnlockAsyncRead)
 			GATEWARE_FUNCTION(LockSyncWrite)
 			GATEWARE_FUNCTION(UnlockSyncWrite)
-			//! \endcond
 
 // This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Creates a valid GThreadShared Object. 
-			/*!
-			*	GThreadShared can be thought of as an std::mutex that is potentially optimized per-platform.
-			*	While mainly used internally by Gateware you can also make use of this to efficiently protect resources.
-			*	End users should be aware that due to internal performance considerations error checking is only provided
-			*	when compiling in DEBUG modes. Non-SUCCESS Results from this interface should be used to temporarily find
-			*	logical threading errors and should not be used as final logic conditions in RELEASE code.(ex:DEADLOCK)
-			*	We(and suggest you) handle things like deadlock prevention at a higher level to not degrade threading perf.
-			*
-			*	\retval GReturn::SUCCESS	This always succeeds. (unless you run out of memory)
-			*/
-			GReturn Create();
-
-			//! Locks a resource for Reading. (prevents writes from other threads)
-			/*!
-			*	Prevents other threads from writing data to a resource while you access it. (you should NOT modify it)
-			*	Use the UnlockAsyncRead function as soon as you are done to prevent processing delays.
-			*	If a resource is currently locked for writing, this operation will block until it is free.
-			*	**In Release builds this function is not error checked and will always return SUCCESS**
-			*
-			* 	\retval GReturn::DEADLOCK  A recursive lock was detected by thsis thread which already had a read/write lock.
-			*	\retval GReturn::SUCCESS   Succesfully locked resource for asynchronus reads. (if supported by the platform)
-			*/
-			virtual GReturn LockAsyncRead() const = 0; // operation will wait for writes but not block other reads 
-
-			//! Unlocks a resource that is currently locked for reading. (potentially allows writes from other threads)
-			/*!
-			*	Releases a resource once you have finished accessing it. (Again... do NOT modify the resource in question)
-			*	Use the LockAsyncRead function before calling this function.
-			*	If a resource is currently locked for writing, this operation will block until it is free.
-			*   **In Release builds this function is not error checked and will always return SUCCESS**
-			*
-			*	\retval GReturn::FAILURE  The resource was not locked by this thread for reading.
-			*	\retval GReturn::SUCCESS  Succesfully unlocked resource.
-			*/
-			virtual GReturn UnlockAsyncRead() const = 0; // operation will no longer block write access
-
-			//! Locks a resource for writing.
-			/*!
-			*	Prevents other threads from reading and/or writing data from/to a resource.
-			*	Use the UnlockSyncWrite function as soon as you are done to prevent processing delays.
-			*	**In Release builds this function is not error checked and will always return SUCCESS**
-			*
-			*	\retval GReturn::DEADLOCK A recursive lock was detected by a thread which already had a read/write lock.
-			*	\retval GReturn::SUCCESS  Succesfully locked resource for writing.
-			*/
-			virtual GReturn LockSyncWrite() = 0; // operation will wait for all reads to complete and then block further reads
-
-			//! Unlocks a resource once you have finished writing to it. (re-enable reads)
-			/*!
-			*	Allows other threads to read and/or write data from/to a resource after editing.
-			*	Use the LockSyncWrite function before calling this function.
-			*	**In Release builds this function is not error checked and will always return SUCCESS**
-			*
-			*	\retval GReturn::FAILURE The resource was not locked by this thread for writing.
-			*	\retval GReturn::SUCCESS Succesfully unlocked a resource.
-			*/
-			virtual GReturn UnlockSyncWrite() = 0; // operation will release resource for subsequent writes & async reads 
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -4608,17 +3808,6 @@ namespace GW
 #ifndef GLOGIC_H
 #define GLOGIC_H
 
-/*!
-	File: GLogic.h
-	Purpose: An interface that can be used to safely store/swap & invoke custom logic.(Functor)  
-	Dependencies: win32[] linux[] apple[]
-	Asynchronus: YES
-	Author: Lari H. Norri
-	Contributors: N/A
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 #include <functional>
@@ -4727,67 +3916,20 @@ namespace GW {
 
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The core namespace to which all Gateware fundamental interfaces must belong.
 	namespace CORE
 	{
-		//! A Proxy/Functor class that can be used to safely store and invoke stored routines/handlers. 
-		/*!
-		*	The GLogic Interface stores and allows safe swapping of user logic (including GEvent handlers).
-		*	It combines the lifetime tracking of a GInterface(via Proxy) with the flexibility of std::function.
-		*/
 		class GLogic final
 			: public I::GProxy<I::GLogicInterface, I::GLogicImplementation, std::function<void()>>
 		{
 		public: // Only public functions are exposed via Proxy, never protected or private operations
 			// procy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GLogic)
 			GATEWARE_FUNCTION(Assign)
 			GATEWARE_CONST_FUNCTION(Invoke)
-			//! \endcond
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Allocates & Intializes a GLogic. 
-			/*!
-			*	A GLogic is capable of storing and swapping an std::function which you can safely Invoke.
-			*	During the function's invocation you are garunteed the Proxy will remain valid and the logic
-			*	will not be swapped or recursively overwritten.
-			*	
-			*	\param	[in] _logic		The function or lambda you wish to be invoked when Invoke() is called.
-			*							(optional can pass nullptr). May be invoked from a different thread.
-			*
-			*	\retval GReturn::SUCCESS	The provided logic was stored within this Proxy. 
-			*/
-			GReturn Create(std::function<void()> _logic);
-
-			//! Ovewrites the current logic assigned to this Proxy (if any)
-			/*!
-			*	Assigns new user provided logic (nullptr[no logic] is a valid argument).
-			*	Cannot be done within provided logic as the class garuntees the logic
-			*	stack will remain valid for the duration of Invoke().
-			*	**Deadlocks will only be detected/prevented in Debug builds, check your logic for errors**
-			*
-			*	\param	[in] _newLogic		The function or lambda you wish to overwrite the exsiting logic.
-			*
-			*	\retval GReturn::DEADLOCK	You have attempted to modify the logic during it's own executetion.
-			*	\retval GReturn::SUCCESS	Stored logic was successfully overwritten.
-			*/
-			virtual GReturn Assign(std::function<void()> _newLogic) = 0;
-
-			//! Invokes the stored function/lamda from the current thread.
-			/*!
-			*	Calls the stored logic on this thread, during the invocation the logic and proxy will remian valid.
-			*	During the operation Recursive calls are permitted but swapping the logic of your own proxy is not.
-			*
-			*	\retval GReturn::FAILURE	No internal logic has been assigned to this GLogic.
-			*	\retval GReturn::SUCCESS	Function is valid and was called.
-			*/
-			virtual GReturn Invoke() const = 0;
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -4805,17 +3947,6 @@ namespace GW
 #ifndef GEVENTRESPONDER_H
 #define GEVENTRESPONDER_H
 
-/*!
-	File: GEventResponder.h
-	Purpose: An interface that will immediately respond to GEvents posted by a GEventGenerator.  
-	Dependencies: win32[] linux[] apple[]
-	Asynchronus: YES
-	Author: Lari H. Norri
-	Contributors: N/A
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -4964,86 +4095,20 @@ namespace GW {
 
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The core namespace to which all Gateware fundamental interfaces must belong.
 	namespace CORE
 	{
-		//! A Proxy/Functor class that can be used to immediately respond to a GEventGenerator's events. 
-		/*!
-		*	The GEventResponder proxy stores and allows safe swapping of GEvent handlers.
-		*	It will immediately react to any GEventGenerator it is Registered to that posts a GEvent.
-		*	Essentially this is a specialized version of GLogic designed for conveinent interception of events.
-		*	**NOTE: GEventResponder is a replacement interface to GEventReceiver which is deprecated.**
-		*	\code{.cpp}
-		*		GEventResponder observer;
-		*		// Provide the logic for processing a GEvent you care about.
-		*		observer.Create([](const GEvent& g) { 
-		*			GEventGenerator::Events e; // substitute the generator type you care about
-		*			GEventGenerator::EVENT_DATA d; // substitute the event data you care about
-		*			// Determine if the incoming event contains the data you are interested in.
-		*			if (+g.Read(e,d)) // if you are interested in multiple events consider using a switch below
-		*				if (e == GEventGenerator::Events::NON_EVENT) // substiute actual event
-		*					std::cout << d.noData; // substitute actual data
-		*		});
-		*		someEventGenerator.Register(observer);
-		*	\endcode
-		*/
 		class GEventResponder final
 			: public I::GProxy<I::GEventResponderInterface, I::GEventResponderImplementation, std::function<void(const GEvent&)>>
 		{
 		public: // Only public functions are exposed via Proxy, never protected or private operations
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GEventResponder)
 			GATEWARE_FUNCTION(Assign)
 			GATEWARE_CONST_FUNCTION(Invoke)
-			//! \endcond
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Allocates & Intializes a GEventResponder. 
-			/*!
-			*	A GEventResponder is capable of receiving and reacting to events created by GEventGenerators.
-			*	You can use this class whenever there is a Gateware class that spawns events you wish to know about.
-			*	A GEventResponder may be Registered to multiple GEventGenerators. (see: GEventGenerator::Register())
-			*
-			*	\param	[in] _eventHandler	The function or lambda you wish to be invoked when an event is received.
-			*								(optional can pass nullptr). May be invoked from different threads.
-			*								If you need to receive messages on a specific thread consider GEventCache instead.
-			*
-			*	\retval GReturn::SUCCESS	The responder was intialized with the handler provided.
-			*/
-			GReturn Create(std::function<void(const GEvent&)> _eventHandler);
-
-			//! Ovewrites the current event handler assigned to this Proxy (if any)
-			/*!
-			*	Assigns new user provided logic (nullptr[no logic] is a valid argument).
-			*	Cannot be done within provided logic as the class garuntees the logic
-			*	stack will remain valid for the duration of Invoke().
-			*	**Deadlocks will only be detected/prevented in Debug builds, check your logic for errors**
-			*
-			*	\param	[in] _newEventHandler	The function or lambda you wish to recieve all new events with.
-			*
-			*	\retval GReturn::DEADLOCK	You have attempted to modify the logic during it's own executetion.
-			*	\retval GReturn::SUCCESS	Stored logic was successfully overwritten.
-			*/
-			virtual GReturn Assign(std::function<void(const GEvent&)> _newEventHandler) = 0;
-
-			//! Invokes the stored function/lamda event handler from the current thread.
-			/*!
-			*	Calls the stored handler on this thread, during the invocation the logic and proxy will remian valid.
-			*	During the operation Recursive calls are permitted but swapping the handler of your own proxy is not.
-			*	In general you will not call this routine directly, rather the provided GEventGenerator will call this.
-			*
-			*	\param	[in] _incomingEvent		The GEvent you want the GResponder to respond to.
-			*
-			*	\retval GReturn::FAILURE	No internal logic has been assigned to this GEventResponder.
-			*	\retval GReturn::SUCCESS	Handler is valid and was called.
-			*/
-			virtual GReturn Invoke(const GEvent& _incomingEvent) const = 0;
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -5059,17 +4124,6 @@ namespace GW
 ----------------------------------*/
 #ifndef GEVENTCACHE_H
 #define GEVENTCACHE_H
-/*!
-	File: GEventCache.h
-	Purpose: A Gateware interface that allows recording of GEvents from a GEventGenerator for later processing.
-	Dependencies: win32[] linux[] apple[]
-	Asynchronus: YES
-	Author: Lari H. Norri
-	Contributors: N/A
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -5415,39 +4469,15 @@ namespace GW {
 #endif
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The core namespace to which all Gateware fundamental interfaces must belong.
 	namespace CORE
 	{
-		//! A Proxy class that can be used to record and playback GEvents captured from GEventGenerators. 
-		/*!
-		*	Stores all events produced by an interface derived from GEventGenerator that you are Registered to.
-		*   **NOTE: GEventCache is a replacement proxy to GEventQueue which is deprecated.** 
-		*	\code{.cpp}
-		*		GEventCache myCache;
-		*		myCache.Create( 32 ); // can hold up to 32 unique GEvents, try to keep this as small as needed
-		*		someEventGenerator.Register(myCache);
-		*		// ... some recurring function or thread where you wish to process waiting events ...
-		*		GEvent g; 
-		*		while (+myCache.Pop(g)) // if you wait too long to process events the oldest ones may be lost.
-		*		{
-		*			GEventGenerator::Events e; // substitute the generator type you care about
-		*			GEventGenerator::EVENT_DATA d; // substitute the event data you care about
-		*			// Determine if the "Pop"ed event contains the data you are intrested in.
-		*			if (+g.Read(e,d)) // if you are interested in multiple events consider using a switch below
-		*				if (e == GEventGenerator::Events::NON_EVENT) // substitute actual event
-		*					std::cout << d.noData; // substitute actual data
-		*		}
-		*	\endcode
-		*/
 		class GEventCache final
 			: public I::GProxy<I::GEventCacheInterface, I::GEventCacheImplementation, unsigned int> // cache size
 		{
 		public: // Only public functions are exposed via Proxy, never protected or private operations
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GEventCache)
 			GATEWARE_FUNCTION(Append)
 			GATEWARE_CONST_FUNCTION(Waiting)
@@ -5457,121 +4487,8 @@ namespace GW
 			GATEWARE_CONST_FUNCTION(Missed)
 			GATEWARE_FUNCTION(Clear)
 			GATEWARE_TEMPLATE_FUNCTION(Find)
-			//! \endcond
 			
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Allocates & Intializes a GEventCache. 
-			/*!
-			*	A GEventCache is capable of receiving and storing events created by any GEventGenerator.
-			*	You can use this class whenever there is a Gateware class that spawns events you wish record.
-			*	Unlike GEventResponder the GEventCache is designed to save multiple events up to a limit defined by you.
-			*	If you need to process events on a specific thread, you can use this class to delay processing until
-			*	a safe time to do so. Just make sure there is adequate capcity in the Cache, and "Pop" them off when ready.
-			*
-			*	\param [in] _cacheSize		The maximum amount of GEvents that can be retained by this instance. (must be > 0)
-			*								Exceeding this amount without processing a message will cause the oldest to missed.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT	A valid Cache Capacity > 0 must be provided.
-			*	\retval GReturn::FAILURE	Allocation has failed, you don't have enough memory.
-			*	\retval GReturn::SUCCESS	The cache was succesfully allocated, you can now Register it to GEventGenerators.
-			*/
-			GReturn Create(unsigned int _cacheSize);
-
-			//! Appends an event to the cache, and increases number of waiting events.   
-			/*!
-			*	Generally end users can ignore this function as it is invoked by a registered GEventGenerator.
-			*
-			*	\param [in] _inEvent	The GEvent you wish to store in the Cache. If the Cache is already full of
-			*							waiting (unpopped) events then the oldest one falls off the front.
-			*
-			*	\retval GReturn::SUCCESS	The event was appended to this receiver.
-			*/
-			virtual GReturn Append(const GEvent& _inEvent) = 0;
-
-			//! Reports how many events have not yet been processed.  
-			/*!
-			*	Use this to check if any events are currently waiting for you.
-			*
-			*	\param [out] _outCount The number of waiting events. (use Pop() or Clear() to remove them)
-			*
-			*	\retval GReturn::SUCCESS	Reports the current amount of waiting events.
-			*/
-			virtual GReturn Waiting(unsigned int& _outCount) const = 0;
-
-			//! Grabs a waiting event if one is available. Oldest first. 
-			/*!
-			*	If waiting is non-zero this operation will extract an event and reduce the number of waiting events.
-			*	After a successful Pop() the number of waiting event will be reduced by 1.
-			*
-			*	\param [out] _outEvent The most recent event that needs to be processed.
-			*
-			*	\retval GReturn::FAILURE	There were no waiting events that needed processing.
-			*	\retval GReturn::SUCCESS	Successfully pulled a waiting event from the Queue.
-			*/
-			virtual GReturn Pop(GEvent& _outEvent) = 0;
-
-			//! Examines but does not remove a waiting event if one is available based on it's historical index. 
-			/*!
-			*	Used to examine the GEventCache's current backlog.
-			*
-			*	\param [in] _eventIndex	(OPTIONAL) The event you wish to examine from 0 to "Waiting"-1, with 0 being the oldest item in the Cache.
-			*	\param [out] _outEvent A copy of the event at '_eventIndex' waiting it's turn to be processed. (_eventIndex defaults to 0)
-			*
-			*	\retval GReturn::INVALID_ARGUMENT	The provided _eventIndex was out of bounds.
-			*	\retval GReturn::FAILURE	There were no waiting events that could be inspected.
-			*	\retval GReturn::SUCCESS	Successfully copied a waiting event from the Queue.
-			*/
-			virtual GReturn Peek(unsigned int _eventIndex, GEvent& _outEvent) const = 0;
-
-			//! Reports the Maximum amount of Events that this GEventCache instance can record.  
-			/*!
-			*	This returns the same number that is passed to the GEventCache "Create" function.
-			*	Any events recorded while the Queue is at capcity will cause the oldest event to be lost.
-			*	Whenever an Event is replaced without processing, it will increase the internal "Missed" count.
-			*
-			*	\param [out] _outCapacity	The maximum capacity of this GEventCache.
-			*
-			*	\retval GReturn::SUCCESS	The maximum capacity was successfully reported.
-			*/
-			virtual GReturn Max(unsigned int& _outCapacity) const = 0;
-
-			//! Reports how many events were not processed before they were replaced.
-			/*!
-			*	If an event was not processed via Pop(), Clear(), or Find() and ends up being replaced
-			*	it will increase the internal event miss count. Use this operation to see how many events have been lost.
-			*	**NOTE: Never want to miss an event? consdiering using GEventResponder or directly registering a callback.**
-			*
-			*	\param [out] _outCount Number of events that were not processed.
-			*
-			*	\retval GReturn::SUCCESS	Reports the current amount of missed events.
-			*/
-			virtual GReturn Missed(unsigned int& _outCount) const = 0;
-
-			//! Removes any & all waiting events without processing them.
-			/*!
-			*	All pending events are removed. The internal missed event count will not be reset.
-			*	NOTE: Though you cannot reset the internal miss count it is possible to track it's change.
-			*
-			*	\retval GReturn::FAILURE	There were no waiting events, nothing was cleared.
-			*	\retval GReturn::SUCCESS	All waiting events were removed successfully.
-			*/
-			virtual GReturn Clear() = 0;
-
-			//! Finds a specific Event/DataChunk and optionally can remove it and/or return the associated data. 
-			/*!
-			*	A conveinence function that can be used instead of "Pop/Peek" to search waiting events.
-			*
-			*	\param [in] _check	The specific enum of the event you are looking for, can also be a specific bit of data.
-			*	\param [in] _remove	Should the function remove the waiting event if it is found? true == Pop, false == Peek
-			*	\param [out] _outData (OPTIONAL) Returns the data block associated with the event if found.
-			*
-			*	\retval GReturn::FAILURE	No Event or Data was present matching the provided Query.
-			*	\retval GReturn::SUCCESS	Operation successfully found and/or removed the event/data in question.
-			*/
-			template<class eventType, typename eventData>
-			GReturn Find(eventType _check, bool _remove, eventData& _outData);
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -5588,17 +4505,6 @@ namespace GW
 #ifndef GEVENTGENERATOR_H
 #define GEVENTGENERATOR_H
 
-/*!
-	File: GEventGenerator.h
-	Purpose: A Gateware interface that enables broadcasting of custom GEvents to potential subscribers.
-	Dependencies: win32[] linux[] apple[]
-	Asynchronus: YES
-	Author: Lari H. Norri
-	Contributors: Ryan Powser
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
  // can store and examine GEvents for later processing  
  // contains user defined logic for handling a GEvent
@@ -5867,25 +4773,15 @@ namespace GW {
 
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The core namespace to which all Gateware fundamental interfaces must belong.
 	namespace CORE
 	{
-		//! A Proximity class that can be used to broadcast GEvents to GEventReceivers. 
-		/*!
-		*	Can be used as a handle to any derived generator type.
-		*	You can also use this Proxy to push custom events to create your own messaging system.
-		*	Any Registered observers are not filtered so be careful to add them only once otherwise 
-		*	they will receive duplicate events.(you can use Deregister() as a detection filter if needed) 
-		*/
 		class GEventGenerator final
 			: public I::GProxy<I::GEventGeneratorInterface, I::GEventGeneratorImplementation>
 		{
 		public: // Only public functions are exposed via Proxy, never protected or private operations
 			// proxy functions should be ignored by doxygen
-			//! \cond
             GATEWARE_PROXY_CLASS(GEventGenerator)
 			GATEWARE_TYPEDEF(Events)
 			GATEWARE_TYPEDEF(EVENT_DATA)
@@ -5893,104 +4789,8 @@ namespace GW
 			GATEWARE_FUNCTION(Deregister)
 			GATEWARE_CONST_FUNCTION(Observers)
 			GATEWARE_FUNCTION(Push)
-			//! \endcond
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Creates an GEventGenerator. 
-			/*!
-			*	This proxy is a general implementation of how Gateware communicates events.
-			*	If you would like to create your own communication system, you can use this object to spawn a GEvent.
-			*	This Proxy is meant to be used with GEventCache and GEventResponder. (however both are optional)
-			*
-			*	\retval GReturn::SUCCESS	This always succeeds. (unless you run out of memory)
-			*/
-			GReturn Create();
-
-			//! A sample event enum, all event generators have them.
-			enum class Events {
-				NON_EVENT //!< An example event, not actually used.
-			};
-
-			/*! A sample event data packet, all event generators have them. */
-			struct EVENT_DATA {
-				std::nullptr_t noData; /*!< An example of event data, not actually used */
-			};
-
-			//! Enables limited storage of all events pushed by this GEventGenerator. 
-			/*!
-			*	Links a GEventCache to save any event Pushed by this generator for later processing.
-			*	This is useful when you need to process the events of this generator but don't want to handle them
-			*	immediately on the thread that caused them to occur. An INVALID GEventCache will automatically be removed.
-			*	The Generator will respect the ownership granted (if any) by the provided Proxy. (ex: Share/Relinquish)
-			*
-			*	\param [in] _recorder	The GEventCache you wish to record any events generated by this instance.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT	An empty/expired proxy was provided.
-			*	\retval GReturn::SUCCESS	The provided GEventCache proxy will Append any new events.
-			*/
-			virtual GReturn Register(CORE::GEventCache _recorder) = 0;
-
-			//! Enables immediate interchangable response to events pushed by this GEventGenerator. 
-			/*!
-			*	Links a GEventResponder to react to any event Pushed by this generator for immediate processing.
-			*	You may swap the internal logic of GEventResponder. An INVALID GEventCache will automatically be removed.
-			*	The Generator will respect the ownership granted (if any) by the provided Proxy. (ex: Share/Relinquish)
-			*
-			*	\param [in] _responder	The GEventResponder you need to react to all events generated by this instance.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT	An empty/expired proxy was provided.
-			*	\retval GReturn::SUCCESS	The provided GEventCache proxy will Append any new events.
-			*/
-			virtual GReturn Register(CORE::GEventResponder _responder) = 0;
-
-			//! Listen for all events pushed by this GEventGenerator. 
-			/*!
-			*	Links a specific static function callback to be triggered on any event pushed to this generator.
-			*	A GInterface is required to control the lifetime of the linked function. Sharing will make it permanent.
-			*
-			*	\param [in] _observer	Any valid Gateware Proxy object, used to control the lifetime of this listener.
-			*	\param [in] _callback	Static callback function that accepts a reference to the GEvent & active observer.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT	An empty/expired proxy or null callback were provided.
-			*	\retval GReturn::SUCCESS	The provided callback and proxy object will be informed of any new events.
-			*/
-			virtual GReturn Register(CORE::GInterface _observer, void(*_callback)(const GEvent&, CORE::GInterface&)) = 0;
-
-			//! Prematurely removes an observer from this GEventGenerator. 
-			/*!
-			*	Generally end users don't need to call this routine as any expired proxy is automatically removed.
-			*	Only the first occurance of an observer will be removed if it has been registered multiple times.
-			*
-			*	\param [in] _observer	Any valid Gateware proxy that was previously registered.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT	An empty/expired proxy was provided.
-			*	\retval GReturn::FAILURE	Could not find the observer specified, nothing was removed.
-			*	\retval GReturn::SUCCESS	The provided proxy will no longer receive GEvents from this class.
-			*/
-			virtual GReturn Deregister(CORE::GInterface _observer) = 0;
-
-			//! Returns the amount of proxies observing this generator. 
-			/*!
-			*	Counts the amount of valid proxies which have been registered to receive events from this system.
-			*
-			*	\param [out] _outCount The number of valid proxies registered to receive events.
-			*
-			*	\retval GReturn::SUCCESS	This operation will always succeed.
-			*/
-			virtual GReturn Observers(unsigned int& _outCount) const = 0;
-
-			//! Push a new GEvent to all registered & valid listeners. 
-			/*!
-			*	Broadcasts a new event to all proxy objects who are actively observing this Event Generator.
-			*
-			*	\param [in] _newEvent	The GEvent you want all listeners to receive. (first come first serve)
-			*
-			*	\retval GReturn::SUCCESS	The event was successfully delivered to all non-empty proxies.
-			*	\retval GReturn::REDUNDANT	There is no one currently registered to listen for these events.
-			*/
-			virtual GReturn Push(const GEvent& _newEvent) = 0;
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -6007,17 +4807,6 @@ namespace GW
 #ifndef GEVENTRECEIVER_H
 #define GEVENTRECEIVER_H
 
-/*!
-	File: GEventReceiver.h
-	Purpose: A Gateware interface that allows anyone to receive events from a GEventGenerator or derived class.
-	Dependencies: win32[] linux[] apple[]
-	Asynchronus: YES
-	Author: Lari H. Norri
-	Contributors: Ryan Powser
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 #include <functional>
@@ -6299,31 +5088,10 @@ namespace GW {
 
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The core namespace to which all Gateware fundamental interfaces must belong.
 	namespace CORE
 	{
-		//! A Proxy/Functor class that can be used to listen for Events. 
-		/*!
-		*	Receives any & all events produced by an interface derived from GEventGenerator.
-		*	Accetps an std::function<void()> as the callback function/lambda for flexibility.
-		*	Use std::bind to supply your own arguments to your callback, the only restriction is the void return type.
-		*	To receive more detailed information, embbed this Proxy in your callback and "Pop()" the most recent event.
-		*	\code{.cpp}
-		*		MyEventReceiver.Create( MyEventGenerator, [](MyEventReceiver&) {
-		*		GEvent g; 
-		*		GEventGenerator::Events e; // substitute the generator type you care about
-		*		GEventGenerator::EVENT_DATA d;
-		*		if(+MyEventReceiver.Pop(g))
-		*			if(+g.Read(e,d))
-		*				if(e == GEventGenerator::Events::NON_EVENT) // substiute actual event
-		*					std::cout << d.noData; // substitute actual data
-		*		});
-		*	\endcode
-		*	\deprecated **Replaced by GW::CORE::GEventResponder.**
-		*/
 		class GEventReceiver final
 			: public I::GProxy<I::GEventReceiverInterface, I::GEventReceiverImplementation, GEventGenerator, std::function<void()>>
 		{
@@ -6333,7 +5101,6 @@ namespace GW
 			} }init; // hopefully your compiler will optimize this out
 		public: // Only public functions are exposed via Proxy, never protected or private operations
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GEventReceiver)
 			GATEWARE_FUNCTION(Append)
 			GATEWARE_CONST_FUNCTION(Waiting)
@@ -6343,116 +5110,8 @@ namespace GW
 			GATEWARE_FUNCTION(Clear)
 			GATEWARE_CONST_FUNCTION(Invoke)
 			GATEWARE_TEMPLATE_FUNCTION(Find)
-			//! \endcond
 			
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Allocates & Intializes a GEventReceiver. 
-			/*!
-			*	A GEventReciever is capable of receiving and reacting to events created by a GEventGenerator.
-			*	You can use this class whenever there is a Gateware class that spawns events you wish to know about.
-			*	
-			*	\param	[in] _eventSource	The GEventReciever you wish to receive messages from.
-			*	\param	[in] _callback		The function or lambda you wish to be invoked when an event is received.
-			*								(optional can pass nullptr). May be invoked from a different thread.
-			*								If you need to receive messages on the current thread consider GEventQueue instead. 	
-			*
-			*	\retval GReturn::UNEXPECTED_RESULT	Internal API failure, should not happen please report this.
-			*	\retval GReturn::INVALID_ARGUMENT	A valid GEventGenerator must be provided.
-			*	\retval GReturn::SUCCESS	The receiver was correctly bound and registered to the generator provided.
-			*/
-			GReturn Create(GEventGenerator& _eventSource, std::function<void()>  _callback);
-
-			//! Appends an event to the receiver, and increases number of waiting events. ( > 1 only in GEventQueue)   
-			/*!
-			*	Generally end users can ignore this function as it is invoked by the connected GEventGenerator.
-			*
-			*	\param [in] _inEvent	The GEvent you wish to send to this receiver. (will replace any waiting events)
-			*
-			*	\retval GReturn::UNEXPECTED_RESULT	Internal API failure, should not happen please report this.
-			*	\retval GReturn::SUCCESS	The event was appended to this receiver. (does not cause an Invoke() to occur)
-			*/
-			virtual GReturn Append(const GEvent& _inEvent) = 0;
-
-			//! Reports how many events have not yet been processed.  
-			/*!
-			*	Use this to check if any events are waiting for you. (unlikely if you provide a callback)
-			*
-			*	\param [out] _outCount The number of waiting events. (use Pop() or Clear() to remove them)
-			*
-			*	\retval GReturn::SUCCESS	Reports the current amount of waiting events.
-			*/
-			virtual GReturn Waiting(unsigned int& _outCount) const = 0;
-
-			//! Grabs a waiting event if one is available. 
-			/*!
-			*	If waiting is non-zero this operation will extract an event and reduce the number of waiting events.
-			*	After a successful Pop() the number of waiting event will be reduced by 1. (waiting may be > 1 in GEventQueue)
-			*
-			*	\param [out] _outEvent The most recent event that needs to be processed.
-			*
-			*	\retval GReturn::FAILURE	There were no waiting events that needed processing.
-			*	\retval GReturn::SUCCESS	Successfully pulled a waiting event from the Queue.
-			*/
-			virtual GReturn Pop(GEvent& _outEvent) = 0;
-
-			//! Examines but does not remove a waiting event if one is available. 
-			/*!
-			*	Same operation as Pop() but does not remove the event or flag it as processed.
-			*
-			*	\param [out] _outEvent A copy of the current event waiting to be processed.
-			*
-			*	\retval GReturn::FAILURE	There were no waiting events that could be inspected.
-			*	\retval GReturn::SUCCESS	Successfully copied a waiting event from the Queue.
-			*/
-			virtual GReturn Peek(GEvent& _outEvent) const = 0;
-
-			//! Reports how many events were not processed before they were replaced.
-			/*!
-			*	If an event was not processed via Pop(), Clear(), or Find() and ends up being replaced
-			*	it will increase the internal event miss count. Use this operation to see how many events have been lost.
-			*	NOTE: if you use Pop() or equivalent during a callback missing events will not be an issue.
-			*
-			*	\param [out] _outCount Number of events that were not processed.
-			*
-			*	\retval GReturn::SUCCESS	Reports the current amount of missed events.
-			*/
-			virtual GReturn Missed(unsigned int& _outCount) const = 0;
-
-			//! Removes any & all waiting events without processing them. (Can only be > 1 in GEventQueue)
-			/*!
-			*	All pending events are removed. The internal missed event count will not be reset.
-			*	NOTE: Though you cannot reset the internal miss count it is possible to track it's change.
-			*
-			*	\retval GReturn::FAILURE	There were no waiting events, nothing was cleared.
-			*	\retval GReturn::SUCCESS	All waiting events were removed successfully.
-			*/
-			virtual GReturn Clear() = 0;
-
-			//! Invokes the associated callback function/lamda from the current thread.
-			/*!
-			*	Allows you to call the callback function if one is attatched.
-			*	Generally you wouldn't want to do this as this handled for you by the Event Generator.
-			*
-			*	\retval GReturn::FAILURE	No callback is associated with this Receiver.
-			*	\retval GReturn::SUCCESS	Function is valid and was called.
-			*/
-			virtual GReturn Invoke() const = 0;
-
-			//! Finds a specific Event/DataChunk and optionally can remove it and/or return the associated data. 
-			/*!
-			*	A conveinence function that can be used instead of "Pop/Peek" to search waiting events.
-			*
-			*	\param [in] _check	The specific enum of the event you are looking for, can also be a specific bit of data.
-			*	\param [in] _remove	Should the function remove the waiting event if it is found? true == Pop, false == Peek
-			*	\param [out] _outData (OPTIONAL) Returns the data block associated with the event if found.
-			*
-			*	\retval GReturn::FAILURE	No Event or Data was present matching the provided Query.
-			*	\retval GReturn::SUCCESS	Operation successfully found and/or removed the event/data in question.
-			*/
-			template<class eventType, typename eventData>
-			GReturn Find(eventType _check, bool _remove, eventData& _outData);
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -6469,17 +5128,6 @@ namespace GW
 #ifndef GEVENTQUEUE_H
 #define GEVENTQUEUE_H
 
-/*!
-	File: GEventQueue.h
-	Purpose: A Gateware interface that allows anyone to receive & store events from a GEventGenerator or derived class.
-	Dependencies: win32[] linux[] apple[]
-	Asynchronus: YES
-	Author: Lari H. Norri
-	Contributors: Ryan Powser
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -6847,31 +5495,10 @@ namespace GW {
 
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The core namespace to which all Gateware fundamental interfaces must belong.
 	namespace CORE
 	{
-		//! A Proxy class that can be used to record multiple Events for later inspection. 
-		/*!
-		*	Receives and stores all events produced by an interface derived from GEventGenerator.
-		*	You must provide the EventQueue a maximum storage capcity as the underying container is a circular quque. 
-		*	Accepts an std::function<void()> as the callback function/lambda for flexibility.
-		*	Use std::bind to supply your own arguments to your callback, the only restriction is the void return type.
-		*	Because all events are captured (assuming adequate storage) you may process events later when ready to do so.
-		*	\code{.cpp}
-		*		MyEventQueue.Create( 16, MyEventGenerator, nullptr); // if you only need the last event, use GEventResponder
-		*		GEvent g; 
-		*		GEventGenerator::Events e; // replace with desired Generator
-		*		GEventGenerator::EVENT_DATA d; 
-		*		while(+MyEventQueue.Pop(g)) // later, possibly in main loop...
-		*			if(+g.Read(e,d))
-		*				if(e == GEventGenerator::Events::NON_EVENT) // replace with actual event
-		*					std::cout << d.noData; // replace with actual data
-		*	\endcode
-		*	\deprecated **Replaced by GW::CORE::GEventCache.**
-		*/
 		class  GEventQueue final
 			: public I::GProxy<I::GEventQueueInterface, I::GEventQueueImplementation, unsigned int, GEventGenerator, const std::function<void()>>
 		{
@@ -6884,7 +5511,6 @@ namespace GW
 
 		public: // Only public functions are exposed via Proxy, never protected or private operations
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GEventQueue)
 			GATEWARE_CONST_FUNCTION(Peek)
 			GATEWARE_CONST_FUNCTION(Max)
@@ -6897,57 +5523,8 @@ namespace GW
 			GATEWARE_FUNCTION(Clear)
 			GATEWARE_CONST_FUNCTION(Invoke)
 			GATEWARE_TEMPLATE_FUNCTION(Find)
-			//! \endcond
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Allocates & Intializes a GEventQueue. 
-			/*!
-			*	A GEventQueue is capable of receiving and reacting to events created by a GEventGenerator.
-			*	You can use this class whenever there is a Gateware class that spawns events you wish to know about.
-			*	Unlike GEventReceiver the GEventQueue is capable of storing multiple events up to a limit defined by you.
-			*	If you need to process events on a specific thread, you can use this class to delay processing until
-			*	a safe time to do so. Just make sure there is adequate capcity in the Queue, and "Pop" them off when ready.
-			*	
-			*	\param [in] _maxSize		The maximum amount of messages that can be retained by this instance. (must be > 0)
-			*								Exceeding this amount without processing a message will cause the oldest to be missed.
-			*	\param [in] _eventSource	The GEventGenerator you wish to receive messages from.
-			*	\param [in] _callback		The function or lambda you wish to be invoked when an event is received.
-			*								(optional, can pass nullptr). May be invoked from a different thread.
-			*								To ensure you receive messages on a specific thread, just use "Pop/Peek" instead. 
-			*
-			*	\retval GReturn::UNEXPECTED_RESULT	Internal API failure, should not happen please report this.
-			*	\retval GReturn::INVALID_ARGUMENT	A valid GEventGenerator and Queue Capacity > 0 must be provided.
-			*	\retval GReturn::SUCCESS	The receiver was correctly bound and registered to the generator provided.
-			*/
-			GReturn Create(unsigned int _maxSize, CORE::GEventGenerator _eventSource, const std::function<void()> _callback);
-
-			//! Examines but does not remove a waiting event if one is available based on it's historical index. 
-			/*!
-			*	Same operation as Peek() in GEventReceiver but can also be used to examine the Queue's current backlog.
-			*
-			*	\param [in] _eventIndex	The event you wish to examine from 0 to "Waiting"-1, with 0 being the most recent.
-			*	\param [out] _outEvent A copy of the event at _eventIndex waiting it's turn to be processed.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT	The provided _eventIndex was out of bounds.
-			*	\retval GReturn::FAILURE	There were no waiting events that could be inspected.
-			*	\retval GReturn::SUCCESS	Successfully copied a waiting event from the Queue.
-			*/
-			virtual GReturn Peek(unsigned int _eventIndex, GEvent& _outEvent) const = 0;
-
-			//! Reports the Maximum amount of Events that this GEventQueue instance can record.  
-			/*!
-			*	This returns the same number that is passed to the GEventQueue "Create" function.
-			*	Any events recorded while the Queue is at capcity will cause the oldest event to be lost.
-			*	Whenever an Event is replaced without processing, it will increase the internal "Missed" count.
-			*
-			*	\param [out] _outCapacity The maximum capacity of the Event Queue.
-			*
-			*	\retval GReturn::SUCCESS	The maximum capacity was successfully reported.
-			*/
-			virtual GReturn Max(unsigned int& _outCapacity) const = 0;
-
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -6965,17 +5542,6 @@ namespace GW
 #ifndef GFILE_H
 #define GFILE_H
 
-/*!
-	File: GFile.h
-	Purpose: A Gateware interface that handles both binary and textual file io and directory.
-	Dependencies: Windows[(none)] Linux[(none)] Mac[(none)] 
-	Authors: Justin W. Parks, Ryan Powser
-	Contributors: Lari H. Norri, Anthony G. Balsamo, Kai Huang, Alexander Clemmons
-	Interface Status: Beta
-	Asynchronous: Yes[X] No[]
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -10303,24 +8869,16 @@ namespace GW
 #endif
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all Gateware library interfaces must belong.
 	namespace SYSTEM
 	{
-		//! Cross platform FileIO/Directory handling.
-		/*!
-		*	Handles file input/output operations, as well as directory information and file information.
-		*	GFile inherits directly from GMultiThreaded, therefore its implementation must be thread safe.
-		*/
 		class GFile final 
 			: public I::GProxy<I::GFileInterface, I::GFileImplementation>
 		{
 			// All Gateware API interfaces contain no variables & are pure virtual.
 		public:
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GFile)
 			GATEWARE_FUNCTION(OpenBinaryRead)
 			GATEWARE_FUNCTION(OpenBinaryWrite)
@@ -10342,293 +8900,8 @@ namespace GW
 			GATEWARE_FUNCTION(GetFoldersFromDirectory)
 			GATEWARE_FUNCTION(GetFileSize)
 			GATEWARE_FUNCTION(Seek)
-			//! \endcond
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//!Creates a GFile Object.
-			/*!
-			*	The GFile created by this function will have its current working directory defaulted to
-			*	the directory where the program was ran from. Call SetCurrentWorkingDirectory to change it.
-			*	No file will be opened in creation of GFile. Call an Open function to open one.
-			*	Created GFile object will have its reference count initialized to one.
-			*
-			*	\retval GReturn::FAILURE  GFile could not be created.
-			*	\retval GReturn::SUCCESS  Gfile successfully created.
-			*/
-			GReturn Create();
-
-			//! Opens a file for binary read.
-			/*!
-			*	The file name passed into the function should be passed like it is a relative path.
-			*	The function will look in the current working directory for the file.
-			*	If the file is not found in the current working directory, the function will fail.
-			*
-			*	\param [in] _file The file name of the file to open.
-			*
-			*	\retval GReturn::FILE_NOT_FOUND  File could not be found.
-			*	\retval GReturn::INVALID_ARGUMENT  A null pointer was passed in.
-			*	\retval GReturn::FAILURE  A file is already opened.
-			*	\retval GReturn::SUCCESS  Succesfully opened the file.
-			*/
-			virtual GReturn OpenBinaryRead(const char* const _file) = 0;
-
-			//! Opens a file for binary write with truncation.
-			/*!
-			*	The file name passed into the function should be passed like it is a relative path.
-			*	The function will look in the current working directory for the file.
-			*	If the file is not found in the current working directory, the file will be created in
-			*	the current working directory. File can now be read from with Read().
-			*
-			*	\param [in] _file The file name of the file to open.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT  A nullptr was passed in.
-			*	\retval GReturn::FAILURE  A file is already open or file could not be found/created.
-			*	\retval GReturn::SUCCESS  Succesfully opened the file.
-			*/
-			virtual GReturn OpenBinaryWrite(const char* const _file) = 0;
-
-			//! Opens a file for binary write with append.
-			/*!
-			*	The file name passed into the function should be passed like it is a relative path.
-			*	The function will look in the current working directory for the file.
-			*	If the file is not found in the current working directory, the file will be created in
-			*	the current working directory. File can now be written to with Write().
-			*
-			*	\param [in] _file The file name of the file to open.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT  A nullptr was passed in.
-			*	\retval GReturn::FAILURE  A file is already open or the file could not be found/created.
-			*	\retval GReturn::SUCCESS  Succesfully opened the file.
-			*/
-			virtual GReturn AppendBinaryWrite(const char* const _file) = 0;
-
-			//! Opens a file for text read.
-			/*!
-			*	The file name passed into the function should be passed like it is a relative path.
-			*	The function will look in the current working directory for the file.
-			*	If the file is not found in the current working directory, the function will fail.
-			*   File can now be written to with Write().
-			*
-			*	\param [in] _file The file name of the file to open.
-			*
-			*	\retval GReturn::FILE_NOT_FOUND  File could not be found.
-			*	\retval GReturn::INVALID_ARGUMENT  A nullptr was passed in.
-			*	\retval GReturn::FAILURE  A file is already open.
-			*	\retval GReturn::SUCCESS  Succesfully opened the file.
-			*/
-			virtual GReturn OpenTextRead(const char* const _file) = 0;
-
-			//! Opens a file for text write with truncation.
-			/*!
-			*	The file name passed into the function should be passed like it is a relative path.
-			*	The function will look in the current working directory for the file.
-			*	If the file is not found in the current working directory, the file will be created in
-			*	the current working directory. File can now be read from with Read().
-			*
-			*	\param [in] _file The file name of the file to open.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT  A nullptr was passed in.
-			*	\retval GReturn::FAILURE  A file is already open or the file could not be found/created.
-			*	\retval GReturn::SUCCESS  Succesfully opened the file.
-			*/
-			virtual GReturn OpenTextWrite(const char* const _file) = 0;
-
-			//! Opens a file for text write with append.
-			/*!
-			*	The file name passed into the function should be passed like it is a relative path.
-			*	The function will look in the current working directory for the file.
-			*	If the file is not found in the current working directory, the file will be created in
-			*	the current working directory. File can now be written to with Write().
-			*
-			*	\param [in] _file The file name of the file to open.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT  A nullptr was passed in.
-			*	\retval GReturn::FAILURE  A file is already open or the file could not be found/created.
-			*	\retval GReturn::SUCCESS  Succesfully opened the file.
-			*/
-			virtual GReturn AppendTextWrite(const char* const _file) = 0;
-
-			//! Writes binary data to the currently opened file.
-			/*!
-			*	Will append or truncate file based on what mode the currently
-			*	opened file was opened with.
-			*
-			*	\param [in] _inData The data to write out to file.
-			*	\param [in] _numBytes The number of bytes to write out to the file.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT  Either a nullptr was passed in or a size of 0 bytes was passed in.
-			*	\retval GReturn::FAILURE  Either a file is not open or the write failed.
-			*	\retval GReturn::SUCCESS  Succesfully wrote out the data.
-			*/
-			virtual GReturn Write(const char* const _inData, unsigned int _numBytes) = 0;
-
-			//! Reads binary from the currently opened file.
-			/*!
-			*	Reads binary data and stores it into a char* until the byte limit
-			*	is reached.
-			*
-			*	\param [out] _outData The variable to store the read in bytes.
-			*	\param [in] _numBytes The number of bytes to read in from the file.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT A byte size of 0 was passed in.
-			*	\retval GReturn::FAILURE  Either file is not open or read failed. _outData will be null.
-			*	\retval GReturn::SUCCESS  Successful read.
-			*/
-			virtual GReturn Read(char* _outData, unsigned int _numBytes) = 0;
-
-			//! Writes text to the currently opened file.
-			/*!
-			*	Will append or truncate file based on what mode the currently
-			*	opened file was opened with.
-			*
-			*	\param [in] _inData Null terminated string to write out.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT  A nullptr was passed in.
-			*	\retval GReturn::FAILURE  Either file is not open or read failed.
-			*	\retval GReturn::SUCCESS  Successful write.
-			*/
-			virtual GReturn WriteLine(const char* const _inData) = 0;
-
-			//! Reads text to the currently opened file.
-			/*!
-			*	Reads text from the current file until either the size is
-			*	reached or delimiter is reached.
-			*
-			*	\param [out] _outData Null terminated string to write out.
-			*	\param [in] _outDataSize The size of _outData.
-			*	\param [in] _delimiter The delimiter to stop reading at.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT  Either a nullptr was passed in or the size request is 0.
-			*	\retval GReturn::FAILURE  Either file is not open or read failed.
-			*	\retval GReturn::SUCCESS  Successful read.
-			*/
-			virtual GReturn ReadLine(char* _outData, unsigned int _outDataSize, char _delimiter) = 0;
-
-			//! Flushes and closes the current file.
-			/*!
-			*	\retval FAILURE  A file is not currently open.
-			*	\retval SUCCESS  File successfully flushed and closed.
-			*/
-			virtual GReturn CloseFile() = 0;
-
-			//! Flushes the current file from memory to disk.
-			/*!
-			*	\retval GReturn::FAILURE  A file is not currently open.
-			*	\retval GReturn::SUCCESS  File successfully flushed.
-			*/
-			virtual GReturn FlushFile() = 0;
-
-			//! Changes the current working directory.
-			/*!
-			*	This sets the directory we will look into with any of the Open functions or other directory functions.
-			*	Paths that are not relative to the directory the program was ran from should be passed in as absolute paths.
-			*
-			*	\param [in] _dir An absolute path to the directory to set as the current working directory.
-			*
-			*	\retval GReturn::FILE_NOT_FOUND  The directory could not be found.
-			*	\retval GReturn::INVALID_ARGUMENT  A nullptr was passed in.
-			*	\retval GReturn::FAILURE  Failed to open directory (Could be because it was not found).
-			*	\retval GReturn::SUCCESS  Succesfully set the current working directory.
-			*/
-			virtual GReturn SetCurrentWorkingDirectory(const char* const _dir) = 0;
-
-			//! Retrieves the absolute path of the current working directory.
-			/*!
-			*	This is the directory we will look into for any file Open commands.
-			*	This is by Windows standard guaranteed to be 255 or less.
-			*
-			*	\param [out] _outDir An absolute path to the directory to set as the current working directory.
-			*	\param [in] _dirSize The size of _outDir.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT  A nullptr was passed in or the size is 0.
-			*	\retval GReturn::FAILURE  The current working directory is invalid or _outDir was not big enough. _outDir will be null.
-			*	\retval GReturn::SUCCESS  Successfully obtained the working directory.
-			*/
-			virtual GReturn GetCurrentWorkingDirectory(char* _outDir, unsigned int _dirSize) = 0;
-
-			//! Gets the number of files in the current working directory.
-			/*!
-			*	\param [out] _outSize The number of files in the directory.
-			*
-			*	\retval GReturn::FAILURE  Either currently working directory is invalid or count failed. _outSize will be -1.
-			*	\retval GReturn::SUCCESS  Successfully counted the files in the directory.
-			*/
-			virtual GReturn GetDirectorySize(unsigned int& _outSize) = 0;
-
-			//! Gets the number of files in the current working subdirectory
-			/*!
-			*   \param [out] _outSize The number of files in the subdirectory.
-			*
-			*	\retval GReturn::FAILURE  Either currently working directory is invalid or count failed. _outSize will be -1.
-			*   \retval GReturn::SUCCESS  Successfully counted the files in the directory.
-			*/
-			virtual GReturn GetSubDirectorySize(unsigned int& _outSize) = 0;
-
-			//! Gets the names of all files in the current working directory.
-			/*!
-			*	This function will retrieve just the file names and extensions.
-			*	Any Open function using these names will assume the files are in the current working directory.
-			*	Any change of the current working directory will make the names generated by this function
-			*	invalid until called again.
-			*
-			*	\param [out] _outFiles Stores the names of the files retrieved.
-			*	\param [in] _numFiles The number of files.
-			*	\param [in] _fileNameSize The size of the file names.
-			*
-			*	\retval GReturn::FAILURE  Either current working directory is invalid or obtaining file names failed.
-			*	\retval GReturn::SUCCESS  Successfully retrieved the file names.
-			*/
-			virtual GReturn GetFilesFromDirectory(char* _outFiles[], unsigned int _numFiles, unsigned int _fileNameSize) = 0;
-
-			//! Gets the names of all folders/sub-directories in the current working directory.
-			/*!
-			*	This function will retrieve just the folders/sub-directories names.
-			*	Any change of the current working directory will make the names generated by this function
-			*	invalid until called again.
-			*
-			*	\param [in] _numsubDir The number of sub-directories.
-			*	\param [in] _subDirNameSize The size of the sub-directories names.
-			*	\param [out] _outsubDir Stores the names of the sub-directories retrieved.
-			*
-			*	\retval GReturn::FAILURE  Either current working directory is invalid or obtaining sub-directories names failed.
-			*	\retval GReturn::SUCCESS  Successfully retrieved the folders/sub-directories names.
-			*/
-			virtual GReturn GetFoldersFromDirectory(unsigned int _numsubDir, unsigned int _subDirNameSize, char* _outsubDir[]) = 0;
-
-			//! Gets the size of the specified file in bytes.
-			/*!
-			*	The filename passed into this function should be passed as a relative path.
-			*	This function will assume the file passed in is in the current working directory
-			*	and will look for it there.
-			*
-			*	\param [in] _file The file to get the size of.
-			*	\param [out] _outSize will store the size of the file.
-			*
-			*	\retval GReturn::FILE_NOT_FOUND		Could not locate the file. Check that the current working directory is valid.
-			*	\retval GReturn::SUCCESS			Successfully retrieved the file size.
-			*/
-			virtual GReturn GetFileSize(const char* const _file, unsigned int& _outSize) = 0;
-
-			//! Seeks to a location in the file from a given starting point.
-			/*!
-			*	This function will seek to a new location starting from _seekFrom and moving _amount bytes. If _seekFrom
-			*	is set to -1, the function will start from whatever position it is currently in. _outCurrPos will be set
-			*	to the new offset when the function completes (esentially _seekFrom + _amount). This function will fail
-			*	and return GReturn::FILE_FOUND_FOUND if there is no file currently open. If _seekFrom + _amount is less than 0 or
-			*	greater than the file size, this means you are trying to seek past the beginning or end of the file and
-			*	the function will return GReturn::INVALID_ARGUMENT.
-			*
-			*	\param [in] _seekFrom The byte location to start seeking from. -1 (0xFFFFFFFF) seeks from your current position.
-			*	\param [in] _amount The amount of bytes to traverse either forwards or backwards.
-			*	\param [out] _outCurrPos The offset of the file pointer relative to the begining of the file after the seek is complete
-			*
-			*	\retval GReturn::FILE_NOT_FOUND		There is no file currently open.
-			*	\retval GReturn::INVALID_ARGUMENT	One or more arguments were invalid.
-			*	\retval GReturn::SUCCESS			Successfully seeked.
-			*/
-			virtual GReturn Seek(unsigned int _seekFrom, int _amount, unsigned int& _outCurrPos) = 0;
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -10645,17 +8918,6 @@ namespace GW
 #ifndef GDAEMON_H
 #define GDAEMON_H
 
-/*!
-	File: GDaemon.h
-	Purpose: A Gateware interface that allows simple and efficient managment of recurring thread work. 
-	Dependencies: win32[] linux[] apple[]
-	Asynchronus: YES
-	Author: Lari H. Norri
-	Contributors: Ryan Powser
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -11111,129 +9373,23 @@ namespace GW {
 
 
 
-//! The SYSTEM namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The SYSTEM namespace to which all Gateware fundamental interfaces must belong.
 	namespace SYSTEM
 	{
-		//! This Proxy is a simple way to schedule & monitor recurring background operations.  
-		/*!
-		*	GDaemon is used by end users and even Gateware itself to schedule repeating background thread work.
-		*	Even though you can create multiple instances of a GDaemon they all utilize the same background thread pool.
-		*	While simple recuring tasks based on the passage of time are standard, you can also create co-dependent 
-		*   chains of tasks by using the built-in events to "Pause" and "Resume" other GDaemons. 
-		*/
 		class GDaemon final
 			: public I::GProxy<I::GDaemonInterface, I::GDaemonImplementation, unsigned int, std::function<void()>>
 		{
 		public: // Only public functions are exposed via Proxy, never protected or private operations
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GDaemon)
 			GATEWARE_TYPEDEF(Events)
 			GATEWARE_TYPEDEF(EVENT_DATA)
 			GATEWARE_FUNCTION(Pause)
 			GATEWARE_FUNCTION(Resume)
 			GATEWARE_CONST_FUNCTION(Counter)
-			//! \endcond
 				
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Allocates & Intializes a GDaemon. 
-			/*!
-			*	The GDaemon is used by end users and even Gateware itself to schedule repeating background thread work.
-			*	Even though you can create multiple instances of a GDaemon they all utilize the same background thread pool.
-			*	While simple recuring tasks based on the passage of time are standard, you can also create co-dependent 
-			*   chains of tasks by using the built-in events to "Pause" and "Resume" other GDaemons. 
-			*
-			*	\param [in] _targetInterval		How often (MILLISECONDS) should this daemon attempt to execute the operation provided.(inclusive)
-			*									Recurring tasks are launched based on an absolute time interval rather than a relative time interval. 
-			*									NOTE: If an operation takes longer than the target interval, the next operation will be delayed.
-			*	\param [in] _daemonOperation	(OPTIONAL) The function to be executed recurring based on the provided interval.
-			*									NOTE: If an operation is not provided the Daemon will still spawn an events at the interval.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT	The _targetInterval must be greater than 0 milliseconds.
-			*	\retval GReturn::SUCCESS			The Daemon was successfully intialized and created and is now running.
-			*/
-			GReturn Create(unsigned int _targetInterval, std::function<void()> _daemonOperation);
-
-			//! Alternate Allocation & Intialization of a GDaemon. 
-			/*!
-			*	Same as standard Create call but allows the user to start the Daemon in a paused state if desired.	
-			*
-			*	\param [in] _targetInterval		Same as standard Create parameter.
-			*	\param [in] _daemonOperation	Same as standard Create parameter.
-			*	\param [in] _delayOrPause		How many milliseconds a deamon will wait before starting operations.
-			*									Passing no delay (0) will cause the daemon to begin in a manually paused state.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT	The _targetInterval must be greater than 0 milliseconds.
-			*	\retval GReturn::SUCCESS			The Daemon was successfully intialized and created.
-			*/
-			GReturn Create(unsigned int _targetInterval, std::function<void()> _daemonOperation, unsigned int _delayOrPause);
-			//! Alternate Allocation & Intialization of a GDaemon. 
-			/*!
-			*	Same as alternate Create call but allows the user to provide a GLogic object with swappable logic.
-			*
-			*	\param [in] _daemonLogic		GLogic object containing the logic you wish to execute.
-			*	\param [in] _targetInterval		Same as standard Create parameter.
-			*	\param [in] _delayOrPause		Same as alternate Create parameter.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT	_daemonLogic must be valid and the _targetInterval 
-													must be greater than 0 milliseconds.
-			*	\retval GReturn::SUCCESS			The Daemon was successfully intialized and created.
-			*/
-			GReturn Create(GLogic _daemonLogic, unsigned int _targetInterval, unsigned int _delayOrPause);
-
-			//! Events generated by GDaemon. These messages are used to notify observers when changes to operations occur. 
-			enum class Events {
-				OPERATION_COMPLETED,	//!< An iteration of the provided operation was just executed and completed.
-				OPERATIONS_PAUSED,		//!< All future operations are on hold and none are currently running.
-				OPERATIONS_RESUMING		//!< Scheduled operations are about to resume.
-			};
-
-			/*! EVENT_DATA provided by GDaemon. All events provide the following relevant information. */
-			struct EVENT_DATA {
-				unsigned long long operationCount; /*!< The number of times the internal operation has been fully executed so far. */
-			};
-
-			//! Requests that a GDaemon cease re-scheduling of operations once/if the current operation is complete. 
-			/*!
-			*	If an operation is currently active the pause will take effect once it completes.
-			*	The Pause will not block the current thread of execution unless "_wait" is true.
-			*
-			*	\param [in] _wait		Should this function block until the active execution of this Daemon has completed?
-			*							NOTE: Do not set this to true if you are on the same thread as the Daemon (ex: within Operation).
-			*	\param [in] _spinUntil	Determine how long this thread will spinlock waiting for daemon to complete (NANOSECONDS).
-			*							Once "_spinUntil" nanoseconds has elapsed the current thread will yield to the OS scheduler.
-			*							NOTE: If your not in a time/performance critical area you should just use 0.
-			*
-			*	\retval GReturn::DEADLOCK	You have attempted wait for Daemon within itself. (This would cause a Deadlock)
-			*	\retval GReturn::SUCCESS	We have successfully signaled the Daemon to hold off on future operations.
-			*	\retval GReturn::REDUNDANT	Future scheduled Operations have already been Paused.
-			*/
-			virtual GReturn Pause(bool _wait, unsigned int _spinUntil) = 0;
-
-			//! Requests that a GDaemon resume re-scheduling of operations once enough time has elapsed. 
-			/*!
-			*	Signals the Daemon to append sequential operations once/if any current operations have completed.
-			*
-			*	\retval GReturn::SUCCESS	Scheduled operations have been resumed.
-			*	\retval GReturn::REDUNDANT	Scheduled operations are already in progress.
-			*/
-			virtual GReturn Resume() = 0;
-
-			//! Gets the number of times this Daemon has completed requested operations.  
-			/*!
-			*	The internal counter is incremented everytime an operation has completed.
-			*	This counter combined with Daemon events can potentially be used to synchronize data or chain workloads.
-			*
-			*	\param [out] _outCounter	The current number of completed operations.
-			*
-			*	\retval GReturn::SUCCESS	Value of internal counter was successfully written to output.
-			*/
-			virtual GReturn Counter(unsigned long long& _outCounter) const = 0;
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -11250,17 +9406,6 @@ namespace GW
 #ifndef GCONCURRENT_H
 #define GCONCURRENT_H
 
-/*!
-	File: GConcurrent.h
-	Purpose: A Gateware interface that provides a simple way to parallelize various operations.
-	Dependencies: win32[] linux[] apple[]
-	Asynchronus: YES
-	Author: Lari H. Norri
-	Contributors: Ryan Powser
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -11730,24 +9875,15 @@ namespace GW {
 
 
 
-//! The SYSTEM namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The SYSTEM namespace to which all Gateware fundamental interfaces must belong.
 	namespace SYSTEM
 	{
-		//! This Proxy is a simple way to send work to other threads and wait or be informed that it has been completed.
-		/*!
-		*	GConcurrent is used by end users and even Gateware itself to launch one-time parallel thread work.
-		*	Even though you can create multiple instances of a GConcurrent they all utilize the same background thread pool.
-		*	GConcurrent is capable of branching flexible single tasks or even optimized mass parallel array workloads.
-		*/
 		class GConcurrent final
 			: public I::GProxy<I::GConcurrentInterface, I::GConcurrentImplementation, bool>
 		{
 		public: // Only public functions are exposed via Proxy, never protected or private operations
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GConcurrent)
 			GATEWARE_TYPEDEF(Events)
 			GATEWARE_TYPEDEF(EVENT_DATA)
@@ -11755,102 +9891,8 @@ namespace GW
 			GATEWARE_FUNCTION(BranchDynamic)
 			GATEWARE_TEMPLATE_FUNCTION(BranchParallel)
 			GATEWARE_FUNCTION(Converge)
-			//! \endcond
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Allocates & Initializes a GConcurrent.
-			/*!
-			*	Creates a GConcurrent proxy which enables you to launch operations on other threads and synchronize with them.
-			*	The GConcurrent is a straightforward way to add tasks to Gateware's internal threadpool.
-			*
-			*	\param [in] _suppressEvents	If you only use "Converge" or do not require GEvent notifications, set to false for better perfomance.
-			*
-			*	\retval GReturn::SUCCESS	GConcurrent created successfully, ready to branch work.
-			*/
-			GReturn Create(bool _suppressEvents);
-
-			//! Events generated by GConcurrent. These messages are used to notify observers when tasks complete.
-			enum class Events {
-				SINGULAR_TASK_COMPLETE,		//!< A task started by "BranchSingular" has finished.
-				PARALLEL_TASK_COMPLETE,		//!< A task started by "BranchParallel" has finished.
-				PARALLEL_SECTION_COMPLETE	//!< A specific sub-section of a parallel task has finished.
-			};
-
-			/*! EVENT_DATA provided by GConcurrent. */
-			struct EVENT_DATA {
-				unsigned long long taskSubmissionIndex;	/*!< Identifies a task based on increasing submission order. (ALWAYS VALID) */
-				unsigned long long microsecondsElapsed;	/*!< How long it took for the reported TASK to complete (queue time inclusive). NOTE: Events::PARALLEL_SECTION_COMPLETE does NOT factor in queue wait times. */
-				unsigned int completionRange[2];		/*!< Reports what section of a parallel operation was completed [start,end]. NOTE: For Events::SINGULAR_TASK_COMPLETE, this is always 0-1. */
-			};
-
-			//! Launch a single-thread operation to run concurrently with this thread.
-			/*!
-			*	Adds a job to Gateware's internal threadpool, wait for this operation using "Converge" or listen for: Events::SINGULAR_TASK_COMPLETE
-			*
-			*	\param [in] _singleTask	Any function/lambda that has a void return type.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT	You must provide a non-null function to execute.
-			*	\retval GReturn::SUCCESS			We have successfully submitted the task for processing.
-			*/
-			virtual GReturn BranchSingular(std::function<void()> _singleTask) = 0;
-
-			//! Launch a flexible and safe single-thread operation to run concurrently with this thread.
-			/*!
-			*	Adds a job to Gateware's internal threadpool, wait for this operation using "Converge" or listen for: Events::SINGULAR_TASK_COMPLETE
-			*
-			*	\param [in] _dynamicTask	A valid GLogic proxy for safe/interchanagable execution.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT	You must provide a non-invalid GLogic proxy to reference.
-			*	\retval GReturn::SUCCESS			We have successfully submitted the task for processing.
-			*/
-			virtual GReturn BranchDynamic(CORE::GLogic _dynamicTask) = 0;
-
-			//! Launch a multi-thread spanning simulatenous array modification operation to run concurrently with this thread.
-			/*!
-			*	Allows you to process large contigious data sets using a divide & conquer approach.
-			*	Based on how many "_maxSections" are required to traverse "_arraySize" we create that many jobs in the internal thread pool.
-			*	Then each job will run "_parallelTask" for each input/output pair in it's designated section (optional array location is provided).
-			*	To know when a single section completes listen for Events::PARALLEL_SECTION_COMPLETE. There is no cross section ordering garuntee.
-			*	Global resources accessed by the provided operation are your responsibility to synchronize for thread safety (recc: GThreadShared).
-			*	However the provided arrays are safely accessed due to being divided evenly amongst the internal jobs (no overlap).
-			*	You may wait for this entire operation to complete using "Converge" or listen for Events::PARALLEL_TASK_COMPLETE
-			*	Once you have "Converged" or received the appropriate message(s) you are safe to acd amongst processing cores.
-			*
-			*	\param [in] _parallelTask	Pointer to static operation responsible for element processing, called once for each specific element.
-			*	\param [in] _maxSection		The maximum # of elements processed by a thread at once, this has the largest impact on perfomance.
-			*								NOTE: As rule of thumb this value should be smaller for complex operations and larger for simplistic ones.
-			*	\param [in] _arraySize		The size of array or problem domain that is to be divideey wish each routine to have access to.
-			*   \param [in] _userData       (OPTIONAL) Pointer to some custom user provided data that the input/output data arrays might need.
-			*	\param [in] _inStride		(OPTIONAL) if 0 then sizeof(Input) type used for input array traversal, otherwise this byte amount is used.
-			*	\param [in] _inputArray		(OPTIONAL) Array of input data elements that will be fed to the processing system.
-			*	\param [in] _outStride		(OPTIONAL) if 0 then sizeof(Output) type used for output array traversal, otherwise this byte amount is used.
-			*	\param [out] _outputArray	(OPTIONAL) Array of output data elements that will be fed to the processing system.
-			*
-			*	\retval GReturn::MEMORY_CORRUPTION	_inputArray & _outputArray have an overlapping memory space. (Just use _outputArray instead)
-			*	\retval GReturn::INVALID_ARGUMENT	You must provide a non-null function to execute and a non-zero arraySize & maxSection.
-			*                                       Cannot use the same array for _inputArray and _outputArray. In this situation, just use _outputArray.
-			*	\retval GReturn::SUCCESS			We have successfully submitted the task for processing.
-			*/
-			template<typename Input, typename Output>
-			GReturn BranchParallel(void(*_parallelTask)(const Input*, Output*, unsigned int, const void*), unsigned int _maxSection, unsigned int _arraySize, const void* _userData, int _inStride, const Input* _inputArray, int _outStride, Output* _outputArray);
-
-			//! Forces the current thread to wait until any & all branched processing has completed.
-			/*!
-			*	Polls the GConcurrent until all running tasks have completed.
-			*	Use this when you need to access resources on the current thread that may still be processing elsewhere.
-			*	If you want a less invasive method of waiting and responding, consider using the built-in messaging system to be notified instead.
-			*
-			*	\param [in]	_spinUntil	Determine how long the current thread will spinlock waiting for all Tasks to complete. (in NANOSECONDS)
-			*							Once "_spinUntil" nanoseconds has elapsed the current thread will yield to the OS scheduler. (1 millisecond yield)
-			*							Upon being re-scheduled the thread will try to spinlock again until "_spinUntil" is reached again or completion.
-			*							NOTE: If your not in a time/performance critical area you should just use 0. Wake times dependent on OS resolution.
-			*
-			*	\retval GReturn::FAILURE	There have been no Tasks ever or since you last Converged.
-			*	\retval GReturn::SUCCESS	Tasks were running and we sucessfully waited for their completion.
-			*/
-			virtual GReturn Converge(unsigned int _spinUntil) = 0;
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -11867,15 +9909,6 @@ namespace GW
 #ifndef GLOG_H
 #define GLOG_H
 
-/*!
-	File: GLog.h
-	Purpose: A Gateware interface that handles logging in a thread safe manner.
-	Author: Justin W. Parks
-	Contributors: Anthony G. Balsamo, Ryan Powser
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -12416,121 +10449,24 @@ namespace GW
 #endif
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all Gateware library interfaces must belong.
 	namespace SYSTEM
 	{
-		//! Cross platform threadsafe logger.
-		/*! 
-		*	GLog inherits directly from GMultiThreaded, therefore its implementation 
-		*	must be thread safe.
-		*/
 		class GLog final 
 			: public I::GProxy<I::GLogInterface, I::GLogImplementation, const char * const>
 		{
 			// All Gateware API interfaces contain no variables & are pure virtual.
 		public:
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GLog)
 			GATEWARE_FUNCTION(Log)
 			GATEWARE_FUNCTION(LogCategorized)
 			GATEWARE_FUNCTION(EnableVerboseLogging)
 			GATEWARE_FUNCTION(EnableConsoleLogging)
 			GATEWARE_FUNCTION(Flush)
-			//! \endcond
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Creates a GLog object.
-			/*!
-			*	This function will create a GLog object with the log file being created in the directory
-			*	the program was ran from. If you want to control where the log file is going to be created
-			*	then use the custom function below to pass in a GFile* that is pre set the way you want it.
-			*	Reference count of created object is initialized to one.
-			*
-			*	\param [in] _fileName The name of the log file.
-			*
-			*	\retval INVALID_ARGUMENT  Either one or both arguments are nullptrs.
-			*	\retval FAILURE  GLog was not created. _outLog will be null.
-			*	\retval SUCCESS  GLog was successfully created.
-			*/
-			GReturn Create(const char* const _fileName);
-
-			//! Creates a GLog object.
-			/*!
-			*	This function will create a GLog object with the GFile object that was passed in.
-			*	This is so you can have more control over your log by setting up a GFile in advance.
-			*	The GFile object should already have a file open for text writing.
-			*	Created GLog object will have its reference count initialized to one.
-			*	
-			*	\param [in] _file The GFile object that this log will use.
-			*
-			*	\retval INVALID_ARGUMENT Either one or both the arguments are nullptr.
-			*	\retval FAILURE  GLog was not created. _outLog will be null.
-			*	\retval SUCCESS  GLog was successfully created.
-			*/
-			GReturn Create(GFile _file);
-
-			//! Logs a null terminated string.
-			/*!
-			*	Date, Time, and thread ID will be appended to the front of the message unless
-			*	specified otherwise (See EnableVerboseLogging). A new line character will be
-			*	appended to the end of the string so your log messages do not require a new line.
-			*	The string is logged to the internal GFile object.
-			*
-			*	\param [in] _log The message to log out.
-			*
-			*	\retval INVALID_ARGUMENT  A nullptr was passed in.
-			*	\retval FAILURE  The queue has reached maximum size (call flush).
-			*	\retval SUCCESS  Successfully queued the message to the log.
-			*/
-			virtual GReturn Log(const char* const _log) = 0;
-
-			//! Logs a null terminated string with a category.
-			/*!
-			*	Date, Time, and thread ID will be appended to the front of the message unless
-			*	specified otherwise (See EnableVerboseLogging). A new line character will be
-			*	appended to the end of the string so your log messages do not require a new line.
-			*	The string is logged to the internal GFile object.
-			*
-			*	\param [in] _category	The user-defined category the log belongs to. ie: ERROR, WARNING, INFO, etc.
-			*	\param [in] _log		The message to log out.
-			*
-			*	\retval INVALID_ARGUMENT	Either _category or _log are nullptr.
-			*	\retval FAILURE				The queue has reached maximum size (call flush).
-			*	\retval SUCCESS				Successfully queued the message to the log.
-			*/
-			virtual GReturn LogCategorized(const char* const _category, const char* const _log) = 0;
-
-			//! Turns verbose logging on or off.
-			/*!
-			*	Use this function to ensure or prevent the addition of date, time, and threadID
-			*	to your log messages.
-			*
-			*	\param [in] _value true to turn on or false to turn off.
-			*/
-			virtual GReturn EnableVerboseLogging(bool _value) = 0;
-
-			//! Turns console logging on or off.
-			/*!
-			*	Use this function to ensure or prevent the additional console logging.
-			*
-			*	\param [in] _value true to turn on or false to turn off.
-			*/
-			virtual GReturn EnableConsoleLogging(bool _value) = 0;
-
-			//! Forces a log dump to file.
-			/*!
-			*	This will force a log dump from memory to disk and clear the log queue.
-			*
-			*	\retval FAILURE  Most likely a file corruption or a file is not open.
-			*	\retval SUCCESS  Successfully dumped the logs.
-			*/
-			virtual GReturn Flush() = 0;
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -12547,15 +10483,6 @@ namespace GW
 #ifndef GWINDOW_H
 #define GWINDOW_H
 
-/*!
-	File: GWindow.h
-	Purpose: A Gateware interface that creates a window and handles its properties.
-	Author: Nic Russell
-	Contributors: ShuoYi Chang, Andre Reid, Kai Huang, Ozzie Mercado, Ryan Powser
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -12889,17 +10816,17 @@ static_assert(sizeof(void*) == 8, "Gateware supports x64 platforms only.");
 // The Major version is auto-generated based on the current year.
 #define GATEWARE_MAJOR 22
 // The Minor version is auto-generated based on the current day of the year.
-#define GATEWARE_MINOR 129
+#define GATEWARE_MINOR 136
 // The Patch version is auto-generated based on the current UTC hour of the day.
-#define GATEWARE_PATCH 23
+#define GATEWARE_PATCH 19
 // Pulled directly from GIT  
-#define GATEWARE_BRANCH "Peck-LookAtRH"
+#define GATEWARE_BRANCH "Peck-LookAtRHFix"
 // Pulled directly from GIT
-#define GATEWARE_COMMIT_HASH 0xb8d92cd7
+#define GATEWARE_COMMIT_HASH 0xa168ef65
 // Standard Window Title Bar
-#define GATEWARE_VERSION_STRING "Gateware v22.129.23"
+#define GATEWARE_VERSION_STRING "Gateware v22.136.19"
 // Window Title Bar displayed in DEBUG builds
-#define GATEWARE_VERSION_STRING_LONG "Gateware v22.129.23 (Peck-LookAtRH) [b8d92cd7]"
+#define GATEWARE_VERSION_STRING_LONG "Gateware v22.136.19 (Peck-LookAtRHFix) [a168ef65]"
 
 #endif
 
@@ -14261,17 +12188,17 @@ static_assert(sizeof(void*) == 8, "Gateware supports x64 platforms only.");
 // The Major version is auto-generated based on the current year.
 #define GATEWARE_MAJOR 22
 // The Minor version is auto-generated based on the current day of the year.
-#define GATEWARE_MINOR 129
+#define GATEWARE_MINOR 136
 // The Patch version is auto-generated based on the current UTC hour of the day.
-#define GATEWARE_PATCH 23
+#define GATEWARE_PATCH 19
 // Pulled directly from GIT  
-#define GATEWARE_BRANCH "Peck-LookAtRH"
+#define GATEWARE_BRANCH "Peck-LookAtRHFix"
 // Pulled directly from GIT
-#define GATEWARE_COMMIT_HASH 0xb8d92cd7
+#define GATEWARE_COMMIT_HASH 0xa168ef65
 // Standard Window Title Bar
-#define GATEWARE_VERSION_STRING "Gateware v22.129.23"
+#define GATEWARE_VERSION_STRING "Gateware v22.136.19"
 // Window Title Bar displayed in DEBUG builds
-#define GATEWARE_VERSION_STRING_LONG "Gateware v22.129.23 (Peck-LookAtRH) [b8d92cd7]"
+#define GATEWARE_VERSION_STRING_LONG "Gateware v22.136.19 (Peck-LookAtRHFix) [a168ef65]"
 
 #endif
 
@@ -16026,17 +13953,17 @@ static_assert(sizeof(void*) == 8, "Gateware supports x64 platforms only.");
 // The Major version is auto-generated based on the current year.
 #define GATEWARE_MAJOR 22
 // The Minor version is auto-generated based on the current day of the year.
-#define GATEWARE_MINOR 129
+#define GATEWARE_MINOR 136
 // The Patch version is auto-generated based on the current UTC hour of the day.
-#define GATEWARE_PATCH 23
+#define GATEWARE_PATCH 19
 // Pulled directly from GIT  
-#define GATEWARE_BRANCH "Peck-LookAtRH"
+#define GATEWARE_BRANCH "Peck-LookAtRHFix"
 // Pulled directly from GIT
-#define GATEWARE_COMMIT_HASH 0xb8d92cd7
+#define GATEWARE_COMMIT_HASH 0xa168ef65
 // Standard Window Title Bar
-#define GATEWARE_VERSION_STRING "Gateware v22.129.23"
+#define GATEWARE_VERSION_STRING "Gateware v22.136.19"
 // Window Title Bar displayed in DEBUG builds
-#define GATEWARE_VERSION_STRING_LONG "Gateware v22.129.23 (Peck-LookAtRH) [b8d92cd7]"
+#define GATEWARE_VERSION_STRING_LONG "Gateware v22.136.19 (Peck-LookAtRHFix) [a168ef65]"
 
 #endif
 
@@ -16801,19 +14728,15 @@ namespace GW
 #endif
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all Gateware system interfaces must belong.
 	namespace SYSTEM
 	{
-		//! A Gateware interface that creates a window and handles its properties.
 		class GWindow final
 			: public I::GProxy<I::GWindowInterface, I::GWindowImplementation, int, int, int, int, GW::SYSTEM::GWindowStyle>
 		{
 		public: // Only public functions are exposed via Proxy, never protected or private operations
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GWindow)
 			GATEWARE_TYPEDEF(Events)
 			GATEWARE_TYPEDEF(EVENT_DATA)
@@ -16841,239 +14764,9 @@ namespace GW
 			GATEWARE_FUNCTION(Register)
 			GATEWARE_CONST_FUNCTION(Observers)
 			GATEWARE_FUNCTION(Push)
-			//! \endcond
 			
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Creates a valid GWindow object. 
-			/*!
-			*	\param [in] _x		X position of the window
-			*	\param [in] _y		Y position of the window
-			*	\param [in] _width	Client width of the window
-			*	\param [in] _height Client height of the window
-			*	\param [in] _style	Style of the window. See \ref GWindowStyle for more info.
-			*
-			*	\retval GReturn::SUCCESS	This always succeeds. (unless you run out of memory)
-			*/
-			GReturn Create(int _x, int _y, int _width, int _height, GW::SYSTEM::GWindowStyle _style);
-
-			//! Events holds the possible events a GWindow window can broadcast.
-			enum class Events {
-				MINIMIZE,			//!< Window was minimized.
-				MAXIMIZE,			//!< Window was maximized.
-				RESIZE,				//!< Window was resized in some way.
-				MOVE,				//!< Window was moved.
-				DISPLAY_CLOSED,		//!< Linux only message that is fired after XCloseDisplay() but before XCloseWindow() 
-				EVENTS_PROCESSED,	//!< Notifies users that all queued window events have been processed 
-				DESTROY,			//!< Window was closed.
-			};
-
-			/*! EVENT_DATA holds the properties of the window the event was sent from. */
-			struct EVENT_DATA {
-				Events eventFlags;			/*!< The type of GWindow::Events this EVENT_DATA belongs to. */
-				unsigned int height;		/*!< The total height of the window including borders. */
-				unsigned int width;			/*!< The total width of the window includeing borders. */
-				unsigned int clientHeight;	/*!< The height of the client area. */
-				unsigned int clientWidth;	/*!< The width of the client area. */
-				int windowX;				/*!< The X position of the top left corner of the window in pixels. */
-				int windowY;				/*!< The Y position of the top left corner of the window in pixels. */
-				void* windowHandle;			/*!< A handle to the native OS window. */
-			};
-
-			//! Flushes and processes all messages from the window's event queue.
-			/*!
-			*	This function is meant to be called once a frame in an application's
-			*	main loop. This function will break when all waiting messages have
-			*   been processed and the event queue is empty.
-			*
-			*	\retval GReturn::FAILURE The window is invalid or is about to be invalid
-			*	\retval GReturn::SUCCESS The messages were successfully processed and removed
-			*/
-			virtual GReturn ProcessWindowEvents() = 0;
-
-			//! Gives the currently opened window the specified size, position and style.
-			/*!
-			*	If width and height are equal to or greater than the native resolution, the passed in
-			*	GWindowStyle will be overwritten to be the fullscreen version if it is not already.
-			*	If position parameters are less than 0 then 0 will be used. If position parameters
-			*	are greater than native resoultion, maximum native resolution parameters will be used.
-			*
-			*	\param [in] _x The x position on screen to place the top left corner of the window.
-			*	\param [in] _y The y position on screen to place the top left corner of the window.
-			*	\param [in] _width The width to resize the client area of the window to.
-			*	\param [in] _height The height to resize the client area of the window to.
-			*	\param [in] _style The style to give to the window. (see \ref GWindowStyle for style options)
-			*
-			*	\retval GReturn::FAILURE The window is invalid
-			*   \retval GReturn::SUCCESS The operation is successful
-			*/
-			virtual GReturn ReconfigureWindow(int _x, int _y, int _width, int _height, GW::SYSTEM::GWindowStyle _style) = 0;
-
-			//! Changes the text displayed at the top bar of the window.
-			/*!
-			*	\param [in] _newName The new name to give to the window.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT The string passed in contains invalid characters or is null.
-			*	\retval GReturn::FAILURE The window is invalid
-			*	\retval GReturn::SUCCESS The operation is successful
-			*/
-			virtual GReturn SetWindowName(const char* _newName) = 0;
-
-			//! Changes the icon displayed in the title bar of the window.
-			/*!
-			*	\param [in] _width The width of the icon.
-			*	\param [in] _height The height of the icon.
-			*	\param [in] _argbPixels An array of ARGB formatted pixels that represent the new icon.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT One of the arguments is less than 1 or a nullptr
-			*	\retval GReturn::FAILURE The window or pixel array is invalid
-			*	\retval GReturn::SUCCESS The operation is successful
-			*/
-			virtual GReturn SetIcon(int _width, int _height, const unsigned int* _argbPixels) = 0;
-
-			//! Repositions the top left corner of the window to the specified x and y coordinates on screen.
-			/*!
-			*	If position parameters are less than 0, then 0 will be used. If position parameters
-			*	are greater than native resolution, maximum native resolution parameters will be used.
-			*
-			*	\param [in] _x The x position on screen to move the window to.
-			*	\param [in] _y The y position on screen to move the window to.
-			*
-			*	\retval GReturn::FAILURE The window is invalid
-			*	\retval GReturn::SUCCESS The operation is successful
-			*/
-			virtual GReturn MoveWindow(int _x, int _y) = 0;
-
-			//! Resizes the currently opened window to the specified width and height.
-			/*!
-			*	If width and height are greater than the native resolution, the GWindowStyle
-			*	will be overwritten to be the fullscreen version if it is not already.
-			*   If position parameters are less than 0 then 0 will be used. If position parameters
-			*	are greater than native resoultion, maximum native resolution parameters will be used.
-			*
-			*	\param [in] _width The width to resize the client area of the window to.
-			*	\param [in] _height The height to resize the client area of the window to.
-			*
-			*	\retval GReturn::FAILURE The window is invalid
-			*	\retval GReturn::SUCCESS The operation is successful
-			*/
-			virtual GReturn ResizeWindow(int _width, int _height) = 0;
-
-			//! Maximize the currently opened window.
-			/*!
-			*	\retval GReturn::FAILURE The window is invalid
-			*	\retval GReturn::SUCCESS The operation is successful
-			*/
-			virtual GReturn Maximize() = 0;
-
-			//! Minimizes the currently opened window.
-			/*!
-			*	\retval GReturn::FAILURE The window is invalid
-			*	\retval GReturn::SUCCESS The operation is successful
-			*/
-			virtual GReturn Minimize() = 0;
-
-			//! Sets the currently opened window's style to the specified style.
-			/*!
-			*	\param [in] _style The \ref GWindowStyle to change the window to.
-			*
-			*	\retval GReturn::FAILURE The window is invalid
-			*	\retval GReturn::SUCCESS The operation is successful
-			*/
-			virtual GReturn ChangeWindowStyle(GW::SYSTEM::GWindowStyle _style) = 0;
-
-			//! Gets the width in pixels of the currently opened window.
-			/*!
-			*	\param [out] _outWidth Width of the currently opened window.
-			*
-			*	\retval GReturn::FAILURE The window is invalid
-			*   \retval GReturn::SUCCESS The operation is successful
-			*/
-			virtual GReturn	GetWidth(unsigned int& _outWidth) const = 0;
-
-			//! Gets the height in pixels of the currently opened window.
-			/*!
-			*	\param [out] _outHeight Height of the currently opened window.
-			*
-			*	\retval GReturn::FAILURE The window is invalid
-			*   \retval GReturn::SUCCESS The operation is successful
-			*/
-			virtual GReturn	GetHeight(unsigned int& _outHeight) const = 0;
-
-			//! Gets the client width in pixels of the currently opened window.
-			/*!
-			*	\param [out] _outClientWidth Client width of the currently opened window.
-			*
-			*	\retval GReturn::FAILURE The window is invalid
-			*   \retval GReturn::SUCCESS The operation is successful
-			*/
-			virtual GReturn	GetClientWidth(unsigned int& _outClientWidth) const = 0;
-
-			//! Gets the client height in pixels of the currently opened window.
-			/*!
-			*	\param [out] _outClientHeight Client height of the currently opened window.
-			*
-			*	\retval GReturn::FAILURE The window is invalid
-			*   \retval GReturn::SUCCESS The operation is successful
-			*/
-			virtual GReturn	GetClientHeight(unsigned int& _outClientHeight) const = 0;
-
-			//! Gets the X position in screen coordinates of the top left corner of the window.
-			/*!
-			*	\param [out] _outX X position in screen coordinates of the top left corner of the window.
-			*
-			*	\retval GReturn::FAILURE The window is invalid
-			*   \retval GReturn::SUCCESS The operation is successful
-			*/
-			virtual GReturn	GetX(unsigned int& _outX) const = 0;
-
-			//! Gets the Y position in screen coordinates of the top left corner of the window.
-			/*!
-			*	\param [out] _outY Y position in screen coordinates of the top left corner of the window.
-			*
-			*	\retval GReturn::FAILURE The window is invalid
-			*   \retval GReturn::SUCCESS The operation is successful
-			*/
-			virtual GReturn	GetY(unsigned int& _outY) const = 0;
-
-			//! Gets the location of the top-left corner of the client area of the window.
-			/*!
-			*	\param [out] _outX X location of the top-left corner of the client area.
-			*	\param [out] _outY Y location of the top-left corner of the client area.
-			*
-			*	\retval GReturn::FAILURE The window is invalid
-			*   \retval GReturn::SUCCESS The operation is successful
-			*/
-			virtual GReturn GetClientTopLeft(unsigned int& _outX, unsigned int& _outY) const = 0;
-
-			//! Gets a UNIVERSAL_WINDOW_HANDLE containing castable void pointers to the platform specific window handle and display.
-			/*!
-			*	\param [out] _outUniversalWindowHandle Contains information for handles
-			*
-			*	\retval GReturn::FAILURE The window is invalid
-			*   \retval GReturn::SUCCESS The operation is successful
-			*/
-			virtual GReturn GetWindowHandle(GW::SYSTEM::UNIVERSAL_WINDOW_HANDLE& _outUniversalWindowHandle) const = 0;
-
-			//! Gets a bool specifying whether or not the currently opened window is fullscreen.
-			/*!
-			*	\param [out] _outIsFullscreen True if fullscreen, false otherwise.
-			*
-			*	\retval GReturn::FAILURE The window is invalid
-			*   \retval GReturn::SUCCESS The operation is successful
-			*/
-			virtual GReturn IsFullscreen(bool& _outIsFullscreen) const = 0;
-
-			//! Gets a bool specifying whether or not the window has input focus.
-			/*!
-			*	\param [out] _outIsFocus True if in focus, false otherwise.
-			*
-			*	\retval GReturn::FAILURE The window is invalid
-			*   \retval GReturn::SUCCESS The operation is successful
-			*/
-			virtual GReturn IsFocus(bool& _outIsFocus) const = 0;
-#endif // DOXYGEN_ONLY
 		};
 	};
 }
@@ -17090,16 +14783,6 @@ namespace GW
 #ifndef GVECTOR_H
 #define GVECTOR_H
 
-/*!
-	File: GVector.h
-	Purpose: A Gateware interface that handles all vector functions.
-	Asynchronus: NO
-	Author: Shuo-Yi Chang
-	Contributors: Chris Kennedy, Ryan Powser
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -17600,19 +15283,15 @@ namespace GW
 #endif
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all Gateware math interfaces must belong.
 	namespace MATH
 	{
-		//!  A Gateware interface that handles all vector functions.
 		class GVector final
 			: public I::GProxy<I::GVectorInterface, I::GVectorImplementation>
 		{
 		public: // Only public functions are exposed via Proxy, never protected or private operations
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GVector)
 			GATEWARE_STATIC_FUNCTION(AddVectorF)
 			GATEWARE_STATIC_FUNCTION(SubtractVectorF)
@@ -17642,364 +15321,8 @@ namespace GW
 			GATEWARE_STATIC_FUNCTION(LerpD)
 			GATEWARE_STATIC_FUNCTION(SplineD)
 			GATEWARE_STATIC_FUNCTION(Downgrade)
-			//! \endcond
 				
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Creates a valid GVector Object. 
-			/*!
-			*	\retval GReturn::SUCCESS	This always succeeds. (unless you run out of memory)
-			*/
-			GReturn Create();
-
-			//! Add two vectors
-			/*!
-			*	Adds the two specified vectors and stores the result in the output vector.
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outVector		The result of addition
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn AddVectorF(MATH::GVECTORF _vector1, MATH::GVECTORF _vector2, MATH::GVECTORF& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Subtract two vectors
-			/*!
-			*	Subtracts the two specified vectors and stores the result in the output vector.
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outVector		The vector for store the result
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn SubtractVectorF(MATH::GVECTORF _vector1, MATH::GVECTORF _vector2, MATH::GVECTORF& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Scale the vector
-			/*!
-			*	Scales all elements of the input vector by the specified value
-			*	and stores the result in the output vector.
-			*
-			*	\param [in]  _vector		The first vector
-			*	\param [in]  _scalar		The specified value to scale
-			*	\param [out] _outVector		The vector for store the result
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn ScaleF(MATH::GVECTORF _vector, float _scalar, MATH::GVECTORF& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculates the dot product of the two vectors
-			/*!
-			*	Calculates the dot product of two specified vectors and stores the result in the output Value.
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outValue		The value of the dot product
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn DotF(MATH::GVECTORF _vector1, MATH::GVECTORF _vector2, float& _outValue) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculates the Cross product of the two vectors which are treated as 2 elements vector 
-			/*!
-			*	Calculates the cross product of two specified vectors which are treated as 2 elements vectors
-			*	and stores the result in the output value. The input vectors' z and w value will be ignored.
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outValue		The value of 2D vectors' cross product
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn CrossVector2F(MATH::GVECTORF _vector1, MATH::GVECTORF _vector2, float& _outValue) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculates the cross product of the two vectors which are treated as 3 elements vectors. 
-			/*!
-			*	Calculates the cross product of two specified vectors which are treated as 2 elements vector
-			*	and stores the result in the output vector. The input vectors' w value will be returned with 0.
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outVector		The vector of 3D vectors' cross product
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn CrossVector3F(MATH::GVECTORF _vector1, MATH::GVECTORF _vector2, MATH::GVECTORF& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! multiply the specified vector by the specified matrix.
-			/*!
-			*	Multiplies the specified vector by the specified matrix
-			*	and stores the result in the output vector. The input vectors' w value will be returned with 0.
-			*
-			*	\param [in]  _vector		The input vector
-			*	\param [in]  _matrix		The input matrix
-			*	\param [out] _outVector		The result of multiplicataion
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn VectorXMatrixF(MATH::GVECTORF _vector, MATH::GMATRIXF _matrix, MATH::GVECTORF& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Transform specified specified vector by specified matrix.
-			/*!
-			*	Transforms the specified vector by the specified matrix by treating the fourth row as (0, 0, 0, 1),
-			*	and the w component of result vector will return 1.The result will store in the output vector.
-			*
-			*	\param [in]  _vector		The specified vector
-			*	\param [in]  _matrix		The transform matrix
-			*	\param [out] _outVector		The result of the transformation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn TransformF(MATH::GVECTORF _vector, MATH::GMATRIXF _matrix, MATH::GVECTORF& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Computes the magnitude of the specified vector.
-			/*!
-			*	Computes the magnitude of the specified vector,	and stores the result in the output value.
-			*
-			*	\param [in]  _vector			The specified vector
-			*	\param [out] _outMagnitude		The magnitude of the vector
-			*
-			*	\retval GReturn::FAILURE				The calculation failed
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MagnitudeF(MATH::GVECTORF _vector, float& _outMagnitude) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Normalizes the specified vector.
-			/*!
-			*	Normalizes the specified vector, and stores the result in the output vector.
-			*
-			*	\param [in]  _vector		The specified vector
-			*	\param [out] _outVector		The result of the normalization.
-			*
-			*	\retval GReturn::FAILURE				The calculation failed
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn NormalizeF(MATH::GVECTORF _vector, MATH::GVECTORF& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Linear interpolates between two specified vectors
-			/*!
-			*	Linear interpolates between two specified vectors
-			*	and stores the result in the output quaternion.
-			*
-			*	\param [in]  _vector1			The start vector
-			*	\param [in]  _vector2			The end vector
-			*	\param [in]  _ratio				The interpolation coefficient
-			*	\param [out] _outVector			The result of the lerp
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn LerpF(MATH::GVECTORF _vector1, MATH::GVECTORF _vector2, float _ratio, MATH::GVECTORF& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculate the interpolation on a cuvre which connects two specified 3D vectors
-			/*!
-			*	Calculate the interpolation on a cuvre which connects two specified 3D vectors
-			*	and stores the result in the output quaternion. The component of w
-			*	will return 0. The interpolation will happen between the second point
-			*	and thrid point.
-			*
-			*	\param [in]  _vector1			The first control point
-			*	\param [in]  _vector2			The second control point
-			*	\param [in]  _vector3			The thrid control point
-			*	\param [in]  _vector4			The fourth control point
-			*	\param [in]  _ratio				The interpolation coefficient
-			*	\param [out] _outVector			The result of the spline
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn SplineF(MATH::GVECTORF _vector1, MATH::GVECTORF _vector2, MATH::GVECTORF _vector3, MATH::GVECTORF _vector4, float _ratio, MATH::GVECTORF& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Promotes float vector to double vector
-			/*!
-			*	Performs a static_cast<double>() on every element of the input vector and assigns them to the output vector
-			*
-			*	\param [in]  _vectorF		A float vector
-			*	\param [out] _outVectorD	The input float vector static_casted to a double vector
-			*
-			*	\retval GReturn::SUCCESS				The cast succeededed
-			*/
-			static GReturn Upgrade(MATH::GVECTORF _vectorF, MATH::GVECTORD& _outVectorD) { return GReturn::NO_IMPLEMENTATION; }
-
-
-
-
-
-
-
-
-
-
-
-
-
-			//! Add two vectors
-			/*!
-			*	Adds the two specified vectors and stores the result in the output vector.
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outVector		The result of addition
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn AddVectorD(MATH::GVECTORD _vector1, MATH::GVECTORD _vector2, MATH::GVECTORD& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Subtract two vectors
-			/*!
-			*	Subtracts the two specified vectors and stores the result in the output vector.
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outVector		The vector for store the result
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn SubtractVectorD(MATH::GVECTORD _vector1, MATH::GVECTORD _vector2, MATH::GVECTORD& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Scale the vector
-			/*!
-			*	Scales all elements of the input vector by the specified value
-			*	and stores the result in the output vector.
-			*
-			*	\param [in]  _vector		The first vector
-			*	\param [in]  _scalar		The specified value to scale
-			*	\param [out] _outVector		The vector for store the result
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn ScaleD(MATH::GVECTORD _vector, double _scalar, MATH::GVECTORD& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculates the dot product of the two vectors
-			/*!
-			*	Calculates the dot product of two specified vectors and stores the result in the output Value.
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outValue		The value of the dot product
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn DotD(MATH::GVECTORD _vector1, MATH::GVECTORD _vector2, double& _outValue) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculates the Cross product of the two vectors which are treated as 2 elements vector 
-			/*!
-			*	Calculates the cross product of two specified vectors which are treated as 2 elements vectors
-			*	and stores the result in the output value. The input vectors' z and w value will be ignored.
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outValue		The value of 2D vectors' cross product
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn CrossVector2D(MATH::GVECTORD _vector1, MATH::GVECTORD _vector2, double& _outValue) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! multiply the specified vector by the specified matrix.
-			/*!
-			*	Multiplies the specified vector by the specified matrix
-			*	and stores the result in the output vector. The input vectors' w value will be returned with 0.
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outVector		The result of the cross product
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn CrossVector3D(MATH::GVECTORD _vector1, MATH::GVECTORD _vector2, MATH::GVECTORD& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! multiply the specified vector by the specified matrix.
-			/*!
-			*	Multiplies the specified vector by the specified matrix
-			*	and stores the result in the output vector. The input vectors' w value will be returned with 0.
-			*
-			*	\param [in]  _vector		The input vector
-			*	\param [in]  _matrix		The input matrix
-			*	\param [out] _outVector		The result of multiplicataion
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn VectorXMatrixD(MATH::GVECTORD _vector, MATH::GMATRIXD _matrix, MATH::GVECTORD& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Transform specified specified vector by specified matrix.
-			/*!
-			*	Transforms the specified vector by the specified matrix by treating the fourth row as (0, 0, 0, 1),
-			*	and the w component of result vector will return 1.The result will store in the output vector.
-			*
-			*	\param [in]  _vector		The specified vector
-			*	\param [in]  _matrix		The transform matrix
-			*	\param [out] _outVector		The result of the transformation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn TransformD(MATH::GVECTORD _vector, MATH::GMATRIXD _matrix, MATH::GVECTORD& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Computes the magnitude of the specified vector.
-			/*!
-			*	Computes the magnitude of the specified vector,	and stores the result in the output value.
-			*
-			*	\param [in]  _vector			The specified vector
-			*	\param [out] _outMagnitude		The magnitude of the vector
-			*
-			*	\retval GReturn::FAILURE				The calculation failed
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MagnitudeD(MATH::GVECTORD _vector, double& _outMagnitude) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Normalizes the specified vector.
-			/*!
-			*	Normalizes the specified vector, and stores the result in the output vector.
-			*
-			*	\param [in]  _vector		The specified vector
-			*	\param [out] _outVector		The result of the normalization.
-			*
-			*	\retval GReturn::FAILURE				The calculation failed
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn NormalizeD(MATH::GVECTORD _vector, MATH::GVECTORD& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Spherical linear interpolates between two specified vectors
-			/*!
-			*	Spherical linear interpolates between two specified vectors
-			*	and stores the result in the output quaternion.
-			*
-			*	\param [in]  _vector1			The start vector
-			*	\param [in]  _vector2			The end vector
-			*	\param [in]  _ratio				The interpolation coefficient
-			*	\param [out] _outVector			The result of the lerp
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn LerpD(MATH::GVECTORD _vector1, MATH::GVECTORD _vector2, double _ratio, MATH::GVECTORD& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculate the interpolation between two specified 3D vectors
-			/*!
-			*	Calculate the interpolation between two specified 3D vectors
-			*	and stores the result in the output quaternion. The component of w
-			*	will return 0. The interpolation will happen between the second point
-			*	and thrid point.
-			*
-			*	\param [in]  _vector1			The first control point
-			*	\param [in]  _vector2			The second control point
-			*	\param [in]  _vector3			The thrid control point
-			*	\param [in]  _vector4			The fourth control point
-			*	\param [in]  _ratio				The interpolation coefficient
-			*	\param [out] _outVector			The result of the spline
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn SplineD(MATH::GVECTORD _vector1, MATH::GVECTORD _vector2, MATH::GVECTORD _vector3, MATH::GVECTORD _vector4, double _ratio, MATH::GVECTORD& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Demotes double vector to float vector
-			/*!
-			*	Performs a static_cast<float>() on every element of the input vector and assigns them to the output vector
-			*
-			*	\param [in]  _vectorD		A double vector
-			*	\param [out] _outVectorF	The input double vector static_casted to a float vector
-			*
-			*	\retval GReturn::SUCCESS				The cast succeededed
-			*/
-			static GReturn Downgrade(MATH::GVECTORD _vectorD, MATH::GVECTORF& _outVectorF) { return GReturn::NO_IMPLEMENTATION; }
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -18016,16 +15339,6 @@ namespace GW
 #ifndef GMATRIX_H
 #define GMATRIX_H
 
-/*!
-	File: GMatrix.h
-	Purpose: A Gateware interface that handles matrix functions.
-	Asynchronus: NO
-	Author: Shuo-Yi Chang
-	Contributors: Caio Tavares, Ryan Powser
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -18978,10 +16291,10 @@ namespace GW
 				float magnitudeX;
 				float magnitudeZ;
 
-				//camForward = targetPosition - eyePosition 
-				camForward.x = _at.x - _eye.x;
-				camForward.y = _at.y - _eye.y;
-				camForward.z = _at.z - _eye.z;
+				//camForward = eyePosition - targetPosition
+				camForward.x = _eye.x - _at.x;
+				camForward.y = _eye.y - _at.y;
+				camForward.z = _eye.z - _at.z;
 
 				magnitudeZ = sqrt((camForward.x * camForward.x) + (camForward.y * camForward.y) + (camForward.z * camForward.z));
 				if (G_WITHIN_STANDARD_DEVIATION_F(magnitudeZ, 0.0f)) return GW::GReturn::FAILURE;
@@ -18992,9 +16305,9 @@ namespace GW
 				camForward.z /= magnitudeZ;
 
 				//camRight = cross(worldUp, camForward)
-				camRight.x =  (_up.z * camForward.y) - (_up.y * camForward.z);
-				camRight.y =  (_up.x * camForward.z)- (_up.z * camForward.x);
-				camRight.z = (_up.y * camForward.x) - (_up.x * camForward.y);
+				camRight.x = (_up.y * camForward.z) - (_up.z * camForward.y);
+				camRight.y = (_up.z * camForward.x) - (_up.x * camForward.z);
+				camRight.z = (_up.x * camForward.y) - (_up.y * camForward.x);
 
 				magnitudeX = sqrt((camRight.x * camRight.x) + (camRight.y * camRight.y) + (camRight.z * camRight.z));
 				if (G_WITHIN_STANDARD_DEVIATION_F(magnitudeX, 0.0f)) return GW::GReturn::FAILURE;
@@ -19754,9 +17067,9 @@ namespace GW
 				double magnitudeZ;
 
 				//forward = targetPosition - eyePosition 
-				camForward.x = _at.x - _eye.x;
-				camForward.y = _at.y - _eye.y;
-				camForward.z = _at.z - _eye.z;
+				camForward.x = _eye.x - _at.x;
+				camForward.y = _eye.y - _at.y;
+				camForward.z = _eye.z - _at.z;
 
 				magnitudeZ = sqrt((camForward.x * camForward.x) + (camForward.y * camForward.y) + (camForward.z * camForward.z));
 				if (G_WITHIN_STANDARD_DEVIATION_D(magnitudeZ, 0)) return GW::GReturn::FAILURE;
@@ -19766,10 +17079,10 @@ namespace GW
 				camForward.y /= magnitudeZ;
 				camForward.z /= magnitudeZ;
 
-				//right = Cross(camForward, worldUp)
-				camRight.x = (_up.z * camForward.y) - (_up.y * camForward.z);
-				camRight.y = (_up.x * camForward.z) - (_up.z * camForward.x);
-				camRight.z = (_up.y * camForward.x) - (_up.x * camForward.y);
+				//right = Cross(worldUp, camForward)
+				camRight.x = (_up.y * camForward.z) - (_up.z * camForward.y);
+				camRight.y = (_up.z * camForward.x) - (_up.x * camForward.z);
+				camRight.z = (_up.x * camForward.y) - (_up.y * camForward.x);
 
 				magnitudeX = sqrt((camRight.x * camRight.x) + (camRight.y * camRight.y) + (camRight.z * camRight.z));
 				if (G_WITHIN_STANDARD_DEVIATION_D(magnitudeX, 0)) return GW::GReturn::FAILURE;
@@ -19843,19 +17156,15 @@ namespace GW
 #endif
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The core namespace to which all Gateware fundamental interfaces must belong.
 	namespace MATH
 	{
-		//! A Gateware interface that handles matrix functions.
 		class GMatrix final
 			: public I::GProxy<I::GMatrixInterface, I::GMatrixImplementation>
 		{
 		public:
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GMatrix)
 
 			//Floats
@@ -19957,989 +17266,8 @@ namespace GW
 			GATEWARE_STATIC_FUNCTION(MakeSeparateD)
 
 			GATEWARE_STATIC_FUNCTION(Downgrade)
-			//! \endcond
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Creates a valid GMatrix Object. 
-			/*!
-			*	\retval GReturn::SUCCESS	This always succeeds. (unless you run out of memory)
-			*/
-			GReturn Create();
-
-			//! Add two specified matrices
-			/*!
-			*	Adds the two specified matrices and stores the result in the output matrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of addition
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn AddMatrixF(GW::MATH::GMATRIXF _matrix1, GW::MATH::GMATRIXF _matrix2, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Subtract two specified matrices
-			/*!
-			*	Subtracts the two specified matrices and stores the result in the output matrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of subtraction
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn SubtractMatrixF(GW::MATH::GMATRIXF _matrix1, GW::MATH::GMATRIXF _matrix2, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Multiply two specified matrices
-			/*!
-			*	Multiplies the two specified matrices and stores the result in the output matrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of Multiplication
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MultiplyMatrixF(GW::MATH::GMATRIXF _matrix1, GW::MATH::GMATRIXF _matrix2, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Multiply the specified matrix by the specified vector.
-			/*!
-			*	Multiplies the specified matrix by the specified vector
-			*	and stores the result in the output vector.
-			*	The input vector's w value will be returned with 0.
-			*
-			*	\param [in]  _matrix		The input matrix
-			*	\param [in]  _vector		The input vector
-			*	\param [out] _outVector		The result of multiplicataion
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn VectorXMatrixF(GW::MATH::GMATRIXF _matrix, GW::MATH::GVECTORF _vector, GW::MATH::GVECTORF& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Convert the specified quaternion to a matrix
-			/*!
-			*	Converts the specified quaternion to a matrix and stores the result in the output matrix.
-			*
-			*	\param [in]  _quaternion	The specified quaternion
-			*	\param [out] _outMatrix		The result of the convert
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn ConvertQuaternionF(GW::MATH::GQUATERNIONF _quaternion, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Scale the matrix
-			/*!
-			*	Scales the specified matrix with a number and stores the result in the output matrix.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _scalar		The specified value to scale
-			*	\param [out] _outMatrix		The result of the scaling
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MultiplyNumF(GW::MATH::GMATRIXF _matrix, float _scalar, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculate the determinant of the specified matrix
-			/*!
-			*	Calculates the determinant of the specified matrix and stores the result in the output value.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [out] _outValue		The result of the determinant
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn DeterminantF(GW::MATH::GMATRIXF _matrix, float& _outValue) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Transpose the specified matrix
-			/*!
-			*	Transposes the specified matrix and stores the result in the output matrix.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [out] _outMatrix		The result of the transpose
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn TransposeF(GW::MATH::GMATRIXF _matrix, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Inverse the specified matrix
-			/*!
-			*	Inverses the specified matrix and stores the result in the output matrix.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [out] _outMatrix		The result of the inverse
-			*
-			*	\retval GReturn::FAILURE				The calculation failed
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn InverseF(GW::MATH::GMATRIXF _matrix, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Identity the specified matrix
-			/*!
-			*	Set the output matrix as an identity matrix
-			*
-			*	\param [out] _outMatrix		The result of the identity
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn IdentityF(GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Get the quaternion which represents the roataion of the specified matrix
-			/*!
-			*	Get the quaternion which represents the roataion of the specified matrix
-			*	and stores the result in the output quaternion.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [out] _outQuaternion	The quaternion of the specified matrix
-			*
-			*	\retval GReturn::FAILURE				The calculation failed
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn GetRotationF(GW::MATH::GMATRIXF _matrix, GW::MATH::GQUATERNIONF& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Gets the translation vector from the specified matrix
-			/*!
-			*	Gets the translation vector from the specified matrix
-			*	and stores the result in the output matrix.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [out] _outVector		The translation vector of the specified matrix
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn GetTranslationF(GW::MATH::GMATRIXF _matrix, GW::MATH::GVECTORF& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Gets the scale vector from the specified matrix
-			/*!
-			*	Gets the scale vector from the specified matrix
-			*	and stores the result in the output matrix.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [out] _outVector		The scale vector of the specified matrix
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn GetScaleF(GW::MATH::GMATRIXF _matrix, GW::MATH::GVECTORF& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Rotate the specified matrix around the x-axis by multiplying a left-handed rotation matrix
-			/*!
-			*	Rotate the specified matrix around the x-axis by multiplying a left-handed rotation matrix
-			*	and stores the result in the output matrix. Angles are measured clockwise when
-			*	looking along the rotation axis toward the origin.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [in]  _radian		The radian to rotate
-			*	\param [out] _outMatrix		The result of the rotation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn RotateXGlobalF(GW::MATH::GMATRIXF _matrix, float _radian, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Rotate the specified matrix around the x-axis by multiplying a left-handed rotation matrix
-			/*!
-			*	Rotate the specified matrix around the x-axis by multiplying a left-handed rotation matrix
-			*	and stores the result in the output matrix. Angles are measured clockwise when
-			*	looking along the rotation axis toward the origin. Preserves translation.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [in]  _radian		The radian to rotate
-			*	\param [out] _outMatrix		The result of the rotation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn RotateXLocalF(GW::MATH::GMATRIXF _matrix, float _radian, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Rotate the specified matrix around the y-axis by multiplying a left-handed rotation matrix
-			/*!
-			*	Rotate the specified matrix around the y-axis by multiplying a left-handed rotation matrix
-			*	and stores the result in the output matrix. Angles are measured clockwise when
-			*	looking along the rotation axis toward the origin.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [in]  _radian		The radian to rotate
-			*	\param [out] _outMatrix		The result of the rotation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn RotateYGlobalF(GW::MATH::GMATRIXF _matrix, float _radian, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Rotate the specified matrix around the y-axis by multiplying a left-handed rotation matrix
-			/*!
-			*	Rotate the specified matrix around the y-axis by multiplying a left-handed rotation matrix
-			*	and stores the result in the output matrix. Angles are measured clockwise when
-			*	looking along the rotation axis toward the origin. Preserves translation.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [in]  _radian		The radian to rotate
-			*	\param [out] _outMatrix		The result of the rotation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn RotateYLocalF(GW::MATH::GMATRIXF _matrix, float _radian, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Rotate the specified matrix around the z-axis by multiplying a left-handed rotation matrix
-			/*!
-			*	Rotate the specified matrix around the z-axis by multiplying a left-handed rotation matrix
-			*	and stores the result in the output matrix. Angles are measured clockwise when
-			*	looking along the rotation axis toward the origin.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [in]  _radian		The radian to rotate
-			*	\param [out] _outMatrix		The result of the rotation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn RotateZGlobalF(GW::MATH::GMATRIXF _matrix, float _radian, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Rotate the specified matrix around the z-axis by multiplying a left-handed rotation matrix
-			/*!
-			*	Rotate the specified matrix around the z-axis by multiplying a left-handed rotation matrix
-			*	and stores the result in the output matrix. Angles are measured clockwise when
-			*	looking along the rotation axis toward the origin. Preserves translation.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [in]  _radian		The radian to rotate
-			*	\param [out] _outMatrix		The result of the rotation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn RotateZLocalF(GW::MATH::GMATRIXF _matrix, float _radian, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Builds a matrix based on specified yaw, pitch, and roll angles in radian. 
-			/*!
-			*	This is a convenience function to apply a three-axis rotation in one function 
-			*	The mathematic formula is: YawPitchRoll_RotationMatrix = ( Mat_Roll * ( Mat_Pitch * Mat_Yaw))
-			*
-			*	\param [in]  _yaw			Angle of rotation around the y-axis, in radians.
-			*	\param [in]  _pitch			Angle of rotation around the x-axis, in radians.
-			*	\param [in]  _roll			Angle of rotation around the z-axis, in radians.
-			*	\param [out] _outMatrix		The result of the rotation
-			*
-			*	\retval GReturn::SUCCESS				The building succeeded
-			*/
-			static GReturn RotationYawPitchRollF(float _yaw, float _pitch, float _roll, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Builds a rotation matrix based on specified vector and an angle in radian. 
-			/*!
-			*	Builds a matrix that rotates counter-clockwise around a specified axis.
-			*
-			*	\param [in]  _vector		Vector describing the axis of rotation.
-			*	\param [in]  _radian		Angle of rotation around the vector, in radians.
-			*	\param [out] _outMatrix		The result of the rotation
-			*
-			*	\retval GReturn::FAILURE				The building failed
-			*	\retval GReturn::SUCCESS				The building succeeded
-			*/
-			static GReturn RotationByVectorF(GW::MATH::GVECTORF _vector, float _radian, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Translate the matrix by the specified vector
-			/*!
-			*	Translates the matrix by the specified vector
-			*	and stores the result in the output matrix.
-			*	The translation values along the x, y and z axes.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [in]  _vector		The vector to translate
-			*	\param [out] _outMatrix		The result of the translation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn TranslateGlobalF(GW::MATH::GMATRIXF _matrix, GW::MATH::GVECTORF _vector, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Translate the matrix by the specified vector
-			/*!
-			*	Translates the matrix by the specified vector
-			*	and stores the result in the output matrix.
-			*	The translation values along the x, y and z axes.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [in]  _vector		The vector to translate
-			*	\param [out] _outMatrix		The result of the translation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn TranslateLocalF(GW::MATH::GMATRIXF _matrix, GW::MATH::GVECTORF _vector, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Scale the matrix by the specified vector
-			/*!
-			*	Scales the matrix by the specified vector
-			*	and stores the result in the output matrix.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [in]  _vector		The vector to scale
-			*	\param [out] _outMatrix		The result of the scaling
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn ScaleGlobalF(GW::MATH::GMATRIXF _matrix, GW::MATH::GVECTORF _vector, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Scale the matrix by the specified vector
-			/*!
-			*	Scales the matrix by the specified vector
-			*	and stores the result in the output matrix.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [in]  _vector		The vector to scale
-			*	\param [out] _outMatrix		The result of the scaling
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn ScaleLocalF(GW::MATH::GMATRIXF _matrix, GW::MATH::GVECTORF _vector, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Linearly interpolates between two matrices.
-			/*!
-			*	Linearly interpolates between two matrices
-			*	and stores the result in the output matrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [in]  _ratio			The interpolation coefficient
-			*	\param [out] _outMatrix		The result of the scaling
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn LerpF(GW::MATH::GMATRIXF _matrix1, GW::MATH::GMATRIXF _matrix2, float _ratio, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Builds a left-handed perspective matrix for DirectX
-			/*!
-			*	Builds a left-handed perspective matrix for DirectX
-			*
-			*	\param [in]  _fovY	Field of view in the y direction, in radians
-			*	\param [in]  _aspect		Aspect ratio, defined as view space width divided by height
-			*	\param [in]  _zn			Z-value of the near view-plane
-			*	\param [in]  _zf			Z-value of the far view-plane
-			*	\param [out] _outMatrix		The result of the projection matrix
-			*
-			*	\retval GReturn::FAILURE				The building failed
-			*	\retval GReturn::SUCCESS				The building succeeded
-			*/
-			static GReturn ProjectionDirectXLHF(float _fovY, float _aspect, float _zn, float _zf, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Builds a right-handed perspective matrix for DirectX
-			/*!
-			*	Builds a right-handed perspective matrix for DirectX
-			*
-			*	\param [in]  _fovY	Field of view in the y direction, in radians
-			*	\param [in]  _aspect		Aspect ratio, defined as view space width divided by height
-			*	\param [in]  _zn			Z-value of the near view-plane
-			*	\param [in]  _zf			Z-value of the far view-plane
-			*	\param [out] _outMatrix		The result of the projection matrix
-			*
-			*	\retval GReturn::FAILURE				The building failed
-			*	\retval GReturn::SUCCESS				The building succeeded
-			*/
-			static GReturn ProjectionDirectXRHF(float _fovY, float _aspect, float _zn, float _zf, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Builds a left-handed perspective matrix for OpenGL
-			/*!
-			*	Builds a left-handed perspective matrix for OpenGL
-			*
-			*	\param [in]  _fovY	Field of view in the y direction, in radians
-			*	\param [in]  _aspect		Aspect ratio, defined as view space width divided by height
-			*	\param [in]  _zn			Z-value of the near view-plane
-			*	\param [in]  _zf			Z-value of the far view-plane
-			*	\param [out] _outMatrix		The result of the projection matrix
-			*
-			*	\retval GReturn::FAILURE				The building failed
-			*	\retval GReturn::SUCCESS				The building succeeded
-			*/
-			static GReturn ProjectionOpenGLLHF(float _fovY, float _aspect, float _zn, float _zf, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Builds a right-handed perspective matrix for OpenGL
-			/*!
-			*	Builds a right-handed perspective matrix for OpenGL
-			*
-			*	\param [in]  _fovY	Field of view in the y direction, in radians
-			*	\param [in]  _aspect		Aspect ratio, defined as view space width divided by height
-			*	\param [in]  _zn			Z-value of the near view-plane
-			*	\param [in]  _zf			Z-value of the far view-plane
-			*	\param [out] _outMatrix		The result of the projection matrix
-			*
-			*	\retval GReturn::FAILURE				The building failed
-			*	\retval GReturn::SUCCESS				The building succeeded
-			*/
-			static GReturn ProjectionOpenGLRHF(float _fovY, float _aspect, float _zn, float _zf, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Builds a left-handed perspective matrix for Vulkan
-			/*!
-			*	Builds a left-handed perspective matrix for Vulkan
-			*
-			*	\param [in]  _fovY	Field of view in the y direction, in radians
-			*	\param [in]  _aspect		Aspect ratio, defined as view space width divided by height
-			*	\param [in]  _zn			Z-value of the near view-plane
-			*	\param [in]  _zf			Z-value of the far view-plane
-			*	\param [out] _outMatrix		The result of the projection matrix
-			*
-			*	\retval GReturn::FAILURE				The building failed
-			*	\retval GReturn::SUCCESS				The building succeeded
-			*/
-			static GReturn ProjectionVulkanLHF(float _fovY, float _aspect, float _zn, float _zf, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Builds a right-handed perspective matrix for Vulkan
-			/*!
-			*	Builds a right-handed perspective matrix for Vulkan
-			*
-			*	\param [in]  _fovY	Field of view in the y direction, in radians
-			*	\param [in]  _aspect		Aspect ratio, defined as view space width divided by height
-			*	\param [in]  _zn			Z-value of the near view-plane
-			*	\param [in]  _zf			Z-value of the far view-plane
-			*	\param [out] _outMatrix		The result of the projection matrix
-			*
-			*	\retval GReturn::FAILURE				The building failed
-			*	\retval GReturn::SUCCESS				The building succeeded
-			*/
-			static GReturn ProjectionVulkanRHF(float _fovY, float _aspect, float _zn, float _zf, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-
-			//! Builds a left-handed view matrix
-/*!
-*	Builds a left-handed view matrix
-*
-*	\param [in]  _eye			The position of eye
-*	\param [in]  _at			The position of the camera look-at target
-*	\param [in]  _up			The direction of the world's up
-*	\param [out] _outMatrix		The result of the look-at matrix
-*
-*	\retval GReturn::FAILURE				The building failed
-*	\retval GReturn::SUCCESS				The building succeeded
-*/
-			static GReturn LookAtLHF(GW::MATH::GVECTORF _eye, GW::MATH::GVECTORF _at, GW::MATH::GVECTORF _up, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Builds a right-handed view matrix
-/*!
-*	Builds a right-handed view matrix
-*
-*	\param [in]  _eye			The position of eye
-*	\param [in]  _at			The position of the camera look-at target
-*	\param [in]  _up			The direction of the world's up
-*	\param [out] _outMatrix		The result of the look-at matrix
-*
-*	\retval GReturn::FAILURE				The building failed
-*	\retval GReturn::SUCCESS				The building succeeded
-*/
-			static GReturn LookAtRHF(GW::MATH::GVECTORF _eye, GW::MATH::GVECTORF _at, GW::MATH::GVECTORF _up, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Makes matrix1 relative to matrix2
-			/*!
-			*	Performs matrix1 * inverse(matrix2)
-			*
-			*	\param [in]  _matrix1
-			*	\param [in]  _matrix2
-			*	\param [out] _outMatrix		The result of matrix1 * inverse(matrix2)
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MakeRelativeF(GW::MATH::GMATRIXF _matrix1, GW::MATH::GMATRIXF _matrix2, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Makes matrix1 un-relative to matrix2
-			/*!
-			*	Performs matrix1 * matrix2. This will effectively undo MakeRelative()
-			*
-			*	\param [in]  _matrix1
-			*	\param [in]  _matrix2
-			*	\param [out] _outMatrix		The result of matrix1 * matrix2
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MakeSeparateF(GW::MATH::GMATRIXF _matrix1, GW::MATH::GMATRIXF _matrix2, GW::MATH::GMATRIXF& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Promotes float matrix to double matrix
-			/*!
-			*	Performs a static_cast<double>() on every element of the input matrix and assigns them to the output matrix
-			*
-			*	\param [in]  _matrixF		A float matrix
-			*	\param [out] _outMatrixD	The input float matrix static_casted to a double matrix
-			*
-			*	\retval GReturn::SUCCESS				The cast succeeded
-			*/
-			static GReturn Upgrade(GW::MATH::GMATRIXF _matrixF, GW::MATH::GMATRIXD& _outMatrixD) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Add two specified matrices
-			/*!
-			*	Adds the two specified matrices and stores the result in the output matrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of addition
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn AddMatrixD(GW::MATH::GMATRIXD _matrix1, GW::MATH::GMATRIXD _matrix2, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Subtract two specified matrices
-			/*!
-			*	Subtracts the two specified matrices and stores the result in the output matrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of subtraction
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn SubtractMatrixD(GW::MATH::GMATRIXD _matrix1, GW::MATH::GMATRIXD _matrix2, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Multiply two specified matrices
-			/*!
-			*	Multiplies the two specified matrices and stores the result in the output matrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of Multiplication
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MultiplyMatrixD(GW::MATH::GMATRIXD _matrix1, GW::MATH::GMATRIXD _matrix2, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Multiply the specified matrix by the specified vector.
-			/*!
-			*	Multiplies the specified matrix by the specified vector
-			*	and stores the result in the output vector.
-			*	The input vectors' w value will be returned with 0.
-			*
-			*	\param [in]  _matrix		The input matrix
-			*	\param [in]  _vector		The input vector
-			*	\param [out] _outVector		The result of multiplicataion
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn VectorXMatrixD(GW::MATH::GMATRIXD _matrix, GW::MATH::GVECTORD _vector, GW::MATH::GVECTORD& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Convert the specified quaternion to a matrix
-			/*!
-			*	Converts the specified quaternion to a matrix and stores the result in the output matrix.
-			*
-			*	\param [in]  _quaternion	The specified quaternion
-			*	\param [out] _outMatrix		The result of the convert
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn ConvertQuaternionD(GW::MATH::GQUATERNIOND _quaternion, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Scale the matrix
-			/*!
-			*	Scales the specified matrix with a number and stores the result in the output matrix.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _scalar		The specified value to scale
-			*	\param [out] _outMatrix		The result of the scaling
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MultiplyNumD(GW::MATH::GMATRIXD _matrix, double _scalar, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculate the determinant of the specified matrix
-			/*!
-			*	Calculates the determinant of the specified matrix and stores the result in the output value.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [out] _outValue		The result of the determinant
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn DeterminantD(GW::MATH::GMATRIXD _matrix, double& _outValue) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Transpose the specified matrix
-			/*!
-			*	Transposes the specified matrix and stores the result in the output matrix.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [out] _outMatrix		The result of the transpose
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn TransposeD(GW::MATH::GMATRIXD _matrix, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Inverse the specified matrix
-			/*!
-			*	Inverses the specified matrix and stores the result in the output matrix.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [out] _outMatrix		The result of the inverse
-			*
-			*	\retval GReturn::FAILURE				The calculation failed
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn InverseD(GW::MATH::GMATRIXD _matrix, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Identity the specified matrix
-			/*!
-			*	Set the output matrix as an identity matrix
-			*
-			*	\param [out] _outMatrix		The result of the identity
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn IdentityD(GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Get the quaternion which represents the roataion of the specified matrix
-			/*!
-			*	Get the quaternion which represents the roataion of the specified matrix
-			*	and stores the result in the output quaternion.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [out] _outQuaternion	The quaternion of the specified matrix
-			*
-			*	\retval GReturn::FAILURE				The calculation failed
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn GetRotationD(GW::MATH::GMATRIXD _matrix, GW::MATH::GQUATERNIOND& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Get the translation veector from the specified matrix
-			/*!
-			*	Gets the translation vector from the specified matrix
-			*	and stores the result in the output vector.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [out] _outVector		The translation vector of the specified matrix
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn GetTranslationD(GW::MATH::GMATRIXD _matrix, GW::MATH::GVECTORD& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Gets the scale vector from the specified matrix 
-			/*!
-			*	Gets the scale vector from the specified matrix 
-			*	and stores the result in the output matrix.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [out] _outVector		The scaling vector of the specified matrix
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn GetScaleD(GW::MATH::GMATRIXD _matrix, GW::MATH::GVECTORD& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Rotate the specified matrix around the x-axis by multiplying a left-handed rotation matrix
-			/*!
-			*	Rotate the specified matrix around the x-axis by multiplying a left-handed rotation matrix
-			*	and stores the result in the output matrix. Angles are measured clockwise when
-			*	looking along the rotation axis toward the origin. Preserves translation.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [in]  _radian		The radian to rotate
-			*	\param [out] _outMatrix		The result of the rotation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn RotateXGlobalD(GW::MATH::GMATRIXD _matrix, double _radian, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Rotate the specified matrix around the x-axis by multiplying a left-handed rotation matrix
-			/*!
-			*	Rotate the specified matrix around the x-axis by multiplying a left-handed rotation matrix
-			*	and stores the result in the output matrix. Angles are measured clockwise when
-			*	looking along the rotation axis toward the origin.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [in]  _radian		The radian to rotate
-			*	\param [out] _outMatrix		The result of the rotation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn RotateXLocalD(GW::MATH::GMATRIXD _matrix, double _radian, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Rotate the specified matrix around the y-axis by multiplying a left-handed rotation matrix
-			/*!
-			*	Rotate the specified matrix around the y-axis by multiplying a left-handed rotation matrix
-			*	and stores the result in the output matrix. Angles are measured clockwise when
-			*	looking along the rotation axis toward the origin. Preserves translation.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [in]  _radian		The radian to rotate
-			*	\param [out] _outMatrix		The result of the rotation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn RotateYGlobalD(GW::MATH::GMATRIXD _matrix, double _radian, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Rotate the specified matrix around the y-axis by multiplying a left-handed rotation matrix
-			/*!
-			*	Rotate the specified matrix around the y-axis by multiplying a left-handed rotation matrix
-			*	and stores the result in the output matrix. Angles are measured clockwise when
-			*	looking along the rotation axis toward the origin.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [in]  _radian		The radian to rotate
-			*	\param [out] _outMatrix		The result of the rotation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn RotateYLocalD(GW::MATH::GMATRIXD _matrix, double _radian, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Rotate the specified matrix around the z-axis by multiplying a left-handed rotation matrix
-			/*!
-			*	Rotate the specified matrix around the z-axis by multiplying a left-handed rotation matrix
-			*	and stores the result in the output matrix. Angles are measured clockwise when
-			*	looking along the rotation axis toward the origin. Preserves translation.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [in]  _radian		The radian to rotate
-			*	\param [out] _outMatrix		The result of the rotation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn RotateZGlobalD(GW::MATH::GMATRIXD _matrix, double _radian, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Rotate the specified matrix around the z-axis by multiplying a left-handed rotation matrix
-			/*!
-			*	Rotate the specified matrix around the z-axis by multiplying a left-handed rotation matrix
-			*	and stores the result in the output matrix. Angles are measured clockwise when
-			*	looking along the rotation axis toward the origin.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [in]  _radian		The radian to rotate
-			*	\param [out] _outMatrix		The result of the rotation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn RotateZLocalD(GW::MATH::GMATRIXD _matrix, double _radian, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Builds a matrix based on specified yaw, pitch, and roll angles in radian. 
-			/*!
-			*	This is a convenience function to apply a three-axis rotation in one function
-			*	The mathematic formula is: YawPitchRoll_RotationMatrix = ( Mat_Roll * ( Mat_Pitch * Mat_Yaw))
-			*
-			*	\param [in]  _yaw			Angle of rotation around the y-axis, in radians.
-			*	\param [in]  _pitch			Angle of rotation around the x-axis, in radians.
-			*	\param [in]  _roll			Angle of rotation around the z-axis, in radians.
-			*	\param [out] _outMatrix		The result of the rotation
-			*
-			*	\retval GReturn::SUCCESS				The building succeeded
-			*/
-			static GReturn RotationYawPitchRollD(double _yaw, double _pitch, double _roll, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Builds a rotation matrix based on specified vector and an angle in radian. 
-			/*!
-			*	Builds a matrix that rotates counter-clockwise around a specified axis. 
-			*
-			*	\param [in]  _vector		Vector describing the axis of rotation.
-			*	\param [in]  _radian		Angle of rotation around the vector, in radians.
-			*	\param [out] _outMatrix		The result of the rotation
-			*
-			*	\retval GReturn::FAILURE				The building failed
-			*	\retval GReturn::SUCCESS				The building succeeded
-			*/
-			static GReturn RotationByVectorD(GW::MATH::GVECTORD _vector, double _radian, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Translate the matrix by the specified vector
-			/*!
-			*	Translates the matrix by the specified vector
-			*	and stores the result in the output matrix.
-			*	The translation values along the x, y and z axes.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [in]  _vector		The vector to translate
-			*	\param [out] _outMatrix		The result of the translation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn TranslateGlobalD(GW::MATH::GMATRIXD _matrix, GW::MATH::GVECTORD _vector, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Translate the matrix by the specified vector
-			/*!
-			*	Translates the matrix by the specified vector
-			*	and stores the result in the output matrix.
-			*	The translation values along the x, y and z axes.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [in]  _vector		The vector to translate
-			*	\param [out] _outMatrix		The result of the translation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn TranslateLocalD(GW::MATH::GMATRIXD _matrix, GW::MATH::GVECTORD _vector, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Scale the matrix by the specified vector
-			/*!
-			*	Scales the matrix by the specified vector
-			*	and stores the result in the output matrix.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [in]  _vector		The vector to scale
-			*	\param [out] _outMatrix		The result of the scaling
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn ScaleGlobalD(GW::MATH::GMATRIXD _matrix, GW::MATH::GVECTORD _vector, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Scale the matrix by the specified vector
-			/*!
-			*	Scales the matrix by the specified vector
-			*	and stores the result in the output matrix.
-			*
-			*	\param [in]  _matrix		The specified matrix
-			*	\param [in]  _vector		The vector to scale
-			*	\param [out] _outMatrix		The result of the scaling
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn ScaleLocalD(GW::MATH::GMATRIXD _matrix, GW::MATH::GVECTORD _vector, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Linearly interpolates between two matrices.
-			/*!
-			*	Linearly interpolates between two matrices
-			*	and stores the result in the output matrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [in]  _ratio			The interpolation coefficient
-			*	\param [out] _outMatrix		The result of the scaling
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn LerpD(GW::MATH::GMATRIXD _matrix1, GW::MATH::GMATRIXD _matrix2, double _ratio, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Builds a left-handed perspective matrix for DirectX
-			/*!
-			*	Builds a left-handed perspective matrix for DirectX
-			*
-			*	\param [in]  _fovY	Field of view in the y direction, in radians
-			*	\param [in]  _aspect		Aspect ratio, defined as view space width divided by height
-			*	\param [in]  _zn			Z-value of the near view-plane
-			*	\param [in]  _zf			Z-value of the far view-plane
-			*	\param [out] _outMatrix		The result of the projection matrix
-			*
-			*	\retval GReturn::FAILURE				The building failed
-			*	\retval GReturn::SUCCESS				The building succeeded
-			*/
-			static GReturn ProjectionDirectXLHD(double _fovY, double _aspect, double _zn, double _zf, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Builds a right-handed perspective matrix for DirectX
-			/*!
-			*	Builds a right-handed perspective matrix for DirectX
-			*
-			*	\param [in]  _fovY	Field of view in the y direction, in radians
-			*	\param [in]  _aspect		Aspect ratio, defined as view space width divided by height
-			*	\param [in]  _zn			Z-value of the near view-plane
-			*	\param [in]  _zf			Z-value of the far view-plane
-			*	\param [out] _outMatrix		The result of the projection matrix
-			*
-			*	\retval GReturn::FAILURE				The building failed
-			*	\retval GReturn::SUCCESS				The building succeeded
-			*/
-			static GReturn ProjectionDirectXRHD(double _fovY, double _aspect, double _zn, double _zf, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Builds a left-handed perspective matrix for OpenGL
-			/*!
-			*	Builds a left-handed perspective matrix for OpenGL
-			*
-			*	\param [in]  _fovY	Field of view in the y direction, in radians
-			*	\param [in]  _aspect		Aspect ratio, defined as view space width divided by height
-			*	\param [in]  _zn			Z-value of the near view-plane
-			*	\param [in]  _zf			Z-value of the far view-plane
-			*	\param [out] _outMatrix		The result of the projection matrix
-			*
-			*	\retval GReturn::FAILURE				The building failed
-			*	\retval GReturn::SUCCESS				The building succeeded
-			*/
-			static GReturn ProjectionOpenGLLHD(double _fovY, double _aspect, double _zn, double _zf, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Builds a right-handed perspective matrix for OpenGL
-			/*!
-			*	Builds a right-handed perspective matrix for OpenGL
-			*
-			*	\param [in]  _fovY	Field of view in the y direction, in radians
-			*	\param [in]  _aspect		Aspect ratio, defined as view space width divided by height
-			*	\param [in]  _zn			Z-value of the near view-plane
-			*	\param [in]  _zf			Z-value of the far view-plane
-			*	\param [out] _outMatrix		The result of the projection matrix
-			*
-			*	\retval GReturn::FAILURE				The building failed
-			*	\retval GReturn::SUCCESS				The building succeeded
-			*/
-			static GReturn ProjectionOpenGLRHD(double _fovY, double _aspect, double _zn, double _zf, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Builds a left-handed perspective matrix for Vulkan
-			/*!
-			*	Builds a left-handed perspective matrix for Vulkan
-			*
-			*	\param [in]  _fovY	Field of view in the y direction, in radians
-			*	\param [in]  _aspect		Aspect ratio, defined as view space width divided by height
-			*	\param [in]  _zn			Z-value of the near view-plane
-			*	\param [in]  _zf			Z-value of the far view-plane
-			*	\param [out] _outMatrix		The result of the projection matrix
-			*
-			*	\retval GReturn::FAILURE				The building failed
-			*	\retval GReturn::SUCCESS				The building succeeded
-			*/
-			static GReturn ProjectionVulkanLHD(double _fovY, double _aspect, double _zn, double _zf, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Builds a right-handed perspective matrix for Vulkan
-			/*!
-			*	Builds a right-handed perspective matrix for Vulkan
-			*
-			*	\param [in]  _fovY	Field of view in the y direction, in radians
-			*	\param [in]  _aspect		Aspect ratio, defined as view space width divided by height
-			*	\param [in]  _zn			Z-value of the near view-plane
-			*	\param [in]  _zf			Z-value of the far view-plane
-			*	\param [out] _outMatrix		The result of the projection matrix
-			*
-			*	\retval GReturn::FAILURE				The building failed
-			*	\retval GReturn::SUCCESS				The building succeeded
-			*/
-			static GReturn ProjectionVulkanRHD(double _fovY, double _aspect, double _zn, double _zf, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Builds a left-handed view matrix
-			/*!
-			*	Builds a left-handed view matrix
-			*
-			*	\param [in]  _eye			The position of eye
-			*	\param [in]  _at			The position of the camera look-at target
-			*	\param [in]  _up			The direction of the world's up
-			*	\param [out] _outMatrix		The result of the look-at matrix
-			*
-			*	\retval GReturn::FAILURE				The building failed
-			*	\retval GReturn::SUCCESS				The building succeeded
-			*/
-			static GReturn LookAtLHD(GW::MATH::GVECTORD _eye, GW::MATH::GVECTORD _at, GW::MATH::GVECTORD _up, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Builds a right-handed view matrix
-			/*!
-			*	Builds a right-handed view matrix
-			*
-			*	\param [in]  _eye			The position of eye
-			*	\param [in]  _at			The position of the camera look-at target
-			*	\param [in]  _up			The direction of the world's up
-			*	\param [out] _outMatrix		The result of the look-at matrix
-			*
-			*	\retval GReturn::FAILURE				The building failed
-			*	\retval GReturn::SUCCESS				The building succeeded
-			*/
-			static GReturn LookAtRHD(GW::MATH::GVECTORD _eye, GW::MATH::GVECTORD _at, GW::MATH::GVECTORD _up, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Makes matrix1 relative to matrix2
-			/*!
-			*	Performs matrix1 * inverse(matrix2)
-			*
-			*	\param [in]  _matrix1
-			*	\param [in]  _matrix2
-			*	\param [out] _outMatrix		The result of matrix1 * inverse(matrix2)
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MakeRelativeD(GW::MATH::GMATRIXD _matrix1, GW::MATH::GMATRIXD _matrix2, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Makes matrix1 un-relative to matrix2
-			/*!
-			*	Performs matrix1 * matrix2. This will effectively undo MakeRelative()
-			*
-			*	\param [in]  _matrix1
-			*	\param [in]  _matrix2
-			*	\param [out] _outMatrix		The result of  matrix1 * matrix2
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MakeSeparateD(GW::MATH::GMATRIXD _matrix1, GW::MATH::GMATRIXD _matrix2, GW::MATH::GMATRIXD& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Demotes double matrix to float matrix
-			/*!
-			*	Performs a static_cast<float>() on every element of the input matrix and assigns them to the output matrix
-			*
-			*	\param [in]  _matrixD		A double matrix
-			*	\param [out] _outMatrixF	The input double matrix static_casted to a float matrix
-			*
-			*	\retval GReturn::SUCCESS				The cast succeeded
-			*/
-			static GReturn Downgrade(GW::MATH::GMATRIXD _matrixD, GW::MATH::GMATRIXF& _outMatrixF) { return GReturn::NO_IMPLEMENTATION; }
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -20956,15 +17284,6 @@ namespace GW
 #ifndef GCOLLISION2D_H
 #define GCOLLISION2D_H
 
-/*!
-	File: GCollision2D.h
-	Purpose: A Gateware interface that handles all 2D collision functions.
-	Author: Ryan Powser
-	Contributors:
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -21095,10 +17414,8 @@ namespace GW
 }
 
 #elif defined(__APPLE__) || defined(__linux__) || defined(_WIN32)
-    //! The namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all Gateware internal interfaces must belong.
 	namespace I
 	{
 		class GCollision2DImplementation : public virtual GCollision2DInterface, private GInterfaceImplementation
@@ -22089,19 +18406,15 @@ namespace GW
 #endif
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The core namespace to which all Gateware fundamental interfaces must belong.
 	namespace MATH2D
 	{
-		//! A Gateware interface that handles all 2D collision functions.
 		class GCollision2D final
 			: public I::GProxy<I::GCollision2DInterface, I::GCollision2DImplementation>
 		{
 		public:
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GCollision2D)
 			GATEWARE_TYPEDEF(GCollisionCheck2D)
 			// floats
@@ -22140,616 +18453,8 @@ namespace GW
 			GATEWARE_STATIC_FUNCTION(TestRectangleToPolygon2D)
 			GATEWARE_STATIC_FUNCTION(TestPolygonToPolygon2D)
 			GATEWARE_STATIC_FUNCTION(FindBarycentricD)
-			//! \endcond
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Creates a valid GCollision2D Object.
-			/*!
-			*	\retval GReturn::SUCCESS	This always succeeds. (unless you run out of memory)
-			*/
-			GReturn Create();
-
-			//! Listing of common codes returned by select GCollision2D functions.
-			/*! \brief	Values that represent collision checks */
-			enum class GCollisionCheck2D {
-				ERROR_NO_RESULT = -3,		/*!< Used internally by Gateware for testing purposes */
-				ABOVE = -2,					/*!< An object is above another object */
-				BELOW = -1,					/*!< An object is below another object */
-				NO_COLLISION = 0,			/*!< There is no collision between two objects */
-				COLLISION = 1				/*!< There is a collision between two objects */
-			};
-
-
-
-			// Floats
-
-			//! Floating point version of the implicit line equation
-			/*!
-			*	Performs the implicit line equation on _point and _line and stores the result in _outEquationResult.
-			*
-			*	\param [in]		_point				The point
-			*	\param [in]		_line				The line
-			*	\param [out]	_outEquationResult	The result of the implicit line equation
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ImplicitLineEquationF(MATH2D::GVECTOR2F _point, MATH2D::GLINE2F _line, float& _outEquationResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Floating point calculation that returns squared distance from point to line
-			/*!
-			*	Calculates the squared distance from _point to _line and stores the result in _outDistance.
-			*
-			*	\param [in]		_point			The point
-			*	\param [in]		_line			The line
-			*	\param [out]	_outDistance	The distance from _point to _line squared
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn SqDistancePointToLine2F(MATH2D::GVECTOR2F _point, MATH2D::GLINE2F _line, float& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Floating point calculation that returns squared distance from point to rectangle
-			/*!
-			*	Calculates the squared distance from _point to _rectangle and stores the result in _outDistance. If _point is inside _rectangle, _outDistance will be 0.
-			*
-			*	\param [in]		_point			The point
-			*	\param [in]		_rectangle		The rectangle
-			*	\param [out]	_outDistance	The distance from _point to _rectangle squared
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn SqDistancePointToRectangle2F(MATH2D::GVECTOR2F _point, MATH2D::GRECTANGLE2F _rectangle, float& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Floating point calculation that returns squared distance from point to polygon
-			/*!
-			*	Calculates the squared distance from _point to _polygon and stores the result in _outDistance. If _point is inside _polygon, _outDistance will be 0.
-			*
-			*	\param [in]		_point			The point
-			*	\param [in]		_polygon		The polygon
-			*	\param [in]		_numVerts		The number of vertices in _polygon
-			*	\param [out]	_outDistance	The distance from _point to _polygon squared
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn SqDistancePointToPolygon2F(MATH2D::GVECTOR2F _point, MATH2D::GVECTOR2F* _polygon, unsigned int _numVerts, float& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Floating point collision test between a point and a line segment
-			/*!
-			*	Performs collision detection between _point and _line and stores the result in _outResult.
-			*
-			*	<table>
-			*	<tr><th colspan="2">Possible _outResult Values
-			*	<tr><td>GCollisionCheck2D::NO_COLLISION		<td>_line degenerates to a point that is not _point
-			*	<tr><td>GCollisionCheck2D::COLLISION		<td>_point is on _line or is equal to the start or end of _line
-			*	<tr><td>GCollisionCheck2D::ABOVE			<td>_point is "above" _line relative to the normal of _line
-			*	<tr><td>GCollisionCheck2D::BELOW			<td>_point is "below" _line relatice to the normal of _line
-			*	</table>
-			*
-			*	\param [in]		_point			The point
-			*	\param [in]		_line			The line
-			*	\param [out]	_outResult		The result of the collision test
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPointToLine2F(MATH2D::GVECTOR2F _point, MATH2D::GLINE2F _line, GCollisionCheck2D& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Floating point collision test between a point and a circle
-			/*!
-			*	Performs collision detection between _point and _circle and stores the result in _outResult.
-			*
-			*	<table>
-			*	<tr><th colspan="2">Possible _outResult Values
-			*	<tr><td>GCollisionCheck2D::NO_COLLISION		<td>_point is not within or on the edge of _circle
-			*	<tr><td>GCollisionCheck2D::COLLISION		<td>_point is within or on the edge of _circle
-			*	</table>
-			*
-			*	\param [in]		_point			The point
-			*	\param [in]		_circle			The circle
-			*	\param [out]	_outResult		The result of the collision test
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPointToCircle2F(MATH2D::GVECTOR2F _point, MATH2D::GCIRCLE2F _circle, GCollisionCheck2D& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Floating point collision test between a point and a rectangle
-			/*!
-			*	Performs collision detection between _point and _rectangle and stores the result in _outResult.
-			*
-			*	<table>
-			*	<tr><th colspan="2">Possible _outResult Values
-			*	<tr><td>GCollisionCheck2D::NO_COLLISION		<td>_point is not within, on the edge, or a corner of _rectangle
-			*	<tr><td>GCollisionCheck2D::COLLISION		<td>_point is within, on the edge, or a corner of _rectangle
-			*	</table>
-			*
-			*	\param [in]		_point			The point
-			*	\param [in]		_rectangle		The rectangle
-			*	\param [out]	_outResult		The result of the collision test
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPointToRectangle2F(MATH2D::GVECTOR2F _point, MATH2D::GRECTANGLE2F _rectangle, GCollisionCheck2D& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Floating point collision test between a point and a polygon
-			/*!
-			*	Performs collision detection between _point and _polygon and stores the result in _outResult.
-			*
-			*	<table>
-			*	<tr><th colspan="2">Possible _outResult Values
-			*	<tr><td>GCollisionCheck2D::NO_COLLISION		<td>_point is not within, on the edge, or a vertex of _polygon
-			*	<tr><td>GCollisionCheck2D::COLLISION		<td>_point is within, on the edge, or a vertex of _polygon
-			*	</table>
-			*
-			*	\param [in]		_point			The point
-			*	\param [in]		_polygon		A list of vertices describing the polygon
-			*	\param [in]		_numVerts		The number of vertices in _polygon
-			*	\param [out]	_outResult		The result of the collision test
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPointToPolygon2F(MATH2D::GVECTOR2F _point, MATH2D::GVECTOR2F* _polygon, unsigned int _numVerts, GCollisionCheck2D& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Floating point collision test between a line and another line
-			/*!
-			*	Performs collision detection between _line1 and _line2 and stores the result in _outResult.
-			*
-			*	<table>
-			*	<tr><th colspan="2">Possible _outResult Values
-			*	<tr><td>GCollisionCheck2D::NO_COLLISION		<td>_line1 does not collide with _line2
-			*	<tr><td>GCollisionCheck2D::COLLISION		<td>_line1 intersects _line2, one or both of _line1's points are the same as one or both of _line2's points, one of or both of _line1's points are on _line2, or _line1 and _line2 are the same line
-			*	</table>
-			*
-			*	\param [in]		_line1			The first line
-			*	\param [in]		_line2			The second line
-			*	\param [out]	_outResult		The result of the collision test
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestLineToLine2F(MATH2D::GLINE2F _line1, MATH2D::GLINE2F _line2, GCollisionCheck2D& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Floating point collision test between a line and a circle
-			/*!
-			*	Performs collision detection between _line and _circle and stores the result in _outResult.
-			*
-			*	<table>
-			*	<tr><th colspan="2">Possible _outResult Values
-			*	<tr><td>GCollisionCheck2D::NO_COLLISION		<td>_line does not collide with _circle
-			*	<tr><td>GCollisionCheck2D::COLLISION		<td>_line intersects _circle at one or two points, _line is entirely within _circle, _line is tangent to circle, or one or both of _line's points are on the edge of _circle
-			*	</table>
-			*
-			*	\param [in]		_line			The line
-			*	\param [in]		_circle			The circle
-			*	\param [out]	_outResult		The result of the collision test
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestLineToCircle2F(MATH2D::GLINE2F _line, MATH2D::GCIRCLE2F _circle, GCollisionCheck2D& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Floating point collision test between a line and a rectangle
-			/*!
-			*	Performs collision detection between _line and _rectangle and stores the result in _outResult.
-			*
-			*	<table>
-			*	<tr><th colspan="2">Possible _outResult Values
-			*	<tr><td>GCollisionCheck2D::NO_COLLISION		<td>_line does not collide with _rectangle
-			*	<tr><td>GCollisionCheck2D::COLLISION		<td>_line intersects _rectangle at one or two points, _line is entirely within _rectangle, _line overlays one of _rectangle's sides, or one or both of _line's points are on the edge of _rectangle
-			*	</table>
-			*
-			*	\param [in]		_line			The line
-			*	\param [in]		_rectangle		The rectangle
-			*	\param [out]	_outResult		The result of the collision test
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestLineToRectangle2F(MATH2D::GLINE2F _line, MATH2D::GRECTANGLE2F _rectangle, GCollisionCheck2D& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Floating point collision test between a line and a polygon
-			/*!
-			*	Performs collision detection between _line and _polygon and stores the result in _outResult.
-			*
-			*	<table>
-			*	<tr><th colspan="2">Possible _outResult Values
-			*	<tr><td>GCollisionCheck2D::NO_COLLISION		<td>_line does not collide with _polygon
-			*	<tr><td>GCollisionCheck2D::COLLISION		<td>_line intersects _polygon at one or two points, _line is entirely within _polygon, _line overlays one of _polygon's sides, or one or both of _line's points are on the edge of _polygon
-			*	</table>
-			*
-			*	\param [in]		_line			The line
-			*	\param [in]		_polygon		A list of vertices describing the polygon
-			*	\param [in]		_numVerts		The number of vertices in _polygon
-			*	\param [out]	_outResult		The result of the collision test
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestLineToPolygon2F(MATH2D::GLINE2F _line, MATH2D::GVECTOR2F* _polygon, unsigned int _numVerts, GCollisionCheck2D& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Floating point collision test between a circle and another circle
-			/*!
-			*	Performs collision detection between _circle1 and _circle2 and stores the result in _outResult.
-			*
-			*	<table>
-			*	<tr><th colspan="2">Possible _outResult Values
-			*	<tr><td>GCollisionCheck2D::NO_COLLISION		<td>_circle1 does not collide with _circle2
-			*	<tr><td>GCollisionCheck2D::COLLISION		<td>_circle1 intersects _circle2 at one or two points, _circle1 is entirely within _circle2, _circle2 is entirely within _circle1, or _circle1 and _circle2 are the same circle
-			*	</table>
-			*
-			*	\param [in]		_circle1		The first circle
-			*	\param [in]		_circle2		The second circle
-			*	\param [out]	_outResult		The result of the collision test
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestCircleToCircle2F(MATH2D::GCIRCLE2F _circle1, MATH2D::GCIRCLE2F _circle2, GCollisionCheck2D& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Floating point collision test between a rectangle and another rectangle
-			/*!
-			*	Performs collision detection between _rectangle1 and _rectangle2 and stores the result in _outResult.
-			*
-			*	<table>
-			*	<tr><th colspan="2">Possible _outResult Values
-			*	<tr><td>GCollisionCheck2D::NO_COLLISION		<td>_rectangle1 does not collide with _rectangle2
-			*	<tr><td>GCollisionCheck2D::COLLISION		<td>_rectangle1 intersects _rectangle2 at one, two, or four points, _rectangle1 is entirely within _rectangle2, _rectangle2 is entirely within _rectangle1, or _rectangle1 and _rectangle2 are the same rectangle
-			*	</table>
-			*
-			*	\param [in]		_rectangle1		The first rectangle
-			*	\param [in]		_rectangle2		The second rectangle
-			*	\param [out]	_outResult		The result of the collision test
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestRectangleToRectangle2F(MATH2D::GRECTANGLE2F _rectangle1, MATH2D::GRECTANGLE2F _rectangle2, GCollisionCheck2D& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Floating point collision test between a rectangle and a polygon
-			/*!
-			*	Performs collision detection between _rectangle and _polygon and stores the result in _outResult.
-			*
-			*	<table>
-			*	<tr><th colspan="2">Possible _outResult Values
-			*	<tr><td>GCollisionCheck2D::NO_COLLISION		<td>_rectangle does not collide with _polygon
-			*	<tr><td>GCollisionCheck2D::COLLISION		<td>_rectangle intersects _polygon at one, two, or four points, _rectangle is entirely within _polygon, or _polygon is entirely within _rectangle
-			*	</table>
-			*
-			*	\param [in]		_rectangle		The first rectangle
-			*	\param [in]		_polygon		A list of vertices describing the polygon
-			*	\param [in]		_numVerts		The number of vertices in _polygon
-			*	\param [out]	_outResult		The result of the collision test
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestRectangleToPolygon2F(MATH2D::GRECTANGLE2F _rectangle, MATH2D::GVECTOR2F* _polygon, unsigned int _numVerts, GCollisionCheck2D& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Floating point collision test between a polygon and another polygon
-			/*!
-			*	Performs collision detection between _polygon1 and _polygon2 and stores the result in _outResult.
-			*
-			*	<table>
-			*	<tr><th colspan="2">Possible _outResult Values
-			*	<tr><td>GCollisionCheck2D::NO_COLLISION		<td>_polygon1 does not collide with _polygon2
-			*	<tr><td>GCollisionCheck2D::COLLISION		<td>_polygon1 intersects _polygon2 at one or more points, _polygon1 is entirely within _polygon2, or _polygon2 is entirely within _polygon1
-			*	</table>
-			*
-			*	\param [in]		_polygon1		A list of vertices describing the first polygon
-			*	\param [in]		_numVerts1		The number of vertices in _polygon1
-			*	\param [in]		_polygon2		A list of vertices describing the second polygon
-			*	\param [in]		_numVerts2		The number of vertices in _polygon2
-			*	\param [out]	_outResult		The result of the collision test
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPolygonToPolygon2F(MATH2D::GVECTOR2F* _polygon1, unsigned int _numVerts1, MATH2D::GVECTOR2F* _polygon2, unsigned int _numVerts2, GCollisionCheck2D& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Floating point calculation to convert the cartesian coordinates of a point to barycentric coordinates relative to a triangle
-			/*!
-			*	Calculates the barycentric coordinates of _point relative to the triangle formed by _trianglePoint1, _trianglePoint2, and _trianglePoint3, and stores the result in _outBarycentric.
-			*
-			*	\param [in]		_point				The point
-			*	\param [in]		_trianglePoint1		The first point of the triangle
-			*	\param [in]		_trianglePoint2		The second point of the triangle
-			*	\param [in]		_trianglePoint3		The third point of the triangle
-			*	\param [out]	_outBarycentric		The result of the calculation
-			*
-			*	\retval GReturn::FAILURE The three triangle points actually form a line which would cause a devide-by-zero error.
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn FindBarycentricF(MATH2D::GVECTOR2F _point, MATH2D::GVECTOR2F _trianglePoint1, MATH2D::GVECTOR2F _trianglePoint2, MATH2D::GVECTOR2F _trianglePoint3, MATH2D::GBARYCENTRICF& _outBarycentric) { return GReturn::NO_IMPLEMENTATION; }
-
-
-
-
-
-
-
-
-
-
-			// Doubles
-
-			//! Double precision version of the implicit line equation
-			/*!
-			*	Performs the implicit line equation on _point and _line and stores the result in _outEquationResult.
-			*
-			*	\param [in]		_point				The point
-			*	\param [in]		_line				The line
-			*	\param [out]	_outEquationResult	The result of the implicit line equation
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ImplicitLineEquationD(MATH2D::GVECTOR2D _point, MATH2D::GLINE2D _line, double& _outEquationResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Double precision calculation that returns squared distance from point to line
-			/*!
-			*	Calculates the squared distance from _point to _line and stores the result in _outDistance.
-			*
-			*	\param [in]		_point			The point
-			*	\param [in]		_line			The line
-			*	\param [out]	_outDistance	The distance from _point to _line squared
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn SqDistancePointToLine2D(MATH2D::GVECTOR2D _point, MATH2D::GLINE2D _line, double& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Double precision calculation that returns squared distance from point to rectangle
-			/*!
-			*	Calculates the squared distance from _point to _rectangle and stores the result in _outDistance. If _point is inside _rectangle, _outDistance will be 0.
-			*
-			*	\param [in]		_point			The point
-			*	\param [in]		_rectangle		The rectangle
-			*	\param [out]	_outDistance	The distance from _point to _rectangle squared
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn SqDistancePointToRectangle2D(MATH2D::GVECTOR2D _point, MATH2D::GRECTANGLE2D _rectangle, double& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Double precision calculation that returns squared distance from point to polygon
-			/*!
-			*	Calculates the squared distance from _point to _polygon and stores the result in _outDistance. If _point is inside _polygon, _outDistance will be 0.
-			*
-			*	\param [in]		_point			The point
-			*	\param [in]		_polygon		The polygon
-			*	\param [in]		_numVerts		The number of vertices in _polygon
-			*	\param [out]	_outDistance	The distance from _point to _polygon squared
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn SqDistancePointToPolygon2D(MATH2D::GVECTOR2D _point, MATH2D::GVECTOR2D* _polygon, unsigned int _numVerts, double& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Double precision collision test between a point and a line segment
-			/*!
-			*	Performs collision detection between _point and _line and stores the result in _outResult.
-			*
-			*	<table>
-			*	<tr><th colspan="2">Possible _outResult Values
-			*	<tr><td>GCollisionCheck2D::NO_COLLISION		<td>_line degenerates to a point that is not _point
-			*	<tr><td>GCollisionCheck2D::COLLISION		<td>_point is on _line or is equal to the start or end of _line
-			*	<tr><td>GCollisionCheck2D::ABOVE			<td>_point is "above" _line relative to the normal of _line
-			*	<tr><td>GCollisionCheck2D::BELOW			<td>_point is "below" _line relatice to the normal of _line
-			*	</table>
-			*
-			*	\param [in]		_point			The point
-			*	\param [in]		_line			The line
-			*	\param [out]	_outResult		The result of the collision test
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPointToLine2D(MATH2D::GVECTOR2D _point, MATH2D::GLINE2D _line, GCollisionCheck2D& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Double precision collision test between a point and a circle
-			/*!
-			*	Performs collision detection between _point and _circle and stores the result in _outResult.
-			*
-			*	<table>
-			*	<tr><th colspan="2">Possible _outResult Values
-			*	<tr><td>GCollisionCheck2D::NO_COLLISION		<td>_point is not within or on the edge of _circle
-			*	<tr><td>GCollisionCheck2D::COLLISION		<td>_point is within or on the edge of _circle
-			*	</table>
-			*
-			*	\param [in]		_point			The point
-			*	\param [in]		_circle			The circle
-			*	\param [out]	_outResult		The result of the collision test
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPointToCircle2D(MATH2D::GVECTOR2D _point, MATH2D::GCIRCLE2D _circle, GCollisionCheck2D& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Double precision collision test between a point and a rectangle
-			/*!
-			*	Performs collision detection between _point and _rectangle and stores the result in _outResult.
-			*
-			*	<table>
-			*	<tr><th colspan="2">Possible _outResult Values
-			*	<tr><td>GCollisionCheck2D::NO_COLLISION		<td>_point is not within, on the edge, or a corner of _rectangle
-			*	<tr><td>GCollisionCheck2D::COLLISION		<td>_point is within, on the edge, or a corner of _rectangle
-			*	</table>
-			*
-			*	\param [in]		_point			The point
-			*	\param [in]		_rectangle		The rectangle
-			*	\param [out]	_outResult		The result of the collision test
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPointToRectangle2D(MATH2D::GVECTOR2D _point, MATH2D::GRECTANGLE2D _rectangle, GCollisionCheck2D& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Double precision collision test between a point and a polygon
-			/*!
-			*	Performs collision detection between _point and _polygon and stores the result in _outResult.
-			*
-			*	<table>
-			*	<tr><th colspan="2">Possible _outResult Values
-			*	<tr><td>GCollisionCheck2D::NO_COLLISION		<td>_point is not within, on the edge, or a vertex of _polygon
-			*	<tr><td>GCollisionCheck2D::COLLISION		<td>_point is within, on the edge, or a vertex of _polygon
-			*	</table>
-			*
-			*	\param [in]		_point			The point
-			*	\param [in]		_polygon		A list of vertices describing the polygon
-			*	\param [in]		_numVerts		The number of vertices in _polygon
-			*	\param [out]	_outResult		The result of the collision test
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPointToPolygon2D(MATH2D::GVECTOR2D _point, MATH2D::GVECTOR2D* _polygon, unsigned int _numVerts, GCollisionCheck2D& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Double precision collision test between a line and another line
-			/*!
-			*	Performs collision detection between _line1 and _line2 and stores the result in _outResult.
-			*
-			*	<table>
-			*	<tr><th colspan="2">Possible _outResult Values
-			*	<tr><td>GCollisionCheck2D::NO_COLLISION		<td>_line1 does not collide with _line2
-			*	<tr><td>GCollisionCheck2D::COLLISION		<td>_line1 intersects _line2, one or both of _line1's points are the same as one or both of _line2's points, one of or both of _line1's points are on _line2, or _line1 and _line2 are the same line
-			*	</table>
-			*
-			*	\param [in]		_line1			The first line
-			*	\param [in]		_line2			The second line
-			*	\param [out]	_outResult		The result of the collision test
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestLineToLine2D(MATH2D::GLINE2D _line1, MATH2D::GLINE2D _line2, GCollisionCheck2D& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Double precision collision test between a line and a circle
-			/*!
-			*	Performs collision detection between _line and _circle and stores the result in _outResult.
-			*
-			*	<table>
-			*	<tr><th colspan="2">Possible _outResult Values
-			*	<tr><td>GCollisionCheck2D::NO_COLLISION		<td>_line does not collide with _circle
-			*	<tr><td>GCollisionCheck2D::COLLISION		<td>_line intersects _circle at one or two points, _line is entirely within _circle, _line is tangent to circle, or one or both of _line's points are on the edge of _circle
-			*	</table>
-			*
-			*	\param [in]		_line			The line
-			*	\param [in]		_circle			The circle
-			*	\param [out]	_outResult		The result of the collision test
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestLineToCircle2D(MATH2D::GLINE2D _line, MATH2D::GCIRCLE2D _circle, GCollisionCheck2D& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Double precision collision test between a line and a rectangle
-			/*!
-			*	Performs collision detection between _line and _rectangle and stores the result in _outResult.
-			*
-			*	<table>
-			*	<tr><th colspan="2">Possible _outResult Values
-			*	<tr><td>GCollisionCheck2D::NO_COLLISION		<td>_line does not collide with _rectangle
-			*	<tr><td>GCollisionCheck2D::COLLISION		<td>_line intersects _rectangle at one or two points, _line is entirely within _rectangle, _line overlays one of _rectangle's sides, or one or both of _line's points are on the edge of _rectangle
-			*	</table>
-			*
-			*	\param [in]		_line			The line
-			*	\param [in]		_rectangle		The rectangle
-			*	\param [out]	_outResult		The result of the collision test
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestLineToRectangle2D(MATH2D::GLINE2D _line, MATH2D::GRECTANGLE2D _rectangle, GCollisionCheck2D& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Double precision collision test between a line and a polygon
-			/*!
-			*	Performs collision detection between _line and _polygon and stores the result in _outResult.
-			*
-			*	<table>
-			*	<tr><th colspan="2">Possible _outResult Values
-			*	<tr><td>GCollisionCheck2D::NO_COLLISION		<td>_line does not collide with _polygon
-			*	<tr><td>GCollisionCheck2D::COLLISION		<td>_line intersects _polygon at one or two points, _line is entirely within _polygon, _line overlays one of _polygon's sides, or one or both of _line's points are on the edge of _polygon
-			*	</table>
-			*
-			*	\param [in]		_line			The line
-			*	\param [in]		_polygon		A list of vertices describing the polygon
-			*	\param [in]		_numVerts		The number of vertices in _polygon
-			*	\param [out]	_outResult		The result of the collision test
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestLineToPolygon2D(MATH2D::GLINE2D _line, MATH2D::GVECTOR2D* _polygon, unsigned int _numVerts, GCollisionCheck2D& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Double precision collision test between a circle and another circle
-			/*!
-			*	Performs collision detection between _circle1 and _circle2 and stores the result in _outResult.
-			*
-			*	<table>
-			*	<tr><th colspan="2">Possible _outResult Values
-			*	<tr><td>GCollisionCheck2D::NO_COLLISION		<td>_circle1 does not collide with _circle2
-			*	<tr><td>GCollisionCheck2D::COLLISION		<td>_circle1 intersects _circle2 at one or two points, _circle1 is entirely within _circle2, _circle2 is entirely within _circle1, or _circle1 and _circle2 are the same circle
-			*	</table>
-			*
-			*	\param [in]		_circle1		The first circle
-			*	\param [in]		_circle2		The second circle
-			*	\param [out]	_outResult		The result of the collision test
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestCircleToCircle2D(MATH2D::GCIRCLE2D _circle1, MATH2D::GCIRCLE2D _circle2, GCollisionCheck2D& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Double precision collision test between a rectangle and another rectangle
-			/*!
-			*	Performs collision detection between _rectangle1 and _rectangle2 and stores the result in _outResult.
-			*
-			*	<table>
-			*	<tr><th colspan="2">Possible _outResult Values
-			*	<tr><td>GCollisionCheck2D::NO_COLLISION		<td>_rectangle1 does not collide with _rectangle2
-			*	<tr><td>GCollisionCheck2D::COLLISION		<td>_rectangle1 intersects _rectangle2 at one, two, or four points, _rectangle1 is entirely within _rectangle2, _rectangle2 is entirely within _rectangle1, or _rectangle1 and _rectangle2 are the same rectangle
-			*	</table>
-			*
-			*	\param [in]		_rectangle1		The first rectangle
-			*	\param [in]		_rectangle2		The second rectangle
-			*	\param [out]	_outResult		The result of the collision test
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestRectangleToRectangle2D(MATH2D::GRECTANGLE2D _rectangle1, MATH2D::GRECTANGLE2D _rectangle2, GCollisionCheck2D& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Double precision collision test between a rectangle and a polygon
-			/*!
-			*	Performs collision detection between _rectangle and _polygon and stores the result in _outResult.
-			*
-			*	<table>
-			*	<tr><th colspan="2">Possible _outResult Values
-			*	<tr><td>GCollisionCheck2D::NO_COLLISION		<td>_rectangle does not collide with _polygon
-			*	<tr><td>GCollisionCheck2D::COLLISION		<td>_rectangle intersects _polygon at one, two, or four points, _rectangle is entirely within _polygon, or _polygon is entirely within _rectangle
-			*	</table>
-			*
-			*	\param [in]		_rectangle		The first rectangle
-			*	\param [in]		_polygon		A list of vertices describing the polygon
-			*	\param [in]		_numVerts		The number of vertices in _polygon
-			*	\param [out]	_outResult		The result of the collision test
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestRectangleToPolygon2D(MATH2D::GRECTANGLE2D _rectangle, MATH2D::GVECTOR2D* _polygon, unsigned int _numVerts, GCollisionCheck2D& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Double precision collision test between a polygon and another polygon
-			/*!
-			*	Performs collision detection between _polygon1 and _polygon2 and stores the result in _outResult.
-			*
-			*	<table>
-			*	<tr><th colspan="2">Possible _outResult Values
-			*	<tr><td>GCollisionCheck2D::NO_COLLISION		<td>_polygon1 does not collide with _polygon2
-			*	<tr><td>GCollisionCheck2D::COLLISION		<td>_polygon1 intersects _polygon2 at one or more points, _polygon1 is entirely within _polygon2, or _polygon2 is entirely within _polygon1
-			*	</table>
-			*
-			*	\param [in]		_polygon1		A list of vertices describing the first polygon
-			*	\param [in]		_numVerts1		The number of vertices in _polygon1
-			*	\param [in]		_polygon2		A list of vertices describing the second polygon
-			*	\param [in]		_numVerts2		The number of vertices in _polygon2
-			*	\param [out]	_outResult		The result of the collision test
-			*
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPolygonToPolygon2D(MATH2D::GVECTOR2D* _polygon1, unsigned int _numVerts1, MATH2D::GVECTOR2D* _polygon2, unsigned int _numVerts2, GCollisionCheck2D& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Double precision calculation to convert the cartesian coordinates of a point to barycentric coordinates relative to a triangle
-			/*!
-			*	Calculates the barycentric coordinates of _point relative to the triangle formed by _trianglePoint1, _trianglePoint2, and _trianglePoint3, and stores the result in _outBarycentric.
-			*
-			*	\param [in]		_point				The point
-			*	\param [in]		_trianglePoint1		The first point of the triangle
-			*	\param [in]		_trianglePoint2		The second point of the triangle
-			*	\param [in]		_trianglePoint3		The third point of the triangle
-			*	\param [out]	_outBarycentric		The result of the calculation
-			*
-			*	\retval GReturn::FAILURE The three triangle points actually form a line which would cause a devide-by-zero error.
-			*	\retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn FindBarycentricD(MATH2D::GVECTOR2D _point, MATH2D::GVECTOR2D _trianglePoint1, MATH2D::GVECTOR2D _trianglePoint2, MATH2D::GVECTOR2D _trianglePoint3, MATH2D::GBARYCENTRICD& _outBarycentric) { return GReturn::NO_IMPLEMENTATION; }
-
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -22766,15 +18471,6 @@ namespace GW
 #ifndef GCOLLISION_H
 #define GCOLLISION_H
 
-/*!
-	File: GCollision.h
-	Purpose: A Gateware interface that handles all collision functions.
-	Author: Ryan Bickell
-	Contributors: Ryan Powser
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -37465,19 +33161,15 @@ namespace GW
 #endif
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The core namespace to which all Gateware fundamental interfaces must belong.
 	namespace MATH
 	{
-		//! A Gateware interface that handles all collision functions.
 		class GCollision final
 			: public I::GProxy<I::GCollisionInterface, I::GCollisionImplementation>
 		{
 		public:
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GCollision)
 			GATEWARE_TYPEDEF(GCollisionCheck)
 			GATEWARE_STATIC_FUNCTION(ConvertAABBCEToAABBMMF)
@@ -37658,2914 +33350,8 @@ namespace GW
 			GATEWARE_STATIC_FUNCTION(SqDistancePointToAABBD)
 			GATEWARE_STATIC_FUNCTION(SqDistancePointToOBBD)
 			GATEWARE_STATIC_FUNCTION(BarycentricD)
-			//! \endcond
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Creates a valid GCollision Object.
-			/*!
-			*	\retval GReturn::SUCCESS	This always succeeds. (unless you run out of memory)
-			*/
-			GReturn Create();
-
-			//! Listing of common containment or plane intersection codes returned by select GCollision functions.
-			/*! \brief	Values that represent collision checks */
-			enum class GCollisionCheck {
-				ERROR_NO_RESULT = -3, 		//!< Used internally by Gateware for testing purposes
-				ABOVE = -2,					//!< An object is above another object
-				BELOW = -1,					//!< An object is below another object
-				NO_COLLISION = 0,			//!< There is no collision between two objects
-				COLLISION = 1				//!< There is a collision between two objects
-			};
-
-			//! Convert AABBCE to AABBMM.
-			/*!
-			* Computes the min-max representation of an AABB from a center-extent AABB representation.
-			*
-			* \param [in]	_aabbCE		The center-extent AABB.
-			* \param [out]	_outAABBMM	The out min-max AABB.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ConvertAABBCEToAABBMMF(const MATH::GAABBCEF _aabbCE, MATH::GAABBMMF& _outAABBMM) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Convert AABBCE to AABBMM.
-			/*!
-			* Computes the center-extent representation of an AABB from a min-max AABB representation.
-			*
-			* \param [in]	_aabbMM		The min-max AABB.
-			* \param [out]	_outAABBCE	The out center-extent AABB.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ConvertAABBMMToAABBCEF(const MATH::GAABBMMF _aabbMM, MATH::GAABBCEF& _outAABBCE) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Computes the plane given three points(clockwise).
-			/*!
-			* Calculates the plane given three points(clockwise) by taking the perpendicular vector that would intersect
-			* a triangle that the three points represent. The plane is defined as a normal and distance from the origin.
-			* If the function succeeds, the return value is SUCCESS.
-			* If the function fails, the return value is FAILURE. This would occur when the given plane's position points
-			* are collinear.
-			*
-			* \param [in]	_planePositionA	The plane position a.
-			* \param [in]	_planePositionB	The plane position b.
-			* \param [in]	_planePositionC	The plane position c.
-			* \param [out]	_outPlane	   	The out plane.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ComputePlaneF(const MATH::GVECTORF _planePositionA, const MATH::GVECTORF _planePositionB, const MATH::GVECTORF _planePositionC, MATH::GPLANEF& _outPlane) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Tests whether a triangle is non-degenerate.
-			/*!
-			* Tests whether a triangle is non-degenerate. A non-degenerate triangle has an area greater than 0 and is not
-			* a line.
-			* If the triangle is non-degenerate, the out result is 1.
-			* If the triangle is degenerate, the out result is 0.
-			*
-			* \param [in]	_triangle 	The triangle.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IsTriangleF(const MATH::GTRIANGLEF _triangle, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Tests whether a point lies within a polygon or not.
-			/*!
-			* Tests whether a point is contained within a polygon by counting how many times a line that extends to
-			* infinity intersects the sides of the polygon.
-			* If the point is contained within the polygon, the out result is 1. This does not include the polygon's
-			* boundary.
-			* If the point is not contained within the polygon, the out result is 0.
-			* If the function succeeds, the return value is SUCCESS.
-			* If the function fails, the return value is FAILURE. This would occur if the pointer to the polygon's points
-			* is null or if the point count is less than 3.
-			*
-			* \param [in]	_point			The query point.
-			* \param [in]	_polygonPoints	If non-null, the set of points representing the polygon vertices.
-			* \param [in]	_pointsCount	The number of polygon vertices.
-			* \param [out]	_outResult		The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			* \retval GReturn::FAILURE The calculation failed.
-			*/
-			static GReturn TestPointToConvexPolygonF(const MATH::GVECTORF _point, const MATH::GVECTORF* _polygonPoints, const unsigned int _pointsCount, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Computes the closest point on a line to a point.
-			/*!
-			* Computes the closest point on a line to a point by projecting the point onto the line.
-			* The out point is the result of this computation.
-			*
-			* \param [in]	_line	   	The line.
-			* \param [in]	_queryPoint	The query point.
-			* \param [out]	_outPoint  	The out point that lies on the line.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ClosestPointToLineF(const MATH::GLINEF _line, const MATH::GVECTORF _queryPoint, MATH::GVECTORF& _outPoint) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Computes the closest points of two lines.
-			/*!
-			* Computes the closest points of two lines by determining the minimum distance that could exist between
-			* the two line segments which results in the two closest points from one line to the other.
-			* The first out point is the point closest to the second line clamped to the first line.
-			* The second out point is the point closest to the first line clamped to the second line.
-			*
-			* \param [in]	_line1	   	The first line.
-			* \param [in]	_line2		The second line.
-			* \param [out]	_outPoint1  The first out point that lies on the first line.
-			* \param [out]	_outPoint2  The second out point that lies on the second line.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ClosestPointsToLineFromLineF(const MATH::GLINEF _line1, const MATH::GLINEF _line2, MATH::GVECTORF& _outPoint1, MATH::GVECTORF& _outPoint2) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Computes the closest point on a ray to a point.
-			/*!
-			* Computes the closest point on a ray by projecting the point onto the ray's path.
-			* The out point is the result of this computation.
-			*
-			* \param [in]	_ray	   	The ray.
-			* \param [in]	_queryPoint	The query point.
-			* \param [out]	_outPoint  	The out point that lies on the ray's path.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ClosestPointToRayF(const MATH::GRAYF _ray, const MATH::GVECTORF _queryPoint, MATH::GVECTORF& _outPoint) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Computes the closest point on a triangle to a point.
-			/*!
-			* Computes the closest point on a triangle to a point by determining which region the point is closest to (vertex,
-			* edge, or face) and projecting onto that region.
-			* The out point is the result of this computation.
-			*
-			* \param [in]	_triangle  	The triangle.
-			* \param [in]	_queryPoint	The query point.
-			* \param [out]	_outPoint  	The out point that lies on the triangle.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ClosestPointToTriangleF(const MATH::GTRIANGLEF _triangle, const MATH::GVECTORF _queryPoint, MATH::GVECTORF& _outPoint) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Computes the closest point on a plane to a point
-			/*!
-			* Computes the closest point on a plane to a point by projecting that point onto the plane.
-			* The out point is the result of this computation.
-			*
-			* \param [in]	_plane	   	The plane.
-			* \param [in]	_queryPoint	The query point.
-			* \param [out]	_outPoint  	The out point that lies on the plane.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ClosestPointToPlaneF(const MATH::GPLANEF _plane, const MATH::GVECTORF _queryPoint, MATH::GVECTORF& _outPoint) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Computes the closest point on a sphere's surface to a point
-			/*!
-			* Computes the closest point on a sphere's surface to a point by getting the normalized direction of the
-			* sphere's center to the given point and scaling that by the sphere's radius.
-			* The out point is the result of this computation.
-			* If the function succeeds, the return value is SUCCESS.
-			* If the function fails, the return value is FAILURE. This would occur if the query point is the sphere's
-			* center which results an infinite amount of valid results that cannot be represented in a single out point.
-			*
-			* \param [in]	_sphere	   	The sphere.
-			* \param [in]	_queryPoint	The query point.
-			* \param [out]	_outPoint  	The out point that lies on the sphere's surface.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ClosestPointToSphereF(const MATH::GSPHEREF _sphere, const MATH::GVECTORF _queryPoint, MATH::GVECTORF& _outPoint) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Computes the closest point on a capsule's surface to a point
-			/*!
-			* Computes the closest point on a capsule's surface to a point by finding the closest point to the
-			* capsule's center line and then computing the closest point to a sphere.
-			* The out point is the result of this computation.
-			* If the function succeeds, the return value is SUCCESS.
-			* If the function fails, the return value is FAILURE. This would occur if the query point is on the capsule's
-			* center line which results an infinite amount of valid results that cannot be represented in a single out
-			* point.
-			*
-			* \param [in]	_capsule	The capsule.
-			* \param [in]	_queryPoint	The query point.
-			* \param [out]	_outPoint  	The out point that lies on the capsule's surface.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ClosestPointToCapsuleF(const MATH::GCAPSULEF _capsule, const MATH::GVECTORF _queryPoint, MATH::GVECTORF& _outPoint) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Computes the closest point on a min-max AABB to a point.
-			/*!
-			* Computes the closest point on a min-max AABB to a point by clamping that point to the surface of the
-			* AABB unless that point is contained within the AABB.
-			* The out point is the result of this computation.
-			* If the function succeeds, the return value is SUCCESS.
-			* If the function fails, the return value is FAILURE. This would occur if the query point is contained within
-			* the AABB.
-			*
-			* \param [in]	_aabb	   	The aabb.
-			* \param [in]	_queryPoint	The query point.
-			* \param [out]	_outPoint  	The out point that lies on the AABB's surface.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ClosestPointToAABBF(const MATH::GAABBMMF _aabb, const MATH::GVECTORF _queryPoint, MATH::GVECTORF& _outPoint) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Computes the closest point on an OBB to a point.
-			/*!
-			* Computes the closest point on an OBB to a point by clamping that point to the surface of the OBB.
-			* The out point is the result of this computation.
-			* If the function succeeds, the return value is SUCCESS.
-			* If the function fails, the return value is FAILURE. This would occur if the query point is contained within
-			* the OBB.
-			*
-			* \param [in]	_obb	   	The obb.
-			* \param [in]	_queryPoint	The query point.
-			* \param [out]	_outPoint  	The out point.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ClosestPointToOBBF(const MATH::GOBBF _obb, const MATH::GVECTORF _queryPoint, MATH::GVECTORF& _outPoint) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Compute sphere from point cloud.
-			/*!
-			* Computes a sphere from a point cloud by computing a good approximation of the points in the sphere and
-			* then iterating through the points to grow the sphere to include all points.
-			* The out sphere is the result of this computation.
-			* If the function succeeds, the return value is SUCCESS.
-			* If the function fails, the return value is FAILURE. This would occur if the pointer to the point cloud is
-			* NULL or the number of points is less than 2.
-			*
-			* \param [in]	_pointCloud 	If non-null, the point cloud.
-			* \param [in]	_pointsCount	Number of points.
-			* \param [out]	_outSphere  	The out sphere.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ComputeSphereFromPointsF(const MATH::GVECTORF* _pointCloud, const unsigned int _pointsCount, MATH::GSPHEREF& _outSphere) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Compute min-max AABB from point cloud.
-			/*!
-			* Computes a min-max AABB from point cloud by computing the minimum and maximum values along the x, y, and z
-			* from the point cloud.
-			* The out AABB is the result of this computation.
-			* If the function succeeds, the return value is SUCCESS.
-			* If the function fails, the return value is FAILURE. This would occur if the pointer to the point cloud is
-			* NULL or the number of points is less than 1.
-			*
-			* \param [in]	_pointCloud 	If non-null, the point cloud.
-			* \param [in]	_pointsCount	Number of points.
-			* \param [out]	_outAABB		The out min-max AABB.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ComputeAABBFromPointsF(const MATH::GVECTORF* _pointCloud, const unsigned int _pointsCount, MATH::GAABBMMF& _outAABB) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test point to line segment.
-			/*!
-			* Tests a point to a line segment by checking if that point is between the line segment's start and end.
-			* If the point lies on the line segment, the out result is GCollisionCheck::COLLISION.
-			* If the point does not lie on the line segment, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_point	  	The point.
-			* \param [in]	_line	  	The line.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPointToLineF(const MATH::GVECTORF _point, const MATH::GLINEF _line, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a point to ray.
-			/*!
-			* Tests a point to a ray by checking if that point lies on the ray's path.
-			* If the point lies on the ray's path, the out result is GCollisionCheck::COLLISION.
-			* If the point does not lie on the ray's path, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_point	  	The point.
-			* \param [in]	_ray	  	The ray.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPointToRayF(const MATH::GVECTORF _point, const MATH::GRAYF _ray, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a point to triangle.
-			/*!
-			* Tests a point to a triangle by checking if the point lies on the surface plane of the triangle's normal and
-			* then if the barycentric coordinate's are all positive.
-			* If the point lies on the triangle, the out result is GCollisionCheck::COLLISION.
-			* If the point does not lie on the triangle, the out result is GCollisionCheck::NO_COLLISION.
-			* If the out barycentric argument is valid, the barycentric coordinates is stored in it.
-			* If the function succeeds, the return value is SUCCESS.
-			* If the function fails, the return value is FAILURE. This would occur if the triangle is degenerate.
-			*
-			* \param [in]	_point		   	The point.
-			* \param [in]	_triangle	   	The triangle.
-			* \param [out]	_outResult	   	The out result.
-			* \param [out]	_outBarycentric	If non-null, the out barycentric coordinates.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPointToTriangleF(const MATH::GVECTORF _point, const MATH::GTRIANGLEF _triangle, GCollisionCheck& _outResult, MATH::GVECTORF* _outBarycentric) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a point to a plane.
-			/*!
-			* Tests a point to a plane by dotting the point and the plane's surface direction and then subtracting the
-			* plane's distance from the result of that dot product.
-			* If the point lies on the plane, the out result is GCollisionCheck::COLLISION.
-			* If the point lies below the plane, the out result is GCollisionCheck::BELOW.
-			* If the point lies above the plane, the out result is GCollisionCheck::ABOVE.
-			*
-			* \param [in]	_point	  	The point.
-			* \param [in]	_plane	  	The plane.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPointToPlaneF(const MATH::GVECTORF _point, const MATH::GPLANEF _plane, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a point to a sphere.
-			/*!
-			* Test a point to a sphere by checking if the distance between the point and sphere's center is within the
-			* sphere's radius.
-			* If the point contacts the sphere, the out result is GCollisionCheck::COLLISION.
-			* If the point does not contact the sphere, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_point	  	The point.
-			* \param [in]	_sphere   	The sphere.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPointToSphereF(const MATH::GVECTORF _point, const MATH::GSPHEREF _sphere, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a point to a capsule.
-			/*!
-			* Test a point to a capsule by finding the closest point along the capsule's center line segment to the point
-			* which reduces the query to a point to sphere test.
-			* If the point contacts the capsule, the out result is GCollisionCheck::COLLISION.
-			* If the point does not contact the capsule, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_point	  	The point.
-			* \param [in]	_capsule  	The capsule.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPointToCapsuleF(const MATH::GVECTORF _point, const MATH::GCAPSULEF _capsule, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a point to a center-extent AABB.
-			/*!
-			* Test a point to a center-extent AABB by checking if it's within the AABB's boundaries along the x, y, and z.
-			* If the point contacts the AABB, the out result is GCollisionCheck::COLLISION.
-			* If the point does not contact the AABB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_point	  	The point.
-			* \param [in]	_aabb	  	The aabb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPointToAABBF(const MATH::GVECTORF _point, const MATH::GAABBCEF _aabb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a point to an OBB.
-			/*!
-			* Test a point to an OBB by checking if that point doesn't need to be clamped to the OBB's boundaries.
-			* If the point contacts the OBB, the out result is GCollisionCheck::COLLISION.
-			* If the point does not contact the OBB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_point	  	The point.
-			* \param [in]	_obb	  	The obb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPointToOBBF(const MATH::GVECTORF _point, const MATH::GOBBF _obb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a line to a line.
-			/*!
-			* Test a line to a line by computing the shortest distance between the lines.
-			* If the first line contacts the second line, the out result is GCollisionCheck::COLLISION.
-			* If the first line does not contact the second line, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_line1	  	The first line.
-			* \param [in]	_line2	  	The second line.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestLineToLineF(const MATH::GLINEF _line1, const MATH::GLINEF _line2, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a line to a ray.
-			/*!
-			* Test a line to a ray by computing the shortest distance between the line and ray's path.
-			* If the line contacts the ray's path, the out result is GCollisionCheck::COLLISION.
-			* If the line does not contact the ray's path, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_line	  	The line.
-			* \param [in]	_ray	  	The ray.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestLineToRayF(const MATH::GLINEF _line, const MATH::GRAYF _ray, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a line to a triangle
-			/*!
-			* Test a line to a clockwise triangle by computing if the line pierces the triangle. A collision will only be
-			* detected if the line is non-coplanar to the triangle and it pierces the from front face (the line's start
-			* point lies in front of the triangle and the line's end lies in back of the triangle).
-			* If the line contacts the triangle, the out result is GCollisionCheck::COLLISION.
-			* If the line does not contact the triangle, the out result is GCollisionCheck::NO_COLLISION.
-			* If the out barycentric argument is valid, the barycentric coordinates is stored in it.
-			*
-			* \param [in]	_line		   	The line.
-			* \param [in]	_triangle	   	The triangle.
-			* \param [out]	_outResult	   	The out result.
-			* \param [out]	_outBarycentric	If non-null, the out barycentric.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestLineToTriangleF(const MATH::GLINEF _line, const MATH::GTRIANGLEF _triangle, GCollisionCheck& _outResult, MATH::GVECTORF* _outBarycentric) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a line to a plane.
-			/*!
-			* Test a line to a plane by computing the interval along the line that intersects the plane.
-			* If the line contacts the plane, the out result is GCollisionCheck::COLLISION.
-			* If the line is coplanar to the plane, the out result is GCollisionCheck::NO_COLLISION.
-			* If the line lies below the plane, the out result is GCollisionCheck::BELOW.
-			* If the line lies above the plane, the out result is GCollisionCheck::ABOVE.
-			*
-			* \param [in]	_line	  	The line.
-			* \param [in]	_plane	  	The plane.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestLineToPlaneF(const MATH::GLINEF _line, const MATH::GPLANEF _plane, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a line to a sphere.
-			/*!
-			* Test a line to a sphere by computing the closest point on that line to the sphere's center and reducing the
-			* query to a point to sphere check.
-			* If the line contacts the sphere, the out result is GCollisionCheck::COLLISION.
-			* If the line does not contact the sphere, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_line	  	The line.
-			* \param [in]	_sphere   	The sphere.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestLineToSphereF(const MATH::GLINEF _line, const MATH::GSPHEREF _sphere, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a line to a capsule.
-			/*!
-			* Test a line to a capsule by finding the closest points of the line to the capsule's center line and reducing
-			* the query to a point to sphere check.
-			* If the line contacts the capsule, the out result is GCollisionCheck::COLLISION.
-			* If the line does not contact the capsule, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_line	  	The line.
-			* \param [in]	_capsule  	The capsule.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestLineToCapsuleF(const MATH::GLINEF _line, const MATH::GCAPSULEF _capsule, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a line to an AABB.
-			/*!
-			* Test a line to an AABB by checking if any section of the line lies within the AABB's bounds.
-			* If the line contacts the AABB, the out result is GCollisionCheck::COLLISION.
-			* If the line does not contact the AABB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_line	  	The line.
-			* \param [in]	_aabb	  	The aabb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestLineToAABBF(const MATH::GLINEF _line, const MATH::GAABBCEF _aabb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a line to an OBB.
-			/*!
-			* Test a line to an OBB by checking if any section of the line lies within the OBB's bounds.
-			* If the line contacts the OBB, the out result is GCollisionCheck::COLLISION.
-			* If the line does not contact the OBB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_line	  	The line.
-			* \param [in]	_obb	  	The obb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestLineToOBBF(const MATH::GLINEF _line, const MATH::GOBBF _obb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a ray to a triangle.
-			/*!
-			* Test a ray to a clockwise triangle by computing if the ray's path intersects the triangle.
-			* If the ray's path contacts the triangle, the out result is GCollisionCheck::COLLISION.
-			* If the ray's path does not contact the triangle, the out result is GCollisionCheck::NO_COLLISION.
-			* If the out barycentric argument is valid, the barycentric coordinates is stored in it.
-			*
-			* \param [in]	_ray		   	The ray.
-			* \param [in]	_triangle	   	The triangle.
-			* \param [out]	_outResult	   	The out result.
-			* \param [out]	_outBarycentric	If non-null, the out barycentric.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestRayToTriangleF(const MATH::GRAYF _ray, const MATH::GTRIANGLEF _triangle, GCollisionCheck& _outResult, MATH::GVECTORF* _outBarycentric) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a ray to a plane.
-			/*!
-			* Test a ray to a plane by computing if the ray's path pierces the plane.
-			* If the ray contacts the plane, the out result is GCollisionCheck::COLLISION.
-			* If the ray is coplanar to the plane, the out result is GCollisionCheck::NO_COLLISION.
-			* If the ray lies below the plane, the out result is GCollisionCheck::BELOW.
-			* If the ray lies above the plane, the out result is GCollisionCheck::ABOVE.
-			*
-			* \param [in]	_ray	  	The ray.
-			* \param [in]	_plane	  	The plane.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestRayToPlaneF(const MATH::GRAYF _ray, const MATH::GPLANEF _plane, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a ray to a sphere.
-			/*!
-			* Tests if a collision exists between ray to sphere by using the quadratic formula to determine if there are
-			* any points of intersection (roots).
-			* If the ray's path contacts the sphere, the out result is GCollisionCheck::COLLISION.
-			* If the ray's path does not contact the sphere, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_ray	  	The ray.
-			* \param [in]	_sphere   	The sphere.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			* \retval GReturn::FAILURE The calculation failed.
-			*/
-			static GReturn TestRayToSphereF(const MATH::GRAYF _ray, const MATH::GSPHEREF _sphere, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a ray to a capsule.
-			/*!
-			* Test a ray to a capsule by computing the closest points on the ray's path to the capsule's center line and
-			* reduces the query to a point to sphere test.
-			* If the ray's path contacts the capsule, the out result is GCollisionCheck::COLLISION.
-			* If the ray's path does not contact the capsule, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_ray	  	The ray.
-			* \param [in]	_capsule  	The capsule.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestRayToCapsuleF(const MATH::GRAYF _ray, const MATH::GCAPSULEF _capsule, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a ray to an AABB.
-			/*!
-			* Test a ray to an AABB by checking if any section of the ray's path lies within the AABB's bounds.
-			* If the ray's path contacts the AABB, the out result is GCollisionCheck::COLLISION.
-			* If the ray's path does not contact the AABB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_ray	  	The ray.
-			* \param [in]	_aabb	  	The aabb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestRayToAABBF(const MATH::GRAYF _ray, const MATH::GAABBMMF _aabb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a ray to an OBB.
-			/*!
-			* Test a ray to an OBB by checking if any section of the ray's path lies within the AABB's bounds.
-			* If the ray's path contacts the OBB, the out result is GCollisionCheck::COLLISION.
-			* If the ray's path does not contact the OBB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_ray	  	The ray.
-			* \param [in]	_obb	  	The obb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestRayToOBBF(const MATH::GRAYF _ray, const MATH::GOBBF _obb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a triangle to a triangle.
-			/*!
-			* Test a triangle to a triangle by first checking if all either triangle's point lie on one side of the
-			* other triangle's face and then brings the triangles into canonical form to check if any of the edges of one
-			* triangle intersect the other triangle.
-			* If the triangle's contact, the out result is GCollisionCheck::COLLISION.
-			* If the triangle's don't contact, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_triangle1	The first triangle.
-			* \param [in]	_triangle2	The second triangle.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestTriangleToTriangleF(const MATH::GTRIANGLEF _triangle1, const MATH::GTRIANGLEF _triangle2, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a triangle to a plane.
-			/*!
-			* Test a triangle to a plane to compute if all of the triangle's vertices lie completely on one side of the
-			* plane.
-			* If the triangle contacts the plane, the out result is GCollisionCheck::COLLISION.
-			* If the triangle is coplanar to the plane, the out result is GCollisionCheck::NO_COLLISION.
-			* If the triangle lies below the plane, the out result is GCollisionCheck::BELOW.
-			* If the triangle lies above the plane, the out result is GCollisionCheck::ABOVE.
-			*
-			* \param [in]	_triangle 	The triangle.
-			* \param [in]	_plane	  	The plane.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestTriangleToPlaneF(const MATH::GTRIANGLEF _triangle, const MATH::GPLANEF _plane, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a triangle to a sphere.
-			/*!
-			* Test a triangle to a sphere by computing the closest point on the triangle to the sphere's center which
-			* reduces the query to testing a point to sphere.
-			* If the triangle contacts the sphere, the out result is GCollisionCheck::COLLISION.
-			* If the triangle is coplanar to the sphere, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_triangle 	The triangle.
-			* \param [in]	_sphere   	The sphere.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestTriangleToSphereF(const MATH::GTRIANGLEF _triangle, const MATH::GSPHEREF _sphere, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a triangle to a capsule.
-			/*!
-			* Test a triangle to capsule by computing a line on the triangle closest to the capsule's center line which
-			* reduces the query to test a line to capsule.
-			* If the triangle contacts the capsule, the out result is GCollisionCheck::COLLISION.
-			* If the triangle does not contact the capsule, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_triangle 	The triangle.
-			* \param [in]	_capsule  	The capsule.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestTriangleToCapsuleF(const MATH::GTRIANGLEF _triangle, const MATH::GCAPSULEF _capsule, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a triangle to an AABB.
-			/*!
-			* Test a triangle to AABB by using the separating axis theorem which involves 13 axis: 3 face normals of the
-			* AABB, 1 face normal of the triangle, 9 cross products between the their edges.
-			* If the triangle contacts the AABB, the out result is GCollisionCheck::COLLISION.
-			* If the triangle does not contact the AABB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_triangle 	The triangle.
-			* \param [in]	_aabb	  	The aabb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestTriangleToAABBF(const MATH::GTRIANGLEF _triangle, const MATH::GAABBCEF _aabb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a triangle to an OBB.
-			/*!
-			* Test a triangle to an OBB by bringing the triangle into the OBB's space and performing a triangle to AABB
-			* test.
-			* If the triangle contacts the OBB, the out result is GCollisionCheck::COLLISION.
-			* If the triangle does not contact the OBB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_triangle 	The triangle.
-			* \param [in]	_obb	  	The obb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestTriangleToOBBF(const MATH::GTRIANGLEF _triangle, const MATH::GOBBF _obb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a plane to a plane.
-			/*!
-			* Test a plane to a plane by computing the whether the two planes are not parallel to each other.
-			* If the planes contact, the out result is GCollisionCheck::COLLISION.
-			* If the planes don't contact, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_plane1   	The first plane.
-			* \param [in]	_plane2   	The second plane.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPlaneToPlaneF(const MATH::GPLANEF _plane1, const MATH::GPLANEF _plane2, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a plane to a sphere.
-			/*!
-			* Test a plane to a sphere by computing the closest point on the plane to the sphere and perform a point
-			* to sphere test.
-			* If the plane contacts the sphere, the out result is GCollisionCheck::COLLISION.
-			* If the sphere lies below the plane, the out result is GCollisionCheck::BELOW.
-			* If the sphere lies above the plane, the out result is GCollisionCheck::ABOVE.
-			*
-			* \param [in]	_plane	  	The plane.
-			* \param [in]	_sphere   	The sphere.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPlaneToSphereF(const MATH::GPLANEF _plane, const MATH::GSPHEREF _sphere, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a plane to a capsule.
-			/*!
-			* Test a plane to a capsule by computing the closest points on the plane to the capsule's start and end points
-			* and then perform a line to capsule test.
-			* If the plane contacts the capsule, the out result is GCollisionCheck::COLLISION.
-			* If the capsule lies below the plane, the out result is GCollisionCheck::BELOW.
-			* If the capsule lies above the plane, the out result is GCollisionCheck::ABOVE.
-			*
-			* \param [in]	_plane	  	The plane.
-			* \param [in]	_capsule  	The capsule.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPlaneToCapsuleF(const MATH::GPLANEF _plane, const MATH::GCAPSULEF _capsule, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a plane to an AABB.
-			/*!
-			* Test a plane to an AABB by using the separating axis theorem.
-			* If the plane contacts the AABB, the out result is GCollisionCheck::COLLISION.
-			* If the AABB lies below the plane, the out result is GCollisionCheck::BELOW.
-			* If the AABB lies above the plane, the out result is GCollisionCheck::ABOVE.
-			*
-			* \param [in]	_plane	  	The plane.
-			* \param [in]	_aabb	  	The aabb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPlaneToAABBF(const MATH::GPLANEF _plane, const MATH::GAABBCEF _aabb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a plane to an OBB.
-			/*!
-			* Test a plane to an OBB by using the separating axis theorem.
-			* If the plane contacts the OBB, the out result is GCollisionCheck::COLLISION.
-			* If the OBB lies below the plane, the out result is GCollisionCheck::BELOW.
-			* If the OBB lies above the plane, the out result is GCollisionCheck::ABOVE.
-			*
-			* \param [in]	_plane	  	The plane.
-			* \param [in]	_obb	  	The obb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPlaneToOBBF(const MATH::GPLANEF _plane, const MATH::GOBBF _obb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a sphere to sphere.
-			/*!
-			* Test a sphere to sphere by checking the distance between their centers and the
-			* sum of their radii.
-			* If the spheres contact, the out result is GCollisionCheck::COLLISION.
-			* If the spheres do not contact, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_sphere1  	The first sphere.
-			* \param [in]	_sphere2  	The second sphere.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestSphereToSphereF(const MATH::GSPHEREF _sphere1, const MATH::GSPHEREF _sphere2, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a sphere to capsule.
-			/*!
-			* Test a sphere to capsule by checking the distance between each's center structures
-			* and the sum of their radii.
-			* If the sphere contacts the capsule, the out result is GCollisionCheck::COLLISION.
-			* If the sphere does not contact the capsule, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_sphere   	The sphere.
-			* \param [in]	_capsule  	The capsule.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestSphereToCapsuleF(const MATH::GSPHEREF _sphere, const MATH::GCAPSULEF _capsule, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a sphere to an AABB.
-			/*!
-			* Test a sphere to an AABB by computing the distance from the AABB's boundary to the sphere's center and
-			* computing if that distance is within the sphere's radius.
-			* If the sphere contacts the AABB, the out result is GCollisionCheck::COLLISION.
-			* If the sphere does not contact the AABB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_sphere   	The sphere.
-			* \param [in]	_aabb	  	The aabb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestSphereToAABBF(const MATH::GSPHEREF _sphere, const MATH::GAABBCEF _aabb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a sphere to an OBB.
-			/*!
-			* Test a sphere to an OBB by computing the distance from the OBB's boundary to the sphere's center and
-			* computing if that distance is within the sphere's radius.
-			* If the sphere contacts the OBB, the out result is GCollisionCheck::COLLISION.
-			* If the sphere does not contact the OBB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_sphere   	The sphere.
-			* \param [in]	_obb	  	The obb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestSphereToOBBF(const MATH::GSPHEREF _sphere, const MATH::GOBBF _obb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a capsule to a capsule.
-			/*!
-			* Test a capsule to another capsule by computing the closest points on each capsule's center line and
-			* performing a sphere to sphere test.
-			* If the capsules contact, the out result is GCollisionCheck::COLLISION.
-			* If the capsules don't contact, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_capsule1 	The first capsule.
-			* \param [in]	_capsule2 	The second capsule.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestCapsuleToCapsuleF(const MATH::GCAPSULEF _capsule1, const MATH::GCAPSULEF _capsule2, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a capsule to an AABB.
-			/*!
-			* Test a capsule to an AABB by increasing the AABB's extents by the capsule's radius and then performing a
-			* ray to AABB test.
-			* If the capsule contacts the AABB, the out result is GCollisionCheck::COLLISION.
-			* If the capsule does not contact the AABB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_capsule  	The capsule.
-			* \param [in]	_aabb	  	The aabb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestCapsuleToAABBF(const MATH::GCAPSULEF _capsule, const MATH::GAABBCEF _aabb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a capsule to an OBB.
-			/*!
-			* Test a capsule to an OBB by bringing the capsule into the OBB's space and performing a capsule to AABB test.
-			* If the capsule contacts the OBB, the out result is GCollisionCheck::COLLISION.
-			* If the capsule does not contact the OBB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_capsule  	The capsule.
-			* \param [in]	_obb	  	The obb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestCapsuleToOBBF(const MATH::GCAPSULEF _capsule, const MATH::GOBBF _obb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test an AABB to an AABB.
-			/*!
-			* Test an AABB to an AABB by checking if they overlap on all three axes.
-			* If the AABBs contact, the out result is GCollisionCheck::COLLISION.
-			* If the AABBs don't contact, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_aabb1	  	The first aabb.
-			* \param [in]	_aabb2	  	The second aabb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestAABBToAABBF(const MATH::GAABBCEF _aabb1, const MATH::GAABBCEF _aabb2, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test an AABB to an OBB.
-			/*!
-			* Test an AABB to OBB performing an OBB to OBB test.
-			* If the AABB contacts the OBB, the out result is GCollisionCheck::COLLISION.
-			* If the AABB does not contact the OBB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_aabb	  	The aabb.
-			* \param [in]	_obb	  	The obb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestAABBToOBBF(const MATH::GAABBCEF _aabb, const MATH::GOBBF _obb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Tests OBB to OBB.
-			/*!
-			* Tests if a collision exists between OBB to OBB by checking if the sum of their projected radii is less
-			* than the distance between their projected centers meaning a separating axis exists. The result will be
-			* stored in _outResult as either GCollisionCheck::NO_COLLISION or GCollisionCheck::COLLISION.
-			* If the OBBs contact, the out result is GCollisionCheck::COLLISION.
-			* If the OBBs don't contact, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_obb1	  	The first OBB.
-			* \param [in]	_obb2	  	The second OBB.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestOBBToOBBF(const MATH::GOBBF _obb1, const MATH::GOBBF _obb2, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect line to triangle.
-			/*!
-			* Test a line to a clockwise triangle by computing if the line pierces the triangle. A collision will only be
-			* detected if the line is non-coplanar to the triangle and it pierces the from front face (the line's start
-			* point lies in front of the triangle and the line's end lies in back of the triangle). Provides the point
-			* of contact along with the normalized direction and interval along that direction the contact occurs.
-			* If the line contacts the triangle, the out result is GCollisionCheck::COLLISION.
-			* If the line does not contact the triangle, the out result is GCollisionCheck::NO_COLLISION.
-			* If the out barycentric argument is valid, the barycentric coordinates is stored in it.
-			*
-			* \param [in]	_line				The line.
-			* \param [in]	_triangle			The triangle.
-			* \param [out]	_outResult			The out result.
-			* \param [out]	_outContactPoint	The out contact point.
-			* \param [out]	_outBarycentric 	If non-null, the out barycentric.
-			* \param [out]	_outDirection   	The out direction.
-			* \param [out]	_outInterval		The out interval along the direction.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectLineToTriangleF(const MATH::GLINEF _line, const MATH::GTRIANGLEF _triangle, GCollisionCheck& _outResult, MATH::GVECTORF& _outContactPoint, MATH::GVECTORF* _outBarycentric, MATH::GVECTORF& _outDirection, float& _outInterval) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect line to plane.
-			/*!
-			* Test a line to a plane by computing the interval along the line that intersects the plane. Provides the point
-			* of contact along with the normalized direction and interval along that direction the contact occurs.
-			* If the line contacts the plane, the out result is GCollisionCheck::COLLISION.
-			* If the line is coplanar to the plane, the out result is GCollisionCheck::NO_COLLISION.
-			* If the line lies below the plane, the out result is GCollisionCheck::BELOW.
-			* If the line lies above the plane, the out result is GCollisionCheck::ABOVE.
-			*
-			* \param [in]	_line				The line.
-			* \param [in]	_plane				The plane.
-			* \param [out]	_outResult			The out result.
-			* \param [out]	_outContactPoint	The out contact point.
-			* \param [out]	_outDirection   	The out direction.
-			* \param [out]	_outInterval		The out interval along the direction.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectLineToPlaneF(const MATH::GLINEF _line, const MATH::GPLANEF _plane, GCollisionCheck& _outResult, MATH::GVECTORF& _outContactPoint, MATH::GVECTORF& _outDirection, float& _outInterval) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect line to sphere.
-			/*!
-			* Test a line to a sphere by computing the closest point on that line to the sphere's center and reducing the
-			* query to a point to sphere check. Provides the point of contact along with the normalized direction
-			* and interval along that direction the contact occurs.
-			* If the line contacts the sphere, the out result is GCollisionCheck::COLLISION.
-			* If the line does not contact the sphere, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_line				The line.
-			* \param [in]	_sphere				The sphere.
-			* \param [out]	_outResult			The out result.
-			* \param [out]	_outContactPoint	The out contact point.
-			* \param [out]	_outDirection   	The out direction.
-			* \param [out]	_outInterval		The out interval along the direction.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectLineToSphereF(const MATH::GLINEF _line, const MATH::GSPHEREF _sphere, GCollisionCheck& _outResult, MATH::GVECTORF& _outContactPoint, MATH::GVECTORF& _outDirection, float& _outInterval) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect line to capsule.
-			/*!
-			* Test a line to a capsule by finding the closest points of the line to the capsule's center line and reducing
-			* the query to a point to sphere check. Provides the point of contact along with the normalized direction
-			* and interval along that direction the contact occurs.
-			* If the line contacts the capsule, the out result is GCollisionCheck::COLLISION.
-			* If the line does not contact the capsule, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_line				The line.
-			* \param [in]	_capsule			The capsule.
-			* \param [out]	_outResult			The out result.
-			* \param [out]	_outContactPoint	The out contact point.
-			* \param [out]	_outDirection   	The out direction.
-			* \param [out]	_outInterval		The out interval along the direction.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectLineToCapsuleF(const MATH::GLINEF _line, const MATH::GCAPSULEF _capsule, GCollisionCheck& _outResult, MATH::GVECTORF& _outContactPoint, MATH::GVECTORF& _outDirection, float& _outInterval) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect line to AABB.
-			/*!
-			* Test a line to an AABB by checking if any section of the line lies within the AABB's bounds. Provides
-			* the point of contact along with the normalized direction and interval along that direction the
-			* contact occurs.
-			* If the line contacts the AABB, the out result is GCollisionCheck::COLLISION.
-			* If the line does not contact the AABB, the out result is GCollisionCheck::NO_COLLISION.
-			* If the function succeeds, the return value is SUCCESS.
-			* If the function fails, the return value is FAILURE. This would occur when the line degenerates to a point.
-			*
-			* \param [in]	_line				The line.
-			* \param [in]	_aabb				The aabb.
-			* \param [out]	_outResult			The out result.
-			* \param [out]	_outContactPoint	The out contact point.
-			* \param [out]	_outDirection   	The out direction.
-			* \param [out]	_outInterval		The out interval along the direction.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectLineToAABBF(const MATH::GLINEF _line, const MATH::GAABBMMF _aabb, GCollisionCheck& _outResult, MATH::GVECTORF& _outContactPoint, MATH::GVECTORF& _outDirection, float& _outInterval) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect line to OBB.
-			/*!
-			* Test a line to an OBB by checking if any section of the line lies within the OBB's bounds. Provides
-			* the point of contact along with the normalized direction and interval along that direction the
-			* contact occurs.
-			* If the line contacts the OBB, the out result is GCollisionCheck::COLLISION.
-			* If the line does not contact the OBB, the out result is GCollisionCheck::NO_COLLISION.
-			* If the function succeeds, the return value is SUCCESS.
-			* If the function fails, the return value is FAILURE. This would occur when the line degenerates to a point.
-			*
-			* \param [in]	_line				The line.
-			* \param [in]	_obb				The obb.
-			* \param [out]	_outResult			The out result.
-			* \param [out]	_outContactPoint	The out contact point.
-			* \param [out]	_outDirection   	The out direction.
-			* \param [out]	_outInterval		The out interval along the direction.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectLineToOBBF(const MATH::GLINEF _line, const MATH::GOBBF _obb, GCollisionCheck& _outResult, MATH::GVECTORF& _outContactPoint, MATH::GVECTORF& _outDirection, float& _outInterval) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect ray to triangle.
-			/*!
-			* Test a ray to a clockwise triangle by computing if the ray's path intersects the triangle. Provides the
-			* point of contact along with the interval the contact occurs on the ray.
-			* If the ray's path contacts the triangle, the out result is GCollisionCheck::COLLISION.
-			* If the ray's path does not contact the triangle, the out result is GCollisionCheck::NO_COLLISION.
-			* If the out barycentric argument is valid, the barycentric coordinates is stored in it.
-			*
-			* \param [in]	_ray				The ray.
-			* \param [in]	_triangle			The triangle.
-			* \param [out]	_outResult			The out result.
-			* \param [out]	_outContactPoint	The out contact point.
-			* \param [out]	_outBarycentric 	If non-null, the out barycentric.
-			* \param [out]	_outInterval		The out interval along the direction.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectRayToTriangleF(const MATH::GRAYF _ray, const MATH::GTRIANGLEF _triangle, GCollisionCheck& _outResult, MATH::GVECTORF& _outContactPoint, MATH::GVECTORF* _outBarycentric, float& _outInterval) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect ray to plane.
-			/*!
-			* Test a ray to a plane by computing if the ray's path pierces the plane. Provides the point of contact along
-			* with the interval the contact occurs on the ray.
-			* If the ray contacts the plane, the out result is GCollisionCheck::COLLISION.
-			* If the ray is coplanar to the plane, the out result is GCollisionCheck::NO_COLLISION.
-			* If the ray lies below the plane, the out result is GCollisionCheck::BELOW.
-			* If the ray lies above the plane, the out result is GCollisionCheck::ABOVE.
-			*
-			* \param [in]	_ray				The ray.
-			* \param [in]	_plane				The plane.
-			* \param [out]	_outResult			The out result.
-			* \param [out]	_outContactPoint	The out contact point.
-			* \param [out]	_outInterval		The out interval along the ray.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectRayToPlaneF(const MATH::GRAYF _ray, const MATH::GPLANEF _plane, GCollisionCheck& _outResult, MATH::GVECTORF& _outContactPoint, float& _outInterval) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect ray to sphere.
-			/*!
-			* Tests if a collision exists between ray to sphere by using the quadratic formula to determine if there are
-			* any points of intersection (roots). Provides the point of contact along with the interval the contact
-			* occurs on the ray.
-			* If the ray's path contacts the sphere, the out result is GCollisionCheck::COLLISION.
-			* If the ray's path does not contact the sphere, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_ray				The ray.
-			* \param [in]	_sphere				The sphere.
-			* \param [out]	_outResult			The out result.
-			* \param [out]	_outContactPoint	The out contact point.
-			* \param [out]	_outInterval		The out interval along the ray.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectRayToSphereF(const MATH::GRAYF _ray, const MATH::GSPHEREF _sphere, GCollisionCheck& _outResult, MATH::GVECTORF& _outContactPoint, float& _outInterval) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect ray to capsule.
-			/*!
-			* Test a ray to a capsule by computing the closest points on the ray's path to the capsule's center line and
-			* reduces the query to a point to sphere test. Provides the point of contact along with the interval the
-			* contact occurs on the ray.
-			* If the ray's path contacts the capsule, the out result is GCollisionCheck::COLLISION.
-			* If the ray's path does not contact the capsule, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_ray				The ray.
-			* \param [in]	_capsule			The capsule.
-			* \param [out]	_outResult			The out result.
-			* \param [out]	_outContactPoint	The out contact point.
-			* \param [out]	_outInterval		The out interval along the ray.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectRayToCapsuleF(const MATH::GRAYF _ray, const MATH::GCAPSULEF _capsule, GCollisionCheck& _outResult, MATH::GVECTORF& _outContactPoint, float& _outInterval) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect ray to AABB.
-			/*!
-			* Test a ray to an AABB by checking if any section of the ray's path lies within the AABB's bounds. Provides
-			* the point of contact along with the interval the contact occurs on the ray.
-			* If the ray's path contacts the AABB, the out result is GCollisionCheck::COLLISION.
-			* If the ray's path does not contact the AABB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_ray				The ray.
-			* \param [in]	_aabb				The aabb.
-			* \param [out]	_outResult			The out result.
-			* \param [out]	_outContactPoint	The out contact point.
-			* \param [out]	_outInterval		The out interval along the ray.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectRayToAABBF(const MATH::GRAYF _ray, const MATH::GAABBMMF _aabb, GCollisionCheck& _outResult, MATH::GVECTORF& _outContactPoint, float& _outInterval) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect ray to OBB.
-			/*!
-			* Test a ray to an OBB by checking if any section of the ray's path lies within the AABB's bounds. Provides
-			* the point of contact along with the interval the contact occurs on the ray.
-			* If the ray's path contacts the OBB, the out result is GCollisionCheck::COLLISION.
-			* If the ray's path does not contact the OBB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_ray				The ray.
-			* \param [in]	_obb				The obb.
-			* \param [out]	_outResult			The out result.
-			* \param [out]	_outContactPoint	The out contact point.
-			* \param [out]	_outInterval		The out interval along the ray.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectRayToOBBF(const MATH::GRAYF _ray, const MATH::GOBBF _obb, GCollisionCheck& _outResult, MATH::GVECTORF& _outContactPoint, float& _outInterval) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect sphere to sphere.
-			/*!
-			* Test a sphere to sphere by checking the distance between their centers and the
-			* sum of their radii. Provides the minimal translation information: two points on each shape's surface,
-			* the direction the two points form, and distance required to translate the second shape to where the surfaces
-			* barely contact.
-			* If the spheres contact, the out result is GCollisionCheck::COLLISION.
-			* If the spheres do not contact, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_sphere1		   	The first sphere.
-			* \param [in]	_sphere2		   	The second sphere.
-			* \param [out]	_outResult		   	The out result.
-			* \param [out]	_outContactClosest1	The first out contact closest.
-			* \param [out]	_outContactClosest2	The second out contact closest.
-			* \param [out]	_outDirection	   	The out direction.
-			* \param [out]	_outDistance		The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectSphereToSphereF(const MATH::GSPHEREF _sphere1, const MATH::GSPHEREF _sphere2, GCollisionCheck& _outResult, MATH::GVECTORF& _outContactClosest1, MATH::GVECTORF& _outContactClosest2, MATH::GVECTORF& _outDirection, float& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect sphere to capsule.
-			/*!
-			* Test a sphere to capsule by checking the distance between each's center structures
-			* and the sum of their radii. Provides the minimal translation information: two points on each shape's surface,
-			* the direction the two points form, and distance required to translate the second shape to where the surfaces
-			* barely contact.
-			* If the sphere contacts the capsule, the out result is GCollisionCheck::COLLISION.
-			* If the sphere does not contact the capsule, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_sphere			   	The sphere.
-			* \param [in]	_capsule		   	The capsule.
-			* \param [out]	_outResult		   	The out result.
-			* \param [out]	_outContactClosest1	The first out contact closest.
-			* \param [out]	_outContactClosest2	The second out contact closest.
-			* \param [out]	_outDirection	   	The out direction.
-			* \param [out]	_outDistance	   	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectSphereToCapsuleF(const MATH::GSPHEREF _sphere, const MATH::GCAPSULEF _capsule, GCollisionCheck& _outResult, MATH::GVECTORF& _outContactClosest1, MATH::GVECTORF& _outContactClosest2, MATH::GVECTORF& _outDirection, float& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect sphere to AABB.
-			/*!
-			* Test a sphere to an AABB by computing the distance from the AABB's boundary to the sphere's center and
-			* computing if that distance is within the sphere's radius. Provides the minimal translation information: two points on each shape's surface,
-			* the direction the two points form, and distance required to translate the second shape to where the surfaces
-			* barely contact.
-			* If the sphere contacts the AABB, the out result is GCollisionCheck::COLLISION.
-			* If the sphere does not contact the AABB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_sphere			   	The sphere.
-			* \param [in]	_aabb			   	The aabb.
-			* \param [out]	_outResult		   	The out result.
-			* \param [out]	_outContactClosest1	The first out contact closest.
-			* \param [out]	_outContactClosest2	The second out contact closest.
-			* \param [out]	_outDirection	   	The out direction.
-			* \param [out]	_outDistance	   	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectSphereToAABBF(const MATH::GSPHEREF _sphere, const MATH::GAABBCEF _aabb, GCollisionCheck& _outResult, MATH::GVECTORF& _outContactClosest1, MATH::GVECTORF& _outContactClosest2, MATH::GVECTORF& _outDirection, float& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect sphere to OBB.
-			/*!
-			* Test a sphere to an OBB by computing the distance from the OBB's boundary to the sphere's center and
-			* computing if that distance is within the sphere's radius. Provides the minimal translation information: two points on each shape's surface,
-			* the direction the two points form, and distance required to translate the second shape to where the surfaces
-			* barely contact.
-			* If the sphere contacts the OBB, the out result is GCollisionCheck::COLLISION.
-			* If the sphere does not contact the OBB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_sphere			   	The sphere.
-			* \param [in]	_obb			   	The obb.
-			* \param [out]	_outResult		   	The out result.
-			* \param [out]	_outContactClosest1	The first out contact closest.
-			* \param [out]	_outContactClosest2	The second out contact closest.
-			* \param [out]	_outDirection	   	The out direction.
-			* \param [out]	_outDistance	   	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectSphereToOBBF(const MATH::GSPHEREF _sphere, const MATH::GOBBF _obb, GCollisionCheck& _outResult, MATH::GVECTORF& _outContactClosest1, MATH::GVECTORF& _outContactClosest2, MATH::GVECTORF& _outDirection, float& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect capsule to capsule.
-			/*!
-			* Test a capsule to another capsule by computing the closest points on each capsule's center line and
-			* performing a sphere to sphere test. Provides the minimal translation information: two points on each shape's surface,
-			* the direction the two points form, and distance required to translate the second shape to where the surfaces
-			* barely contact.
-			* If the capsules contact, the out result is GCollisionCheck::COLLISION.
-			* If the capsules don't contact, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_capsule1		   	The first capsule.
-			* \param [in]	_capsule2		   	The second capsule.
-			* \param [out]	_outResult		   	The out result.
-			* \param [out]	_outContactClosest1	The first out contact closest.
-			* \param [out]	_outContactClosest2	The second out contact closest.
-			* \param [out]	_outDirection	   	The out direction.
-			* \param [out]	_outDistance	   	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectCapsuleToCapsuleF(const MATH::GCAPSULEF _capsule1, const MATH::GCAPSULEF _capsule2, GCollisionCheck& _outResult, MATH::GVECTORF& _outContactClosest1, MATH::GVECTORF& _outContactClosest2, MATH::GVECTORF& _outDirection, float& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect capsule to AABB.
-			/*!
-			* Test a capsule to an AABB by increasing the AABB's extents by the capsule's radius and then performing a
-			* ray to AABB test. Provides the minimal translation information: two points on each shape's surface,
-			* the direction the two points form, and distance required to translate the second shape to where the surfaces
-			* barely contact.
-			* If the capsule contacts the AABB, the out result is GCollisionCheck::COLLISION.
-			* If the capsule does not contact the AABB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_capsule		   	The capsule.
-			* \param [in]	_aabb			   	The aabb.
-			* \param [out]	_outResult		   	The out result.
-			* \param [out]	_outContactClosest1	The first out contact closest.
-			* \param [out]	_outContactClosest2	The second out contact closest.
-			* \param [out]	_outDirection	   	The out direction.
-			* \param [out]	_outDistance	   	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectCapsuleToAABBF(const MATH::GCAPSULEF _capsule, const MATH::GAABBMMF _aabb, GCollisionCheck& _outResult, MATH::GVECTORF& _outContactClosest1, MATH::GVECTORF& _outContactClosest2, MATH::GVECTORF& _outDirection, float& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect capsule to OBB.
-			/*!
-			* Test a capsule to an OBB by bringing the capsule into the OBB's space and performing a capsule to AABB test.
-			* Provides the minimal translation information: two points on each shape's surface,
-			* the direction the two points form, and distance required to translate the second shape to where the surfaces
-			* barely contact.
-			* If the capsule contacts the OBB, the out result is GCollisionCheck::COLLISION.
-			* If the capsule does not contact the OBB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_capsule		   	The capsule.
-			* \param [in]	_obb			   	The obb.
-			* \param [out]	_outResult		   	The out result.
-			* \param [out]	_outContactClosest1	The first out contact closest.
-			* \param [out]	_outContactClosest2	The second out contact closest.
-			* \param [out]	_outDirection	   	The out direction.
-			* \param [out]	_outDistance	   	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectCapsuleToOBBF(const MATH::GCAPSULEF _capsule, const MATH::GOBBF _obb, GCollisionCheck& _outResult, MATH::GVECTORF& _outContactClosest1, MATH::GVECTORF& _outContactClosest2, MATH::GVECTORF& _outDirection, float& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect AABB to AABB.
-			/*!
-			* Test an AABB to an AABB by checking if they overlap on all three axes. Provides the minimal translation
-			* information: two points on each shape's surface,the direction the two points form, and distance required to
-			* translate the second shape to where the surfaces barely contact.
-			* If the AABBs contact, the out result is GCollisionCheck::COLLISION.
-			* If the AABBs don't contact, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_aabb1		   	The first aabb.
-			* \param [in]	_aabb2		   	The second aabb.
-			* \param [out]	_outResult	   	The out result.
-			* \param [out]	_outContactAABB	The out contact a bb.
-			* \param [out]	_outDirection  	The out direction.
-			* \param [out]	_outDistance   	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectAABBToAABBF(const MATH::GAABBCEF _aabb1, const MATH::GAABBCEF _aabb2, GCollisionCheck& _outResult, MATH::GAABBCEF& _outContactAABB, MATH::GVECTORF& _outDirection, float& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Squared distance between point to line.
-			/*!
-			* Squared separation distance between point to line.
-			*
-			* \param [in]	_point			The point.
-			* \param [in]	_line			The line.
-			* \param [out]	_outDistance	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn SqDistancePointToLineF(const MATH::GVECTORF _point, const MATH::GLINEF _line, float& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Squared distance between point to ray.
-			/*!
-			* Squared separation distance between point to ray.
-			*
-			* \param [in]	_point			The point.
-			* \param [in]	_ray			The ray.
-			* \param [out]	_outDistance	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn SqDistancePointToRayF(const MATH::GVECTORF _point, const MATH::GRAYF _ray, float& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Squared distance between point to triangle.
-			/*!
-			* Squared separation distance between point to triangle.
-			*
-			* \param [in]	_point			The point.
-			* \param [in]	_triangle   	The triangle.
-			* \param [out]	_outDistance	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn SqDistancePointToTriangleF(const MATH::GVECTORF _point, const MATH::GTRIANGLEF _triangle, float& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Squared distance between point to plane.
-			/*!
-			* Squared separation distance between point to plane.
-			*
-			* \param [in]	_point			The point.
-			* \param [in]	_plane			The plane.
-			* \param [out]	_outDistance	The out distance.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn SqDistancePointToPlaneF(const MATH::GVECTORF _point, const MATH::GPLANEF _plane, float& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Squared distance between point to sphere.
-			/*!
-			* Squared separation distance between point to sphere.
-			*
-			* \param [in]	_point			The point.
-			* \param [in]	_sphere			The sphere.
-			* \param [out]	_outDistance	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn SqDistancePointToSphereF(const MATH::GVECTORF _point, const MATH::GSPHEREF _sphere, float& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Squared distance between point to capsule.
-			/*!
-			* Squared separation distance between point to capsule.
-			*
-			* \param [in]	_point			The point.
-			* \param [in]	_capsule		The capsule.
-			* \param [out]	_outDistance	The out distance.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn SqDistancePointToCapsuleF(const MATH::GVECTORF _point, const MATH::GCAPSULEF _capsule, float& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Squared distance between point to AABB.
-			/*!
-			* Squared separation distance between point to a AABB.
-			*
-			* \param [in]	_point			The point.
-			* \param [in]	_aabb			The aabb.
-			* \param [out]	_outDistance	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn SqDistancePointToAABBF(const MATH::GVECTORF _point, const MATH::GAABBMMF _aabb, float& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Squared distance between point to OBB.
-			/*!
-			* Squared separation distance between point to OBB.
-			*
-			* \param [in]	_point			The point.
-			* \param [in]	_obb			The obb.
-			* \param [out]	_outDistance	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn SqDistancePointToOBBF(const MATH::GVECTORF _point, const MATH::GOBBF _obb, float& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Compute the barycentric coordinates of a point to triangle.
-			/*!
-			* Compute the barycentric coordinates given three points of a triangle with a point in respect to that triangle.
-			* Both triangle and point must be coplanar. The result is stored in a vector representing the barycentric coords.
-			* If the function succeeds, the return value is SUCCESS.
-			* If the function fails, the return value is FAILURE. This would occur when the triangle is degenerate.
-			*
-			* \param [in] 	_a			   	The first point of a triangle.
-			* \param [in] 	_b			   	The second point of a triangle.
-			* \param [in] 	_c			   	The third point of a triangle.
-			* \param [in] 	_p			   	The point coplanar with the triangle points.
-			* \param [out]	_outBarycentric	The out barycentric coordinates.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn BarycentricF(const MATH::GVECTORF _a, const MATH::GVECTORF _b, const MATH::GVECTORF _c, const MATH::GVECTORF _p, MATH::GVECTORF& _outBarycentric) { return GReturn::NO_IMPLEMENTATION; }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-			//! Convert AABBCE to AABBMM.
-			/*!
-			* Computes the min-max representation of an AABB from a center-extent AABB representation.
-			*
-			* \param [in]	_aabbCE		The center-extent AABB.
-			* \param [out]	_outAABBMM	The out min-max AABB.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ConvertAABBCEToAABBMMD(const MATH::GAABBCED _aabbCE, MATH::GAABBMMD& _outAABBMM) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Convert AABBCE to AABBMM.
-			/*!
-			* Computes the center-extent representation of an AABB from a min-max AABB representation.
-			*
-			* \param [in]	_aabbMM		The min-max AABB.
-			* \param [out]	_outAABBCE	The out center-extent AABB.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ConvertAABBMMToAABBCED(const MATH::GAABBMMD _aabbMM, MATH::GAABBCED& _outAABBCE) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Computes the plane given three points(clockwise).
-			/*!
-			* Calculates the plane given three points(clockwise) by taking the perpendicular vector that would intersect
-			* a triangle that the three points represent. The plane is defined as a normal and distance from the origin.
-			* If the function succeeds, the return value is SUCCESS.
-			* If the function fails, the return value is FAILURE. This would occur when the given plane's position points
-			* are collinear.
-			*
-			* \param [in]	_planePositionA	The plane position a.
-			* \param [in]	_planePositionB	The plane position b.
-			* \param [in]	_planePositionC	The plane position c.
-			* \param [out]	_outPlane	   	The out plane.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ComputePlaneD(const MATH::GVECTORD _planePositionA, const MATH::GVECTORD _planePositionB, const MATH::GVECTORD _planePositionC, MATH::GPLANED& _outPlane) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Tests whether a triangle is non-degenerate.
-			/*!
-			* Tests whether a triangle is non-degenerate. A non-degenerate triangle has an area greater than 0 and is not
-			* a line.
-			* If the triangle is non-degenerate, the out result is 1.
-			* If the triangle is degenerate, the out result is 0.
-			*
-			* \param [in]	_triangle 	The triangle.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IsTriangleD(const MATH::GTRIANGLED _triangle, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Tests whether a point lies within a polygon or not.
-			/*!
-			* Tests whether a point is contained within a polygon by counting how many times a line that extends to
-			* infinity intersects the sides of the polygon.
-			* If the point is contained within the polygon, the out result is 1. This does not include the polygon's
-			* boundary.
-			* If the point is not contained within the polygon, the out result is 0.
-			* If the function succeeds, the return value is SUCCESS.
-			* If the function fails, the return value is FAILURE. This would occur if the pointer to the polygon's points
-			* is null or if the point count is less than 3.
-			*
-			* \param [in]	_point			The query point.
-			* \param [in]	_polygonPoints	If non-null, the set of points representing the polygon vertices.
-			* \param [in]	_pointsCount	The number of polygon vertices.
-			* \param [out]	_outResult		The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPointToConvexPolygonD(const MATH::GVECTORD _point, const MATH::GVECTORD* _polygonPoints, const unsigned int _pointsCount, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Computes the closest point on a line to a point.
-			/*!
-			* Computes the closest point on a line to a point by projecting the point onto the line.
-			* The out point is the result of this computation.
-			*
-			* \param [in]	_line	   	The line.
-			* \param [in]	_queryPoint	The query point.
-			* \param [out]	_outPoint  	The out point that lies on the line.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ClosestPointToLineD(const MATH::GLINED _line, const MATH::GVECTORD _queryPoint, MATH::GVECTORD& _outPoint) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Computes the closest points of two lines.
-			/*!
-			* Computes the closest points of two lines by determining the minimum distance that could exist between
-			* the two line segments which results in the two closest points from one line to the other.
-			* The first out point is the point closest to the second line clamped to the first line.
-			* The second out point is the point closest to the first line clamped to the second line.
-			*
-			* \param [in]	_line1	   	The first line.
-			* \param [in]	_line2		The second line.
-			* \param [out]	_outPoint1  The first out point that lies on the first line.
-			* \param [out]	_outPoint2  The second out point that lies on the second line.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ClosestPointsToLineFromLineD(const MATH::GLINED _line1, const MATH::GLINED _line2, MATH::GVECTORD& _outPoint1, MATH::GVECTORD& _outPoint2) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Computes the closest point on a ray to a point.
-			/*!
-			* Computes the closest point on a ray by projecting the point onto the ray's path.
-			* The out point is the result of this computation.
-			*
-			* \param [in]	_ray	   	The ray.
-			* \param [in]	_queryPoint	The query point.
-			* \param [out]	_outPoint  	The out point that lies on the ray's path.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ClosestPointToRayD(const MATH::GRAYD _ray, const MATH::GVECTORD _queryPoint, MATH::GVECTORD& _outPoint) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Computes the closest point on a triangle to a point.
-			/*!
-			* Computes the closest point on a triangle to a point by determining which region the point is closest to (vertex,
-			* edge, or face) and projecting onto that region.
-			* The out point is the result of this computation.
-			*
-			* \param [in]	_triangle  	The triangle.
-			* \param [in]	_queryPoint	The query point.
-			* \param [out]	_outPoint  	The out point that lies on the triangle.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ClosestPointToTriangleD(const MATH::GTRIANGLED _triangle, const MATH::GVECTORD _queryPoint, MATH::GVECTORD& _outPoint) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Computes the closest point on a plane to a point.
-			/*!
-			* Computes the closest point on a plane to a point by projecting that point onto the plane.
-			* The out point is the result of this computation.
-			*
-			* \param [in]	_plane	   	The plane.
-			* \param [in]	_queryPoint	The query point.
-			* \param [out]	_outPoint  	The out point that lies on the plane.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ClosestPointToPlaneD(const MATH::GPLANED _plane, const MATH::GVECTORD _queryPoint, MATH::GVECTORD& _outPoint) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Computes the closest point on a sphere's surface to a point.
-			/*!
-			* Computes the closest point on a sphere's surface to a point by getting the normalized direction of the
-			* sphere's center to the given point and scaling that by the sphere's radius.
-			* The out point is the result of this computation.
-			* If the function succeeds, the return value is SUCCESS.
-			* If the function fails, the return value is FAILURE. This would occur if the query point is the sphere's
-			* center which results an infinite amount of valid results that cannot be represented in a single out point.
-			*
-			* \param [in]	_sphere	   	The sphere.
-			* \param [in]	_queryPoint	The query point.
-			* \param [out]	_outPoint  	The out point that lies on the sphere's surface.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ClosestPointToSphereD(const MATH::GSPHERED _sphere, const MATH::GVECTORD _queryPoint, MATH::GVECTORD& _outPoint) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Computes the closest point on a capsule's surface to a point.
-			/*!
-			* Computes the closest point on a capsule's surface to a point by finding the closest point to the
-			* capsule's center line and then computing the closest point to a sphere.
-			* The out point is the result of this computation.
-			* If the function succeeds, the return value is SUCCESS.
-			* If the function fails, the return value is FAILURE. This would occur if the query point is on the capsule's
-			* center line which results an infinite amount of valid results that cannot be represented in a single out
-			* point.
-			*
-			* \param [in]	_capsule	The capsule.
-			* \param [in]	_queryPoint	The query point.
-			* \param [out]	_outPoint  	The out point that lies on the capsule's surface.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ClosestPointToCapsuleD(const MATH::GCAPSULED _capsule, const MATH::GVECTORD _queryPoint, MATH::GVECTORD& _outPoint) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Computes the closest point on a min-max AABB to a point.
-			/*!
-			* Computes the closest point on a min-max AABB to a point by clamping that point to the surface of the
-			* AABB unless that point is contained within the AABB.
-			* The out point is the result of this computation.
-			* If the function succeeds, the return value is SUCCESS.
-			* If the function fails, the return value is FAILURE. This would occur if the query point is contained within
-			* the AABB.
-			*
-			* \param [in]	_aabb	   	The aabb.
-			* \param [in]	_queryPoint	The query point.
-			* \param [out]	_outPoint  	The out point that lies on the AABB's surface.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ClosestPointToAABBD(const MATH::GAABBMMD _aabb, const MATH::GVECTORD _queryPoint, MATH::GVECTORD& _outPoint) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Computes the closest point on an OBB to a point.
-			/*!
-			* Computes the closest point on an OBB to a point by clamping that point to the surface of the OBB.
-			* The out point is the result of this computation.
-			* If the function succeeds, the return value is SUCCESS.
-			* If the function fails, the return value is FAILURE. This would occur if the query point is contained within
-			* the OBB.
-			*
-			* \param [in]	_obb	   	The obb.
-			* \param [in]	_queryPoint	The query point.
-			* \param [out]	_outPoint  	The out point.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ClosestPointToOBBD(const MATH::GOBBD _obb, const MATH::GVECTORD _queryPoint, MATH::GVECTORD& _outPoint) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Compute sphere from point cloud.
-			/*!
-			* Computes a sphere from a point cloud by computing a good approximation of the points in the sphere and
-			* then iterating through the points to grow the sphere to include all points.
-			* The out sphere is the result of this computation.
-			* If the function succeeds, the return value is SUCCESS.
-			* If the function fails, the return value is FAILURE. This would occur if the pointer to the point cloud is
-			* NULL or the number of points is less than 2.
-			*
-			* \param [in]	_pointCloud 	If non-null, the point cloud.
-			* \param [in]	_pointsCount	Number of points.
-			* \param [out]	_outSphere  	The out sphere.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ComputeSphereFromPointsD(const MATH::GVECTORD* _pointCloud, const unsigned int _pointsCount, MATH::GSPHERED& _outSphere) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Compute min-max AABB from point cloud.
-			/*!
-			* Computes a min-max AABB from point cloud by computing the minimum and maximum values along the x, y, and z
-			* from the point cloud.
-			* The out AABB is the result of this computation.
-			* If the function succeeds, the return value is SUCCESS.
-			* If the function fails, the return value is FAILURE. This would occur if the pointer to the point cloud is
-			* NULL or the number of points is less than 1.
-			*
-			* \param [in]	_pointCloud 	If non-null, the point cloud.
-			* \param [in]	_pointsCount	Number of points.
-			* \param [out]	_outAABB		The out min-max AABB.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn ComputeAABBFromPointsD(const MATH::GVECTORD* _pointCloud, const unsigned int _pointsCount, MATH::GAABBMMD& _outAABB) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test point to line segment.
-			/*!
-			* Tests a point to a line segment by checking if that point is between the line segment's start and end.
-			* If the point lies on the line segment, the out result is GCollisionCheck::COLLISION.
-			* If the point does not lie on the line segment, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_point	  	The point.
-			* \param [in]	_line	  	The line.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPointToLineD(const MATH::GVECTORD _point, const MATH::GLINED _line, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a point to ray.
-			/*!
-			* Tests a point to a ray by checking if that point lies on the ray's path.
-			* If the point lies on the ray's path, the out result is GCollisionCheck::COLLISION.
-			* If the point does not lie on the ray's path, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_point	  	The point.
-			* \param [in]	_ray	  	The ray.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPointToRayD(const MATH::GVECTORD _point, const MATH::GRAYD _ray, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a point to triangle.
-			/*!
-			* Tests a point to a triangle by checking if the point lies on the surface plane of the triangle's normal and
-			* then if the barycentric coordinate's are all positive.
-			* If the point lies on the triangle, the out result is GCollisionCheck::COLLISION.
-			* If the point does not lie on the triangle, the out result is GCollisionCheck::NO_COLLISION.
-			* If the out barycentric argument is valid, the barycentric coordinates is stored in it.
-			* If the function succeeds, the return value is SUCCESS.
-			* If the function fails, the return value is FAILURE. This would occur if the triangle is degenerate.
-			*
-			* \param [in]	_point		   	The point.
-			* \param [in]	_triangle	   	The triangle.
-			* \param [out]	_outResult	   	The out result.
-			* \param [out]	_outBarycentric	If non-null, the out barycentric coordinates.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPointToTriangleD(const MATH::GVECTORD _point, const MATH::GTRIANGLED _triangle, GCollisionCheck& _outResult, MATH::GVECTORD* _outBarycentric) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a point to a plane.
-			/*!
-			* Tests a point to a plane by dotting the point and the plane's surface direction and then subtracting the
-			* plane's distance from the result of that dot product.
-			* If the point lies on the plane, the out result is GCollisionCheck::COLLISION.
-			* If the point lies below the plane, the out result is GCollisionCheck::BELOW.
-			* If the point lies above the plane, the out result is GCollisionCheck::ABOVE.
-			*
-			* \param [in]	_point	  	The point.
-			* \param [in]	_plane	  	The plane.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPointToPlaneD(const MATH::GVECTORD _point, const MATH::GPLANED _plane, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a point to a sphere.
-			/*!
-			* Test a point to a sphere by checking if the distance between the point and sphere's center is within the
-			* sphere's radius.
-			* If the point contacts the sphere, the out result is GCollisionCheck::COLLISION.
-			* If the point does not contact the sphere, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_point	  	The point.
-			* \param [in]	_sphere   	The sphere.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPointToSphereD(const MATH::GVECTORD _point, const MATH::GSPHERED _sphere, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a point to a capsule.
-			/*!
-			* Test a point to a capsule by finding the closest point along the capsule's center line segment to the point
-			* which reduces the query to a point to sphere test.
-			* If the point contacts the capsule, the out result is GCollisionCheck::COLLISION.
-			* If the point does not contact the capsule, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_point	  	The point.
-			* \param [in]	_capsule  	The capsule.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPointToCapsuleD(const MATH::GVECTORD _point, const MATH::GCAPSULED _capsule, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a point to a center-extent AABB.
-			/*!
-			* Test a point to a center-extent AABB by checking if it's within the AABB's boundaries along the x, y, and z.
-			* If the point contacts the AABB, the out result is GCollisionCheck::COLLISION.
-			* If the point does not contact the AABB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_point	  	The point.
-			* \param [in]	_aabb	  	The aabb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPointToAABBD(const MATH::GVECTORD _point, const MATH::GAABBCED _aabb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a point to an OBB.
-			/*!
-			* Test a point to an OBB by checking if that point doesn't need to be clamped to the OBB's boundaries.
-			* If the point contacts the OBB, the out result is GCollisionCheck::COLLISION.
-			* If the point does not contact the OBB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_point	  	The point.
-			* \param [in]	_obb	  	The obb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPointToOBBD(const MATH::GVECTORD _point, const MATH::GOBBD _obb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a line to a line.
-			/*!
-			* Test a line to a line by computing the shortest distance between the lines.
-			* If the first line contacts the second line, the out result is GCollisionCheck::COLLISION.
-			* If the first line does not contact the second line, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_line1	  	The first line.
-			* \param [in]	_line2	  	The second line.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestLineToLineD(const MATH::GLINED _line1, const MATH::GLINED _line2, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a line to a ray.
-			/*!
-			* Test a line to a ray by computing the shortest distance between the line and ray's path.
-			* If the line contacts the ray's path, the out result is GCollisionCheck::COLLISION.
-			* If the line does not contact the ray's path, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_line	  	The line.
-			* \param [in]	_ray	  	The ray.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestLineToRayD(const MATH::GLINED _line, const MATH::GRAYD _ray, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a line to a triangle
-			/*!
-			* Test a line to a clockwise triangle by computing if the line pierces the triangle. A collision will only be
-			* detected if the line is non-coplanar to the triangle and it pierces the from front face (the line's start
-			* point lies in front of the triangle and the line's end lies in back of the triangle).
-			* If the line contacts the triangle, the out result is GCollisionCheck::COLLISION.
-			* If the line does not contact the triangle, the out result is GCollisionCheck::NO_COLLISION.
-			* If the out barycentric argument is valid, the barycentric coordinates is stored in it.
-			*
-			* \param [in]	_line		   	The line.
-			* \param [in]	_triangle	   	The triangle.
-			* \param [out]	_outResult	   	The out result.
-			* \param [out]	_outBarycentric	If non-null, the out barycentric.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestLineToTriangleD(const MATH::GLINED _line, const MATH::GTRIANGLED _triangle, GCollisionCheck& _outResult, MATH::GVECTORD* _outBarycentric) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a line to a plane.
-			/*!
-			* Test a line to a plane by computing the interval along the line that intersects the plane.
-			* If the line contacts the plane, the out result is GCollisionCheck::COLLISION.
-			* If the line is coplanar to the plane, the out result is GCollisionCheck::NO_COLLISION.
-			* If the line lies below the plane, the out result is GCollisionCheck::BELOW.
-			* If the line lies above the plane, the out result is GCollisionCheck::ABOVE.
-			*
-			* \param [in]	_line	  	The line.
-			* \param [in]	_plane	  	The plane.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestLineToPlaneD(const MATH::GLINED _line, const MATH::GPLANED _plane, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a line to a sphere.
-			/*!
-			* Test a line to a sphere by computing the closest point on that line to the sphere's center and reducing the
-			* query to a point to sphere check.
-			* If the line contacts the sphere, the out result is GCollisionCheck::COLLISION.
-			* If the line does not contact the sphere, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_line	  	The line.
-			* \param [in]	_sphere   	The sphere.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestLineToSphereD(const MATH::GLINED _line, const MATH::GSPHERED _sphere, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a line to a capsule.
-			/*!
-			* Test a line to a capsule by finding the closest points of the line to the capsule's center line and reducing
-			* the query to a point to sphere check.
-			* If the line contacts the capsule, the out result is GCollisionCheck::COLLISION.
-			* If the line does not contact the capsule, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_line	  	The line.
-			* \param [in]	_capsule  	The capsule.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestLineToCapsuleD(const MATH::GLINED _line, const MATH::GCAPSULED _capsule, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a line to an AABB.
-			/*!
-			* Test a line to an AABB by checking if any section of the line lies within the AABB's bounds.
-			* If the line contacts the AABB, the out result is GCollisionCheck::COLLISION.
-			* If the line does not contact the AABB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_line	  	The line.
-			* \param [in]	_aabb	  	The aabb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestLineToAABBD(const MATH::GLINED _line, const MATH::GAABBCED _aabb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a line to an OBB.
-			/*!
-			* Test a line to an OBB by checking if any section of the line lies within the OBB's bounds.
-			* If the line contacts the OBB, the out result is GCollisionCheck::COLLISION.
-			* If the line does not contact the OBB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_line	  	The line.
-			* \param [in]	_obb	  	The obb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestLineToOBBD(const MATH::GLINED _line, const MATH::GOBBD _obb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a ray to a triangle.
-			/*!
-			* Test a ray to a clockwise triangle by computing if the ray's path intersects the triangle.
-			* If the ray's path contacts the triangle, the out result is GCollisionCheck::COLLISION.
-			* If the ray's path does not contact the triangle, the out result is GCollisionCheck::NO_COLLISION.
-			* If the out barycentric argument is valid, the barycentric coordinates is stored in it.
-			*
-			* \param [in]	_ray		   	The ray.
-			* \param [in]	_triangle	   	The triangle.
-			* \param [out]	_outResult	   	The out result.
-			* \param [out]	_outBarycentric	If non-null, the out barycentric.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestRayToTriangleD(const MATH::GRAYD _ray, const MATH::GTRIANGLED _triangle, GCollisionCheck& _outResult, MATH::GVECTORD* _outBarycentric) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a ray to a plane.
-			/*!
-			* Test a ray to a plane by computing if the ray's path pierces the plane.
-			* If the ray contacts the plane, the out result is GCollisionCheck::COLLISION.
-			* If the ray is coplanar to the plane, the out result is GCollisionCheck::NO_COLLISION.
-			* If the ray lies below the plane, the out result is GCollisionCheck::BELOW.
-			* If the ray lies above the plane, the out result is GCollisionCheck::ABOVE.
-			*
-			* \param [in]	_ray	  	The ray.
-			* \param [in]	_plane	  	The plane.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestRayToPlaneD(const MATH::GRAYD _ray, const MATH::GPLANED _plane, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a ray to a sphere.
-			/*!
-			* Tests if a collision exists between ray to sphere by using the quadratic formula to determine if there are
-			* any points of intersection (roots).
-			* If the ray's path contacts the sphere, the out result is GCollisionCheck::COLLISION.
-			* If the ray's path does not contact the sphere, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_ray	  	The ray.
-			* \param [in]	_sphere   	The sphere.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestRayToSphereD(const MATH::GRAYD _ray, const MATH::GSPHERED _sphere, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a ray to a capsule.
-			/*!
-			* Test a ray to a capsule by computing the closest points on the ray's path to the capsule's center line and
-			* reduces the query to a point to sphere test.
-			* If the ray's path contacts the capsule, the out result is GCollisionCheck::COLLISION.
-			* If the ray's path does not contact the capsule, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_ray	  	The ray.
-			* \param [in]	_capsule  	The capsule.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestRayToCapsuleD(const MATH::GRAYD _ray, const MATH::GCAPSULED _capsule, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a ray to an AABB.
-			/*!
-			* Test a ray to an AABB by checking if any section of the ray's path lies within the AABB's bounds.
-			* If the ray's path contacts the AABB, the out result is GCollisionCheck::COLLISION.
-			* If the ray's path does not contact the AABB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_ray	  	The ray.
-			* \param [in]	_aabb	  	The aabb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestRayToAABBD(const MATH::GRAYD _ray, const MATH::GAABBMMD _aabb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a ray to an OBB.
-			/*!
-			* Test a ray to an OBB by checking if any section of the ray's path lies within the AABB's bounds.
-			* If the ray's path contacts the OBB, the out result is GCollisionCheck::COLLISION.
-			* If the ray's path does not contact the OBB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_ray	  	The ray.
-			* \param [in]	_obb	  	The obb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestRayToOBBD(const MATH::GRAYD _ray, const MATH::GOBBD _obb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a triangle to a triangle.
-			/*!
-			* Test a triangle to a triangle by first checking if all either triangle's point lie on one side of the
-			* other triangle's face and then brings the triangles into canonical form to check if any of the edges of one
-			* triangle intersect the other triangle.
-			* If the triangle's contact, the out result is GCollisionCheck::COLLISION.
-			* If the triangle's don't contact, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_triangle1	The first triangle.
-			* \param [in]	_triangle2	The second triangle.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestTriangleToTriangleD(const MATH::GTRIANGLED _triangle1, const MATH::GTRIANGLED _triangle2, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a triangle to a plane.
-			/*!
-			* Test a triangle to a plane to compute if all of the triangle's vertices lie completely on one side of the
-			* plane.
-			* If the triangle contacts the plane, the out result is GCollisionCheck::COLLISION.
-			* If the triangle is coplanar to the plane, the out result is GCollisionCheck::NO_COLLISION.
-			* If the triangle lies below the plane, the out result is GCollisionCheck::BELOW.
-			* If the triangle lies above the plane, the out result is GCollisionCheck::ABOVE.
-			*
-			* \param [in]	_triangle 	The triangle.
-			* \param [in]	_plane	  	The plane.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestTriangleToPlaneD(const MATH::GTRIANGLED _triangle, const MATH::GPLANED _plane, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a triangle to a sphere.
-			/*!
-			* Test a triangle to a sphere by computing the closest point on the triangle to the sphere's center which
-			* reduces the query to testing a point to sphere.
-			* If the triangle contacts the sphere, the out result is GCollisionCheck::COLLISION.
-			* If the triangle is coplanar to the sphere, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_triangle 	The triangle.
-			* \param [in]	_sphere   	The sphere.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestTriangleToSphereD(const MATH::GTRIANGLED _triangle, const MATH::GSPHERED _sphere, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a triangle to a capsule.
-			/*!
-			* Test a triangle to capsule by computing a line on the triangle closest to the capsule's center line which
-			* reduces the query to test a line to capsule.
-			* If the triangle contacts the capsule, the out result is GCollisionCheck::COLLISION.
-			* If the triangle does not contact the capsule, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_triangle 	The triangle.
-			* \param [in]	_capsule  	The capsule.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestTriangleToCapsuleD(const MATH::GTRIANGLED _triangle, const MATH::GCAPSULED _capsule, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a triangle to an AABB.
-			/*!
-			* Test a triangle to AABB by using the separating axis theorem which involves 13 axis: 3 face normals of the
-			* AABB, 1 face normal of the triangle, 9 cross products between the their edges.
-			* If the triangle contacts the AABB, the out result is GCollisionCheck::COLLISION.
-			* If the triangle does not contact the AABB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_triangle 	The triangle.
-			* \param [in]	_aabb	  	The aabb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestTriangleToAABBD(const MATH::GTRIANGLED _triangle, const MATH::GAABBCED _aabb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a triangle to an OBB.
-			/*!
-			* Test a triangle to an OBB by bringing the triangle into the OBB's space and performing a triangle to AABB
-			* test.
-			* If the triangle contacts the OBB, the out result is GCollisionCheck::COLLISION.
-			* If the triangle does not contact the OBB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_triangle 	The triangle.
-			* \param [in]	_obb	  	The obb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestTriangleToOBBD(const MATH::GTRIANGLED _triangle, const MATH::GOBBD _obb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a plane to a plane.
-			/*!
-			* Test a plane to a plane by computing the whether the two planes are not parallel to each other.
-			* If the planes contact, the out result is GCollisionCheck::COLLISION.
-			* If the planes don't contact, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_plane1   	The first plane.
-			* \param [in]	_plane2   	The second plane.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPlaneToPlaneD(const MATH::GPLANED _plane1, const MATH::GPLANED _plane2, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a plane to a sphere.
-			/*!
-			* Test a plane to a sphere by computing the closest point on the plane to the sphere and perform a point
-			* to sphere test.
-			* If the plane contacts the sphere, the out result is GCollisionCheck::COLLISION.
-			* If the sphere lies below the plane, the out result is GCollisionCheck::BELOW.
-			* If the sphere lies above the plane, the out result is GCollisionCheck::ABOVE.
-			*
-			* \param [in]	_plane	  	The plane.
-			* \param [in]	_sphere   	The sphere.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPlaneToSphereD(const MATH::GPLANED _plane, const MATH::GSPHERED _sphere, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a plane to a capsule.
-			/*!
-			* Test a plane to a capsule by computing the closest points on the plane to the capsule's start and end points
-			* and then perform a line to capsule test.
-			* If the plane contacts the capsule, the out result is GCollisionCheck::COLLISION.
-			* If the capsule lies below the plane, the out result is GCollisionCheck::BELOW.
-			* If the capsule lies above the plane, the out result is GCollisionCheck::ABOVE.
-			*
-			* \param [in]	_plane	  	The plane.
-			* \param [in]	_capsule  	The capsule.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPlaneToCapsuleD(const MATH::GPLANED _plane, const MATH::GCAPSULED _capsule, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a plane to an AABB.
-			/*!
-			* Test a plane to an AABB by using the separating axis theorem.
-			* If the plane contacts the AABB, the out result is GCollisionCheck::COLLISION.
-			* If the AABB lies below the plane, the out result is GCollisionCheck::BELOW.
-			* If the AABB lies above the plane, the out result is GCollisionCheck::ABOVE.
-			*
-			* \param [in]	_plane	  	The plane.
-			* \param [in]	_aabb	  	The aabb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPlaneToAABBD(const MATH::GPLANED _plane, const MATH::GAABBCED _aabb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a plane to an OBB.
-			/*!
-			* Test a plane to an OBB by using the separating axis theorem.
-			* If the plane contacts the OBB, the out result is GCollisionCheck::COLLISION.
-			* If the OBB lies below the plane, the out result is GCollisionCheck::BELOW.
-			* If the OBB lies above the plane, the out result is GCollisionCheck::ABOVE.
-			*
-			* \param [in]	_plane	  	The plane.
-			* \param [in]	_obb	  	The obb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestPlaneToOBBD(const MATH::GPLANED _plane, const MATH::GOBBD _obb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a sphere to sphere
-			/*!
-			* Test a sphere to sphere by checking the distance between their centers and the
-			* sum of their radii.
-			* If the spheres contact, the out result is GCollisionCheck::COLLISION.
-			* If the spheres do not contact, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_sphere1  	The first sphere.
-			* \param [in]	_sphere2  	The second sphere.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestSphereToSphereD(const MATH::GSPHERED _sphere1, const MATH::GSPHERED _sphere2, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a sphere to capsule
-			/*!
-			* Test a sphere to capsule by checking the distance between each's center structures
-			* and the sum of their radii.
-			* If the sphere contacts the capsule, the out result is GCollisionCheck::COLLISION.
-			* If the sphere does not contact the capsule, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_sphere   	The sphere.
-			* \param [in]	_capsule  	The capsule.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestSphereToCapsuleD(const MATH::GSPHERED _sphere, const MATH::GCAPSULED _capsule, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a sphere to an AABB.
-			/*!
-			* Test a sphere to an AABB by computing the distance from the AABB's boundary to the sphere's center and
-			* computing if that distance is within the sphere's radius.
-			* If the sphere contacts the AABB, the out result is GCollisionCheck::COLLISION.
-			* If the sphere does not contact the AABB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_sphere   	The sphere.
-			* \param [in]	_aabb	  	The aabb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestSphereToAABBD(const MATH::GSPHERED _sphere, const MATH::GAABBCED _aabb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a sphere to an OBB.
-			/*!
-			* Test a sphere to an OBB by computing the distance from the OBB's boundary to the sphere's center and
-			* computing if that distance is within the sphere's radius.
-			* If the sphere contacts the OBB, the out result is GCollisionCheck::COLLISION.
-			* If the sphere does not contact the OBB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_sphere   	The sphere.
-			* \param [in]	_obb	  	The obb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestSphereToOBBD(const MATH::GSPHERED _sphere, const MATH::GOBBD _obb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a capsule to a capsule.
-			/*!
-			* Test a capsule to another capsule by computing the closest points on each capsule's center line and
-			* performing a sphere to sphere test.
-			* If the capsules contact, the out result is GCollisionCheck::COLLISION.
-			* If the capsules don't contact, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_capsule1 	The first capsule.
-			* \param [in]	_capsule2 	The second capsule.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestCapsuleToCapsuleD(const MATH::GCAPSULED _capsule1, const MATH::GCAPSULED _capsule2, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a capsule to an AABB.
-			/*!
-			* Test a capsule to an AABB by increasing the AABB's extents by the capsule's radius and then performing a
-			* ray to AABB test.
-			* If the capsule contacts the AABB, the out result is GCollisionCheck::COLLISION.
-			* If the capsule does not contact the AABB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_capsule  	The capsule.
-			* \param [in]	_aabb	  	The aabb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestCapsuleToAABBD(const MATH::GCAPSULED _capsule, const MATH::GAABBCED _aabb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test a capsule to an OBB.
-			/*!
-			* Test a capsule to an OBB by bringing the capsule into the OBB's space and performing a capsule to AABB test.
-			* If the capsule contacts the OBB, the out result is GCollisionCheck::COLLISION.
-			* If the capsule does not contact the OBB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_capsule  	The capsule.
-			* \param [in]	_obb	  	The obb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestCapsuleToOBBD(const MATH::GCAPSULED _capsule, const MATH::GOBBD _obb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test an AABB to an AABB
-			/*!
-			* Test an AABB to an AABB by checking if they overlap on all three axes.
-			* If the AABBs contact, the out result is GCollisionCheck::COLLISION.
-			* If the AABBs don't contact, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_aabb1	  	The first aabb.
-			* \param [in]	_aabb2	  	The second aabb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestAABBToAABBD(const MATH::GAABBCED _aabb1, const MATH::GAABBCED _aabb2, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Test an AABB to an OBB.
-			/*!
-			* Test an AABB to OBB performing an OBB to OBB test.
-			* If the AABB contacts the OBB, the out result is GCollisionCheck::COLLISION.
-			* If the AABB does not contact the OBB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_aabb	  	The aabb.
-			* \param [in]	_obb	  	The obb.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestAABBToOBBD(const MATH::GAABBCED _aabb, const MATH::GOBBD _obb, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Tests OBB to OBB
-			/*!
-			* Tests if a collision exists between OBB to OBB by checking if the sum of their projected radii is less
-			* than the distance between their projected centers meaning a separating axis exists. The result will be
-			* stored in _outResult as either GCollisionCheck::NO_COLLISION or GCollisionCheck::COLLISION.
-			* If the OBBs contact, the out result is GCollisionCheck::COLLISION.
-			* If the OBBs don't contact, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_obb1	  	The first OBB.
-			* \param [in]	_obb2	  	The second OBB.
-			* \param [out]	_outResult	The out result.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn TestOBBToOBBD(const MATH::GOBBD _obb1, const MATH::GOBBD _obb2, GCollisionCheck& _outResult) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect line to triangle.
-			/*!
-			* Test a line to a clockwise triangle by computing if the line pierces the triangle. A collision will only be
-			* detected if the line is non-coplanar to the triangle and it pierces the from front face (the line's start
-			* point lies in front of the triangle and the line's end lies in back of the triangle). Provides the point
-			* of contact along with the normalized direction and interval along that direction the contact occurs.
-			* If the line contacts the triangle, the out result is GCollisionCheck::COLLISION.
-			* If the line does not contact the triangle, the out result is GCollisionCheck::NO_COLLISION.
-			* If the out barycentric argument is valid, the barycentric coordinates is stored in it.
-			*
-			* \param [in]	_line				The line.
-			* \param [in]	_triangle			The triangle.
-			* \param [out]	_outResult			The out result.
-			* \param [out]	_outContactPoint	The out contact point.
-			* \param [out]	_outBarycentric 	If non-null, the out barycentric.
-			* \param [out]	_outDirection   	The out direction.
-			* \param [out]	_outInterval		The out interval along the direction.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectLineToTriangleD(const MATH::GLINED _line, const MATH::GTRIANGLED _triangle, GCollisionCheck& _outResult, MATH::GVECTORD& _outContactPoint, MATH::GVECTORD* _outBarycentric, MATH::GVECTORD& _outDirection, double& _outInterval) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect line to plane.
-			/*!
-			* Test a line to a plane by computing the interval along the line that intersects the plane. Provides the point
-			* of contact along with the normalized direction and interval along that direction the contact occurs.
-			* If the line contacts the plane, the out result is GCollisionCheck::COLLISION.
-			* If the line is coplanar to the plane, the out result is GCollisionCheck::NO_COLLISION.
-			* If the line lies below the plane, the out result is GCollisionCheck::BELOW.
-			* If the line lies above the plane, the out result is GCollisionCheck::ABOVE.
-			*
-			* \param [in]	_line				The line.
-			* \param [in]	_plane				The plane.
-			* \param [out]	_outResult			The out result.
-			* \param [out]	_outContactPoint	The out contact point.
-			* \param [out]	_outDirection   	The out direction.
-			* \param [out]	_outInterval		The out interval along the direction.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectLineToPlaneD(const MATH::GLINED _line, const MATH::GPLANED _plane, GCollisionCheck& _outResult, MATH::GVECTORD& _outContactPoint, MATH::GVECTORD& _outDirection, double& _outInterval) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect line to sphere.
-			/*!
-			* Test a line to a sphere by computing the closest point on that line to the sphere's center and reducing the
-			* query to a point to sphere check. Provides the point of contact along with the normalized direction
-			* and interval along that direction the contact occurs.
-			* If the line contacts the sphere, the out result is GCollisionCheck::COLLISION.
-			* If the line does not contact the sphere, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_line				The line.
-			* \param [in]	_sphere				The sphere.
-			* \param [out]	_outResult			The out result.
-			* \param [out]	_outContactPoint	The out contact point.
-			* \param [out]	_outDirection   	The out direction.
-			* \param [out]	_outInterval		The out interval along the direction.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectLineToSphereD(const MATH::GLINED _line, const MATH::GSPHERED _sphere, GCollisionCheck& _outResult, MATH::GVECTORD& _outContactPoint, MATH::GVECTORD& _outDirection, double& _outInterval) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect line to capsule.
-			/*!
-			* Test a line to a capsule by finding the closest points of the line to the capsule's center line and reducing
-			* the query to a point to sphere check. Provides the point of contact along with the normalized direction
-			* and interval along that direction the contact occurs.
-			* If the line contacts the capsule, the out result is GCollisionCheck::COLLISION.
-			* If the line does not contact the capsule, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_line				The line.
-			* \param [in]	_capsule			The capsule.
-			* \param [out]	_outResult			The out result.
-			* \param [out]	_outContactPoint	The out contact point.
-			* \param [out]	_outDirection   	The out direction.
-			* \param [out]	_outInterval		The out interval along the direction.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectLineToCapsuleD(const MATH::GLINED _line, const MATH::GCAPSULED _capsule, GCollisionCheck& _outResult, MATH::GVECTORD& _outContactPoint, MATH::GVECTORD& _outDirection, double& _outInterval) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect line to AABB.
-			/*!
-			* Test a line to an AABB by checking if any section of the line lies within the AABB's bounds. Provides
-			* the point of contact along with the normalized direction and interval along that direction the
-			* contact occurs.
-			* If the line contacts the AABB, the out result is GCollisionCheck::COLLISION.
-			* If the line does not contact the AABB, the out result is GCollisionCheck::NO_COLLISION.
-			* If the function succeeds, the return value is SUCCESS.
-			* If the function fails, the return value is FAILURE. This would occur when the line degenerates to a point.
-			*
-			* \param [in]	_line				The line.
-			* \param [in]	_aabb				The aabb.
-			* \param [out]	_outResult			The out result.
-			* \param [out]	_outContactPoint	The out contact point.
-			* \param [out]	_outDirection   	The out direction.
-			* \param [out]	_outInterval		The out interval along the direction.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectLineToAABBD(const MATH::GLINED _line, const MATH::GAABBMMD _aabb, GCollisionCheck& _outResult, MATH::GVECTORD& _outContactPoint, MATH::GVECTORD& _outDirection, double& _outInterval) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect line to OBB.
-			/*!
-			* Test a line to an OBB by checking if any section of the line lies within the OBB's bounds. Provides
-			* the point of contact along with the normalized direction and interval along that direction the
-			* contact occurs.
-			* If the line contacts the OBB, the out result is GCollisionCheck::COLLISION.
-			* If the line does not contact the OBB, the out result is GCollisionCheck::NO_COLLISION.
-			* If the function succeeds, the return value is SUCCESS.
-			* If the function fails, the return value is FAILURE. This would occur when the line degenerates to a point.
-			*
-			* \param [in]	_line				The line.
-			* \param [in]	_obb				The obb.
-			* \param [out]	_outResult			The out result.
-			* \param [out]	_outContactPoint	The out contact point.
-			* \param [out]	_outDirection   	The out direction.
-			* \param [out]	_outInterval		The out interval along the direction.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectLineToOBBD(const MATH::GLINED _line, const MATH::GOBBD _obb, GCollisionCheck& _outResult, MATH::GVECTORD& _outContactPoint, MATH::GVECTORD& _outDirection, double& _outInterval) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect ray to triangle.
-			/*!
-			* Test a ray to a clockwise triangle by computing if the ray's path intersects the triangle. Provides the
-			* point of contact along with the interval the contact occurs on the ray.
-			* If the ray's path contacts the triangle, the out result is GCollisionCheck::COLLISION.
-			* If the ray's path does not contact the triangle, the out result is GCollisionCheck::NO_COLLISION.
-			* If the out barycentric argument is valid, the barycentric coordinates is stored in it.
-			*
-			* \param [in]	_ray				The ray.
-			* \param [in]	_triangle			The triangle.
-			* \param [out]	_outResult			The out result.
-			* \param [out]	_outContactPoint	The out contact point.
-			* \param [out]	_outBarycentric 	If non-null, the out barycentric.
-			* \param [out]	_outInterval		The out interval along the direction.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectRayToTriangleD(const MATH::GRAYD _ray, const MATH::GTRIANGLED _triangle, GCollisionCheck& _outResult, MATH::GVECTORD& _outContactPoint, MATH::GVECTORD* _outBarycentric, double& _outInterval) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect ray to plane.
-			/*!
-			* Test a ray to a plane by computing if the ray's path pierces the plane. Provides the point of contact along
-			* with the interval the contact occurs on the ray.
-			* If the ray contacts the plane, the out result is GCollisionCheck::COLLISION.
-			* If the ray is coplanar to the plane, the out result is GCollisionCheck::NO_COLLISION.
-			* If the ray lies below the plane, the out result is GCollisionCheck::BELOW.
-			* If the ray lies above the plane, the out result is GCollisionCheck::ABOVE.
-			*
-			* \param [in]	_ray				The ray.
-			* \param [in]	_plane				The plane.
-			* \param [out]	_outResult			The out result.
-			* \param [out]	_outContactPoint	The out contact point.
-			* \param [out]	_outInterval		The out interval along the ray.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectRayToPlaneD(const MATH::GRAYD _ray, const MATH::GPLANED _plane, GCollisionCheck& _outResult, MATH::GVECTORD& _outContactPoint, double& _outInterval) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect ray to sphere.
-			/*!
-			* Tests if a collision exists between ray to sphere by using the quadratic formula to determine if there are
-			* any points of intersection (roots). Provides the point of contact along with the interval the contact
-			* occurs on the ray.
-			* If the ray's path contacts the sphere, the out result is GCollisionCheck::COLLISION.
-			* If the ray's path does not contact the sphere, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_ray				The ray.
-			* \param [in]	_sphere				The sphere.
-			* \param [out]	_outResult			The out result.
-			* \param [out]	_outContactPoint	The out contact point.
-			* \param [out]	_outInterval		The out interval along the ray.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectRayToSphereD(const MATH::GRAYD _ray, const MATH::GSPHERED _sphere, GCollisionCheck& _outResult, MATH::GVECTORD& _outContactPoint, double& _outInterval) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect ray to capsule.
-			/*!
-			* Test a ray to a capsule by computing the closest points on the ray's path to the capsule's center line and
-			* reduces the query to a point to sphere test. Provides the point of contact along with the interval the
-			* contact occurs on the ray.
-			* If the ray's path contacts the capsule, the out result is GCollisionCheck::COLLISION.
-			* If the ray's path does not contact the capsule, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_ray				The ray.
-			* \param [in]	_capsule			The capsule.
-			* \param [out]	_outResult			The out result.
-			* \param [out]	_outContactPoint	The out contact point.
-			* \param [out]	_outInterval		The out interval along the ray.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectRayToCapsuleD(const MATH::GRAYD _ray, const MATH::GCAPSULED _capsule, GCollisionCheck& _outResult, MATH::GVECTORD& _outContactPoint, double& _outInterval) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect ray to AABB.
-			/*!
-			* Test a ray to an AABB by checking if any section of the ray's path lies within the AABB's bounds. Provides
-			* the point of contact along with the interval the contact occurs on the ray.
-			* If the ray's path contacts the AABB, the out result is GCollisionCheck::COLLISION.
-			* If the ray's path does not contact the AABB, the out result is GCollisionCheck::NO_COLLISION.
-
-			*
-			* \param [in]	_ray				The ray.
-			* \param [in]	_aabb				The aabb.
-			* \param [out]	_outResult			The out result.
-			* \param [out]	_outContactPoint	The out contact point.
-			* \param [out]	_outInterval		The out interval along the ray.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectRayToAABBD(const MATH::GRAYD _ray, const MATH::GAABBMMD _aabb, GCollisionCheck& _outResult, MATH::GVECTORD& _outContactPoint, double& _outInterval) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect ray to OBB.
-			/*!
-			* Test a ray to an OBB by checking if any section of the ray's path lies within the AABB's bounds. Provides
-			* the point of contact along with the interval the contact occurs on the ray.
-			* If the ray's path contacts the OBB, the out result is GCollisionCheck::COLLISION.
-			* If the ray's path does not contact the OBB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_ray				The ray.
-			* \param [in]	_obb				The obb.
-			* \param [out]	_outResult			The out result.
-			* \param [out]	_outContactPoint	The out contact point.
-			* \param [out]	_outInterval		The out interval along the ray.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectRayToOBBD(const MATH::GRAYD _ray, const MATH::GOBBD _obb, GCollisionCheck& _outResult, MATH::GVECTORD& _outContactPoint, double& _outInterval) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect sphere to sphere.
-			/*!
-			* Test a sphere to sphere by checking the distance between their centers and the
-			* sum of their radii. Provides the minimal translation information: two points on each shape's surface,
-			* the direction the two points form, and distance required to translate the second shape to where the surfaces
-			* barely contact.
-			* If the spheres contact, the out result is GCollisionCheck::COLLISION.
-			* If the spheres do not contact, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_sphere1		   	The first sphere.
-			* \param [in]	_sphere2		   	The second sphere.
-			* \param [out]	_outResult		   	The out result.
-			* \param [out]	_outContactClosest1	The first out contact closest.
-			* \param [out]	_outContactClosest2	The second out contact closest.
-			* \param [out]	_outDirection	   	The out direction.
-			* \param [out]	_outDistance		The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectSphereToSphereD(const MATH::GSPHERED _sphere1, const MATH::GSPHERED _sphere2, GCollisionCheck& _outResult, MATH::GVECTORD& _outContactClosest1, MATH::GVECTORD& _outContactClosest2, MATH::GVECTORD& _outDirection, double& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect sphere to capsule.
-			/*!
-			* Test a sphere to capsule by checking the distance between each's center structures
-			* and the sum of their radii. Provides the minimal translation information: two points on each shape's surface,
-			* the direction the two points form, and distance required to translate the second shape to where the surfaces
-			* barely contact.
-			* If the sphere contacts the capsule, the out result is GCollisionCheck::COLLISION.
-			* If the sphere does not contact the capsule, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_sphere			   	The sphere.
-			* \param [in]	_capsule		   	The capsule.
-			* \param [out]	_outResult		   	The out result.
-			* \param [out]	_outContactClosest1	The first out contact closest.
-			* \param [out]	_outContactClosest2	The second out contact closest.
-			* \param [out]	_outDirection	   	The out direction.
-			* \param [out]	_outDistance	   	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectSphereToCapsuleD(const MATH::GSPHERED _sphere, const MATH::GCAPSULED _capsule, GCollisionCheck& _outResult, MATH::GVECTORD& _outContactClosest1, MATH::GVECTORD& _outContactClosest2, MATH::GVECTORD& _outDirection, double& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect sphere to AABB.
-			/*!
-			* Test a sphere to an AABB by computing the distance from the AABB's boundary to the sphere's center and
-			* computing if that distance is within the sphere's radius. Provides the minimal translation information: two points on each shape's surface,
-			* the direction the two points form, and distance required to translate the second shape to where the surfaces
-			* barely contact.
-			* If the sphere contacts the AABB, the out result is GCollisionCheck::COLLISION.
-			* If the sphere does not contact the AABB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_sphere			   	The sphere.
-			* \param [in]	_aabb			   	The aabb.
-			* \param [out]	_outResult		   	The out result.
-			* \param [out]	_outContactClosest1	The first out contact closest.
-			* \param [out]	_outContactClosest2	The second out contact closest.
-			* \param [out]	_outDirection	   	The out direction.
-			* \param [out]	_outDistance	   	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectSphereToAABBD(const MATH::GSPHERED _sphere, const MATH::GAABBCED _aabb, GCollisionCheck& _outResult, MATH::GVECTORD& _outContactClosest1, MATH::GVECTORD& _outContactClosest2, MATH::GVECTORD& _outDirection, double& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect sphere to OBB.
-			/*!
-			* Test a sphere to an OBB by computing the distance from the OBB's boundary to the sphere's center and
-			* computing if that distance is within the sphere's radius. Provides the minimal translation information: two points on each shape's surface,
-			* the direction the two points form, and distance required to translate the second shape to where the surfaces
-			* barely contact.
-			* If the sphere contacts the OBB, the out result is GCollisionCheck::COLLISION.
-			* If the sphere does not contact the OBB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_sphere			   	The sphere.
-			* \param [in]	_obb			   	The obb.
-			* \param [out]	_outResult		   	The out result.
-			* \param [out]	_outContactClosest1	The first out contact closest.
-			* \param [out]	_outContactClosest2	The second out contact closest.
-			* \param [out]	_outDirection	   	The out direction.
-			* \param [out]	_outDistance	   	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectSphereToOBBD(const MATH::GSPHERED _sphere, const MATH::GOBBD _obb, GCollisionCheck& _outResult, MATH::GVECTORD& _outContactClosest1, MATH::GVECTORD& _outContactClosest2, MATH::GVECTORD& _outDirection, double& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect capsule to capsule.
-			/*!
-			* Test a capsule to another capsule by computing the closest points on each capsule's center line and
-			* performing a sphere to sphere test. Provides the minimal translation information: two points on each shape's surface,
-			* the direction the two points form, and distance required to translate the second shape to where the surfaces
-			* barely contact.
-			* If the capsules contact, the out result is GCollisionCheck::COLLISION.
-			* If the capsules don't contact, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_capsule1		   	The first capsule.
-			* \param [in]	_capsule2		   	The second capsule.
-			* \param [out]	_outResult		   	The out result.
-			* \param [out]	_outContactClosest1	The first out contact closest.
-			* \param [out]	_outContactClosest2	The second out contact closest.
-			* \param [out]	_outDirection	   	The out direction.
-			* \param [out]	_outDistance	   	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectCapsuleToCapsuleD(const MATH::GCAPSULED _capsule1, const MATH::GCAPSULED _capsule2, GCollisionCheck& _outResult, MATH::GVECTORD& _outContactClosest1, MATH::GVECTORD& _outContactClosest2, MATH::GVECTORD& _outDirection, double& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect capsule to AABB.
-			/*!
-			* Test a capsule to an AABB by increasing the AABB's extents by the capsule's radius and then performing a
-			* ray to AABB test. Provides the minimal translation information: two points on each shape's surface,
-			* the direction the two points form, and distance required to translate the second shape to where the surfaces
-			* barely contact.
-			* If the capsule contacts the AABB, the out result is GCollisionCheck::COLLISION.
-			* If the capsule does not contact the AABB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_capsule		   	The capsule.
-			* \param [in]	_aabb			   	The aabb.
-			* \param [out]	_outResult		   	The out result.
-			* \param [out]	_outContactClosest1	The first out contact closest.
-			* \param [out]	_outContactClosest2	The second out contact closest.
-			* \param [out]	_outDirection	   	The out direction.
-			* \param [out]	_outDistance	   	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectCapsuleToAABBD(const MATH::GCAPSULED _capsule, const MATH::GAABBMMD _aabb, GCollisionCheck& _outResult, MATH::GVECTORD& _outContactClosest1, MATH::GVECTORD& _outContactClosest2, MATH::GVECTORD& _outDirection, double& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect capsule to OBB.
-			/*!
-			* Test a capsule to an OBB by bringing the capsule into the OBB's space and performing a capsule to AABB test.
-			* Provides the minimal translation information: two points on each shape's surface,
-			* the direction the two points form, and distance required to translate the second shape to where the surfaces
-			* barely contact.
-			* If the capsule contacts the OBB, the out result is GCollisionCheck::COLLISION.
-			* If the capsule does not contact the OBB, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_capsule		   	The capsule.
-			* \param [in]	_obb			   	The obb.
-			* \param [out]	_outResult		   	The out result.
-			* \param [out]	_outContactClosest1	The first out contact closest.
-			* \param [out]	_outContactClosest2	The second out contact closest.
-			* \param [out]	_outDirection	   	The out direction.
-			* \param [out]	_outDistance	   	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectCapsuleToOBBD(const MATH::GCAPSULED _capsule, const MATH::GOBBD _obb, GCollisionCheck& _outResult, MATH::GVECTORD& _outContactClosest1, MATH::GVECTORD& _outContactClosest2, MATH::GVECTORD& _outDirection, double& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Intersect AABB to AABB.
-			/*!
-			* Test an AABB to an AABB by checking if they overlap on all three axes. Provides the minimal translation
-			* information: two points on each shape's surface,the direction the two points form, and distance required to
-			* translate the second shape to where the surfaces barely contact.
-			* If the AABBs contact, the out result is GCollisionCheck::COLLISION.
-			* If the AABBs don't contact, the out result is GCollisionCheck::NO_COLLISION.
-			*
-			* \param [in]	_aabb1		   	The first aabb.
-			* \param [in]	_aabb2		   	The second aabb.
-			* \param [out]	_outResult	   	The out result.
-			* \param [out]	_outContactAABB	The out contact a bb.
-			* \param [out]	_outDirection  	The out direction.
-			* \param [out]	_outDistance   	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn IntersectAABBToAABBD(const MATH::GAABBCED _aabb1, const MATH::GAABBCED _aabb2, GCollisionCheck& _outResult, MATH::GAABBCED& _outContactAABB, MATH::GVECTORD& _outDirection, double& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Squared distance between point to line.
-			/*!
-			* Squared separation distance between point to line.
-			*
-			* \param [in]	_point			The point.
-			* \param [in]	_line			The line.
-			* \param [out]	_outDistance	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn SqDistancePointToLineD(const MATH::GVECTORD _point, const MATH::GLINED _line, double& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Squared distance between point to ray.
-			/*!
-			* Squared separation distance between point to ray.
-			*
-			* \param [in]	_point			The point.
-			* \param [in]	_ray			The ray.
-			* \param [out]	_outDistance	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn SqDistancePointToRayD(const MATH::GVECTORD _point, const MATH::GRAYD _ray, double& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Squared distance between point to triangle.
-			/*!
-			* Squared separation distance between point to triangle.
-			*
-			* \param [in]	_point			The point.
-			* \param [in]	_triangle   	The triangle.
-			* \param [out]	_outDistance	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn SqDistancePointToTriangleD(const MATH::GVECTORD _point, const MATH::GTRIANGLED _triangle, double& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Squared distance between point to plane.
-			/*!
-			* Squared separation distance between point to plane.
-			*
-			* \param [in]	_point			The point.
-			* \param [in]	_plane			The plane.
-			* \param [out]	_outDistance	The out distance.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn SqDistancePointToPlaneD(const MATH::GVECTORD _point, const MATH::GPLANED _plane, double& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Squared distance between point to sphere.
-			/*!
-			* Squared separation distance between point to sphere.
-			*
-			* \param [in]	_point			The point.
-			* \param [in]	_sphere			The sphere.
-			* \param [out]	_outDistance	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn SqDistancePointToSphereD(const MATH::GVECTORD _point, const MATH::GSPHERED _sphere, double& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Squared distance between point to capsule.
-			/*!
-			* Squared separation distance between point to capsule.
-			*
-			* \param [in]	_point			The point.
-			* \param [in]	_capsule		The capsule.
-			* \param [out]	_outDistance	The out distance.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn SqDistancePointToCapsuleD(const MATH::GVECTORD _point, const MATH::GCAPSULED _capsule, double& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Squared distance between point to AABB.
-			/*!
-			* Squared separation distance between point to a AABB.
-			*
-			* \param [in]	_point			The point.
-			* \param [in]	_aabb			The aabb.
-			* \param [out]	_outDistance	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn SqDistancePointToAABBD(const MATH::GVECTORD _point, const MATH::GAABBMMD _aabb, double& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Squared distance between point to OBB.
-			/*!
-			* Squared separation distance between point to OBB.
-			*
-			* \param [in]	_point			The point.
-			* \param [in]	_obb			The obb.
-			* \param [out]	_outDistance	The out distance.
-			*
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn SqDistancePointToOBBD(const MATH::GVECTORD _point, const MATH::GOBBD _obb, double& _outDistance) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Compute the barycentric coordinates of a point to triangle.
-			/*!
-			* Compute the barycentric coordinates given three points of a triangle with a point in respect to that triangle.
-			* Both triangle and point must be coplanar. The result is stored in a vector representing the barycentric coords.
-			* If the function succeeds, the return value is SUCCESS.
-			* If the function fails, the return value is FAILURE. This would occur when the triangle is degenerate.
-			*
-			* \param [in] 	_a			   	The first point of a triangle.
-			* \param [in] 	_b			   	The second point of a triangle.
-			* \param [in] 	_c			   	The third point of a triangle.
-			* \param [in] 	_p			   	The point coplanar with the triangle points.
-			* \param [out]	_outBarycentric	The out barycentric coordinates.
-			*
-			* \retval GReturn::FAILURE The calculation failed.
-			* \retval GReturn::SUCCESS The calculation succeeded.
-			*/
-			static GReturn BarycentricD(const MATH::GVECTORD _a, const MATH::GVECTORD _b, const MATH::GVECTORD _c, const MATH::GVECTORD _p, MATH::GVECTORD& _outBarycentric) { return GReturn::NO_IMPLEMENTATION; }
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -40583,16 +33369,6 @@ namespace GW
 #ifndef GQUATERNION_H
 #define GQUATERNION_H
 
-/*!
-	File: GQuaternion.h
-	Purpose: A Gateware interface that handles quaternion functions.
-	Asynchronus: YES
-	Author: Shuo-Yi Chang
-	Contributors: Kai Huang, Ryan Powser
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -41323,19 +34099,15 @@ namespace GW
 #endif
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all Gateware math interfaces must belong.
 	namespace MATH
 	{
-		//! A Gateware interface that handles quaternion functions.
 		class GQuaternion final
 			: public I::GProxy<I::GQuaternionInterface, I::GQuaternionImplementation >
 		{
 		public: // Only public functions are exposed via Proxy, never protected or private operations
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS( GQuaternion )
 			GATEWARE_STATIC_FUNCTION(AddQuaternionF)
 			GATEWARE_STATIC_FUNCTION(SubtractQuaternionF)
@@ -41372,416 +34144,8 @@ namespace GW
 			GATEWARE_STATIC_FUNCTION(LerpD)
 			GATEWARE_STATIC_FUNCTION(SlerpD)
 			GATEWARE_STATIC_FUNCTION(Downgrade)
-			//! \endcond
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Creates a valid GQuaternion Object. 
-			/*!
-			*
-			*	\retval GReturn::SUCCESS	This always succeeds. (unless you run out of memory or something terribly)
-			*/
-			GReturn Create( );
-
-			//! Add two quaternions
-			/*!
-			*	Adds the two specified quaternions and stores the result in the output quaternion.
-			*
-			*	\param [in]  _quaternion1		The first quaternion
-			*	\param [in]  _quaternion2		The second quaternion
-			*	\param [out] _outQuaternion		The result of the addition
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn AddQuaternionF(MATH::GQUATERNIONF _quaternion1, MATH::GQUATERNIONF _quaternion2, MATH::GQUATERNIONF& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Subtract two quaternions
-			/*!
-			*	Subtracts the two specified quaternions and stores the result in the output quaternion.
-			*
-			*	\param [in]  _quaternion1		The first quaternion
-			*	\param [in]  _quaternion2		The second quaternion
-			*	\param [out] _outQuaternion		The result of the subtraction
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn SubtractQuaternionF(MATH::GQUATERNIONF _quaternion1, MATH::GQUATERNIONF _quaternion2, MATH::GQUATERNIONF& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Multiply two quaternions
-			/*!
-			*	Multiplies the two specified quaternions and stores the result in the output quaternion.
-			*
-			*	\param [in]  _quaternion1		The first quaternion
-			*	\param [in]  _quaternion2		The second quaternion
-			*	\param [out] _outQuaternion		The result of the multiplication
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn MultiplyQuaternionF(MATH::GQUATERNIONF _quaternion1, MATH::GQUATERNIONF _quaternion2, MATH::GQUATERNIONF& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Scale the quaternion
-			/*!
-			*	Scales the specified quaternion with a number and stores the result in the output quaternion.
-			*
-			*	\param [in]  _quaternion		The quaternion
-			*	\param [in]  _scalar			The specified value to scale
-			*	\param [out] _outQuaternion		The result of the scaling
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn ScaleF(MATH::GQUATERNIONF _quaternion, float _scalar, MATH::GQUATERNIONF& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Set the quaternion by the specified vector and the specified angle
-			/*!
-			*	Sets the quaternion with a number and stores the result in the output quaternion.
-			*
-			*	\param [in]  _vector			The specified vector
-			*	\param [in]  _radian			The specified value of angle
-			*	\param [out] _outQuaternion		The result of the rotation
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn SetByVectorAngleF(MATH::GVECTORF _vector, float _radian, MATH::GQUATERNIONF& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Set the quaternion by the specified matrix
-			/*!
-			*	Sets the quaternion by the rotational part of the specifed matrix
-			*	and stores the result in the output quaternion.
-			*
-			*	\param [in]  _matrix			The specified matrix
-			*	\param [out] _outQuaternion		The result of the rotation of matrix
-			*
-			*	\retval GReturn::FAILURE					The calculation failed
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn SetByMatrixF(MATH::GMATRIXF _matrix, MATH::GQUATERNIONF& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculates the dot product of the two specified quaternions
-			/*!
-			*	Calculates the dot product of two specified quaternions and stores the result in the output Value.
-			*
-			*	\param [in]  _quaternion1		The first quaternion
-			*	\param [in]  _quaternion2		The second quaternion
-			*	\param [out] _outValue			The value of the dot product
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn DotF(MATH::GQUATERNIONF _quaternion1, MATH::GQUATERNIONF _quaternion2, float& _outValue) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculates the cross product of the two specified quaternions
-			/*!
-			*	Corsses two specified quaternions and stores the result in the output Value.
-			*
-			*	\param [in]  _quaternion1		The first quaternion
-			*	\param [in]  _quaternion2		The second quaternion
-			*	\param [out] _outVector			The vector of the corss product
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn CrossF(MATH::GQUATERNIONF _quaternion1, MATH::GQUATERNIONF _quaternion2, MATH::GVECTORF& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Conjugate the specified quaternion
-			/*!
-			*	Conjugates the specified quaternion and stores the result in the output quaternion.
-			*
-			*	\param [in]  _quaternion		The quaternion
-			*	\param [out] _outQuaternion		The result of the conjugate
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn ConjugateF(MATH::GQUATERNIONF _quaternion, MATH::GQUATERNIONF& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Inverse the specified quaternion
-			/*!
-			*	Inverses the specified quaternion and stores the result in the output quaternion.
-			*
-			*	\param [in]  _quaternion		The specified quaternion
-			*	\param [out] _outQuaternion		The result of the inverse
-			*
-			*	\retval GReturn::FAILURE					The calculation failed
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn InverseF(MATH::GQUATERNIONF _quaternion, MATH::GQUATERNIONF& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculate the magnitude of quaternion
-			/*!
-			*	Calculate the magnitude of the specified quaternion and stores the result in the output value.
-			*
-			*	\param [in]  _quaternion		The quaternion
-			*	\param [out] _outMagnitude		The result of the Calculation
-			*
-			*	\retval GReturn::FAILURE					The calculation failed
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn MagnitudeF(MATH::GQUATERNIONF _quaternion, float& _outMagnitude) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Normalize the specified quaternion
-			/*!
-			*	Normalizes the specified quaternion and stores the result in the output quaternion.
-			*
-			*	\param [in]  _quaternion		The quaternion
-			*	\param [out] _outQuaternion		The result of the normalization
-			*
-			*	\retval GReturn::FAILURE					The calculation failed
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn NormalizeF(MATH::GQUATERNIONF _quaternion, MATH::GQUATERNIONF& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Identity the specified quaternion
-			/*!
-			*	Set the output quaternion as an identity quaternion
-			*
-			*	\param [out] _outQuaternion		The result of the identity
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn IdentityF(MATH::GQUATERNIONF& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Linear interpolate between two specified quaternions
-			/*!
-			*	Linear interpolates between two specified quaternions
-			*	and stores the result in the output quaternion.
-			*
-			*	\param [in]  _quaternion1		The first quaternion
-			*	\param [in]  _quaternion2		The seconds quaternion
-			*	\param [in]  _ratio				The interpolation coefficient
-			*	\param [out] _outQuaternion		The result of the lerp
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn LerpF(MATH::GQUATERNIONF _quaternion1, MATH::GQUATERNIONF _quaternion2, float _ratio, MATH::GQUATERNIONF& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Spherical linear interpolates between two specified quaternions
-			/*!
-			*	Spherical linear interpolates between two specified quaternions
-			*	and stores the result in the output quaternion.
-			*
-			*	\param [in]  _quaternion1		The first quaternion
-			*	\param [in]  _quaternion2		The seconds quaternion
-			*	\param [in]  _ratio				The interpolation coefficient
-			*	\param [out] _outQuaternion		The result of the lerp
-			*
-			*	\retval GReturn::FAILURE					The calculation failed
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn SlerpF(MATH::GQUATERNIONF _quaternion1, MATH::GQUATERNIONF _quaternion2, float _ratio, MATH::GQUATERNIONF& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Promotes float quaternion to double quaternion
-			/*!
-			*	Performs a static_cast<double>() on every element of the input quaternion and assigns them to the output quaternion
-			*
-			*	\param [in]  _quaternionF		A float quaternion
-			*	\param [out] _outQuaternionD	The input float quaternion static_casted to a double quaternion
-			*
-			*	\retval GReturn::SUCCESS				The cast succeeded
-			*/
-			static GReturn Upgrade(MATH::GQUATERNIONF _quaternionF, MATH::GQUATERNIOND& _outQuaternionD) { return GReturn::NO_IMPLEMENTATION; }
-
-
-
-
-
-
-
-
-
-
-
-
-			//! Add two quaternions
-			/*!
-			*	Adds the two specified quaternions and stores the result in the output quaternion.
-			*
-			*	\param [in]  _quaternion1		The first quaternion
-			*	\param [in]  _quaternion2		The second quaternion
-			*	\param [out] _outQuaternion		The result of the addition
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn AddQuaternionD(MATH::GQUATERNIOND _quaternion1, MATH::GQUATERNIOND _quaternion2, MATH::GQUATERNIOND& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Subtract two quaternions
-			/*!
-			*	Subtracts the two specified quaternions and stores the result in the output quaternion.
-			*
-			*	\param [in]  _quaternion1		The first quaternion
-			*	\param [in]  _quaternion2		The second quaternion
-			*	\param [out] _outQuaternion		The result of the subtraction
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn SubtractQuaternionD(MATH::GQUATERNIOND _quaternion1, MATH::GQUATERNIOND _quaternion2, MATH::GQUATERNIOND& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Multiply two quaternions
-			/*!
-			*	Multiplies the two specified quaternions and stores the result in the output quaternion.
-			*
-			*	\param [in]  _quaternion1		The first quaternion
-			*	\param [in]  _quaternion2		The second quaternion
-			*	\param [out] _outQuaternion		The result of the multiplication
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn MultiplyQuaternionD(MATH::GQUATERNIOND _quaternion1, MATH::GQUATERNIOND _quaternion2, MATH::GQUATERNIOND& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Scale the quaternion
-			/*!
-			*	Scales the specified quaternion with a number and stores the result in the output quaternion.
-			*
-			*	\param [in]  _quaternion		The quaternion
-			*	\param [in]  _scalar			The specified value to scale
-			*	\param [out] _outQuaternion		The result of the scaling
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn ScaleD(MATH::GQUATERNIOND _quaternion, double _scalar, MATH::GQUATERNIOND& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Set the quaternion by the specified vector and the specified angle
-			/*!
-			*	Sets the quaternion with a number and stores the result in the output quaternion.
-			*
-			*	\param [in]  _vector			The specified vector
-			*	\param [in]  _radian			The specified value of angle
-			*	\param [out] _outQuaternion		The result of the rotation
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn SetByVectorAngleD(MATH::GVECTORD _vector, double _radian, MATH::GQUATERNIOND& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Set the quaternion by the specified matrix
-			/*!
-			*	Sets the quaternion by the rotational part of the specifed matrix
-			*	and stores the result in the output quaternion.
-			*
-			*	\param [in]  _matrix			The specified matrix
-			*	\param [out] _outQuaternion		The result of the rotation of matrix
-			*
-			*	\retval GReturn::FAILURE					The calculation failed
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn SetByMatrixD(MATH::GMATRIXD _matrix, MATH::GQUATERNIOND& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculates the dot product of the two specified quaternions
-			/*!
-			*	Calculates the dot product of two specified quaternions and stores the result in the output Value.
-			*
-			*	\param [in]  _quaternion1		The first quaternion
-			*	\param [in]  _quaternion2		The second quaternion
-			*	\param [out] _outValue			The value of the dot product
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn DotD(MATH::GQUATERNIOND _quaternion1, MATH::GQUATERNIOND _quaternion2, double& _outValue) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculates the cross product of the two specified quaternions
-			/*!
-			*	Corsses two specified quaternions and stores the result in the output Value.
-			*
-			*	\param [in]  _quaternion1		The first quaternion
-			*	\param [in]  _quaternion2		The second quaternion
-			*	\param [out] _outVector			The vector of the corss product
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn CrossD(MATH::GQUATERNIOND _quaternion1, MATH::GQUATERNIOND _quaternion2, MATH::GVECTORD& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Conjugate the specified quaternion
-			/*!
-			*	Conjugates the specified quaternion and stores the result in the output quaternion.
-			*
-			*	\param [in]  _quaternion		The quaternion
-			*	\param [out] _outQuaternion		The result of the conjugate
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn ConjugateD(MATH::GQUATERNIOND _quaternion, MATH::GQUATERNIOND& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Inverse the specified quaternion
-			/*!
-			*	Inverses the specified quaternion and stores the result in the output quaternion.
-			*
-			*	\param [in]  _quaternion		The specified quaternion
-			*	\param [out] _outQuaternion		The result of the inverse
-			*
-			*	\retval GReturn::FAILURE					The calculation failed
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn InverseD(MATH::GQUATERNIOND _quaternion, MATH::GQUATERNIOND& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculate the magnitude of quaternion
-			/*!
-			*	Calculate the magnitude of the specified quaternion and stores the result in the output value.
-			*
-			*	\param [in]  _quaternion		The quaternion
-			*	\param [out] _outMagnitude		The result of the Calculation
-			*
-			*	\retval GReturn::FAILURE					The calculation failed
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn MagnitudeD(MATH::GQUATERNIOND _quaternion, double& _outMagnitude) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Normalize the specified quaternion
-			/*!
-			*	Normalizes the specified quaternion and stores the result in the output quaternion.
-			*
-			*	\param [in]  _quaternion		The quaternion
-			*	\param [out] _outQuaternion		The result of the normalization
-			*
-			*	\retval GReturn::FAILURE					The calculation failed
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn NormalizeD(MATH::GQUATERNIOND _quaternion, MATH::GQUATERNIOND& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Identity the specified quaternion
-			/*!
-			*	Set the output quaternion as an identity quaternion
-			*
-			*	\param [out] _outQuaternion		The result of the identity
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn IdentityD(MATH::GQUATERNIOND& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Linear interpolate between two specified quaternions
-			/*!
-			*	Linear interpolates between two specified quaternions
-			*	and stores the result in the output quaternion.
-			*
-			*	\param [in]  _quaternion1		The first quaternion
-			*	\param [in]  _quaternion2		The seconds quaternion
-			*	\param [in]  _ratio				The interpolation coefficient
-			*	\param [out] _outQuaternion		The result of the lerp
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn LerpD(MATH::GQUATERNIOND _quaternion1, MATH::GQUATERNIOND _quaternion2, double _ratio, MATH::GQUATERNIOND& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Spherical linear interpolates between two specified quaternions
-			/*!
-			*	Spherical linear interpolates between two specified quaternions
-			*	and stores the result in the output quaternion.
-			*
-			*	\param [in]  _quaternion1		The first quaternion
-			*	\param [in]  _quaternion2		The seconds quaternion
-			*	\param [in]  _ratio				The interpolation coefficient
-			*	\param [out] _outQuaternion		The result of the lerp
-			*
-			*	\retval GReturn::FAILURE					The calculation failed
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn SlerpD(MATH::GQUATERNIOND _quaternion1, MATH::GQUATERNIOND _quaternion2, double _ratio, MATH::GQUATERNIOND& _outQuaternion) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Demotes double quaternion to float quaternion
-			/*!
-			*	Performs a static_cast<float>() on every element of the input quaternion and assigns them to the output quaternion
-			*
-			*	\param [in]  _quaternionD		A double quaternion
-			*	\param [out] _outQuaternionF	The input double quaternion static_casted to a float quaternion
-			*
-			*	\retval GReturn::SUCCESS				The cast succeeded
-			*/
-			static GReturn Downgrade(MATH::GQUATERNIOND _quaternionD, MATH::GQUATERNIONF& _outQuaternionF) { return GReturn::NO_IMPLEMENTATION; }
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -41798,16 +34162,6 @@ namespace GW
 #ifndef GMATRIX2D_H
 #define GMATRIX2D_H
 
-/*!
-	File: GMatrix2D.h
-	Purpose: A Gateware interface that handles 2D Matrix functions.
-	Asynchronus: NO
-	Author: Ryan Powser
-	Contributors:
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -43101,18 +35455,14 @@ namespace GW
 #endif
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The core namespace to which all Gateware fundamental interfaces must belong.
 	namespace MATH2D
 	{
-		//! A Gateware interface that handles 2D Matrix functions.
 		class GMatrix2D final : public I::GProxy<I::GMatrix2DInterface, I::GMatrix2DImplementation>
 		{
 		public:
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GMatrix2D)
 			// floats
 			GATEWARE_STATIC_FUNCTION(Add2F)
@@ -43196,956 +35546,9 @@ namespace GW
 			GATEWARE_STATIC_FUNCTION(MakeSeparate3D)
 			GATEWARE_STATIC_FUNCTION(Downgrade2)
 			GATEWARE_STATIC_FUNCTION(Downgrade3)
-			//! \endcond
 
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Creates a valid GMatrix2D Object. 
-			/*!
-			*	\retval GReturn::SUCCESS	This always succeeds. (unless you run out of memory)
-			*/
-			GReturn Create();
-
-			// Floats
-
-			//! Add two float matrix2s
-			/*!
-			*	Adds _matrix1 to _matrix2 and stores result in _outMatrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of the addition
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Add2F(MATH2D::GMATRIX2F _matrix1, MATH2D::GMATRIX2F _matrix2, MATH2D::GMATRIX2F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Add two float matrix3s
-			/*!
-			*	Adds _matrix1 to _matrix2 and stores result in _outMatrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of the addition
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Add3F(MATH2D::GMATRIX3F _matrix1, MATH2D::GMATRIX3F _matrix2, MATH2D::GMATRIX3F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Subtract two float matrix2s
-			/*!
-			*	Subtracts _matrix2 from _matrix1 and stores result in _outMatrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of the subtraction
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Subtract2F(MATH2D::GMATRIX2F _matrix1, MATH2D::GMATRIX2F _matrix2, MATH2D::GMATRIX2F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Subtract two float matrix3s
-			/*!
-			*	Subtracts _matrix2 from _matrix1 and stores result in _outMatrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of the subtraction
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Subtract3F(MATH2D::GMATRIX3F _matrix1, MATH2D::GMATRIX3F _matrix2, MATH2D::GMATRIX3F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Multiply two float matrix2s
-			/*!
-			*	Multiplies _matrix1 by _matrix2 and stores result in _outMatrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of the multiplication
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Multiply2F(MATH2D::GMATRIX2F _matrix1, MATH2D::GMATRIX2F _matrix2, MATH2D::GMATRIX2F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Multiply two float matrix3s
-			/*!
-			*	Multiplies _matrix1 by _matrix2 and stores result in _outMatrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of the multiplication
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Multiply3F(MATH2D::GMATRIX3F _matrix1, MATH2D::GMATRIX3F _matrix2, MATH2D::GMATRIX3F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Multiply a float matrix2 by a float vector2
-			/*!
-			*	Multiplies _vector by _matrix and stores result in _outVector.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _vector		The vector
-			*	\param [out] _outVector		The result of the multiplication
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MatrixXVector2F(MATH2D::GMATRIX2F _matrix, MATH2D::GVECTOR2F _vector, MATH2D::GVECTOR2F& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Multiply a float matrix3 by a float vector3
-			/*!
-			*	Multiplies _vector by _matrix and stores result in _outVector.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _vector		The vector
-			*	\param [out] _outVector		The result of the multiplication
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MatrixXVector3F(MATH2D::GMATRIX3F _matrix, MATH2D::GVECTOR3F _vector, MATH2D::GVECTOR3F& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Multiply a float matrix2 by a float scalar
-			/*!
-			*	Multiplies _matrix by _scalar and stores result in _outMatrix.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _scalar		The scalar
-			*	\param [out] _outMatrix		The result of the multiplication
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MultiplyNum2F(MATH2D::GMATRIX2F _matrix, float _scalar, MATH2D::GMATRIX2F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Multiply a float matrix3 by a float scalar
-			/*!
-			*	Multiplies _matrix by _scalar and stores result in _outMatrix.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _scalar		The scalar
-			*	\param [out] _outMatrix		The result of the multiplication
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MultiplyNum3F(MATH2D::GMATRIX3F _matrix, float _scalar, MATH2D::GMATRIX3F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Compute the determinant of a float matrix2
-			/*!
-			*	Calculates the determinant of _matrix and stores result in _outDeterminant.
-			*
-			*	\param [in]  _matrix			The matrix
-			*	\param [out] _outDeterminant	The result of the calulation
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn Determinant2F(MATH2D::GMATRIX2F _matrix, float& _outDeterminant) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Compute the determinant of a float matrix3
-			/*!
-			*	Calculates the determinant of _matrix and stores result in _outDeterminant.
-			*
-			*	\param [in]  _matrix			The matrix
-			*	\param [out] _outDeterminant	The result of the calulation
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn Determinant3F(MATH2D::GMATRIX3F _matrix, float& _outDeterminant) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Transpose a float matrix2
-			/*!
-			*	Transposes _matrix and stores result in _outMatrix.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outMatrix		The result of the transposition
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Transpose2F(MATH2D::GMATRIX2F _matrix, MATH2D::GMATRIX2F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Transpose a float matrix3
-			/*!
-			*	Transposes _matrix and stores result in _outMatrix.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outMatrix		The result of the transposition
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Transpose3F(MATH2D::GMATRIX3F _matrix, MATH2D::GMATRIX3F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Invert a float matrix2
-			/*!
-			*	Inverts _matrix and stores result in _outMatrix.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outMatrix		The result of the inversion
-			*
-			*	\retval GReturn::FAILURE				The determinant of _matrix was 0, _matrix is not invertible
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Inverse2F(MATH2D::GMATRIX2F _matrix, MATH2D::GMATRIX2F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Invert a float matrix3
-			/*!
-			*	Inverts _matrix and stores result in _outMatrix.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outMatrix		The result of the inversion
-			*
-			*	\retval GReturn::FAILURE				The determinant of _matrix was 0, _matrix is not invertible
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Inverse3F(MATH2D::GMATRIX3F _matrix, MATH2D::GMATRIX3F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Retrieve a float rotation in radians from a matrix2
-			/*!
-			*	Calculates the rotation of _matrix and stores result in _outRadians.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outRadians	The result of the calculation
-			*
-			*	\retval GReturn::FAILURE				x1 = y1 = x2 = y2 = 0
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn GetRotation2F(MATH2D::GMATRIX2F _matrix, float& _outRadians) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Retrieve a float rotation in radians from a matrix3
-			/*!
-			*	Calculates the rotation of _matrix and stores the result in _outRadians.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outRadians	The result of the calculation
-			*
-			*	\retval GReturn::FAILURE				x1 = y1 = x2 = y2 = 0
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn GetRotation3F(MATH2D::GMATRIX3F _matrix, float& _outRadians) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Retrieve a translation vector2 from a matrix3
-			/*!
-			*	Copies the x and y components of row3 of _matrix to _outVector.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outVector		The result of the copy
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn GetTranslation3F(MATH2D::GMATRIX3F _matrix, MATH2D::GVECTOR2F& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Retrieve a scale vector2 from a matrix2
-			/*!
-			*	Calculates the scale of _matrix and stores the result in _outScale.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outScale		The result of the calculation
-			*
-			*	\retval GReturn::FAILURE				x1 = y1 = x2 = y2 = 0
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn GetScale2F(MATH2D::GMATRIX2F _matrix, MATH2D::GVECTOR2F& _outScale) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Retrieve a scale vector2 from a matrix3
-			/*!
-			*	Calculates the scale of _matrix and stores the result in _outScale.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outScale		The result of the calculation
-			*
-			*	\retval GReturn::FAILURE				x1 = y1 = x2 = y2 = 0
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn GetScale3F(MATH2D::GMATRIX3F _matrix, MATH2D::GVECTOR2F& _outScale) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Retrieve a skew vector2 from a matrix2
-			/*!
-			*	Calculates the skew of _matrix and stores the result in _outSkew.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outSkew		The result of the calculation
-			*
-			*	\retval GReturn::FAILURE				x1 = y1 = x2 = y2 = 0
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn GetSkew2F(MATH2D::GMATRIX2F _matrix, MATH2D::GVECTOR2F& _outSkew) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Retrieve a scale vector2 from a matrix3
-			/*!
-			*	Calculates the skew of _matrix and stores the result in _outSkew.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outSkew		The result of the calculation
-			*
-			*	\retval GReturn::FAILURE				x1 = y1 = x2 = y2 = 0
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn GetSkew3F(MATH2D::GMATRIX3F _matrix, MATH2D::GVECTOR2F& _outSkew) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Rotate a matrix2
-			/*!
-			*	Rotates _matrix by _radians and stores the result in _outMatrix.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _radians		The amount of radians to rotate by
-			*	\param [out] _outMatrix		The result of the rotation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Rotate2F(MATH2D::GMATRIX2F _matrix, float _radians, MATH2D::GMATRIX2F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Rotate a matrix3, globally
-			/*!
-			*	Rotates _matrix by _radians and stores the result in _outMatrix. Preserves translation.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _radians		The amount of radians to rotate by
-			*	\param [out] _outMatrix		The result of the rotation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn RotateGlobal3F(MATH2D::GMATRIX3F _matrix, float _radians, MATH2D::GMATRIX3F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Rotate a matrix3, locally
-			/*!
-			*	Rotates _matrix by _radians and stores the result in _outMatrix. Does not preserve translation.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _radians		The amount of radians to rotate by
-			*	\param [out] _outMatrix		The result of the rotation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn RotateLocal3F(MATH2D::GMATRIX3F _matrix, float _radians, MATH2D::GMATRIX3F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Translate a matrix3, locally
-			/*!
-			*	Translates _matrix by _vector and stores the result in _outMatrix. Effectively _matrix * translationMatrix.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _vector		The vector
-			*	\param [out] _outMatrix		The result of the translation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn TranslateGlobal3F(MATH2D::GMATRIX3F _matrix, MATH2D::GVECTOR2F _vector, MATH2D::GMATRIX3F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Translate a matrix3, globally
-			/*!
-			*	Translates _matrix by _vector and stores the result in _outMatrix. Effectively translationMatrix * _matrix.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _vector		The vector
-			*	\param [out] _outMatrix		The result of the translation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn TranslateLocal3F(MATH2D::GMATRIX3F _matrix, MATH2D::GVECTOR2F _vector, MATH2D::GMATRIX3F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Scale a matrix2
-			/*!
-			*	Scales _matrix by _vector and stores the result in _outMatrix.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _vector		The vector
-			*	\param [out] _outMatrix		The result of the scale
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Scale2F(MATH2D::GMATRIX2F _matrix, MATH2D::GVECTOR2F _vector, MATH2D::GMATRIX2F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Scale a matrix3, globally
-			/*!
-			*	Scales _matrix by _vector and stores the result in _outMatrix. Preserves translation.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _vector		The vector
-			*	\param [out] _outMatrix		The result of the scale
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn ScaleGlobal3F(MATH2D::GMATRIX3F _matrix, MATH2D::GVECTOR2F _vector, MATH2D::GMATRIX3F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Scale a matrix3, locally
-			/*!
-			*	Scales _matrix by _vector and stores the result in _outMatrix. Does not preserve translation.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _vector		The vector
-			*	\param [out] _outMatrix		The result of the scale
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn ScaleLocal3F(MATH2D::GMATRIX3F _matrix, MATH2D::GVECTOR2F _vector, MATH2D::GMATRIX3F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Lerp between two matrix2s
-			/*!
-			*	Performs a linear interpolation on every element in the input matrices and stores the result in _outMatrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [in]  _ratio			The ratio
-			*	\param [out] _outMatrix		The result of the lerp
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Lerp2F(MATH2D::GMATRIX2F _matrix1, MATH2D::GMATRIX2F _matrix2, float _ratio, MATH2D::GMATRIX2F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Lerp between two matrix3s
-			/*!
-			*	Performs a linear interpolation on every element in the input matrices and stores the result in _outMatrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [in]  _ratio			The ratio
-			*	\param [out] _outMatrix		The result of the lerp
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Lerp3F(MATH2D::GMATRIX3F _matrix1, MATH2D::GMATRIX3F _matrix2, float _ratio, MATH2D::GMATRIX3F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Make a matrix2 relative to another matrix2
-			/*!
-			*	Performs _matrix1 * Inverse(_matrix2) and stores the result in _outMatrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of the calculation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MakeRelative2F(MATH2D::GMATRIX2F _matrix1, MATH2D::GMATRIX2F _matrix2, MATH2D::GMATRIX2F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Make a matrix3 relative to another matrix3
-			/*!
-			*	Performs _matrix1 * Inverse(_matrix2) and stores the result in _outMatrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of the calculation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MakeRelative3F(MATH2D::GMATRIX3F _matrix1, MATH2D::GMATRIX3F _matrix2, MATH2D::GMATRIX3F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Separate a matrix2 from being relative to another matrix2
-			/*!
-			*	Performs _matrix1 * _matrix2 and stores the result in _outMatrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of the calculation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MakeSeparate2F(MATH2D::GMATRIX2F _matrix1, MATH2D::GMATRIX2F _matrix2, MATH2D::GMATRIX2F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Separate a matrix3 from being relative to another matrix3
-			/*!
-			*	Performs _matrix1 * _matrix2 and stores the result in _outMatrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of the calculation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MakeSeparate3F(MATH2D::GMATRIX3F _matrix1, MATH2D::GMATRIX3F _matrix2, MATH2D::GMATRIX3F& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Upgrade a float matrix2 to a double matrix2
-			/*!
-			*	Performs a static_cast<double> on all elements in _matrix and stores the result in _outMatrix.
-			*
-			*	\param [in]  _matrix		The first matrix
-			*	\param [out] _outMatrix		The result of the cast
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Upgrade2(MATH2D::GMATRIX2F _matrix, MATH2D::GMATRIX2D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Upgrade a float matrix3 to a double matrix3
-			/*!
-			*	Performs a static_cast<double> on all elements in _matrix and stores the result in _outMatrix.
-			*
-			*	\param [in]  _matrix		The first matrix
-			*	\param [out] _outMatrix		The result of the cast
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Upgrade3(MATH2D::GMATRIX3F _matrix, MATH2D::GMATRIX3D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-
-
-
-
-
-
-
-
-
-			// Doubles
-			
-			//! Add two double matrix2s
-			/*!
-			*	Adds _matrix1 to _matrix2 and stores result in _outMatrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of the addition
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Add2D(MATH2D::GMATRIX2D _matrix1, MATH2D::GMATRIX2D _matrix2, MATH2D::GMATRIX2D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Add two double matrix3s
-			/*!
-			*	Adds _matrix1 to _matrix2 and stores result in _outMatrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of the addition
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Add3D(MATH2D::GMATRIX3D _matrix1, MATH2D::GMATRIX3D _matrix2, MATH2D::GMATRIX3D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Subtract two double matrix2s
-			/*!
-			*	Subtracts _matrix2 from _matrix1 and stores result in _outMatrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of the subtraction
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Subtract2D(MATH2D::GMATRIX2D _matrix1, MATH2D::GMATRIX2D _matrix2, MATH2D::GMATRIX2D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Subtract two double matrix3s
-			/*!
-			*	Subtracts _matrix2 from _matrix1 and stores result in _outMatrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of the subtraction
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Subtract3D(MATH2D::GMATRIX3D _matrix1, MATH2D::GMATRIX3D _matrix2, MATH2D::GMATRIX3D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Multiply two double matrix2s
-			/*!
-			*	Multiplies _matrix1 by _matrix2 and stores result in _outMatrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of the multiplication
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Multiply2D(MATH2D::GMATRIX2D _matrix1, MATH2D::GMATRIX2D _matrix2, MATH2D::GMATRIX2D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Multiply two double matrix3s
-			/*!
-			*	Multiplies _matrix1 by _matrix2 and stores result in _outMatrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of the multiplication
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Multiply3D(MATH2D::GMATRIX3D _matrix1, MATH2D::GMATRIX3D _matrix2, MATH2D::GMATRIX3D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Multiply a double matrix2 by a double vector2
-			/*!
-			*	Multiplies _vector by _matrix and stores result in _outVector.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _vector		The vector
-			*	\param [out] _outVector		The result of the multiplication
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MatrixXVector2D(MATH2D::GMATRIX2D _matrix, MATH2D::GVECTOR2D _vector, MATH2D::GVECTOR2D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Multiply a double matrix3 by a double vector3
-			/*!
-			*	Multiplies _vector by _matrix and stores result in _outVector.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _vector		The vector
-			*	\param [out] _outVector		The result of the multiplication
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MatrixXVector3D(MATH2D::GMATRIX3D _matrix, MATH2D::GVECTOR3D _vector, MATH2D::GVECTOR3D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Multiply a double matrix2 by a double scalar
-			/*!
-			*	Multiplies _matrix by _scalar and stores result in _outMatrix.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _scalar		The scalar
-			*	\param [out] _outMatrix		The result of the multiplication
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MultiplyNum2D(MATH2D::GMATRIX2D _matrix, double _scalar, MATH2D::GMATRIX2D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Multiply a double matrix3 by a double scalar
-			/*!
-			*	Multiplies _matrix by _scalar and stores result in _outMatrix.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _scalar		The scalar
-			*	\param [out] _outMatrix		The result of the multiplication
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MultiplyNum3D(MATH2D::GMATRIX3D _matrix, double _scalar, MATH2D::GMATRIX3D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Compute the determinant of a double matrix2
-			/*!
-			*	Calculates the determinant of _matrix and stores result in _outDeterminant.
-			*
-			*	\param [in]  _matrix			The matrix
-			*	\param [out] _outDeterminant	The result of the calulation
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn Determinant2D(MATH2D::GMATRIX2D _matrix, double& _outDeterminant) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Compute the determinant of a double matrix3
-			/*!
-			*	Calculates the determinant of _matrix and stores result in _outDeterminant.
-			*
-			*	\param [in]  _matrix			The matrix
-			*	\param [out] _outDeterminant	The result of the calulation
-			*
-			*	\retval GReturn::SUCCESS					The calculation succeeded
-			*/
-			static GReturn Determinant3D(MATH2D::GMATRIX3D _matrix, double& _outDeterminant) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Transpose a double matrix2
-			/*!
-			*	Transposes _matrix and stores result in _outMatrix.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outMatrix		The result of the transposition
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Transpose2D(MATH2D::GMATRIX2D _matrix, MATH2D::GMATRIX2D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Transpose a double matrix3
-			/*!
-			*	Transposes _matrix and stores result in _outMatrix.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outMatrix		The result of the transposition
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Transpose3D(MATH2D::GMATRIX3D _matrix, MATH2D::GMATRIX3D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Invert a double matrix2
-			/*!
-			*	Inverts _matrix and stores result in _outMatrix.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outMatrix		The result of the inversion
-			*
-			*	\retval GReturn::FAILURE				The determinant of _matrix was 0, _matrix is not invertible
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Inverse2D(MATH2D::GMATRIX2D _matrix, MATH2D::GMATRIX2D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Invert a double matrix3
-			/*!
-			*	Inverts _matrix and stores result in _outMatrix.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outMatrix		The result of the inversion
-			*
-			*	\retval GReturn::FAILURE				The determinant of _matrix was 0, _matrix is not invertible
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Inverse3D(MATH2D::GMATRIX3D _matrix, MATH2D::GMATRIX3D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Retrieve a double rotation in radians from a matrix2
-			/*!
-			*	Calculates the rotation of _matrix and stores result in _outRadians.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outRadians	The result of the calculation
-			*
-			*	\retval GReturn::FAILURE				x1 = y1 = x2 = y2 = 0
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn GetRotation2D(MATH2D::GMATRIX2D _matrix, double& _outRadians) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Retrieve a double rotation in radians from a matrix3
-			/*!
-			*	Calculates the rotation of _matrix and stores the result in _outRadians.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outRadians	The result of the calculation
-			*
-			*	\retval GReturn::FAILURE				x1 = y1 = x2 = y2 = 0
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn GetRotation3D(MATH2D::GMATRIX3D _matrix, double& _outRadians) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Retrieve a translation vector2 from a matrix3
-			/*!
-			*	Copies the x and y components of row3 of _matrix to _outVector.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outVector		The result of the copy
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn GetTranslation3D(MATH2D::GMATRIX3D _matrix, MATH2D::GVECTOR2D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Retrieve a scale vector2 from a matrix2
-			/*!
-			*	Calculates the scale of _matrix and stores the result in _outScale.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outScale		The result of the calculation
-			*
-			*	\retval GReturn::FAILURE				x1 = y1 = x2 = y2 = 0
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn GetScale2D(MATH2D::GMATRIX2D _matrix, MATH2D::GVECTOR2D& _outScale) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Retrieve a scale vector2 from a matrix3
-			/*!
-			*	Calculates the scale of _matrix and stores the result in _outScale.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outScale		The result of the calculation
-			*
-			*	\retval GReturn::FAILURE				x1 = y1 = x2 = y2 = 0
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn GetScale3D(MATH2D::GMATRIX3D _matrix, MATH2D::GVECTOR2D& _outScale) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Retrieve a skew vector2 from a matrix2
-			/*!
-			*	Calculates the skew of _matrix and stores the result in _outSkew.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outSkew		The result of the calculation
-			*
-			*	\retval GReturn::FAILURE				x1 = y1 = x2 = y2 = 0
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn GetSkew2D(MATH2D::GMATRIX2D _matrix, MATH2D::GVECTOR2D& _outSkew) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Retrieve a scale vector2 from a matrix3
-			/*!
-			*	Calculates the skew of _matrix and stores the result in _outSkew.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outSkew		The result of the calculation
-			*
-			*	\retval GReturn::FAILURE				x1 = y1 = x2 = y2 = 0
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn GetSkew3D(MATH2D::GMATRIX3D _matrix, MATH2D::GVECTOR2D& _outSkew) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Rotate a matrix2
-			/*!
-			*	Rotates _matrix by _radians and stores the result in _outMatrix.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _radians		The amount of radians to rotate by
-			*	\param [out] _outMatrix		The result of the rotation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Rotate2D(MATH2D::GMATRIX2D _matrix, double _radians, MATH2D::GMATRIX2D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Rotate a matrix3, globally
-			/*!
-			*	Rotates _matrix by _radians and stores the result in _outMatrix. Preserves translation.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _radians		The amount of radians to rotate by
-			*	\param [out] _outMatrix		The result of the rotation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn RotateGlobal3D(MATH2D::GMATRIX3D _matrix, double _radians, MATH2D::GMATRIX3D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Rotate a matrix3, locally
-			/*!
-			*	Rotates _matrix by _radians and stores the result in _outMatrix. Does not preserve translation.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _radians		The amount of radians to rotate by
-			*	\param [out] _outMatrix		The result of the rotation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn RotateLocal3D(MATH2D::GMATRIX3D _matrix, double _radians, MATH2D::GMATRIX3D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Translate a matrix3, locally
-			/*!
-			*	Translates _matrix by _vector and stores the result in _outMatrix. Effectively _matrix * translationMatrix.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _vector		The vector
-			*	\param [out] _outMatrix		The result of the translation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn TranslateGlobal3D(MATH2D::GMATRIX3D _matrix, MATH2D::GVECTOR2D _vector, MATH2D::GMATRIX3D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Translate a matrix3, globally
-			/*!
-			*	Translates _matrix by _vector and stores the result in _outMatrix. Effectively translationMatrix * _matrix.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _vector		The vector
-			*	\param [out] _outMatrix		The result of the translation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn TranslateLocal3D(MATH2D::GMATRIX3D _matrix, MATH2D::GVECTOR2D _vector, MATH2D::GMATRIX3D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Scale a matrix2
-			/*!
-			*	Scales _matrix by _vector and stores the result in _outMatrix.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _vector		The vector
-			*	\param [out] _outMatrix		The result of the scale
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Scale2D(MATH2D::GMATRIX2D _matrix, MATH2D::GVECTOR2D _vector, MATH2D::GMATRIX2D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Scale a matrix3, globally
-			/*!
-			*	Scales _matrix by _vector and stores the result in _outMatrix. Preserves translation.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _vector		The vector
-			*	\param [out] _outMatrix		The result of the scale
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn ScaleGlobal3D(MATH2D::GMATRIX3D _matrix, MATH2D::GVECTOR2D _vector, MATH2D::GMATRIX3D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Scale a matrix3, locally
-			/*!
-			*	Scales _matrix by _vector and stores the result in _outMatrix. Does not preserve translation.
-			*
-			*	\param [in]  _matrix		The matrix
-			*	\param [in]  _vector		The vector
-			*	\param [out] _outMatrix		The result of the scale
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn ScaleLocal3D(MATH2D::GMATRIX3D _matrix, MATH2D::GVECTOR2D _vector, MATH2D::GMATRIX3D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Lerp between two matrix2s
-			/*!
-			*	Performs a linear interpolation on every element in the input matrices and stores the result in _outMatrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [in]  _ratio			The ratio
-			*	\param [out] _outMatrix		The result of the lerp
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Lerp2D(MATH2D::GMATRIX2D _matrix1, MATH2D::GMATRIX2D _matrix2, double _ratio, MATH2D::GMATRIX2D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Lerp between two matrix3s
-			/*!
-			*	Performs a linear interpolation on every element in the input matrices and stores the result in _outMatrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [in]  _ratio			The ratio
-			*	\param [out] _outMatrix		The result of the lerp
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Lerp3D(MATH2D::GMATRIX3D _matrix1, MATH2D::GMATRIX3D _matrix2, double _ratio, MATH2D::GMATRIX3D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Make a matrix2 relative to another matrix2
-			/*!
-			*	Performs _matrix1 * Inverse(_matrix2) and stores the result in _outMatrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of the calculation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MakeRelative2D(MATH2D::GMATRIX2D _matrix1, MATH2D::GMATRIX2D _matrix2, MATH2D::GMATRIX2D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Make a matrix3 relative to another matrix3
-			/*!
-			*	Performs _matrix1 * Inverse(_matrix2) and stores the result in _outMatrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of the calculation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MakeRelative3D(MATH2D::GMATRIX3D _matrix1, MATH2D::GMATRIX3D _matrix2, MATH2D::GMATRIX3D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Separate a matrix2 from being relative to another matrix2
-			/*!
-			*	Performs _matrix1 * _matrix2 and stores the result in _outMatrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of the calculation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MakeSeparate2D(MATH2D::GMATRIX2D _matrix1, MATH2D::GMATRIX2D _matrix2, MATH2D::GMATRIX2D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Separate a matrix3 from being relative to another matrix3
-			/*!
-			*	Performs _matrix1 * _matrix2 and stores the result in _outMatrix.
-			*
-			*	\param [in]  _matrix1		The first matrix
-			*	\param [in]  _matrix2		The second matrix
-			*	\param [out] _outMatrix		The result of the calculation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn MakeSeparate3D(MATH2D::GMATRIX3D _matrix1, MATH2D::GMATRIX3D _matrix2, MATH2D::GMATRIX3D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Downgrade a double matrix2 to a float matrix2
-			/*!
-			*	Performs a static_cast<float> on all elements in _matrix and stores the result in _outMatrix.
-			*
-			*	\param [in]  _matrix		The first matrix
-			*	\param [out] _outMatrix		The result of the cast
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Downgrade2(MATH2D::GMATRIX2D _matrix, MATH2D::GMATRIX2D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Downgrade a double matrix3 to a float matrix3
-			/*!
-			*	Performs a static_cast<float> on all elements in _matrix and stores the result in _outMatrix.
-			*
-			*	\param [in]  _matrix		The first matrix
-			*	\param [out] _outMatrix		The result of the cast
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Downgrade3(MATH2D::GMATRIX3D _matrix, MATH2D::GMATRIX3D& _outMatrix) { return GReturn::NO_IMPLEMENTATION; }
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -44162,16 +35565,6 @@ namespace GW
 #ifndef GVECTOR2D_H
 #define GVECTOR2D_H
 
-/*!
-	File: GVector2D.h
-	Purpose: A Gateware interface that handles all 2D vector functions.
-	Asynchronus: NO
-	Author: Ryan Powser
-	Contributors:
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -44953,18 +36346,14 @@ namespace GW
 #endif
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The core namespace to which all Gateware 2D math interfaces must belong.
 	namespace MATH2D
 	{
-		//! A Gateware interface that handles all 2D vector functions.
 		class GVector2D final : public I::GProxy<I::GVector2DInterface, I::GVector2DImplementation>
 		{
 		public:
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GVector2D)
 			// Floats
 			GATEWARE_STATIC_FUNCTION(Add2F)
@@ -45032,771 +36421,8 @@ namespace GW
 			GATEWARE_STATIC_FUNCTION(AngleBetweenLinesD)
 			GATEWARE_STATIC_FUNCTION(Downgrade2)
 			GATEWARE_STATIC_FUNCTION(Downgrade3)
-			//! \endcond
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Creates a valid GVector2D Object.
-			/*!
-			*	\retval GReturn::SUCCESS	This always succeeds. (unless you run out of memory)
-			*/
-			GReturn Create();
-
-			// floats
-
-			//! Add two float vector2s
-			/*!
-			*	Performs _vector1 + _vector2 and stores the result in _outVector.
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outVector		The result of the addition
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Add2F(MATH2D::GVECTOR2F _vector1, MATH2D::GVECTOR2F _vector2, MATH2D::GVECTOR2F& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Add two float vector3s
-			/*!
-			*	Performs _vector1 + _vector2 and stores the result in _outVector.
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outVector		The result of the addition
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Add3F(MATH2D::GVECTOR3F _vector1, MATH2D::GVECTOR3F _vector2, MATH2D::GVECTOR3F& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Subtract two float vector2s
-			/*!
-			*	Performs _vector1 - _vector2 and stores the result in _outVector.
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outVector		The result of the addition
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Subtract2F(MATH2D::GVECTOR2F _vector1, MATH2D::GVECTOR2F _vector2, MATH2D::GVECTOR2F& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Subtract two float vector3s
-			/*!
-			*	Performs _vector1 - _vector2 and stores the result in _outVector.
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outVector		The result of the addition
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Subtract3F(MATH2D::GVECTOR3F _vector1, MATH2D::GVECTOR3F _vector2, MATH2D::GVECTOR3F& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Scale a float vector2
-			/*!
-			*	Performs _vector * _scalar and stores the result in _outVector.
-			*
-			*	\param [in]  _vector		The vector
-			*	\param [in]  _scalar		The scalar
-			*	\param [out] _outVector		The result of the scale
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Scale2F(MATH2D::GVECTOR2F _vector, float _scalar, MATH2D::GVECTOR2F& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Scale a float vector3
-			/*!
-			*	Performs _vector * _scalar and stores the result in _outVector.
-			*
-			*	\param [in]  _vector		The vector
-			*	\param [in]  _scalar		The scalar
-			*	\param [out] _outVector		The result of the scale
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Scale3F(MATH2D::GVECTOR3F _vector, float _scalar, MATH2D::GVECTOR3F& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-
-			//! Calculates the dot product of two float vector2s
-			/*!
-			*	Performs _vector1 (dot) _vector2 and stores the result in _outValue
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outValue		The result of the dot product
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Dot2F(MATH2D::GVECTOR2F _vector1, MATH2D::GVECTOR2F _vector2, float& _outValue) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculates the dot product of two float vector3s
-			/*!
-			*	Performs _vector1 (dot) _vector2 and stores the result in _outValue
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outValue		The result of the dot product
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Dot3F(MATH2D::GVECTOR3F _vector1, MATH2D::GVECTOR3F _vector2, float& _outValue) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculates the cross product of two float vector2s
-			/*!
-			*	Performs _vector1 X _vector2 and stores the result in _outValue
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outValue		The result of the cross product
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Cross2F(MATH2D::GVECTOR2F _vector1, MATH2D::GVECTOR2F _vector2, float& _outValue) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculates the cross product of two float vector3s
-			/*!
-			*	Performs _vector1 X _vector2 and stores the result in _outValue
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outVector		The result of the cross product
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Cross3F(MATH2D::GVECTOR3F _vector1, MATH2D::GVECTOR3F _vector2, MATH2D::GVECTOR3F& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Multiply a float vector2 by a float matrix2
-			/*!
-			*	Performs _vector * _matrix and stores the result in _outVector
-			*
-			*	\param [in]  _vector		The vector
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outVector		The result of the multiplication
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn VectorXMatrix2F(MATH2D::GVECTOR2F _vector, MATH2D::GMATRIX2F _matrix, MATH2D::GVECTOR2F& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Multiply a float vector3 by a float matrix3
-			/*!
-			*	Performs _vector * _matrix and stores the result in _outVector
-			*
-			*	\param [in]  _vector		The vector
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outVector		The result of the multiplication
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn VectorXMatrix3F(MATH2D::GVECTOR3F _vector, MATH2D::GMATRIX3F _matrix, MATH2D::GVECTOR3F& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Transform a float vector2 by a float matrix2
-			/*!
-			*	Performs _vector * _matrix and stores the result in _outVector
-			*
-			*	\param [in]  _vector		The vector
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outVector		The result of the transformation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Transform2F(MATH2D::GVECTOR2F _vector, MATH2D::GMATRIX2F _matrix, MATH2D::GVECTOR2F& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Transform a float vector3 by a float matrix3
-			/*!
-			*	Performs _vector * _matrix and stores the result in _outVector
-			*
-			*	\param [in]  _vector		The vector
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outVector		The result of the transformation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Transform3F(MATH2D::GVECTOR3F _vector, MATH2D::GMATRIX3F _matrix, MATH2D::GVECTOR3F& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculate the magnitude of a float vector2
-			/*!
-			*	Performs sqrt(x*x + y*y) and stores the result in _outValue
-			*
-			*	\param [in]  _vector			The vector
-			*	\param [out] _outMagnitude		The result of the calculation
-			*
-			*	\retval GReturn::FAILURE				The magnitude of the vector was 0
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Magnitude2F(MATH2D::GVECTOR2F _vector, float& _outMagnitude) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculate the magnitude of a float vector3
-			/*!
-			*	Performs sqrt(x*x + y*y + z*z) and stores the result in _outValue
-			*
-			*	\param [in]  _vector			The vector
-			*	\param [out] _outMagnitude		The result of the calculation
-			*
-			*	\retval GReturn::FAILURE				The magnitude of the vector was 0
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Magnitude3F(MATH2D::GVECTOR3F _vector, float& _outMagnitude) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Normalize a float vector2
-			/*!
-			*	Divides each component of _vector by the magnitude of _vector and stores the result in _outVector
-			*
-			*	\param [in]  _vector		The vector
-			*	\param [out] _outVector		The result of the normalization
-			*
-			*	\retval GReturn::FAILURE				The magnitude of the vector was 0
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Normalize2F(MATH2D::GVECTOR2F _vector, MATH2D::GVECTOR2F& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Normalize a float vector3
-			/*!
-			*	Divides each component of _vector by the magnitude of _vector and stores the result in _outVector
-			*
-			*	\param [in]  _vector		The vector
-			*	\param [out] _outVector		The result of the normalization
-			*
-			*	\retval GReturn::FAILURE				The magnitude of the vector was 0
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Normalize3F(MATH2D::GVECTOR3F _vector, MATH2D::GVECTOR3F& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Linear interpolation between two floats
-			/*!
-			*	Performs (_value1 + _ratio * (_value2 - _value1)) and stores the result in _outValue
-			*
-			*	\param [in]  _value1		The first float
-			*   \param [in]  _value2		The second float
-			*   \param [in]  _ratio			The ratio
-			*	\param [out] _outValue		The result of the interpolation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn LerpF(float _value1, float _value2, float _ratio, float& _outValue) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Linear interpolation between two float vector2s
-			/*!
-			*	Performs LerpF() on each element in the vectors and stores the result in _outValue
-			*
-			*	\param [in]  _vector1		The first vector
-			*   \param [in]  _vector2		The second vector
-			*   \param [in]  _ratio			The ratio
-			*	\param [out] _outVector		The result of the interpolation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Lerp2F(MATH2D::GVECTOR2F _vector1, MATH2D::GVECTOR2F _vector2, float _ratio, MATH2D::GVECTOR2F& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Linear interpolation between two float vector3s
-			/*!
-			*	Performs LerpF() on each element in the vectors and stores the result in _outValue
-			*
-			*	\param [in]  _vector1		The first vector
-			*   \param [in]  _vector2		The second vector
-			*   \param [in]  _ratio			The ratio
-			*	\param [out] _outVector		The result of the interpolation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Lerp3F(MATH2D::GVECTOR3F _vector1, MATH2D::GVECTOR3F _vector2, float _ratio, MATH2D::GVECTOR3F& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Barycentric interpolation between three floats
-			/*!
-			*	Performs ((_value1 * alpha) + (_value2 * beta) + (_value3 * gamma)) and stores the result in _outValue
-			*
-			*	\param [in]  _value1		The first value
-			*   \param [in]  _value2		The second value
-			*   \param [in]  _value3		The third value
-			*   \param [in]  _barycentric	The 3 barycentric ratios: alpha, beta, and gamma
-			*	\param [out] _outValue		The result of the interpolation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn BerpF(float _value1, float _value2, float _value3, MATH2D::GBARYCENTRICF _barycentric, float& _outValue) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Barycentric interpolation between three float vector2s
-			/*!
-			*	Performs BerpF() on each element in the vectors and stores the result in _outVector
-			*
-			*	\param [in]  _vector1		The first vector
-			*   \param [in]  _vector2		The second vector
-			*   \param [in]  _vector3		The third vector
-			*   \param [in]  _barycentric	The 3 barycentric ratios: alpha, beta, and gamma
-			*	\param [out] _outVector		The result of the interpolation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Berp2F(MATH2D::GVECTOR2F _vector1, MATH2D::GVECTOR2F _vector2, MATH2D::GVECTOR2F _vector3, MATH2D::GBARYCENTRICF _barycentric, MATH2D::GVECTOR2F& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Barycentric interpolation between three float vector3s
-			/*!
-			*	Performs BerpF() on each element in the vectors and stores the result in _outVector
-			*
-			*	\param [in]  _vector1		The first vector
-			*   \param [in]  _vector2		The second vector
-			*   \param [in]  _vector3		The third vector
-			*   \param [in]  _barycentric	The 3 barycentric ratios: alpha, beta, and gamma
-			*	\param [out] _outVector		The result of the interpolation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Berp3F(MATH2D::GVECTOR3F _vector1, MATH2D::GVECTOR3F _vector2, MATH2D::GVECTOR3F _vector3, MATH2D::GBARYCENTRICF _barycentric, MATH2D::GVECTOR3F& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Spline interpolation between four float vector2s
-			/*!
-			*	Interpolates on a curve which connects the four vectors and stores the result in _outVector.
-			*   Interpolation happens between the second and third points.
-			*
-			*	\param [in]  _vector1		The first point
-			*   \param [in]  _vector2		The second point
-			*   \param [in]  _vector3		The third point
-			*   \param [in]  _vector4		The fourth point
-			*   \param [in]  _ratio			The interpolation coefficient
-			*	\param [out] _outVector		The result of the interpolation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Spline2F(MATH2D::GVECTOR2F _vector1, MATH2D::GVECTOR2F _vector2, MATH2D::GVECTOR2F _vector3, MATH2D::GVECTOR2F _vector4, float _ratio, MATH2D::GVECTOR2F& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculate the gradient vector of a line
-			/*!
-			*	Calculates the perpendicular vector relative to the vector parallel to _line.
-			*   This is effectively the "up" direction relative to the direction of _line.
-			*
-			*	\param [in]  _line			The line
-			*	\param [out] _outVector		The resulting gradient
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn GradientF(MATH2D::GLINE2F _line, MATH2D::GVECTOR2F& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculate the angle between two float vectors
-			/*!
-			*	Calculates a radian angle between the two vectors stores the result in _outRadians
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outRadians	The resulting angle
-			*
-			*	\retval GReturn::FAILURE				The magnitude of one of the vectors was 0
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn AngleBetweenVectorsF(MATH2D::GVECTOR2F _vector1, MATH2D::GVECTOR2F _vector2, float& _outRadians) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculate the angle between two float lines
-			/*!
-			*	Calculates a radian angle between the two vectors parrallel to the two lines and stores the result in _outRadians
-			*
-			*	\param [in]  _line1			The first line
-			*	\param [in]  _line2			The second line
-			*	\param [out] _outRadians	The resulting angle
-			*
-			*	\retval GReturn::FAILURE				The magnitude of one of the vectors was 0
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn AngleBetweenLinesF(MATH2D::GLINE2F _line1, MATH2D::GLINE2F _line2, float& _outRadians) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Upgrade a float vector2 to a double vector2
-			/*!
-			*	Performs static_cast<double> on every element of _vector and stores the result in _outVector
-			*
-			*	\param [in]  _vector		The float vector
-			*	\param [out] _outVector		The resulting double vector
-			*
-			*	\retval GReturn::SUCCESS				The cast succeeded
-			*/
-			static GReturn Upgrade2(MATH2D::GVECTOR2F _vector, MATH2D::GVECTOR2D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Upgrade a float vector3 to a double vector3
-			/*!
-			*	Performs static_cast<double> on every element of _vector and stores the result in _outVector
-			*
-			*	\param [in]  _vector		The float vector
-			*	\param [out] _outVector		The resulting double vector
-			*
-			*	\retval GReturn::SUCCESS				The cast succeeded
-			*/
-			static GReturn Upgrade3(MATH2D::GVECTOR3F _vector, MATH2D::GVECTOR3D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-
-
-
-
-			// doubles
-
-			//! Add two double vector2s
-			/*!
-			*	Performs _vector1 + _vector2 and stores the result in _outVector.
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outVector		The result of the addition
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Add2D(MATH2D::GVECTOR2D _vector1, MATH2D::GVECTOR2D _vector2, MATH2D::GVECTOR2D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Add two double vector3s
-			/*!
-			*	Performs _vector1 + _vector2 and stores the result in _outVector.
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outVector		The result of the addition
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Add3D(MATH2D::GVECTOR3D _vector1, MATH2D::GVECTOR3D _vector2, MATH2D::GVECTOR3D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Subtract two double vector2s
-			/*!
-			*	Performs _vector1 - _vector2 and stores the result in _outVector.
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outVector		The result of the addition
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Subtract2D(MATH2D::GVECTOR2D _vector1, MATH2D::GVECTOR2D _vector2, MATH2D::GVECTOR2D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Subtract two double vector3s
-			/*!
-			*	Performs _vector1 - _vector2 and stores the result in _outVector.
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outVector		The result of the addition
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Subtract3D(MATH2D::GVECTOR3D _vector1, MATH2D::GVECTOR3D _vector2, MATH2D::GVECTOR3D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Scale a double vector2
-			/*!
-			*	Performs _vector * _scalar and stores the result in _outVector.
-			*
-			*	\param [in]  _vector		The vector
-			*	\param [in]  _scalar		The scalar
-			*	\param [out] _outVector		The result of the scale
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Scale2D(MATH2D::GVECTOR2D _vector, double _scalar, MATH2D::GVECTOR2D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Scale a double vector3
-			/*!
-			*	Performs _vector * _scalar and stores the result in _outVector.
-			*
-			*	\param [in]  _vector		The vector
-			*	\param [in]  _scalar		The scalar
-			*	\param [out] _outVector		The result of the scale
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Scale3D(MATH2D::GVECTOR3D _vector, double _scalar, MATH2D::GVECTOR3D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculates the dot product of two double vector2s
-			/*!
-			*	Performs _vector1 (dot) _vector2 and stores the result in _outValue
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outValue		The result of the dot product
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Dot2D(MATH2D::GVECTOR2D _vector1, MATH2D::GVECTOR2D _vector2, double& _outValue) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculates the dot product of two double vector3s
-			/*!
-			*	Performs _vector1 (dot) _vector2 and stores the result in _outValue
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outValue		The result of the dot product
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Dot3D(MATH2D::GVECTOR3D _vector1, MATH2D::GVECTOR3D _vector2, double& _outValue) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculates the cross product of two double vector2s
-			/*!
-			*	Performs _vector1 X _vector2 and stores the result in _outValue
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outValue		The result of the cross product
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Cross2D(MATH2D::GVECTOR2D _vector1, MATH2D::GVECTOR2D _vector2, double& _outValue) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculates the cross product of two double vector3s
-			/*!
-			*	Performs _vector1 X _vector2 as if they were vector2s and stores the result in _outValue. The z elements are ignored.
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outVector		The result of the cross product
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Cross3D(MATH2D::GVECTOR3D _vector1, MATH2D::GVECTOR3D _vector2, MATH2D::GVECTOR3D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Multiply a double vector2 by a double matrix2
-			/*!
-			*	Performs _vector * _matrix and stores the result in _outVector
-			*
-			*	\param [in]  _vector		The vector
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outVector		The result of the multiplication
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn VectorXMatrix2D(MATH2D::GVECTOR2D _vector, MATH2D::GMATRIX2D _matrix, MATH2D::GVECTOR2D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Multiply a double vector3 by a double matrix3
-			/*!
-			*	Performs _vector * _matrix and stores the result in _outVector
-			*
-			*	\param [in]  _vector		The vector
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outVector		The result of the multiplication
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn VectorXMatrix3D(MATH2D::GVECTOR3D _vector, MATH2D::GMATRIX3D _matrix, MATH2D::GVECTOR3D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Transform a double vector2 by a double matrix2
-			/*!
-			*	Performs _vector * _matrix and stores the result in _outVector
-			*
-			*	\param [in]  _vector		The vector
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outVector		The result of the transformation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Transform2D(MATH2D::GVECTOR2D _vector, MATH2D::GMATRIX2D _matrix, MATH2D::GVECTOR2D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Transform a double vector3 by a double matrix3
-			/*!
-			*	Performs _vector * _matrix and stores the result in _outVector
-			*
-			*	\param [in]  _vector		The vector
-			*	\param [in]  _matrix		The matrix
-			*	\param [out] _outVector		The result of the transformation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Transform3D(MATH2D::GVECTOR3D _vector, MATH2D::GMATRIX3D _matrix, MATH2D::GVECTOR3D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculate the magnitude of a double vector2
-			/*!
-			*	Performs sqrt(x*x + y*y) and stores the result in _outValue
-			*
-			*	\param [in]  _vector			The vector
-			*	\param [out] _outMagnitude		The result of the calculation
-			*
-			*	\retval GReturn::FAILURE				The magnitude of the vector was 0
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Magnitude2D(MATH2D::GVECTOR2D _vector, double& _outMagnitude) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculate the magnitude of a double vector3
-			/*!
-			*	Performs sqrt(x*x + y*y + z*z) and stores the result in _outValue
-			*
-			*	\param [in]  _vector		The vector
-			*	\param [out] _outMagnitude		The result of the calculation
-			*
-			*	\retval GReturn::FAILURE				The magnitude of the vector was 0
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Magnitude3D(MATH2D::GVECTOR3D _vector, double& _outMagnitude) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Normalize a double vector2
-			/*!
-			*	Divides each component of _vector by the magnitude of _vector and stores the result in _outVector
-			*
-			*	\param [in]  _vector		The vector
-			*	\param [out] _outVector		The result of the normalization
-			*
-			*	\retval GReturn::FAILURE				The magnitude of the vector was 0
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Normalize2D(MATH2D::GVECTOR2D _vector, MATH2D::GVECTOR2D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Normalize a double vector3
-			/*!
-			*	Divides each component of _vector by the magnitude of _vector and stores the result in _outVector
-			*
-			*	\param [in]  _vector		The vector
-			*	\param [out] _outVector		The result of the normalization
-			*
-			*	\retval GReturn::FAILURE				The magnitude of the vector was 0
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Normalize3D(MATH2D::GVECTOR3D _vector, MATH2D::GVECTOR3D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Linear interpolation between two doubles
-			/*!
-			*	Performs (_value1 + _ratio * (_value2 - _value1)) and stores the result in _outValue
-			*
-			*	\param [in]  _value1		The first double
-			*   \param [in]  _value2		The second double
-			*   \param [in]  _ratio			The ratio
-			*	\param [out] _outValue		The result of the interpolation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn LerpD(double _value1, double _value2, double _ratio, double& _outValue) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Linear interpolation between two double vector2s
-			/*!
-			*	Performs LerpF() on each element in the vectors and stores the result in _outValue
-			*
-			*	\param [in]  _vector1		The first vector
-			*   \param [in]  _vector2		The second vector
-			*   \param [in]  _ratio			The ratio
-			*	\param [out] _outVector		The result of the interpolation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Lerp2D(MATH2D::GVECTOR2D _vector1, MATH2D::GVECTOR2D _vector2, double _ratio, MATH2D::GVECTOR2D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Linear interpolation between two double vector3s
-			/*!
-			*	Performs LerpF() on each element in the vectors and stores the result in _outValue
-			*
-			*	\param [in]  _vector1		The first vector
-			*   \param [in]  _vector2		The second vector
-			*   \param [in]  _ratio			The ratio
-			*	\param [out] _outVector		The result of the interpolation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Lerp3D(MATH2D::GVECTOR3D _vector1, MATH2D::GVECTOR3D _vector2, double _ratio, MATH2D::GVECTOR3D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Barycentric interpolation between three doubles
-			/*!
-			*	Performs ((_value1 * alpha) + (_value2 * beta) + (_value3 * gamma)) and stores the result in _outValue
-			*
-			*	\param [in]  _value1		The first value
-			*   \param [in]  _value2		The second value
-			*   \param [in]  _value3		The third value
-			*   \param [in]  _barycentric	The 3 barycentric ratios: alpha, beta, and gamma
-			*	\param [out] _outValue		The result of the interpolation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn BerpD(double _value1, double _value2, double _value3, MATH2D::GBARYCENTRICD _barycentric, double& _outValue) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Barycentric interpolation between three double vector2s
-			/*!
-			*	Performs BerpF() on each element in the vectors and stores the result in _outVector
-			*
-			*	\param [in]  _vector1		The first vector
-			*   \param [in]  _vector2		The second vector
-			*   \param [in]  _vector3		The third vector
-			*   \param [in]  _barycentric	The 3 barycentric ratios: alpha, beta, and gamma
-			*	\param [out] _outVector		The result of the interpolation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Berp2D(MATH2D::GVECTOR2D _vector1, MATH2D::GVECTOR2D _vector2, MATH2D::GVECTOR2D _vector3, MATH2D::GBARYCENTRICD _barycentric, MATH2D::GVECTOR2D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Barycentric interpolation between three double vector3s
-			/*!
-			*	Performs BerpF() on each element in the vectors and stores the result in _outVector
-			*
-			*	\param [in]  _vector1		The first vector
-			*   \param [in]  _vector2		The second vector
-			*   \param [in]  _vector3		The third vector
-			*   \param [in]  _barycentric	The 3 barycentric ratios: alpha, beta, and gamma
-			*	\param [out] _outVector		The result of the interpolation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Berp3D(MATH2D::GVECTOR3D _vector1, MATH2D::GVECTOR3D _vector2, MATH2D::GVECTOR3D _vector3, MATH2D::GBARYCENTRICD _barycentric, MATH2D::GVECTOR3D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Spline interpolation between four double vector2s
-			/*!
-			*	Interpolates on a curve which connects the four vectors and stores the result in _outVector.
-			*   Interpolation happens between the second and third points.
-			*
-			*	\param [in]  _vector1		The first point
-			*   \param [in]  _vector2		The second point
-			*   \param [in]  _vector3		The third point
-			*   \param [in]  _vector4		The fourth point
-			*   \param [in]  _ratio			The interpolation coefficient
-			*	\param [out] _outVector		The result of the interpolation
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn Spline2D(MATH2D::GVECTOR2D _vector1, MATH2D::GVECTOR2D _vector2, MATH2D::GVECTOR2D _vector3, MATH2D::GVECTOR2D _vector4, double _ratio, MATH2D::GVECTOR2D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculate the gradient vector of a line
-			/*!
-			*	Calculates the perpendicular vector relative to the vector parallel to _line.
-			*   This is effectively the "up" direction relative to the direction of _line.
-			*
-			*	\param [in]  _line			The line
-			*	\param [out] _outVector		The resulting gradient
-			*
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn GradientD(MATH2D::GLINE2D _line, MATH2D::GVECTOR2D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculate the angle between two double vectors
-			/*!
-			*	Calculates a radian angle between the two vectors stores the result in _outRadians
-			*
-			*	\param [in]  _vector1		The first vector
-			*	\param [in]  _vector2		The second vector
-			*	\param [out] _outRadians	The resulting angle
-			*
-			*	\retval GReturn::FAILURE				The magnitude of one of the vectors was 0
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn AngleBetweenVectorsD(MATH2D::GVECTOR2D _vector1, MATH2D::GVECTOR2D _vector2, double& _outRadians) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Calculate the angle between two double lines
-			/*!
-			*	Calculates a radian angle between the two vectors parrallel to the two lines and stores the result in _outRadians
-			*
-			*	\param [in]  _line1			The first line
-			*	\param [in]  _line2			The second line
-			*	\param [out] _outRadians	The resulting angle
-			*
-			*	\retval GReturn::FAILURE				The magnitude of one of the vectors was 0
-			*	\retval GReturn::SUCCESS				The calculation succeeded
-			*/
-			static GReturn AngleBetweenLinesD(MATH2D::GLINE2D _line1, MATH2D::GLINE2D _line2, double& _outRadians) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Downgrade a double vector2 to a float vector2
-			/*!
-			*	Performs static_cast<float> on every element of _vector and stores the result in _outVector
-			*
-			*	\param [in]  _vector		The double vector
-			*	\param [out] _outVector		The resulting double vector
-			*
-			*	\retval GReturn::SUCCESS				The cast succeeded
-			*/
-			static GReturn Downgrade2(MATH2D::GVECTOR2D _vector, MATH2D::GVECTOR2D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-
-			//! Downgrade a double vector3 to a float vector3
-			/*!
-			*	Performs static_cast<float> on every element of _vector and stores the result in _outVector
-			*
-			*	\param [in]  _vector		The double vector
-			*	\param [out] _outVector		The resulting double vector
-			*
-			*	\retval GReturn::SUCCESS				The cast succeeded
-			*/
-			static GReturn Downgrade3(MATH2D::GVECTOR3D _vector, MATH2D::GVECTOR3D& _outVector) { return GReturn::NO_IMPLEMENTATION; }
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -45813,17 +36439,6 @@ namespace GW
 #ifndef GBLITTER_H
 #define GBLITTER_H
 
-/*!
-	File: GBlitter.h
-	Purpose: A Gateware interface that allows defining tiles from pixel data sources and drawing them to an offscreen canvas via tiled rendering.
-	Dependencies: win32[] linux[] apple[]
-	Asynchronus: YES
-	Author: Trixie Aurelia Valentine
-	Contributors: Lari Norri
-	Interface Status: Alpha (GatewareX)
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -52601,18 +43216,14 @@ namespace GW
 
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all Gateware Graphics library interfaces must belong.
 	namespace GRAPHICS
 	{
-		//! A Gateware interface that allows defining tiles from pixel data sources and drawing them to an offscreen bitmap via tiled rendering.
 		class GBlitter final : public I::GProxy<I::GBlitterInterface, I::GBlitterImplementation, unsigned short, unsigned short>
 		{
 		public: // Only public functions are exposed via Proxy, never protected or private operations
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GBlitter)
 			GATEWARE_TYPEDEF(DrawOptions)
 			GATEWARE_TYPEDEF(TileDefinition)
@@ -52633,355 +43244,8 @@ namespace GW
 			GATEWARE_FUNCTION(Flush)
 			GATEWARE_FUNCTION(ExportResult)
 			GATEWARE_FUNCTION(ExportResultComplex)
-			//! \endcond
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Tile drawing options supported by GBlitter. Bitflags indicating which transformations should be applied to a tile during drawing.
-			//!	Notes:
-			//!		Eight basic orientations are available using combinations of the ROTATE, MIRROR_VERTICAL, and MIRROR_HORIZONTAL flags (all rotation angles are clockwise; "inverse" indicates mirroring about the tile's local y axis):
-			//!			0*				= 0
-			//!			0* inverse		= MIRROR_HORIZONTAL
-			//!			90*				= ROTATE
-			//!			90* inverse		= ROTATE | MIRROR_VERTICAL
-			//!			180*			= MIRROR_VERTICAL | MIRROR_HORIZONTAL
-			//!			180* inverse	= MIRROR_VERTICAL
-			//!			270*			= ROTATE | MIRROR_VERTICAL | MIRROR_HORIZONTAL
-			//!			270* inverse	= ROTATE | MIRROR_HORIZONTAL
-			enum DrawOptions
-			{
-				ROTATE					= 0x0001, //!< Indicates that a tile should be rotated 90 degrees clockwise. (Only used by non-transformed instructions.)
-				MIRROR_VERTICAL			= 0x0002, //!< Indicates that a tile should be flipped in the y axis. (Only used by non-transformed instructions.)
-				MIRROR_HORIZONTAL		= 0x0004, //!< Indicates that a tile should be flipped in the x axis. (Only used by non-transformed instructions.)
-				IGNORE_SOURCE_COLORS	= 0x0008, //!< Indicates that per-pixel color values from source should NOT be used. (I.E., only layer and/or stencil data from tile should be drawn to the canvas.)
-				USE_SOURCE_LAYERS		= 0x0010, //!< Indicates that per-pixel layer values from source should be used.
-				USE_SOURCE_STENCILS		= 0x0020, //!< Indicates that per-pixel stencil values from source should be used.
-				USE_MASKING				= 0x0040, //!< Indicates that key-value bitmasking should be applied to a tile. Affects color, layer, and stencil data. (Opaque/transparent. Slightly less efficient than no transparency.)
-				USE_TRANSFORMATIONS		= 0x0080, //!< Indicates that the transformation matrix and pivot should be applied to a tile. Note: Transformations use screen axes (I.E., -y is up, +y is down), NOT mathematical axes (ie, -y is down, +y is up).
-				USE_TRANSPARENCY		= 0x0100, //!< Indicates that alpha-channel color blending should be applied to a tile. Affects color data. (Semi-transparency. Significantly less efficient than no transparency or bitmasking. Overuse will reduce performance.)
-			};
-
-			/*! Struct defining the data for a GBlitter tile. Specifies the source, origin position, and dimensions of a tile, as well as the color/layer/stencil values to remove with bitmasking, if used. */
-			struct TileDefinition
-			{
-				unsigned short			source_id; /*! Index of source that tile should be defined in. (0xFFFF is considered invalid.) */
-				unsigned short			x; /*! x origin of tile within source, in pixels. */
-				unsigned short			y; /*! y origin of tile within, in pixels. */
-				unsigned short			w; /*! Width of tile, in pixels. */
-				unsigned short			h; /*! Height of tile, in pixels. */
-				unsigned int			mask_color; /*! Color value to remove with bitmasking. Will ONLY be applied to color data. (Default value is 0x00000000.) */
-				unsigned char			mask_layer; /*! Layer value to remove with bitmasking. Will ONLY be applied to layer data. (Default value is 0.) */
-				unsigned char			mask_stencil; /*! Stencil value to remove with bitmasking. Will ONLY be applied to stencil data. (Default value is 0.) */
-			};
-
-			/*! Default uninitialized TileDefinition values. Can be used to "zero out" a tile before setting the relevant values. */
-			const TileDefinition GBlitterDefaultTileDefinition =
-			{
-				0xFFFF,
-				0,
-				0,
-				0,
-				0,
-				0x00000000,
-				0,
-				0
-			};
-
-			/*! Struct containing the data for a GBlitter tile drawing operation. Specifies which tile to draw, the location to draw it to, and any transformations to apply during drawing. */
-			struct DrawInstruction
-			{
-				unsigned int			tile_id; /*! Index of tile to be drawn. (0xFFFFFFFF is considered invalid.) */
-				unsigned short			flags; /*! Bitflags indicating which \ref DrawOptions to apply. */
-				unsigned char			layer; /*! Layer to draw tile to. Used for sorting even if USE_SOURCE_LAYERS flag is on. */
-				unsigned char			stencil; /*! Stencil value to draw tile with if USE_SOURCE_STENCILS flag is off. */
-				float					t[3]; /*! x/y/z translation. z value is used to dynamically adjust the layer to draw to. */
-				float					m[2][2]; /*! 2x2 row-major transformation matrix. Only used if USE_TRANSFORMATIONS flag is on. */
-				float					p[2]; /*! Pivot (Fixed point to apply transformations about). Relative to top-left corner of tile. Only used if USE_TRANSFORMATIONS flag is on. */
-				unsigned char			pad[4]; /*! Padding needed for 8-byte alignment. Not used and should be ignored. */
-			};
-
-			/*! Default uninitialized DrawInstruction values. Can be used to "zero out" a draw instruction before setting the relevant values. */
-			const DrawInstruction GBlitterDefaultDrawInstruction =
-			{
-				0xFFFFFFFF,
-				0,
-				0,
-				0,
-				{ 0, 0, 0 },
-				{ { 1, 0 }, { 0, 1 } },
-				{ 0, 0 }
-			};
-
-			//! Allocates and initializes a GBlitter.
-			/*!
-			*	Creates a GBlitter proxy which enables you to draw tiles of pixel data to an offscreen canvas.
-			*
-			*	\param [in] _width						The width of the blitter's canvas, in pixels.
-			*	\param [in] _height						The height of the blitter's canvas, in pixels.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT		Width and/or height was zero.
-			*	\retval GReturn::SUCCESS				GBlitter created successfully.
-			*/
-			GReturn Create(unsigned short _width, unsigned short _height);
-
-			//! Loads and stores a read-only raster source to define tiles from.
-			/*!
-			*	Use this function to load source data from files directly.
-			*	All types of data are optional, but at least one must be used for a source to be valid. All images used must have the same dimensions.
-			*	Greyscale (especially with no alpha channel) is recommended for layer/stencil data since the filesize will be significantly smaller.
-			*	If a file does not contain an alpha channel, the alpha values will be set to maximum.
-			*	Supported file types:
-			*		TGA (Targa)
-			*			Supported color formats:
-			*			-  8 bits-per-pixel greyscale						(Luminance)				[TGA documentation refers to this as black-and-white]
-			*			- 16 bits-per-pixel greyscale with transparency		(Alpha-Luminance)		[TGA documentation refers to this as black-and-white]
-			*			- 24 bits-per-pixel RGB color						(Red-Green-Blue)		[TGA documentation refers to this as true-color]
-			*			- 32 bits-per-pixel RGB color with transparency		(Alpha-Red-Green-Blue)	[TGA documentation refers to this as true-color]
-			*			-  8 bits-per-pixel indexed color					(Look-Up Table)			[TGA documentation refers to this as color-mapped]
-			*				-- Only 24-bit palette entries and 8-bit palette indices are supported.
-			*				-- Be sure all colors in the palette are opaque, otherwise the palette will be read incorrectly.
-			*	Maximum dimensions supported: 65,535 x 65,535
-			*		(TGA files do not support anything larger than this, so attempting to export a TGA larger than this will corrupt the data. The library is not able to detect if this has happened except at exact multiples of 65,536 in either dimension.)
-			*	Maximum sources supported: 65,535
-			*
-			*	\param [in] _colorsFilepath					(OPTIONAL) Path to the file to load color values from. (Pass nullptr if not needed.)
-			*	\param [in] _layersFilepath					(OPTIONAL) Path to the file to load layer values from. Only the red channel will be used if file is in a color format. (Pass nullptr if not needed.)
-			*	\param [in] _stencilsFilepath				(OPTIONAL) Path to the file to load stencil values from. Only the red channel will be used if file is in a color format. (Pass nullptr if not needed.)
-			*	\param [out] _outIndex						Index of the stored source.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT			All filepaths were nullptr, one or more filepaths do not contain a file extension, or two or more images' dimensions did not match.
-			*	\retval GReturn::FAILURE					GFile proxy could not be created to read files or image data could not be read from a file.
-			*	\retval	GReturn::FILE_NOT_FOUND				One or more filepaths do not point to a valid file.
-			*	\retval	GReturn::FORMAT_UNSUPPORTED			One or more filepaths contains an extension that is not supported. (See supported file types above.)
-			*	\retval GReturn::FEATURE_UNSUPPORTED		One or more files has image format features that are not supported. (Make sure file settings are correct when exporting; See supported file types above.)
-			*	\retval GReturn::IGNORED					Maximum number of sources would be exceeded. (Consider combining sources together. If you need more than the maximum, you need to optimize.)
-			*	\retval GReturn::SUCCESS					Source was loaded and stored.
-			*/
-			virtual GReturn LoadSource(const char* _colorsFilepath, const char* _layersFilepath, const char* _stencilsFilepath, unsigned short &_outIndex) = 0;
-
-			//! Copies and stores a raster source to define tiles from.
-			/*!
-			*	Use this function to import source data generated at runtime or loaded manually.
-			*	All types of data are optional, but at least one must be used for a source to be valid.
-			*	If multiple data arrays are passed, all of them must have the same offset and stride. If you need more flexibility, use \ref ImportSourceComplex.
-			*	Maximum dimensions supported: 65,535 x 65,535
-			*	Maximum sources supported: 65,535
-			*	Colors are in ARGB format, with 8 bits per pixel.
-			*
-			*	\param [in] _colors							(OPTIONAL) Array of color data to import from. (Pass nullptr if not needed.)
-			*	\param [in] _layers							(OPTIONAL) Array of layer data to import from. (Pass nullptr if not needed.)
-			*	\param [in] _stencil						(OPTIONAL) Array of stencil data to import from. (Pass nullptr if not needed.)
-			*	\param [in] _width							Width of source, in pixels.
-			*	\param [in] _height							Height of source, in pixels.
-			*	\param [in] _pixelOffset					Number of pixels to ignore at the start of the array(s).
-			*	\param [in] _rowPixelStride					Distance between rows, in pixels. (May be greater than width due to padding; Pass 0 to use width as stride.)
-			*	\param [out] _outIndex						Index of the stored source.
-			*
-			*	\retval	GReturn::INVALID_ARGUMENT			All input arrays were nullptr, width and/or height was zero, or nonzero stride less than width was passed.
-			*	\retval GReturn::IGNORED					Maximum number of sources would be exceeded. (Consider combining sources together. If you need more than the maximum, you need to optimize.)
-			*	\retval GReturn::SUCCESS					Source data was imported and stored.
-			*/
-			virtual GReturn ImportSource(const unsigned int* _colors, const unsigned char* _layers, const unsigned char* _stencils, unsigned short _width, unsigned short _height, unsigned short _pixelOffset, unsigned short _rowPixelStride, unsigned short& _outIndex) = 0;
-
-			//! Copies and stores a raster source to define tiles from.
-			/*!
-			*	Use this function to import data generated at runtime or loaded manually.
-			*	All types of data are optional, but at least one must be used for a source to be valid.
-			*	If you do not need the flexibility of this function or you do not know how to use it, use \ref ImportSource.
-			*	Maximum dimensions supported: 65,535 x 65,535
-			*	Maximum sources supported: 65,535
-			*	Colors are in ARGB format, with 8 bits per pixel.
-			*
-			*	\param [in] _colors								(OPTIONAL) Array of color data to import from. (Pass nullptr if not needed.)
-			*	\param [in] _colorByteStride					(OPTIONAL) Distance between color values, in bytes. (Pass 0 if colors are not used.)
-			*	\param [in] _colorRowByteStride					(OPTIONAL) Distance between rows of color data, in bytes. Must be >= _width * _colorByteStride if used. (Pass 0 if colors are not used.)
-			*	\param [in] _layers								(OPTIONAL) Array of layer data to import from. (Pass nullptr if not needed.)
-			*	\param [in] _layerByteStride					(OPTIONAL) Distance between layer values, in bytes. (Pass 0 if layers are not used.)
-			*	\param [in] _layerRowByteStride					(OPTIONAL) Distance between rows of layer data, in bytes. Must be >= _width * _layerByteStride if used. (Pass 0 if layers are not used.)
-			*	\param [in] _stencils							(OPTIONAL) Array of stencil data to import from. (Pass nullptr if not needed.)
-			*	\param [in] _stencilByteStride					(OPTIONAL) Distance between stencil values, in bytes. (Pass 0 if stencils are not used.)
-			*	\param [in] _stencilRowByteStride				(OPTIONAL) Distance between rows of stencil data, in bytes. Must be >= _width * _stencilByteStride if used. (Pass 0 if stencils are not used.)
-			*	\param [in] _width								Width of source, in pixels. Any input arrays must be at least this wide.
-			*	\param [in] _height								Height of source, in pixels. Any input arrays must be at least this tall.
-			*	\param [out] _outIndex							Index of the stored source.
-			*
-			*	\retval	GReturn::INVALID_ARGUMENT				All input arrays were nullptr, width and/or height was zero, a used stride value was zero, or a used item stride value greater than the corresponding row stride value was passed.
-			*	\retval GReturn::IGNORED						Maximum number of sources would be exceeded. (Consider combining sources together. If you need more than the maximum, you need to optimize.)
-			*	\retval GReturn::SUCCESS						Source data was imported and stored.
-			*/
-			virtual GReturn ImportSourceComplex(const unsigned int* _colors, unsigned short _colorByteStride, unsigned short _colorRowByteStride, const unsigned char* _layers, unsigned short _layerByteStride, unsigned short _layerRowByteStride, const unsigned char* _stencils, unsigned short _stencilByteStride, unsigned short _stencilRowByteStride, unsigned short _width, unsigned short _height, unsigned short& _outIndex) = 0;
-
-			//! Stores tile definitions and returns indices for drawing.
-			/*!
-			*	Maximum tiles supported: 4,294,967,295
-			*
-			*	\param [in] _tileDefinitions				Array of tile definitions.
-			*	\param [in] _numTiles						Number of definitions in the array.
-			*	\param [out] _outIndices					List of tile indices to use for drawing. (Create this yourself and pass it to the function.)
-			*
-			*	\retval GReturn::INVALID_ARGUMENT			_tileDefinitions was nullptr, _outIndices was nullptr, _numTiles was zero, or an invalid definition was passed.
-			*	\retval GReturn::IGNORED					Maximum number of tiles would be exceeded. (Check your code for runaway loops generating tiles. No project should EVER need even REMOTELY close to the maximum number.)
-			*	\retval GReturn::SUCCESS					Tiles were defined successfully.
-			*/
-			virtual GReturn DefineTiles(const TileDefinition* _tileDefinitions, const unsigned int _numTiles, unsigned int* _outIndices) = 0;
-
-			//! Sets the mask color, layer, and stencil values for all tiles specified.
-			/*!
-			*	\param [in] _tileIndices					Array of indices indicating which tiles to set values for.
-			*	\param [in] _numTiles						Number of indices in the array.
-			*	\param [in] _maskColor						Color value to store as all tiles' color mask value.
-			*	\param [in] _maskLayer						Layer value to store as all tiles' layer mask value.
-			*	\param [in] _maskStencil					Stencil value to store as all tiles' stencil mask value.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT			_tileIndices was nullptr, _tileIndices contains invalid indices, _numTiles was zero, or _numTiles was greater than the number of tiles in memory.
-			*	\retval GReturn::SUCCESS					Mask values were set for all tiles specified.
-			*/
-			virtual GReturn SetTileMaskValues(unsigned int* _tileIndices, unsigned int _numTiles, unsigned int _maskColor, unsigned char _maskLayer, unsigned char _maskStencil) = 0;
-
-			//! Unloads sources from memory and removes them from the source list.
-			/*!
-			*	\param [in] _sourceIndices					Array of indices indicating which sources to discard.
-			*	\param [in[ _numSources						Number of indices in the array.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT			_sourceIndices was nullptr, _sourceIndices contains invalid indices, _numSources was zero, or _numSources was greater than the number of sources in memory.
-			*	\retval GReturn::SUCCESS					Sources were unloaded and source indices no longer refer to valid sources. (Be sure to also discard any tiles that were defined in discarded sources.)
-			*/
-			virtual GReturn DiscardSources(unsigned short* _sourceIndices, unsigned short _numSources) = 0;
-
-			//! Unloads tiles from memory and removes them from the tile list.
-			/*!
-			*	\param [in] _tileIndices					Array of indices indicating which tiles to discard.
-			*	\param [in[ _numTiles						Number of indices in the array.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT			_tileIndices was nullptr, _tileIndices contains invalid indices, _numTiles was zero, or _numTiles was greater than the number of tiles in memory.
-			*	\retval GReturn::SUCCESS					Tiles were unloaded and tile indices no longer refer to valid tiles.
-			*/
-			virtual GReturn DiscardTiles(unsigned int* _tileIndices, unsigned int _numTiles) = 0;
-
-			//! Clears the blitter's canvas to a color, layer, and stencil value.
-			/*!
-			*	\param [in] _color							The color value to clear to.
-			*	\param [in] _layer							The layer value to clear to.
-			*	\param [in] _stencil						The stencil value to clear to.
-			*
-			*	\retval GReturn::SUCCESS					Blitter's canvas was cleared.
-			*/
-			virtual GReturn Clear(unsigned int _color, unsigned char _layer, unsigned char _stencil) = 0;
-
-			//! Clears the blitter's canvas to a color value.
-			/*!
-			*	\param [in] _color							The color value to clear to.
-			*
-			*	\retval GReturn::SUCCESS					Blitter's canvas was cleared.
-			*/
-			virtual GReturn ClearColor(unsigned int _color) = 0;
-
-			//! Clears the blitter's canvas to a layer value.
-			/*!
-			*	\param [in] _layer							The layer value to clear to.
-			*
-			*	\retval GReturn::SUCCESS					Blitter's canvas was cleared.
-			*/
-			virtual GReturn ClearLayer(unsigned char _layer) = 0;
-
-			//! Clears the blitter's canvas to a stencil value.
-			/*!
-			*	\param [in] _stencil						The stencil value to clear to.
-			*
-			*	\retval GReturn::SUCCESS					Blitter's canvas was cleared.
-			*/
-			virtual GReturn ClearStencil(unsigned char _stencil) = 0;
-
-			//! Takes a list of draw instructions and stores them for later drawing to the canvas.
-			/*!
-			*	Call \ref Flush or pass true for _flush in \ref ExportResult or \ref ExportResultComplex to draw all deferred instructions to the canvas.
-			*	If too many deferred instructions are in the blitter, portions of the canvas may run out of room and any additional instructions to those portions will be discarded.
-			*	Under normal usage, this will not be an issue. If it does happen, flush instructions to the result more often or use \ref DrawImmediate instead.
-			*
-			*	\param [in] _drawInstructions				Array of draw instructions.
-			*	\param [in] _numInstructions				Number of instructions in the array.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT			Number of instructions was zero or an invalid instruction was passed.
-			*	\retval GReturn::SUCCESS					Instructions were stored for later drawing.
-			*/
-			virtual GReturn DrawDeferred(const DrawInstruction* _drawInstructions, const unsigned short _numDraws) = 0;
-
-			//! Takes a list of draw instructions and draws them to the canvas immediately.
-			/*!
-			*	Any unflushed instructions queued with DrawDeferred will be discarded.
-			*	Unlike \ref DrawDeferred, if enough instructions are passed to fill portions of the canvas, they will be sorted and drawn in batches to ensure that they are all drawn and the result is correct.
-			*	The number of instructions that need to be passed for this to be necessary is very high, and this function does not allow instructions to be stored for later drawing.
-			*	This function is also more expensive, and will run slightly slower because of it.
-			*	If you are not passing enough instructions to cause visual artifacts or you need the flexibility to queue instructions multiple times before flushing, use \ref DrawDeferred instead.
-			*
-			*	\param [in] _drawInstructions				Array of draw instructions.
-			*	\param [in] _numInstructions				Number of instructions in the array.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT			Number of instructions was zero or an invalid instruction was passed.
-			*	\retval GReturn::SUCCESS					Instructions were drawn to the canvas.
-			*/
-			virtual GReturn DrawImmediate(const DrawInstruction* _drawInstructions, const unsigned short _numDraws) = 0;
-
-			//! Flushes any outstanding draw instructions to the result immediately.
-			/*!
-			*	\retval GReturn::REDUNDANT					No draw instructions were outstanding.
-			*	\retval GReturn::SUCCESS					Outstanding draw instructions were flushed to the result.
-			*/
-			virtual GReturn Flush() = 0;
-
-			//! Copies the rendered result to output buffer(s).
-			/*!
-			*	All output buffers are optional, but at least one must be provided for the function to succeed.
-			*	The Complex variant runs slower than this one, so if performance is more important than flexibility, use this function instead of \ref ExportResultComplex.
-			*	If multiple output buffers are passed, all of them must have the same offset and stride. If you need more flexibility, use \ref ExportResultComplex.
-			*	Output buffers do NOT have to be the same size as the blitter's canvas. The result will fill whatever space is available and leave any excess untouched.
-			*	However, all arrays provided must have room for at least _height rows of _width items.
-			*	Note that this means that even if an array has more room than this, these dimensions are the maximum that will be copied by this function.
-			*	Therefore, if you need different amounts of different types of data, call this function multiple times with different output buffers and dimensions.
-			*
-			*	\param [in] _flush							Whether any outstanding draw instructions should be flushed to the result before it is exported.
-			*	\param [in] _width							The width of the output buffer(s), in pixels.
-			*	\param [in] _height							The height of the output buffer(s), in pixels.
-			*	\param [in] _pixelOffset					The number of pixels to ignore at the start of the buffer(s).
-			*	\param [in[ _rowPixelStride					The distance between rows, in pixels. (May be greater than width due to padding; Pass 0 to use width as stride.)
-			*	\param [out] _outColors						(OPTIONAL) Array of color data to export into. (Pass nullptr if not needed.)
-			*	\param [out] _outLayers						(OPTIONAL) Array of layer data to export into. (Pass nullptr if not needed.)
-			*	\param [out] _outStencils					(OPTIONAL) Array of stencil data to export into. (Pass nullptr if not needed.)
-			*
-			*	\retval	GReturn::INVALID_ARGUMENT			All output buffers were nullptr, width and/or height was zero, or nonzero stride less than width was passed.
-			*	\retval GReturn::SUCCESS					Result data was copied into the output buffer(s).
-			*/
-			virtual GReturn ExportResult(bool _flush, unsigned short _width, unsigned short _height, unsigned short _pixelOffset, unsigned short _rowPixelStride, unsigned int* _outColors, unsigned char* _outLayers, unsigned char* _outStencils) = 0;
-
-			//! Copies the rendered result to output buffer(s).
-			/*!
-			*	All output buffers are optional, but at least one must be provided for the function to succeed.
-			*	If you do not need the flexibility of this function or you do not know how to use it, use \ref ExportResult.
-			*	The standard variant runs faster than this one, so if performance is more important than flexibility, use \ref ExportResult instead of this function.
-			*	Output buffers do NOT have to be the same size as the blitter's canvas. The result will fill whatever space is available and leave any excess untouched.
-			*	However, all arrays provided must have room for at least _height rows of _width items.
-			*	Note that this means that even if an array has more room than this, these dimensions are the maximum that will be copied by this function.
-			*	Therefore, if you need different amounts of different types of data, call this function multiple times with different output buffers and dimensions.
-			*
-			*	\param [in] _flush							Whether any outstanding draw instructions should be flushed to the result before it is exported.
-			*	\param [in] _colorByteStride				Distance between color values, in bytes. (Pass 0 if color buffer is not used.)
-			*	\param [in] _colorRowByteStride				Distance between rows of color data, in bytes. Must be >= _width * _colorByteStride if used. (Pass 0 if color buffer is not used.)
-			*	\param [in] _layerByteStride				Distance between layer values, in bytes. (Pass 0 if layer buffer is not used.)
-			*	\param [in] _layerRowByteStride				Distance between rows of layer data, in bytes. Must be >= _width * _layerByteStride if used. (Pass 0 if layer buffer is not used.)
-			*	\param [in] _stencilByteStride				Distance between stencil values, in bytes. (Pass 0 if stencil buffer is not used.)
-			*	\param [in] _stencilRowByteStride			Distance between rows of stencil data, in bytes. Must be >= _width * _stencilByteStride if used. (Pass 0 if stencil buffer is not used.)
-			*	\param [in] _width							Width of output buffer(s), in pixels. All output arrays must be at least this wide.
-			*	\param [in] _height							Height of output buffer(s), in pixels. All output arrays must be at least this tall.
-			*	\param [out] _outColors						(OPTIONAL) Array of color data to export into. (Pass nullptr if not needed.)
-			*	\param [out] _outLayers						(OPTIONAL) Array of layer data to export into. (Pass nullptr if not needed.)
-			*	\param [out] _outStencils					(OPTIONAL) Array of stencil data to export into. (Pass nullptr if not needed.)
-			*
-			*	\retval	GReturn::INVALID_ARGUMENT			All output arrays were nullptr, width and/or height was zero, a used stride value was zero, or a used item stride value greater than the corresponding row stride value was passed.
-			*	\retval GReturn::SUCCESS					Result data was copied into the output buffer(s).
-			*/
-			virtual GReturn ExportResultComplex(bool _flush, unsigned short _colorByteStride, unsigned short _colorRowByteStride, unsigned short _layerByteStride, unsigned short _layerRowByteStride, unsigned short _stencilByteStride, unsigned short _stencilRowByteStride, unsigned short _width, unsigned short _height, unsigned int* _outColors, unsigned char* _outLayers, unsigned char* _outStencils) = 0;
-
-#endif // DOXYGEN_ONLY
 		};
 	};
 };
@@ -53000,15 +43264,6 @@ namespace GW
 #ifndef GDIRECTX11SURFACE_H
 #define GDIRECTX11SURFACE_H
 
-/*!
-	File: GDirectX11Surface.h
-	Purpose: A Gateware interface that initializes a DirectX11 rendering surface and manages it's core resources.
-	Author: Andre Reid
-	Contributors: Kai Huang, Ryan Powser, Lari Norri
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -53448,19 +43703,15 @@ namespace GW
 #endif
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all Gateware graphics interfaces must belong.
 	namespace GRAPHICS
 	{
-		//! A Gateware interface that initializes a DirectX11 rendering surface and manages it's core resources.
 		class GDirectX11Surface final
 			: public I::GProxy<I::GDirectX11SurfaceInterface, I::GDirectX11SurfaceImplementation, GW::SYSTEM::GWindow, unsigned long long>
 		{
 		public: // Only public functions are exposed via Proxy, never protected or private operations
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GDirectX11Surface)
 			GATEWARE_CONST_FUNCTION(GetAspectRatio)
 			GATEWARE_CONST_FUNCTION(GetDevice)
@@ -53473,97 +43724,8 @@ namespace GW
 			// from GEventResponderInterface
 			GATEWARE_FUNCTION(Assign)
 			GATEWARE_CONST_FUNCTION(Invoke)
-			//! \endcond
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-		   //! Creates and outputs a new GDirectX11Surface object.
-		   /*!
-		   *	Initializes a handle to a GDirectX11Surface object with an existing GWindow.
-		   *	The created GDirectX11Surface object will have its reference count initialized
-		   *	to one and register as a listener to the provided GWindow object.
-		   *
-		   *	This function accepts a bit mask that can hold
-		   *	supported 'GGraphicsInitOptions', which will
-		   *	be taken into account when creating the context.
-		   *	To ignore this mask, simply pass in 0 when calling
-		   *	this function and the context will be created with
-		   *	default settings.
-		   *
-		   *	\param [in] _gwindow A pointer to an existing GWindow object.
-		   *	\param [in] _initMask The bit mask that can hold special initialization options.
-		   *
-		   *	\retval GReturn::INVALID_ARGUMENT _gwindow is invalid.
-		   *	\retval GReturn::FAILURE A GDirectX11Surface object was not created. _outSurface will be null.
-		   *	\retval GReturn::SUCCESS A GDirectX11Surface object was successfully created.
-		   */
-			GReturn Create(GW::SYSTEM::GWindow _gwindow, unsigned long long _initMask);
-
-			//! Returns the aspect ratio for the current window.
-			/*!
-			*	\param [out] _outRatio Will contain the calculated aspect ratio.
-			*
-			*   \retval GReturn::FAILURE No active GWindow exists to calculate an aspect ratio from.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty.
-			*	\retval GReturn::SUCCESS The current aspect ratio was calculated and returned.
-			*/
-			virtual GReturn GetAspectRatio(float& _outRatio) const = 0;
-
-			//! Returns the address of the current ID3D11Device.
-			/*!
-			*	\param [out] _outDevice Will contain the address of the device.
-			*
-			*   \retval GReturn::FAILURE No device exists to retrieve.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty.
-			*	\retval GReturn::SUCCESS A DirectX11 device exists and was returned.
-			*/
-			virtual GReturn GetDevice(void** _outDevice) const = 0;
-
-			//! Returns the address of the current ID3D11DeviceContext.
-			/*!
-			*
-			*	\param [out] _outContext Will contain the address of the context.
-			*
-			*   \retval GReturn::FAILURE No context exists to retrieve.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty.
-			*	\retval GReturn::SUCCESS A DirectX11 contexts exists and was returned.
-			*/
-			virtual GReturn GetImmediateContext(void** _outContext) const = 0;
-
-			//! Returns the address of the current IDXGISwapChain.
-			/*!
-			*
-			*	\param [out] _outSwapchain Will contain the address of the swap chain.
-			*
-			*   \retval GReturn::FAILURE No swap chain exists to retrieve.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty.
-			*	\retval GReturn::SUCCESS A DirectX11 swap chain exists and was returned.
-			*/
-			virtual GReturn GetSwapchain(void** _outSwapchain) const = 0;
-
-			//! Returns the address of the current ID3D11RenderTargetView.
-			/*!
-			*	\param [out] _outRenderTarget Will contain the address of the render target view.
-			*
-			*   \retval GReturn::FAILURE No render target view exists to retrieve.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty.
-			*	\retval GReturn::SUCCESS A DirectX11 render target view exists and was returned.
-			*/
-			virtual GReturn GetRenderTargetView(void** _outRenderTarget) const = 0;
-
-			//! Returns the address of the current ID3D11DepthStencilView.
-			/*!
-			*	A Depth Stencil View will only be created if requested as
-			*	a special option when the 'Initialize' method is called.
-			*
-			*	\param [out] _outDepthStencilView Will contain the address of the depth stencil view.
-			*
-			*	\retval GReturn::SUCCESS A DirectX11 depth stencil view exists and was returned.
-			*   \retval GReturn::FAILURE No depth stencil view exists to retrieve.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty.
-			*/
-			virtual GReturn GetDepthStencilView(void** _outDepthStencilView) const = 0;
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -53580,15 +43742,6 @@ namespace GW
 #ifndef GOPENGLSURFACE_H
 #define GOPENGLSURFACE_H
 
-/*!
-	File: GOpenGLSurface.h
-	Purpose: A Gateware interface that initializes an OpenGL rendering surface and manages it's core resources.
-	Author: Andre Reid
-	Contributors: Kai Huang, Lari Norri, Ozzie Mercado, Ryan Powser
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -64412,23 +54565,15 @@ namespace GW
 #endif
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all Gateware graphics interfaces must belong.
 	namespace GRAPHICS
 	{
-		//! A Gateware interface that initializes an OpenGL rendering surface and manages it's core resources. 
-		/*!
-		*	Defaults to using OpenGL core. On Windows, users can #define GATEWARE_FORCE_OPENGLES to switch to using
-		*	OpenGL ES instead of core.
-		*/
 		class GOpenGLSurface final
 			: public I::GProxy<I::GOpenGLSurfaceInterface, I::GOpenGLSurfaceImplementation, GW::SYSTEM::GWindow, unsigned long long>
 		{
 		public: // Only public functions are exposed via Proxy, never protected or private operations
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GOpenGLSurface)
 			GATEWARE_CONST_FUNCTION(GetAspectRatio)
 			GATEWARE_CONST_FUNCTION(GetContext)
@@ -64440,94 +54585,8 @@ namespace GW
 			// from GEventResponderInterface
 			GATEWARE_FUNCTION(Assign)
 			GATEWARE_CONST_FUNCTION(Invoke)
-			//! \endcond
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-		   //! Creates and outputs a new GOpenGLSurface object.
-		   /*!
-		   *	Initializes a handle to a GOpenGLSurface object with an existing GWindow.
-		   *	The created GDirectX11Surface object will have its reference count initialized
-		   *	to one and register as a listener to the provided GWindow object.
-		   *
-		   *	This function accepts a bit mask that can hold
-		   *	supported 'GGraphicsInitOptions', which will
-		   *	be taken into account when creating the context.
-		   *	To ignore this mask, simply pass in 0 when calling
-		   *	this function and the context will be created with
-		   *	default settings.
-		   *
-		   *	\param [in] _gwindow A pointer to an existing GWindow object.
-		   *	\param [in] _initMask The bit mask that can hold special initialization options.
-		   *
-		   *	\retval GReturn::INVALID_ARGUMENT _gwindow is invalid.
-		   *	\retval GReturn::FAILURE A GOpenGLSurface object was not created.
-		   *	\retval GReturn::SUCCESS A GOpenGLSurface object was successfully created.
-		   */
-			GReturn Create(GW::SYSTEM::GWindow _gwindow, unsigned long long _initMask);
-
-			//! Returns the aspect ratio for the current window.
-			/*!
-			*	\param [out] _outRatio Will contain the calculated aspect ratio.
-			*
-			*   \retval GReturn::FAILURE No active GWindow exists to calculate an aspect ratio from.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval GReturn::SUCCESS The current aspect ratio was calculated and returned.
-			*/
-			virtual GReturn GetAspectRatio(float& _outRatio) const = 0;
-
-			//! Returns the current OpenGL context.
-			/*!
-			*
-			*	\param [out] _outContext Will contain the address of the OpenGL context.
-			*
-			*   \retval GReturn::FAILURE No OpenGL context exists to retrieve.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval GReturn::SUCCESS The existing OpenGL context was returned.
-			*/
-			virtual GReturn GetContext(void** _outContext) const = 0;
-
-			//! Calls the appropriate method (depending on platform) to swap the front and back buffers.
-			/*!
-			*
-			*	\retval	GReturn::FAILURE No valid OpenGL context exists to perform a buffer swap on.
-			*	\retval GReturn::SUCCESS The front and back buffers were successfully swapped.
-			*/
-			virtual GReturn UniversalSwapBuffers() = 0;
-
-			//! Queries if a requested OpenGL extension or function is supported.
-			/*!
-			*	This funtion accepts either an OpenGL extension or
-			*	OpenGL function (or both) and searches the total list
-			*	of supported extensions (generated upon creation of
-			*	the context) to see if that extension/function is
-			*	supported. When a function name is queried, this
-			*	function will return it's appropriate address
-			*	if supported.
-			*
-			*	\param [in] _extension The exact name of an OpenGL, WGL, or GLX extension.
-			*	\param [in] _funcName The exact name of an OpenGL, WGL, or GLX function.
-			*	\param [out] _outFuncAddress The address of a function pointer that matches the queried function (_funcName).
-			*
-			*	\retval GReturn::INVALID_ARGUMENT This function was called with an incorrect set of parameters.
-			*	\retval GReturn::FAILURE The requested extension/function is not supported.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval GReturn::SUCCESS The extension/function is supported, and the address was returned successfully (if requested).
-			*/
-			virtual GReturn QueryExtensionFunction(const char* _extension, const char* _funcName, void** _outFuncAddress) = 0;
-
-			//! Enables or disables v-synchronization in regards to buffer swapping.
-			/*!
-			*
-			*	\param [in] _setSwapControl Determines whether to enable or disable v-sync.
-			*
-			*   \retval GReturn::FEATURE_UNSUPPORTED The extension required to use this functionality was not supported.
-			*	\retval GReturn::FAILURE No valid OpenGL context exists.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval GReturn::SUCCESS The appropriate function was called to enable v-sync.
-			*/
-			virtual GReturn EnableSwapControl(bool _setSwapControl) = 0;
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -64544,15 +54603,6 @@ namespace GW
 #ifndef GDIRECTX12SURFACE_H
 #define GDIRECTX12SURFACE_H
 
-/*!
-	File: GDirectX12Surface.h
-	Purpose: A Gateware interface that initializes a DirectX12 rendering surface and manages it's core resources.
-	Author: Kai Huang
-	Contributors: Ryan Powser, Lari Norri
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -65517,20 +55567,16 @@ namespace GW
 #endif
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all Gateware graphics interfaces must belong.
 	namespace GRAPHICS
 	{
-		//! A Gateware interface that initializes a DirectX12 rendering surface and manages it's core resources.
 		class GDirectX12Surface final
 			: public I::GProxy<	I::GDirectX12SurfaceInterface, I::GDirectX12SurfaceImplementation, 
 								GW::SYSTEM::GWindow, unsigned long long>
 		{
 		public: // Only public functions are exposed via Proxy, never protected or private operations
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GDirectX12Surface)
 			GATEWARE_CONST_FUNCTION(GetAspectRatio)
 			GATEWARE_CONST_FUNCTION(GetSwapchain4)
@@ -65555,264 +55601,8 @@ namespace GW
 			// from GEventResponderInterface
 			GATEWARE_FUNCTION(Assign)
 			GATEWARE_CONST_FUNCTION(Invoke)
-			//! \endcond
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Creates and outputs a new GDirectX12 object.
-			/*!
-			*	Initializes a handle to a GDirectX12 object with an existing GWindow.
-			*	The created GDirectX12 object will have its reference count initialized
-			*	to one and register as a listener to the provided GWindow object.
-			*
-			*	This function accepts a bit mask that can hold
-			*	supported 'GGraphicsInitOptions', which will
-			*	be taken into account when creating the context.
-			*	To ignore this mask, simply pass in 0 when calling
-			*	this function and the context will be created with
-			*	default settings.
-			*
-			*	NOTE: Supported initMask's are: GW::GRAPHICS::COLOR_10_BIT | GW::GRAPHICS::DEPTH_BUFFER_SUPPORT | GW::GRAPHICS::DEPTH_STENCIL_SUPPORT
-			*
-			*	\param [in] _gwindow A object to an existing valid GWindow object.
-			*	\param [in] _initMask The bit mask that can hold special initialization options.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT:	_gwindow is invalid.
-			*	\retval GReturn::FAILURE:			A GDirectX12 object was not created.
-			*	\retval GReturn::SUCCESS:			A GDirectX12 object was successfully created.
-			*/
-			GReturn Create(GW::SYSTEM::GWindow _gwindow, unsigned long long _initMask);
-
-			//! Returns the aspect ratio for the current window.
-			/*!
-			*
-			*	\param	[out] outRatio: A reference to an float
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION: The proxy is deallocated or the window object is referencing to has been deallocated
-			*   \retval GReturn::FAILURE: No active GWindow exists to query aspect ratio.
-			*	\retval GReturn::EMPTY_PROXY: The proxy is empty.
-			*	\retval GReturn::SUCCESS: The aspect ratio is successfully queried.
-			*/
-			virtual GReturn GetAspectRatio(float& outRatio) const = 0;
-
-			//! Returns the address of the current IDXGISwapChain4.
-			/*!
-			*
-			*	\param [out] ppOutSwapchain: Address of an IDXGISwapChain4* object
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION: The proxy is deallocated or the window object is referencing to has been deallocated
-			*   \retval GReturn::FAILURE: No swap chain exists to be queried.
-			*	\retval GReturn::EMPTY_PROXY: The proxy is empty.
-			*	\retval GReturn::SUCCESS: A IDXGISwapChain4 is successfully queried.
-			*/
-			virtual GReturn GetSwapchain4(void** ppOutSwapchain) const = 0;
-
-			//! Returns the index of the swap chain buffer.
-			/*!
-			*
-			*	\param [out] outSwapChainBufferIndex: A reference to an unsigned int
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION: The proxy is deallocated or the window object is referencing to has been deallocated
-			*   \retval GReturn::FAILURE: No swap chain exists to query swap chain index.
-			*	\retval GReturn::EMPTY_PROXY: The proxy is empty.
-			*	\retval GReturn::SUCCESS: A swap chain index is successfully queried.
-			*/
-			virtual GReturn GetSwapChainBufferIndex(unsigned int& outSwapChainBufferIndex) const = 0;
-
-			//! Returns the address of the current ID3D12Device.
-			/*!
-			*
-			*	\param [out] ppOutDevice: Address of an ID3D12Device* object
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION: The proxy is deallocated or the window object is referencing to has been deallocated
-			*   \retval GReturn::FAILURE: No device exists to be queried.
-			*	\retval GReturn::EMPTY_PROXY: The proxy is empty.
-			*	\retval GReturn::SUCCESS: A ID3D12Device exists and was returned.
-			*/
-			virtual GReturn GetDevice(void** ppOutDevice) const = 0;
-
-			//! Returns the address of the current ID3D12GraphicsCommandList that is used for recording direct commands.
-			/*!
-			*
-			*	\param [out] ppOutDirectCommandList: Address of an ID3D12GraphicsCommandList* object
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION: The proxy is deallocated or the window object is referencing to has been deallocated
-			*   \retval GReturn::FAILURE: No command list exists to be queried.
-			*	\retval GReturn::EMPTY_PROXY: The proxy is empty.
-			*	\retval GReturn::SUCCESS: A ID3D12GraphicsCommandList exists and was returned.
-			*/
-			virtual GReturn GetCommandList(void** ppOutDirectCommandList) const = 0;
-
-			//! Returns the address of the current ID3D12CommandAllocator that is used for allocating memory for direct commands.
-			/*!
-			*
-			*	\param [out] ppOutDirectCommandAllocator: Address of an ID3D12CommandAllocator* object
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION: The proxy is deallocated or the window object is referencing to has been deallocated
-			*   \retval GReturn::FAILURE: No command allocator exists to be queried.
-			*	\retval GReturn::EMPTY_PROXY: The proxy is empty.
-			*	\retval GReturn::SUCCESS: A ID3D12CommandAllocator exists and was returned.
-			*/
-			virtual GReturn GetCommandAllocator(void** ppOutDirectCommandAllocator) const = 0;
-
-			//! Returns the address of the current ID3D12CommandQueue that is used for executing direct commands.
-			/*!
-			*
-			*	\param [out] ppOutDirectCommandQueue: Address of an ID3D12CommandQueue* object
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION: The proxy is deallocated or the window object is referencing to has been deallocated
-			*   \retval GReturn::FAILURE: No command list exists to be queried.
-			*	\retval GReturn::EMPTY_PROXY: The proxy is empty.
-			*	\retval GReturn::SUCCESS: A ID3D12CommandQueue exists and was returned.
-			*/
-			virtual GReturn GetCommandQueue(void** ppOutDirectCommandQueue) const = 0;
-
-			//! Returns the address of the current ID3D12Fence that is used for synchronizing the direct command queue.
-			/*!
-			*
-			*	\param [out] ppOutDirectFence: Address of an ID3D12Fence* object
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION: The proxy is deallocated or the window object is referencing to has been deallocated
-			*   \retval GReturn::FAILURE: No fence exists to be queried.
-			*	\retval GReturn::EMPTY_PROXY: The proxy is empty.
-			*	\retval GReturn::SUCCESS: A ID3D12Fence exists and was returned.
-			*/
-			virtual GReturn GetFence(void** ppOutDirectFence) const = 0;
-
-			//! Returns the descriptor size of constant buffer/shader resource/unordered access.
-			/*!
-			*
-			*	\param [out] outCBSRUADescriptorSize: A refernce to an unsigned int
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION: The proxy is deallocated or the window object is referencing to has been deallocated
-			*   \retval GReturn::FAILURE: No device exists to query descriptor size.
-			*	\retval GReturn::EMPTY_PROXY: The proxy is empty.
-			*	\retval GReturn::SUCCESS: A descriptor size is successfully queried.
-			*/
-			virtual GReturn GetCBSRUADescriptorSize(unsigned int& outCBSRUADescriptorSize) const = 0;
-
-			//! Returns the descriptor size of sampler.
-			/*!
-			*
-			*	\param [out] outSamplerDescriptorSize: A refernce to an unsigned int
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION: The proxy is deallocated or the window object is referencing to has been deallocated
-			*   \retval GReturn::FAILURE: No device exists to query descriptor size.
-			*	\retval GReturn::EMPTY_PROXY: The proxy is empty.
-			*	\retval GReturn::SUCCESS: A descriptor size is successfully queried.
-			*/
-			virtual GReturn GetSamplerDescriptorSize(unsigned int& outSamplerDescriptorSize) const = 0;
-
-			//! Returns the descriptor size of render target.
-			/*!
-			*
-			*	\param [out] outRenderTargetDescriptorSize: A refernce to an unsigned int
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION: The proxy is deallocated or the window object is referencing to has been deallocated
-			*   \retval GReturn::FAILURE: No device exists to query descriptor size.
-			*	\retval GReturn::EMPTY_PROXY: The proxy is empty.
-			*	\retval GReturn::SUCCESS: A descriptor size is successfully queried.
-			*/
-			virtual GReturn GetRenderTargetDescriptorSize(unsigned int& outRenderTargetDescriptorSize) const = 0;
-
-			//! Returns the descriptor size of depth stencil.
-			/*!
-			*
-			*	\param [out] outDepthStencilDescriptorSize: A refernce to an unsigned int
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION: The proxy is deallocated or the window object is referencing to has been deallocated
-			*   \retval GReturn::FAILURE: No device exists to query descriptor size.
-			*	\retval GReturn::EMPTY_PROXY: The proxy is empty.
-			*	\retval GReturn::SUCCESS: A descriptor size is successfully queried.
-			*/
-			virtual GReturn GetDepthStencilDescriptorSize(unsigned int& outDepthStencilDescriptorSize) const = 0;
-
-			//! Returns the ID3D12Resource of current render target resource.
-			/*!
-			*
-			*	\param [out] ppOutRenderTarget: Address of a ID3D12Resource* object
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION: The proxy is deallocated or the window object is referencing to has been deallocated
-			*   \retval GReturn::FAILURE: No ID3D12Resource exists to query descriptor size.
-			*	\retval GReturn::EMPTY_PROXY:	The proxy is empty.
-			*	\retval GReturn::SUCCESS: A ID3D12Resource is successfully queried.
-			*/
-			virtual GReturn GetCurrentRenderTarget(void** ppOutRenderTarget) const = 0;
-
-			//! Returns the ID3D12Resource of depth stencil resource.
-			/*!
-			*
-			*	\param [out] ppOutDepthStencil: Address of a ID3D12Resource* object
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION: The proxy is deallocated or the window object is referencing to has been deallocated
-			*   \retval GReturn::FAILURE: No ID3D12Resource exists to query descriptor size.
-			*	\retval GReturn::EMPTY_PROXY: The proxy is empty.
-			*	\retval GReturn::SUCCESS: A ID3D12Resource is successfully queried.
-			*/
-			virtual GReturn GetDepthStencil(void** ppOutDepthStencil) const = 0;
-
-			//! Returns the D3D12_CPU_DESCRIPTOR_HANDLE of current render target resource.
-			/*!
-			*
-			*	\param [out] pOutRenderTargetView: Address of a D3D12_CPU_DESCRIPTOR_HANDLE object
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION: The proxy is deallocated or the window object is referencing to has been deallocated
-			*   \retval GReturn::FAILURE: No ID3D12DescriptorHeap exists to query descriptor size.
-			*	\retval GReturn::EMPTY_PROXY: The proxy is empty.
-			*	\retval GReturn::SUCCESS: A D3D12_CPU_DESCRIPTOR_HANDLE is successfully queried.
-			*/
-			virtual GReturn GetCurrentRenderTargetView(void* pOutRenderTargetView) const = 0;
-
-			//! Returns the D3D12_CPU_DESCRIPTOR_HANDLE of the current depth stencil resource.
-			/*!
-			*
-			*	\param [out] pOutDepthStencilView: Address of a D3D12_CPU_DESCRIPTOR_HANDLE object
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION: The proxy is deallocated or the window object is referencing to has been deallocated
-			*   \retval GReturn::FAILURE: No ID3D12DescriptorHeap exists to query descriptor size.
-			*	\retval GReturn::EMPTY_PROXY: The proxy is empty.
-			*	\retval GReturn::SUCCESS: A D3D12_CPU_DESCRIPTOR_HANDLE is successfully queried.
-			*/
-			virtual GReturn GetDepthStencilView(void* pOutDepthStencilView) const = 0;
-
-			//! Preparing the surface for a starting frame operation
-			/*!
-			*	This method will perform synchronization between CPU and GPU,
-			*	it will also transition internal swap chain resources to its
-			*	proper state.
-			*
-			*	**NOTE: This is an optional method. The user can fully ignore this method
-			*		  however, if they do, they'll have to do the CPU-GPU syncrhonization
-			*		  to ensure there are no resource hazards/race conditions between
-			*		  the two processing units and also perform transitions for resources.**
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION: The proxy is deallocated or the window object is referencing to has been deallocated
-			*	\retval GReturn::FAILURE: Internal command queue, command allocator, and command list is invalid
-			*	\retval GReturn::EMPTY_PROXY: The proxy is empty.
-			*	\retval GReturn::SUCCESS: StartFrame operation has succeeded
-			*/
-			virtual GReturn StartFrame() = 0;
-
-			//! Preparing the surface for a end frame operation
-			/*!
-			*	This method will perform execution of the commands to the command queue,
-			*	it will also transition internal swap chain resources to its
-			*	proper state then present the swap chain's backbuffer
-			*
-			*	**NOTE: This is an optional method. The user can fully ignore this method
-			*		  however, if they do, they'll have to do the CPU-GPU syncrhonization
-			*		  to ensure there are no resource hazards/race conditions between
-			*		  the two processing units and also perform transitions for resources.**
-			*
-			*	\param [out] VSync: boolean to specify whether or not to use VSync
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION: The proxy is deallocated or the window object is referencing to has been deallocated
-			*	\retval GReturn::FAILURE: Internal command queue, command allocator, and command list is invalid
-			*	\retval GReturn::EMPTY_PROXY: The proxy is empty.
-			*	\retval GReturn::SUCCESS: StartFrame operation has succeeded
-			*/
-			virtual GReturn EndFrame(bool VSync) = 0;
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -65829,17 +55619,6 @@ namespace GW
 #ifndef GRASTERSURFACE_H
 #define GRASTERSURFACE_H
 
-/*!
-	File: GRasterSurface.h
-	Purpose: A Gateware interface that allows efficiently drawing a raster to a window.
-	Dependencies: win32[] linux[] apple[]
-	Asynchronous: YES
-	Author: Trixie Aurelia Valentine
-	Contributors: Ryan Powser, Ozzie Mercado
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -70297,19 +60076,15 @@ namespace GW
 
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all Gateware Graphics library interfaces must belong.
 	namespace GRAPHICS
 	{
-		//! A Gateware interface that allows efficiently drawing a raster to a window.
 		class GRasterSurface final
 			: public I::GProxy<I::GRasterSurfaceInterface, I::GRasterSurfaceImplementation, GW::SYSTEM::GWindow>
 		{
 		public: // Only public functions are exposed via Proxy, never protected or private operations
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GRasterSurface)
 			GATEWARE_FUNCTION(Clear)
 			GATEWARE_FUNCTION(UpdateSurface)
@@ -70320,135 +60095,8 @@ namespace GW
 			GATEWARE_FUNCTION(UnlockUpdateBufferWrite)
 			GATEWARE_FUNCTION(UnlockUpdateBufferRead)
 			GATEWARE_FUNCTION(Present)
-			//! \endcond
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Allocates and initializes a GRasterSurface.
-			/*!
-			*	Creates a GRasterSurface proxy which enables you to draw pixel data to a window.
-			*
-			*	\param [in] _gWindow						An existing GWindow object to bind the surface to.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT			An invalid GWindow was passed.
-			*	\retval GReturn::SUCCESS					GRasterSurface created successfully, ready to draw to window.
-			*/
-			GReturn Create(GW::SYSTEM::GWindow _gWindow);
-
-			//! Clears the surface to the specified color.
-			/*!
-			*	\param [in] _xrgbColor						The color to clear the surface to.
-			*
-			*	\retval GReturn::PREMATURE_DEALLOCATION		The associated GWindow was deallocated and the surface is now invalid.
-			*	\retval GReturn::UNEXPECTED_RESULT			Internal API failure. This should not happen, please report this.
-			*	\retval GReturn::SUCCESS					The surface was cleared.
-			*/
-			virtual GReturn Clear(unsigned int _xrgbColor) = 0;
-
-			//! Draws a raster to the surface.
-			/*!
-			*	\param [in] _xrgbPixels						The raster to draw to the surface.
-			*	\param [in] _numPixels						The number of pixels in the raster.
-			*
-			*	\retval GReturn::PREMATURE_DEALLOCATION		The associated GWindow was deallocated and the surface is now invalid.
-			*	\retval GReturn::UNEXPECTED_RESULT			Internal API failure. This should not happen, please report this.
-			*	\retval GReturn::INVALID_ARGUMENT			Raster was nullptr and/or pixel count was greater than surface pixel count.
-			*	\retval GReturn::SUCCESS					Pixel data was drawn to the surface.
-			*/
-			virtual GReturn UpdateSurface(const unsigned int* _xrgbPixels, unsigned int _numPixels) = 0;
-
-			//! Draws raster data to a rectangular subset region of the surface.
-			/*!
-			*	Notes:
-			*		To draw a subset region from source data, pass &sourcePixels[sourceX + (sourceY * sourceWidth)] as _xrgbPixels and sourceWidth as _rowStride.
-			*
-			*	\param [in] _xrgbPixels						The start of the raster data to draw to the surface.
-			*	\param [in] _numRows						The number of rows in the subset region.
-			*	\param [in] _rowWidth						The width of each row in the subset region.
-			*	\param [in] _rowStride						The pixel stride length between rows in the subset region. (Pass 0 to use _rowWidth as stride.)
-			*	\param [in] _destX							The x coordinate in the surface to draw to.
-			*	\param [in] _destY							The y coordinate in the surface to draw to.
-			*
-			*	\retval GReturn::PREMATURE_DEALLOCATION		The associated GWindow was deallocated and the surface is now invalid.
-			*	\retval GReturn::UNEXPECTED_RESULT			Internal API failure. This should not happen, please report this.
-			*	\retval GReturn::INVALID_ARGUMENT			Raster was nullptr, row count was < 1, row width was < 1, and/or row stride was less than row width.
-			*	\retval GReturn::SUCCESS					Pixel data was drawn to the surface.
-			*	\retval GReturn::REDUNDANT					The region to draw was entirely outside the surface's bounds, so drawing was unnecessary.
-			*/
-			virtual GReturn UpdateSurfaceSubset(const unsigned int* _xrgbPixels, unsigned short _numRows, unsigned short _rowWidth, unsigned short _rowStride, unsigned short _destX, unsigned short _destY) = 0;
-
-			//! Processes pixel data from a raster and draws it to the surface in the manner specified by draw option bitflags.
-			/*!
-			*	\param [in] _xrgbPixels						The raster to draw to the surface.
-			*	\param [in] _numPixels						The number of pixels in the raster.
-			*	\param [in] _rowWidth						The width of each row in the raster.
-			*	\param [in] _drawOptionFlags				A bit flag set specifying how to process the pixel data before drawing.
-			*
-			*	\retval GReturn::PREMATURE_DEALLOCATION		The associated GWindow was deallocated and the surface is now invalid.
-			*	\retval GReturn::UNEXPECTED_RESULT			Internal API failure. This should not happen, please report this.
-			*	\retval GReturn::INVALID_ARGUMENT			Raster was nullptr, pixel count was greater than surface pixel count, raster width was greater than surface width, and/or conflicting bit flags were passed.
-			*	\retval GReturn::SUCCESS					Pixel data was drawn to the surface.
-			*/
-			virtual GReturn SmartUpdateSurface(const unsigned int* _xrgbPixels, unsigned int _numPixels, unsigned short _rowWidth, unsigned int _drawOptionFlags) = 0;
-
-			//! Locks drawing to surface and gives access to internal memory for writing.
-			/*!
-			*	Blocks reading and writing access until unlocked.
-			*
-			*	\param [out] _outMemoryBuffer				A pointer to the internal memory array.
-			*	\param [out] _outWidth						The width of the internal memory array.
-			*	\param [out] _outHeight						The height of the internal memory array.
-			*
-			*	\retval GReturn::PREMATURE_DEALLOCATION		The associated GWindow was deallocated and the surface is now invalid.
-			*	\retval GReturn::UNEXPECTED_RESULT			Internal API failure. This should not happen, please report this.
-			*	\retval GReturn::INVALID_ARGUMENT			Memory buffer pointer was nullptr.
-			*	\retval GReturn::FAILURE					A write lock was already active.
-			*	\retval GReturn::SUCCESS					Access was given to internal memory and reading/writing was blocked.
-			*/
-			virtual GReturn LockUpdateBufferWrite(unsigned int** _outMemoryBuffer, unsigned short& _outWidth, unsigned short& _outHeight) = 0;
-
-			//! Locks drawing to surface and gives access to internal memory for reading.
-			/*!
-			*	Blocks reading and writing access until unlocked.
-			*
-			*	\param [out] _outMemoryBuffer				A pointer to the internal memory array.
-			*	\param [out] _outWidth						The width of the internal memory array.
-			*	\param [out] _outHeight						The height of the internal memory array.
-			*
-			*	\retval GReturn::PREMATURE_DEALLOCATION		The associated GWindow was deallocated and the surface is now invalid.
-			*	\retval GReturn::UNEXPECTED_RESULT			Internal API failure. This should not happen, please report this.
-			*	\retval GReturn::INVALID_ARGUMENT			Memory buffer pointer was nullptr.
-			*	\retval GReturn::FAILURE					A read lock was already active.
-			*	\retval GReturn::SUCCESS					Access was given to internal memory and reading/writing was blocked.
-			*/
-			virtual GReturn LockUpdateBufferRead(const unsigned int** _outMemoryBuffer, unsigned short& _outWidth, unsigned short& _outHeight) = 0;
-
-			//! Releases a write lock and reallows drawing to surface.
-			/*!
-			*	\retval GReturn::PREMATURE_DEALLOCATION		The associated GWindow was deallocated and the surface is now invalid.
-			*	\retval GReturn::UNEXPECTED_RESULT			Internal API failure. This should not happen, please report this.
-			*	\retval GReturn::SUCCESS					Reading/writing was unblocked.
-			*	\retval GReturn::REDUNDANT					No write locks were active.
-			*/
-			virtual GReturn UnlockUpdateBufferWrite() = 0;
-
-			//! Releases a read lock and reallows drawing to surface.
-			/*!
-			*	\retval GReturn::PREMATURE_DEALLOCATION		The associated GWindow was deallocated and the surface is now invalid.
-			*	\retval GReturn::UNEXPECTED_RESULT			Internal API failure. This should not happen, please report this.
-			*	\retval GReturn::SUCCESS					Reading/writing was unblocked.
-			*	\retval GReturn::REDUNDANT					No read locks were active.
-			*/
-			virtual GReturn UnlockUpdateBufferRead() = 0;
-
-			//! Draws the surface to the window.
-			/*!
-			*	\retval GReturn::PREMATURE_DEALLOCATION		The associated GWindow was deallocated and the surface is now invalid.
-			*	\retval GReturn::FAILURE					The surface failed to draw to the window.
-			*	\retval GReturn::SUCCESS					The surface was drawn to the window.
-			*/
-			virtual GReturn Present() = 0;
-#endif // DOXYGEN_ONLY
 		};
 	};
 };
@@ -70468,15 +60116,6 @@ namespace GW
 #ifndef GVULKANSURFACE_H
 #define GVULKANSURFACE_H
 
-/*!
-	File: GVulkanSurface.h
-	Purpose: A Gateware interface that initializes a Vulkan rendering surface and manages it's core resources.
-	Author: Derrick Ramirez
-	Contributors: Ryan Powser
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -70889,17 +60528,17 @@ static_assert(sizeof(void*) == 8, "Gateware supports x64 platforms only.");
 // The Major version is auto-generated based on the current year.
 #define GATEWARE_MAJOR 22
 // The Minor version is auto-generated based on the current day of the year.
-#define GATEWARE_MINOR 129
+#define GATEWARE_MINOR 136
 // The Patch version is auto-generated based on the current UTC hour of the day.
-#define GATEWARE_PATCH 23
+#define GATEWARE_PATCH 19
 // Pulled directly from GIT  
-#define GATEWARE_BRANCH "Peck-LookAtRH"
+#define GATEWARE_BRANCH "Peck-LookAtRHFix"
 // Pulled directly from GIT
-#define GATEWARE_COMMIT_HASH 0xb8d92cd7
+#define GATEWARE_COMMIT_HASH 0xa168ef65
 // Standard Window Title Bar
-#define GATEWARE_VERSION_STRING "Gateware v22.129.23"
+#define GATEWARE_VERSION_STRING "Gateware v22.136.19"
 // Window Title Bar displayed in DEBUG builds
-#define GATEWARE_VERSION_STRING_LONG "Gateware v22.129.23 (Peck-LookAtRH) [b8d92cd7]"
+#define GATEWARE_VERSION_STRING_LONG "Gateware v22.136.19 (Peck-LookAtRHFix) [a168ef65]"
 
 #endif
 
@@ -70907,15 +60546,6 @@ static_assert(sizeof(void*) == 8, "Gateware supports x64 platforms only.");
 
 #ifndef GVULKANHELPER_HPP
 #define GVULKANHELPER_HPP
-/*!
-	File: GVulkanHelper.hpp
-	Purpose: Utility namespace for common operations needed in Vulkan API
-	Author: Derrick Ramirez
-	Contributors: N/A
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 namespace GvkHelper {
 	//Extension, Layers and Enumeration Support (RETRUNS: VK_FALSE IS SUCCESS, VK_TRUE IS FAILURE)
@@ -74644,19 +64274,15 @@ namespace GW
 #endif
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all Gateware graphics interfaces must belong.
 	namespace GRAPHICS
 	{
-		//! A Gateware interface that initializes a Vulkan rendering surface and manages it's core resources.
 		class GVulkanSurface final
 			: public I::GProxy<I::GVulkanSurfaceInterface, I::GVulkanSurfaceImplementation, GW::SYSTEM::GWindow, unsigned long long>
 		{
 		public: // Only public functions are exposed via Proxy, never protected or private operations
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GVulkanSurface)
 			GATEWARE_TYPEDEF(Events)
 			GATEWARE_TYPEDEF(EVENT_DATA)
@@ -74695,398 +64321,8 @@ namespace GW
 			GATEWARE_FUNCTION(Register)
 			GATEWARE_CONST_FUNCTION(Observers)
 			GATEWARE_FUNCTION(Push)
-			//! \endcond
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-		   	//! Creates and outputs a new GVulkanSurface object.
-		   	/*!
-		   	*	Initializes a handle to a GVulkanSurface object with an existing GWindow.
-		   	*	The created GVulkanSurface object will have its reference count initialized
-		   	*	to one and register as a listener to the provided GWindow object.
-		   	*
-		   	*	This function accepts a bit mask that can hold
-		   	*	supported GGraphicsInitOptions, which will
-		   	*	be taken into account when creating the context.
-		   	*	To ignore this mask, simply pass in 0 when calling
-		   	*	this function and the context will be created with
-		   	*	default settings.
-		   	*
-		   	*
-			*	\param [in] _gwindow A pointer to an existing GWindow object.
-			*	\param [in] _initMask The bit mask that can hold special initialization options.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT _gwindow is invalid.
-			*	\retval GReturn::FAILURE A GVulkanSurface object was not created.
-			*	\retval GReturn::SUCCESS A GVulkanSurface object was successfully created.
-			*/
-			GReturn Create(GW::SYSTEM::GWindow _gwindow, unsigned long long _initMask);
-
-			//! Creates and outputs a new GVulkanSurface object, along with giving more control to add extensions and layers
-		   	/*!
-		   	*	Initializes a handle to a GVulkanSurface object with an existing GWindow.
-		   	*	The created GVulkanSurface object will have its reference count initialized
-		   	*	to one and register as a listener to the provided GWindow object.
-		   	*
-		   	*	This function accepts a bit mask that can hold
-		   	*	supported GGraphicsInitOptions, which will
-		   	*	be taken into account when creating the context.
-		   	*	To ignore this mask, simply pass in 0 when calling
-		   	*	this function and the context will be created with
-		   	*	default settings.
-			*	
-			*	This function accepts 6 additional parameters. This allows the ability to
-		   	*	add additional functionality to your vulkan surface. This include additional
-			*	debugging layers and additional extensions based on what your GPU can do.
-			*
-		   	*
-			*	\param [in] _gwindow A pointer to an existing GWindow object.
-			*	\param [in] _initMask The bit mask that can hold special initialization options.
-			*	\param [in] _layerCount The count on how many layers you are providing to the vulkan instance.
-			*	\param [in] _layers The list of Validation Layers to enable within the vulkan instance
-			*	\param [in] _instanceExtensionCount The count on how many instance extensions you are providing to the vulkan instance
-			*	\param [in] _instanceExtensions The list of Instance Extensions to enable within the vulkan instance
-			*	\param [in] _deviceExtensionCount The count on how many device extensions you are providing to the vulkan logical device
-			*	\param [in] _deviceExtensions The list of device extensions to enable within the vulkan logical device
-			*	\param [in] _allPhysicalDeviceFeatures Bool if you want to enable all supported features of your GPU
-			*
-			*	\retval GReturn::INVALID_ARGUMENT _gwindow is invalid, or there is a bad match of "count" and layers/extension provided (ex: 1 count but no layer/extension, or 0 count yet a layer/extension was sent.)
-			*	\retval GReturn::FAILURE A GVulkanSurface object was not created.
-			*	\retval GReturn::SUCCESS A GVulkanSurface object was successfully created.
-			*/
-			GReturn Create(GW::SYSTEM::GWindow _gwindow, unsigned long long _initMask, unsigned int _layerCount, const char** _layers, unsigned int _instanceExtensionCount, const char** _instanceExtensions, unsigned int _deviceExtensionCount, const char** _deviceExtensions, bool _allPhysicalDeviceFeatures);
-
-			//! Events generated by GVulkanSurface. These messages are used to notify GVulkanSurface's observers whenever the swapchain is required to be rebuilt.
-			enum class Events {
-				REBUILD_PIPELINE, //!< VkSwapchainKHR has been destroyedand pipelines must be rebuilt to accomodate.
-				RELEASE_RESOURCES //!< Internal Vulkan resources are about to be destroyed.Destroy any child objects.
-			};
-
-			/*! EVENT_DATA provided by GVulkanSurface. */
-			struct EVENT_DATA {
-				int eventResult; /*!< This provides what VkResult was the reason that the VkSwapchainKHR must be rebuilt. */
-				unsigned int surfaceExtent[2]; /*!< The surface extent used to create the VkSwapchainKHR. */
-			};
-
-			/*! GVulkanSurfaceQueryInfo contains all the features that Vulkan supports on the host machine. */
-			struct GVulkanSurfaceQueryInfo {
-				unsigned long long initializationMask;	/*!< The init mask that can be used to initialize the GVulkanSurface. */
-				unsigned int instanceLayerCount;		/*!< The total amount of Validation Layers supported. */
-				const char** instanceLayers;			/*!< The Validation Layers in const char* form. can be used directly with Create() method. */
-				void* instanceLayerProperties;			/*!< The Validation Layers in property form. <b>can not</b> be used directly with Create() method. */
-				unsigned int instanceExtensionCount;	/*!< The total amount of Instance Rxtensions supported. */
-				const char** instanceExtensions;		/*!< The Instance Extensions in const char* form. can be used directly with Create() method. */
-				void* instanceExtensionProperties;		/*!< The Instance Extensions in property form. <b>can not</b> be used directly with Create() method. */
-				unsigned int deviceExtensionCount;		/*!< The total amount of Device Extensions supported. */
-				const char** deviceExtensions;			/*!< The Device Extensions in const char* form. can be used directly with Create() method. */
-				void* deviceExtensionProperties;		/*!< The Device Extensions in property form. <b>can not</b> be used directly with Create() method. */
-				void* physicalDeviceFeatures;			/*!< The Physical Device Features supported. */
-			};
-
-			//! Returns the aspect ratio for the current window.
-			/*!
-			*
-			*	\param	[out] _outRatio will return the calculated aspect ratio.
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION		All Vulkan Objects fails to exist due to GWindow being destroyed.
-			*   \retval GReturn::FAILURE					No active GWindow exists to calculate an aspect ratio from.
-			*	\retval GReturn::EMPTY_PROXY				The proxy is empty
-			*	\retval GReturn::SUCCESS					The current aspect ratio was calculated and returned.
-			*/
-			virtual GReturn GetAspectRatio(float& _outRatio) const = 0;
-
-			//! Returns the size of the Swapchain's Buffers.
-			/*!
-			*
-			*	\param	[out] _outImageCount will return the amount of images the swap chain contains.
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION All Vulkan Objects fails to exist due to GWindow being destroyed.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval GReturn::SUCCESS The current swap chain's image count was returned.
-			*/
-			virtual GReturn GetSwapchainImageCount(unsigned int& _outImageCount) const = 0;
-
-			//! Returns the swap chain's current index.
-			/*!
-			*
-			*	\param	[out] _outImageIndex will return the current index in the system.
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION All Vulkan Objects fails to exist due to GWindow being destroyed.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval GReturn::SUCCESS The current swap chain's image count was returned.
-			*/
-			virtual GReturn GetSwapchainCurrentImage(unsigned int& _outImageIndex) const = 0;
-
-			//! Returns the Queue Family Indices for both Graphics and Present Queue. Used for Swapchain (and others)
-			/*!
-			*
-			*	\param	[out] _outGraphicsIndex will return the index that belongs to the graphics queue
-			*	\param	[out] _outPresentIndex return the index that belongs to the present queue
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION All Vulkan Objects fails to exist due to GWindow being destroyed.
-			*	\retval GReturn::INVALID_ARGUMENT _outQueueIndices is nullptr.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval GReturn::SUCCESS The index count is greater than 0 and returned along with the Queue Indices
-			*/	
-			virtual GReturn GetQueueFamilyIndices(unsigned int& _outGraphicsIndex, unsigned int& _outPresentIndex) const = 0;
-
-			//! Returns the address of the current VkQueue for Graphic Queue List.
-			/*!
-			*
-			*	\param	[out] _outVkQueue Will contain the address of the VkQueue for graphics queue list.
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION All Vulkan Objects fails to exist due to GWindow being destroyed.
-			*	\retval GReturn::INVALID_ARGUMENT _outGraphicsQueue parameter is nullptr.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval GReturn::SUCCESS A Vulkan graphics queue exists and was returned.
-			*/
-			virtual GReturn GetGraphicsQueue(void** _outVkQueue) const = 0;
-
-			//! Returns the address of the current VkQueue for Present Queue List.
-			/*!
-			*
-			*	\param	[out] _outVkQueue Will contain the address of the VkQueue for present queue list.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT _outPresentQueue parameter is nullptr.
-			*   \retval GReturn::FAILURE No present queue exists to retrieve.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval GReturn::SUCCESS A Vulkan present queue exists and was returned.
-			*/
-			virtual GReturn GetPresentQueue(void** _outVkQueue) const = 0;
-
-			//! Returns the address of the current VkImage for swap chain.
-			/*!
-			*
-			*	\param	[in]	_index will determine what swap chain image the user requests. Valid Index Range: ( -1 <= x < image_count ).
-			*					**NOTE: sending -1 as a parameter will send you the current object based on Gateware's current index.**
-			*	\param	[out]	_outVkImage Will contain the address of the swap chain's image.
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION All Vulkan Objects fails to exist due to GWindow being destroyed.
-			*	\retval GReturn::INVALID_ARGUMENT _outSwapchainImage parameter is nullptr or index is out of range (x < -1, x >= image_count).
-			*   \retval GReturn::FAILURE No Swapchain or Swapchain image exists to retrieve.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval GReturn::SUCCESS Vulkan swap chain images exists and was returned.
-			*/
-			virtual GReturn GetSwapchainImage(const int& _index, void** _outVkImage) const = 0;
-
-			//! Returns the address of the current VkImageView for the swap chain.
-			/*!
-			*
-			*	\param	[in]	_index will determine what swap chain image the user requests. Valid Index Range: ( -1 <= x < image_count ).
-			*					**NOTE: sending -1 as a parameter will send you the current object based on Gateware's current index.**
-			*	\param	[out]	_outVkImageView Will contain the address of the swap chain's image view.
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION All Vulkan Objects fails to exist due to GWindow being destroyed.
-			*	\retval GReturn::INVALID_ARGUMENT _outSwapchainImage parameter is nullptr or index is out of range.
-			*   \retval GReturn::FAILURE No Swapchain or Swapchain image view exists to retrieve.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval GReturn::SUCCESS Vulkan swap chain image views exists and was returned.
-			*/
-			virtual GReturn GetSwapchainView(const int& _index, void** _outVkImageView) const = 0;
-
-			//! Returns the address of the current VkFrameBuffer for the swap chain.
-			/*!
-			*
-			*	\param	[in] _index will determine what swap chain image the user requests. Valid Index Range: ( -1 <= x < image_count ).
-			*				 **NOTE: sending -1 as a parameter will send you the current object based on Gateware's current index.**
-			*	\param	[out] _outVkFramebuffer Will contain the address of the swap chain's frame buffers.
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION All Vulkan Objects fails to exist due to GWindow being destroyed.
-			*	\retval GReturn::INVALID_ARGUMENT _outVkFrameBuffer parameter is nullptr or index is out of range. ( -1 <= x < image_count ) is the valid range.
-			*   \retval GReturn::FAILURE No Swapchain or Framebuffer exists to retrieve.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval GReturn::SUCCESS Vulkan frame buffers exists and was returned.
-			*/
-			virtual GReturn GetSwapchainFramebuffer(const int& _index, void** _outVkFramebuffer) const = 0;
-
-			//! Returns the address of the Depth Buffer image
-			/*!
-			*
-			*	\param	[out] _outVkDepthImage will return the address of the Instance.
-			*
-			*	\retval GReturn::PREMATURE_DEALLOCATION All Vulkan Objects fails to exist due to GWindow being destroyed.
-			*   \retval GReturn::INVALID_ARGUMENT _outVkInstance parameter is nullptr
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval GReturn::SUCCESS A Vulkan Instance exists and was returned.
-			*/
-			virtual GReturn GetSwapchainDepthBufferImage(const int _index, void** _outVkDepthImage) const = 0;
-
-			//! Returns the address of the Depth Buffer view
-			/*!
-			*
-			*	\param	[out] _outVkDepthImage will return the address of the Instance.
-			*
-			*	\retval GReturn::PREMATURE_DEALLOCATION All Vulkan Objects fails to exist due to GWindow being destroyed.
-			*   \retval GReturn::INVALID_ARGUMENT _outVkInstance parameter is nullptr
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval GReturn::SUCCESS A Vulkan Instance exists and was returned.
-			*/
-			virtual GReturn GetSwapchainDepthBufferView(const int _index, void** _outVkDepthView) const = 0;
-
-			//! Returns the address of the current Instance.
-			/*!
-			*
-			*	\param	[out] _outVkInstance will return the address of the Instance.
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION All Vulkan Objects fails to exist due to GWindow being destroyed.
-			*	\retval GReturn::INVALID_ARGUMENT _outVkInstance parameter is nullptr.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval GReturn::SUCCESS A Vulkan Instance exists and was returned.
-			*/
-			virtual GReturn GetInstance(void** _outVkInstance) const = 0;
-
-			//! Returns the address of the current Surface.
-			/*!
-			*
-			*	\param	[out] _outVkSurfaceKHR will return the address of the Surface.
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION All Vulkan Objects fails to exist due to GWindow being destroyed.
-			*	\retval GReturn::INVALID_ARGUMENT _outVkSurfaceKHR parameter is nullptr.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval GReturn::SUCCESS A Vulkan Surface exists and was returned.
-			*/
-			virtual GReturn GetSurface(void** _outVkSurfaceKHR) const = 0;
-
-			//! Returns the address of the current physical device.
-			/*!
-			*
-			*	\param	[out] _outVkPhysicalDevice will return the address of the physical device.
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION All Vulkan Objects fails to exist due to GWindow being destroyed.
-			*	\retval GReturn::INVALID_ARGUMENT _outPhysicalDevice parameter is nullptr.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval GReturn::SUCCESS A Vulkan physical device exists and was returned.
-			*/
-			virtual GReturn GetPhysicalDevice(void** _outVkPhysicalDevice) const = 0;
-
-			//! Returns the address of the current VkDevice.
-			/*!
-			*
-			*	\param	[out] _outVkDevice Will contain the address of the logical device.
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION All Vulkan Objects fails to exist due to GWindow being destroyed.
-			*	\retval	GReturn::INVALID_ARGUMENT _outVkDevice parameter is nullptr.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval	GReturn::SUCCESS A Vulkan logical device exists and was returned.
-			*/
-			virtual GReturn GetDevice(void** _outVkDevice) const = 0;
-
-			//! Returns the address of the current Command Pool.
-			/*!
-			*
-			*	\param	[out] _outVkCommandPool Will contain the address of the Command Pool.
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION All Vulkan Objects fails to exist due to GWindow being destroyed.
-			*	\retval	GReturn::INVALID_ARGUMENT _outVkCommandPool parameter is nullptr.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval	GReturn::SUCCESS A Vulkan Command Pool exists and was returned.
-			*/
-			virtual GReturn GetCommandPool(void** _outVkCommandPool) const = 0;
-
-			//! Returns the address of the current Swapchain.
-			/*!
-			*
-			*	\param [out] _outVkSwapchainKHR Will contain the address of the swap chain.
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION All Vulkan Objects fails to exist due to GWindow being destroyed.
-			*	\retval GReturn::INVALID_ARGUMENT _outSwapchain parameter is nullptr.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval GReturn::SUCCESS A Vulkan swap chain exists and was returned.
-			*/
-			virtual GReturn GetSwapchain(void** _outVkSwapchainKHR) const = 0;
-
-			//! Returns the address of the current Renderpass for the swap chain.
-			/*!
-			*
-			*	\param	[out] _outRenderPass Will contain the address of the Renderpass.
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION All Vulkan Objects fails to exist due to GWindow being destroyed.
-			*	\retval GReturn::INVALID_ARGUMENT _outSwapchainImage parameter is nullptr or index is out of range. ( -1 <= x < image_count ) is the valid range.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval GReturn::SUCCESS Vulkan frame buffers exists and was returned.
-			*/
-			virtual GReturn GetRenderPass(void** _outRenderPass) const = 0;
-
-			//! Returns the address of the current Command Buffer for the swap chain.
-			/*!
-			*
-			*	\param	[in]	_index will determine what swap chain image the user requests. Valid Index Range: ( -1 <= x < image_count ).
-			*					NOTE: sending -1 as a parameter will send you the current object based on Gateware's current index.
-			*	\param	[out] _outCommandBuffer Will contain the address of the Command Buffers.
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION All Vulkan Objects fails to exist due to GWindow being destroyed.
-			*	\retval GReturn::INVALID_ARGUMENT _outSwapchainImage parameter is nullptr or index is out of range. ( -1 <= x < image_count ) is the valid range.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval GReturn::SUCCESS Vulkan frame buffers exists and was returned.
-			*/
-			virtual GReturn GetCommandBuffer(const int& _index, void** _outCommandBuffer) const = 0;
-
-			//! Returns the address of the Semaphore for the swap chain. This Semaphore is designed to signal based on the availability of the Swapchain's image.
-			/*!
-			*
-			*	\param	[in]	_index will determine what swap chain image the user requests. Valid Index Range: ( -1 <= x < image_count ).
-			*					NOTE: sending -1 as a parameter will send you the current object based on Gateware's current index.
-			*	\param	[out]	_outVkSemaphore Will contain the address of the swap chain's frame buffers.
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION All Vulkan Objects fails to exist due to GWindow being destroyed.
-			*	\retval GReturn::INVALID_ARGUMENT _outSwapchainImage parameter is nullptr or index is out of range (x < -1, x >= image_count).
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval GReturn::SUCCESS Vulkan frame buffers exists and was returned.
-			*/
-			virtual GReturn GetImageAvailableSemaphore(const int& _index, void** _outVkSemaphore) const = 0;
-
-			//! Returns the address of the Semaphore for the swap chain. This Semaphore is designed to signal based on when the rendering has finished.
-			/*!
-			*
-			*	\param	[in]	_index will determine what swap chain image the user requests. Valid Index Range: ( -1 <= x < image_count ).
-			*					NOTE: sending -1 as a parameter will send you the current object based on Gateware's current index.
-			*	\param	[out]	_outVkSemaphore Will contain the address of the swap chain's frame buffers.
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION All Vulkan Objects fails to exist due to GWindow being destroyed.
-			*	\retval GReturn::INVALID_ARGUMENT _outSwapchainImage parameter is nullptr or index is out of range (x < -1, x >= image_count).
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval GReturn::SUCCESS Vulkan frame buffers exists and was returned.
-			*/
-			virtual GReturn GetRenderFinishedSemaphore(const int& _index, void** _outVkSemaphore) const = 0;
-
-			//! Returns the address of the Fence for the swap chain.
-			/*!
-			*	\param	[in]	_index will determine what swap chain image the user requests. Valid Index Range: ( -1 <= x < image_count ).
-			*					NOTE: sending -1 as a parameter will send you the current object based on Gateware's current index.
-			*	\param [out]	_outVkFence Will contain the address of the swap chain's frame buffers.
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION All Vulkan Objects fails to exist due to GWindow being destroyed.
-			*	\retval GReturn::INVALID_ARGUMENT _outSwapchainImage parameter is nullptr or index is out of range (x < -1, x >= image_count).
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval GReturn::SUCCESS Vulkan frame buffers exists and was returned.
-			*/
-			virtual GReturn GetRenderFence(const int& _index, void** _outVkFence) const = 0;
-
-			//! Setups the command buffer and begins the render pass. [commands: vkBeginCommandBuffer -> vkCmdBeginRenderPass]
-			/*!
-			*	\param	[in]	_clearCount is the count for the amount of "VkClearColor" being passed in the _vkClearColor parameter.
-			*	\param 	[in]	_vkClearValues is the values for the VkClearColor.
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION All Vulkan Objects fails to exist due to GWindow being destroyed.
-			*	\retval GReturn::INVALID_ARGUMENT _vkClearColor is nullptr while _vkclearCount is > 0.
-			*   \retval GReturn::FAILURE Failed to begin command buffer.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval GReturn::SUCCESS Vulkan has begin its Render Pass.
-			*/
-			virtual GReturn StartFrame(const unsigned int& _clearCount, void* _vkClearValues) = 0;
-
-			//! Ends the Command Buffer and Presents the command to the swapchain. [commands: vkCmdEndRenderPass -> vkEndCommandBuffer]
-			/*!
-			*	\param	[in]	_vSync will enable or disable vsync when presenting to the swapchain.
-			*					NOTE: The swapchain is destroyed and re-created when changing the vsync.
-			*
-			*   \retval GReturn::PREMATURE_DEALLOCATION All Vulkan Objects fails to exist due to GWindow being destroyed.
-			*   \retval GReturn::FAILURE	This can come from the following: StartFrame has not been called or did not return SUCCESS, vkEndCommandBuffer has failed, vkQueueSubmit has failed, vkQueuePresentKHR has failed, or failed to recreate swapchain due to vsync change.
-			*	\retval GReturn::EMPTY_PROXY The proxy is empty
-			*	\retval GReturn::SUCCESS	The swapchain has successfully present what was given to it.
-			*/
-			virtual GReturn EndFrame(const bool& _vSync) = 0;
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -75103,17 +64339,6 @@ namespace GW
 #ifndef GAUDIO_H
 #define GAUDIO_H
 
-/*!
-	File: GAudio.h
-	Purpose: A Gateware interface that handles sounds and music.
-	Dependencies: win32[XAudio2] linux[Pulseaudio] apple[AVFoundation], GFile, AUDIO, SYSTEM
-	Author: TJay Cargle, Alexandr Kozyrev (new architecture)
-	Contributors: Jacob Pendleton, Ryan Powser
-	Interface Status: Beta
-	Asynchronous: Yes
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -76092,19 +65317,15 @@ namespace GW
 
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all Gateware audio libraries must belong.
 	namespace AUDIO
 	{
-		//! A Gateware interface that handles sounds and music.
 		class GAudio final 
 			: public I::GProxy<I::GAudioInterface, I::GAudioImplementation>
 		{
 			// All Gateware API interfaces contain no variables & are pure virtual.
 		public:
-			//! \cond
 			GATEWARE_PROXY_CLASS(GAudio)
 			GATEWARE_TYPEDEF(Events)
 			GATEWARE_TYPEDEF(EVENT_DATA)
@@ -76121,190 +65342,8 @@ namespace GW
 			GATEWARE_FUNCTION(PauseMusic)
 			GATEWARE_FUNCTION(ResumeMusic)
 			GATEWARE_FUNCTION(StopMusic)
-			//! \endcond
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Creates a GAudio proxy
-			/*!
-			*	Creates a GAudio proxy which can be used to control GSound/GMusic.
-			*
-			*  \retval FAILURE Internal objects could not be created.
-			*  \retval SUCCESS Successfully created the proxy.
-			*/
-			GReturn Create();
-
-			//! Events generated by GAudio
-			/*!
-			* 	These messages are sent when GAudio functions are called (including destructor).
-			*/
-			enum class Events
-			{
-				DESTROY, //!< GAudio destructor was called
-				PLAY_SOUNDS, //!< PlaySounds was called
-				PAUSE_SOUNDS, //!< PauseSounds was called
-				RESUME_SOUNDS, //!< ResumeSounds was called
-				STOP_SOUNDS, //!< StopSounds was called
-				PLAY_MUSIC, //!< PlayMusic was called
-				PAUSE_MUSIC, //!< PauseMusic was called
-				RESUME_MUSIC, //!< ResumeMusic was called
-				STOP_MUSIC, //!< StopMusic was called
-				MASTER_VOLUME_CHANGED, //!< SetMasterVolume was called
-				SOUNDS_VOLUME_CHANGED, //!< SetGlobalSoundVolume was called
-				MUSIC_VOLUME_CHANGED, //!< SetGlobalMusicVolume was called
-				SOUND_CHANNEL_VOLUMES_CHANGED, //!< SetSoundsChannelVolumes was called
-				MUSIC_CHANNEL_VOLUMES_CHANGED //!< SetMusicChannelVolumes was called
-			};
-
-			/*! EVENT_DATA holds information about volume channels */
-			struct EVENT_DATA
-			{
-				float channelVolumes[6]; /*!< Array of per-channel volumes (size of 6 to support every case), used to transfer channel volume ratios/master volumes */
-				unsigned int numOfChannels; /*!< Used to pass the information of channelVolumes size when used in ChannelVolumes functions */
-			};
-
-			//! Sets Master Volume for all sounds and music.
-			/*!
-			* Sends the event to all existing sounds and music to update the current volume with a new master volume.
-			*	\param [in] _value The output master volume to be set.
-			*
-			*	\retval FAILURE _newVolume is less than Zero.
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn SetMasterVolume(float _value) = 0;
-
-			//! Sets Global Sound Volume for all sounds.
-			/*!
-			* Sends the event to all existing sounds to update the current volume with a new Global Sound Volume (ratio similar to master volume but only for sounds).
-			*	\param [in] _value The output global sound volume to be set.
-			*
-			*	\retval FAILURE _newVolume is less than Zero.
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn SetGlobalSoundVolume(float _value) = 0;
-
-			//! Sets Global Sound Volume for all music.
-			/*!
-			* Sends the event to all existing music to update the current volume with a new Global Music Volume (ratio similar to master volume but only for music).
-			*	\param [in] _value The output global music volume to be set.
-			*
-			*	\retval FAILURE _newVolume is less than Zero.
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn SetGlobalMusicVolume(float _value) = 0;
-
-			//! Sets Master Volume for all sounds for specific speakers (per channel).
-			/*!
-			* The volume ratio in _values for _numChannels amount of channels.
-			* Sends the event to all existing sounds to update volumes in each channel with new master volume ratios per EACH channel passed up to _numChannels.
-			* If you attempt to set the volume of an output your hardware does not support, it will be ignored.
-			* Generally should be used with 2 (stereo) or 6 channels (5.1).
-			*
-			* Channels: Supports up to 6 channels AKA 5.1 Audio:
-			*
-			*		INDEX[0] = Left,
-			*		INDEX[1] = Right,
-			*		INDEX[2] = Front Center,
-			*		INDEX[3] = LFE,
-			*		INDEX[4] = Rear Left,
-			*		INDEX[5] = Rear Right,
-			*
-			*	\param [in] _values The array of volumes per channel (size MUST match the passed in _numChannels)
-			*	\param [in] _numChannels The number of channels affected.
-			*
-			*	\retval INVALID_ARGUMENT _numChannels is less than 0 or greater than 6, or _values is NULL.
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn SetSoundsChannelVolumes(const float* _values, unsigned int _numChannels) = 0;
-
-			//! Sets Master Volume for all music for specific speakers (per channel).
-			/*!
-			* The volume ratio in _values for _numChannels amount of channels.
-			* Sends the event to all existing music to update volumes in each channel with new master volume ratios per EACH channel passed up to _numChannels.
-			* If you attempt to set the volume of an output your hardware does not support, it will be ignored.
-			* Generally should be used with 2 (stereo) or 6 channels (5.1).
-			*
-			* Channels: Supports up to 6 channels AKA 5.1 Audio:
-			*
-			*		INDEX[0] = Left,
-			*		INDEX[1] = Right,
-			*		INDEX[2] = Front Center,
-			*		INDEX[3] = LFE,
-			*		INDEX[4] = Rear Left,
-			*		INDEX[5] = Rear Right,
-			*
-			*	\param [in] _values The array of volumes per channel (size MUST match the passed in _numChannels)
-			*	\param [in] _numChannels The number of channels affected.
-			*
-			*	\retval INVALID_ARGUMENT _numChannels is less than 0 or greater than 6, or _values is NULL.
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn SetMusicChannelVolumes(const float* _values, unsigned int _numChannels) = 0;
-
-			//! Plays all sounds.
-			/*!
-			*	Sends the event to call each created sound's play function.
-			*	\retval FAILURE A sound or Music returned FAILURE
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn PlaySounds() = 0;
-
-			//! Pauses all sounds.
-			/*!
-			*	Sends the event to call each created sound's pause function.
-			*	\retval FAILURE A sound or Music returned FAILURE
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn PauseSounds() = 0;
-
-			//!  Resumes all paused sounds.
-			/*!
-			*	Sends the event to call each created sound's and music resume function.
-			*	\retval FAILURE A sound or Music returned FAILURE
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn ResumeSounds() = 0;
-
-			//! Stops all paused/playing sounds.
-			/*!
-			*	Sends the event to call each created sound's stop function.
-			*	\retval FAILURE A sound or Music returned FAILURE
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn StopSounds() = 0;
-
-			//! Plays all music.
-			/*!
-			*	Sends the event to call each created music play function.
-			*	\retval FAILURE A sound or Music returned FAILURE
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn PlayMusic() = 0;
-
-			//! Pauses all music.
-			/*!
-			*	Sends the event to call each created music pause function.
-			*	\retval FAILURE A sound or Music returned FAILURE
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn PauseMusic() = 0;
-
-			//!  Resumes all paused music.
-			/*!
-			*	Sends the event to call each created music resume function.
-			*	\retval FAILURE A sound or Music returned FAILURE
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn ResumeMusic() = 0;
-
-			//! Stops all paused/playing music.
-			/*!
-			*	Sends the event to call each created music stop function.
-			*	\retval FAILURE A sound or Music returned FAILURE
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn StopMusic() = 0;
-#endif // DOXYGEN_ONLY
 		}; 
 	}
 }
@@ -76322,16 +65361,6 @@ namespace GW
 #ifndef GAUDIO3D_H
 #define GAUDIO3D_H
 
-/*!
-	File: GAudio3D.h
-	Purpose: A Gateware interface that handles spacial sounds and music.
-	Dependencies: GAudio
-	Author: Jacob Pendleton
-	Contributors: Alexandr Kozyrev (new arch), Ryan Powser
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -76451,19 +65480,15 @@ namespace GW
 #endif
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all Gateware audio libraries must belong.
 	namespace AUDIO
 	{
-		//! A Gateware interface that handles spacial sounds and music
 		class GAudio3D final 
 			: public I::GProxy<I::GAudio3DInterface, I::GAudio3DImplementation>
 		{
 		public:
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GAudio3D)
 			GATEWARE_TYPEDEF(Events)
 			GATEWARE_TYPEDEF(EVENT_DATA)
@@ -76483,46 +65508,8 @@ namespace GW
 			GATEWARE_FUNCTION(PauseMusic)
 			GATEWARE_FUNCTION(ResumeMusic)
 			GATEWARE_FUNCTION(StopMusic)
-			//! \endcond
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Creates a GAudio3D proxy
-			/*!
-			*	Creates a GAudio3D proxy which can be used to control GSound/GMusic.
-			*
-			*  \retval FAILURE Internal objects could not be created.
-			*  \retval SUCCESS Succesfully created the proxy.
-			*/
-			GReturn Create();
-
-			//! Events generated by GAudio3D (only)
-			/*!
-			* 	These messages are used to notify observers when Update3DListener is called.	
-			*/
-			enum class Events
-			{
-				UPDATE_LISTENER, //!< Notifies connected GMusic3D and GSound3D about updated listener matrix.
-				UPDATE_TRANSFORM_AND_SPATIALIZE //!< Notifies connected GMusic3D and GSound3D about new transform and Spatialize call.
-			};
-
-			/*! EVENT_DATA provided by GAudio3D */
-			struct EVENT_DATA
-			{
-				GW::MATH::GVECTORF position; /*!< Position vector of the transfered matrix. */
-				GW::MATH::GQUATERNIONF quaternion; /*!< Rotational data of the transfered matrix (in quaternion form). */
-			};
-
-			//! Updates the position and orientation of the listener object
-			/*!
-			*	\param [in] _position		The position of the listener as a GVECTORF.
-			*	\param [in] _orientation	The orientation of the listener as a GQUATERNIONF.
-			*
-			*	\retval INVALID_ARGUMENT if _position and/or _orientation is nullptr.
-			*	\retval SUCCESS if _position and _orientation were successfully set.
-			*/
-			virtual GReturn Update3DListener(GW::MATH::GVECTORF _position, GW::MATH::GQUATERNIONF _orientation) = 0;
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -76539,17 +65526,6 @@ namespace GW
 #ifndef GSOUND_H
 #define GSOUND_H
 
-/*!
-    File: GSound.h
-    Purpose: A Gateware internal interface that handles sounds.
-	Dependencies: GAudio, GFile, AUDIO, SYSTEM
-    Author: TJay Cargle, Alexandr Kozyrev (new architecture), Ryan Powser (GFile I/O)
-    Contributors: Jacob Pendleton
-    Interface Status: Beta
-    Asynchronous: Yes
-    Copyright: 7thGate Software LLC.
-    License: MIT
-*/
 
 
 
@@ -78634,13 +67610,10 @@ namespace GW
 
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all Gateware audio libraries must belong.
     namespace AUDIO
     {
-		//! A Gateware internal interface that handles sounds
         class GSound final 
 			: public I::GProxy<I::GSoundInterface, I::GSoundImplementation, const char*, GAudio, float>
         {
@@ -78655,7 +67628,6 @@ namespace GW
 
             // All Gateware API interfaces contain no variables & are pure virtual.
         public:
-			//! \cond
 			GATEWARE_PROXY_CLASS(GSound)
 			GATEWARE_FUNCTION(SetChannelVolumes)
 			GATEWARE_FUNCTION(SetVolume)
@@ -78666,141 +67638,8 @@ namespace GW
 			GATEWARE_CONST_FUNCTION(GetSourceChannels)
 			GATEWARE_CONST_FUNCTION(GetOutputChannels)
 			GATEWARE_CONST_FUNCTION(isPlaying)
-			//! \endcond
            
             // This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Fills out a GSound with data from provided .wav file.
-			/*!
-			*	Creates a GSound to return, attempts to initallize internal variables, and loads header information from .wav file for setup.
-			*   Supports 16/32 bit uncompressed CD-quality .WAV format.
-			*
-			*   \param [in] _path A char array to the .wav path.
-			*   \param [in] _audio A pointer to the GAudio handle.
-			*	\param [in] _volume (OPTIONAL) parameter to set music volume (set to 1 by default).
-			*
-			*   \retval INVALID_ARGUMENT _path is a nullptr, _audio is an EMPTY_PROXY, or _volume is outside of 0.0f to 1.0f range.
-			*   \retval FAILURE An error occurred durring loading of header information, internal objects could not be created. (On Windows these are the source voice and submix voice, on other platforms this is all in GSound's init), or failed to initialize internal variables. See Below for Platform
-			*	- On Linux
-			*		+ pa_main_loop or pa_context could not be created, pa_context could not be connected, pa_channel_map could not be created, pa_stream could not be created, or pa_stream could not be connected.
-			*	- On Mac
-			*		+ AvAudioPlayerNode could not be created or AvAudioPCMBuffers could not be initialized
-			*	\retval SUCCESS None of the above errors occured.
-			*/
-			GReturn Create(const char* _path, GW::AUDIO::GAudio _audio, float _volume = 1.0f);
-
-			//! Attempts to set the output volume for the specified number of outputs to the passed in values.
-			/*!
-			* The amount of values in _values that will be used is based on _numChannels.
-			* If you attempt to set the volume of an output your hardware does not support, it will be ignored.
-			* Automatically applies all the master volume ratios.
-			*
-			* Channels: Supports up to 6 channels AKA 5.1 Audio:
-			*
-			*		INDEX[0] = Left,
-			*		INDEX[1] = Right,
-			*		INDEX[2] = Front Center,
-			*		INDEX[3] = LFE,
-			*		INDEX[4] = Rear Left,
-			*		INDEX[5] = Rear Right,
-			*
-			*	\param [in] _values The output volumes to be set.
-			*	\param [in] _numChannels The number of channels affected.
-			*
-			*	\retval FAILURE _numChannels is less than 1, internal source voice is NULL (which could happen if specified .wav file could not be found or encountered an error upon reading in data), _values is NULL, or _values tried to read garbage data (_numChannels > amount of values in _values)
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn SetChannelVolumes(const float* _values, unsigned int _numChannels) = 0;
-
-			//! Attempts to change the overall volume.
-			/*!
-			* Automatically applies all the master volume ratios.
-			*
-			*	\param [in] _newVolume The output volume to be set.
-			*
-			*	\retval FAILURE GAudio has not filled it out this object with GAudio's function: "CreateSound", _newVolume is less than Zero, or internal object encountered an error. Unlikely to occur if GAudio's "CreateSound" did not return an error upon filling out this object.
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn SetVolume(float _newVolume) = 0;
-
-			//! Attempts to playback a sound effect.
-			/*!
-			* Currently only supports .wav files.
-			* GSound fully loads entire audio file into memory. If file is extremely large, consider using GMusic instead.
-			* If sound is currently playing, will attempt to stop and restart playback.
-			*
-			*	\retval FAILURE GAudio has not filled it out this object with GAudio's function: "CreateSound", internal source voice is NULL (which could happen if specified .wav file could not be found or encountered an error upon reading in data), or internal object encountered an error. Unlikely to occur if GAudio's "CreateSound" did not return an error upon filling out this object.
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn Play() = 0;
-
-			//! Attempts to pause a currently playing sound effect.
-			/*!
-			* Currently only supports .wav files.
-			* GSound fully loads entire audio file into memory. If file is extremely large, consider using GMusic instead.
-			* If sound is currently paused, will not attempt to pause playback without returning an error.
-			*
-			*	\retval FAILURE GAudio has not filled it out this object with GAudio's function: "CreateSound", internal source voice is NULL (which could happen if specified .wav file could not be found or encountered an error upon reading in data), or internal object encountered an error. Unlikely to occur if GAudio's "CreateSound" did not return an error upon filling out this object.
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn Pause() = 0;
-
-			//! Attempts to resume a currently paused sound effect.
-			/*!
-			* Currently only supports .wav files.
-			* GSound fully loads entire audio file into memory. If file is extremely large, consider using GMusic instead.
-			* If sound is currently playing, will not attempt to play file without returning an error.
-			*
-			*	\retval FAILURE GAudio has not filled it out this object with GAudio's function: "CreateSound", internal source voice is NULL (which could happen if specified .wav file could not be found or encountered an error upon reading in data), or internal object encountered an error. Unlikely to occur if GAudio's "CreateSound" did not return an error upon filling out this object.
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn Resume() = 0;
-
-			//! Attempts to stop playback of sound effect and reset it to beginning for future use.
-			/*!
-			* Currently only supports .wav files.
-			* GSound fully loads entire audio file into memory. If file is extremely large, consider using GMusic instead.
-			* Will attempt to completely stop playback regardless of whether or not sound is playing or paused.
-			*
-			*	\retval FAILURE GAudio has not filled it out this object with GAudio's function: "CreateSound", internal source voice is NULL (which could happen if specified .wav file could not be found or encountered an error upon reading in data), or internal object encountered an error. Unlikely to occur if GAudio's "CreateSound" did not return an error upon filling out this object.
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn Stop() = 0;
-
-			//! Stores the .wav files internal amount of channels the sound was recorded with into the passed in unsigned int.
-			/*!
-			* This value is read and stored upon creation of GSound.
-			*
-			*	\param [out] _outChannelNum The unsigned int which will be stored with the value.
-			*
-			*	\retval FAILURE GAudio has not filled it out this object with GAudio's function: "CreateSound".
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn GetSourceChannels(unsigned int& _outChannelNum) const = 0;
-
-			//! Stores the number of specified outputs into the passed in unsigned int.
-			/*!
-			* This value is obtained from G_NUM_OF_OUTPUTS macro.
-			* By default the number of output channels is 6 unless GAudio was created with a different amount (Currently Linux set to 2).
-			*
-			*	\param [out] _outChannelNum The unsigned int which will be stored with the value.
-			*
-			*	\retval FAILURE GAudio has not filled it out this object with GAudio's function: "CreateSound".
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn GetOutputChannels(unsigned int& _outChannelNum) const = 0;
-
-			//! Fills out the passed in bool with information as to if the sound thinks it is playing or not.
-			/*!
-			* GSound internally keeps track of whether or not it playing via the Play,Pause,Resume,Stop functions as well as if the buffer has finished playing.
-			*
-			*	\param [out] _outBool The bool which will be stored with the value.
-			*
-			*	\retval FAILURE GAudio has not filled it out this object with GAudio's fuunction: "CreateSound".
-			*	\retval SUCCESS Always, boolean passed in will tell you if sound is playing or not.
-			*/
-			virtual GReturn isPlaying(bool& _outBool) const = 0;
-#endif // DOXYGEN_ONLY
         };
     }
 }
@@ -78818,17 +67657,6 @@ namespace GW
 #ifndef GMUSIC_H
 #define GMUSIC_H
 
-/*!
-    File: GMusic.h
-    Purpose: A Gateware internal interface that handles music.
-	Dependencies: GAudio, GFile, AUDIO, SYSTEM
-    Author: TJay Cargle, Alexandr Kozyrev (new architecture), Ryan Powser (GFile I/O)
-    Contributors: Jacob Pendleton
-    Interface Status: Beta
-    Asynchronous: Yes
-    Copyright: 7thGate Software LLC.
-    License: MIT
-*/
 
 
 
@@ -81356,13 +70184,10 @@ namespace GW
 
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all Gateware audio libraries must belong.
     namespace AUDIO
     {
-		//! A Gateware internal interface that handles music
         class GMusic final 
 			: public I::GProxy<I::GMusicInterface,  I::GMusicImplementation, const char*, GAudio, float>
         {
@@ -81377,7 +70202,6 @@ namespace GW
 
             // All Gateware API interfaces contain no variables & are pure virtual.
         public:
-			//! \cond
 			GATEWARE_PROXY_CLASS(GMusic)
 			GATEWARE_FUNCTION(SetChannelVolumes)
 			GATEWARE_FUNCTION(SetVolume)
@@ -81388,139 +70212,8 @@ namespace GW
 			GATEWARE_CONST_FUNCTION(GetSourceChannels)
 			GATEWARE_CONST_FUNCTION(GetOutputChannels)
 			GATEWARE_CONST_FUNCTION(isPlaying)
-			//! \endcond
 
             // This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Fills out a GMusic with data from provided .wav file.
-			/*!
-			*	Creates a GMusic to return, attempts to initialize internal variables, and loads header information from .wav file for setup.
-			*   Supports 16/32 bit uncompressed CD-quality .WAV format.
-			*
-			*   \param [in] _path A char array to the .wav path.
-			*   \param [in] _audio A pointer to the GAudio handle.
-			*	\param [in] _volume (OPTIONAL) parameter to set music volume (set to 1 by default).
-			*
-			*   \retval INVALID_ARGUMENT _path is a nullptr, _audio is an EMPTY_PROXY, or _volume is outside of 0.0f to 1.0f range.
-			*   \retval FAILURE An error occurred during loading of header information, internal objects could not be created (On Windows these are the source voice and submix voice, on other platforms this is all in GSound's init), or failed to initialize internal variables. See Below for Platform
-			*	- On Linux
-			*		+ pa_main_loop or pa_context could not be created, pa_context could not be connected, pa_channel_map could not be created, pa_stream could not be created, or pa_stream could not be connected.
-			*	- On Mac
-			*		+ AvAudioPlayerNode could not be created or AvAudioPCMBuffers could not be initialized
-			*	\retval SUCCESS None of the above errors occurred.
-			*/
-			GReturn Create(const char* _path, GW::AUDIO::GAudio _audio, float _volume = 1.0f);
-
-			//! Attempts to set the output volume for the specified number of outputs to the passed in values.
-			/*!
-			* The amount of values in _values that will be used is based on _numChannels.
-			* If you attempt to set the volume of an output your hardware does not support, it will be ignored.
-			* Automatically applies all the master volume ratios.
-			*
-			* Channels: Supports up to 6 channels AKA 5.1 Audio:
-			*
-			*		INDEX[0] = Left,
-			*		INDEX[1] = Right,
-			*		INDEX[2] = Front Center,
-			*		INDEX[3] = LFE,
-			*		INDEX[4] = Rear Left,
-			*		INDEX[5] = Rear Right,
-			*
-			*	\param [in] _values The output volumes to be set.
-			*	\param [in] _numChannels The number of channels affected.
-			*
-			*	\retval FAILURE _numChannels is less than 1, internal object encountered an error which could occur if GAudio's number of outputs changed during runtime, _values is NULL, or _values tried to read garbage data - (_numChannels > amount of values in _values)
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn SetChannelVolumes(const float* _values, unsigned int _numChannels) = 0;
-
-			//! Attempts to change the overall volume.
-			/*!
-			* Automatically applies all the master volume ratios.
-			*
-			*	\param [in] _newVolume The output volume to be set.
-			*
-			*	\retval FAILURE GAudio has not filled out this object with GAudio's function: "CreateMusicStream", _newVolume is less than Zero, or internal object encountered an error. Unlikely to occur if GAudio's "CreateMusicStream" did not return an error upon filling out this object.
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn SetVolume(float _newVolume) = 0;
-
-			//! Attempts to start a music stream.
-			/*!
-			* Currently only supports .wav files.
-			* Upon Succession will launch a new thread that will continuously read in audio data from file.
-			*
-			*	\retval FAILURE GAudio has not filled out this object with GAudio's function: "CreateMusicStream", specified .wav file could not be found or encountered an error upon reading in data (This happens when "CreateMusicStream" fills out data), or internal object encountered an error. Unlikely to occur if GAudio's "CreateMusicStream" did not return an error upon filling out this object.
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn Play(bool _loop = false) = 0;
-
-			//! Attempts to pause a currently playing music stream.
-			/*!
-			* Currently only supports .wav files.
-			* If a stream is currently paused, will not attempt to pause playback without returning an error.
-			*
-			*	\param [in] _loop (OPTIONAL) Bool for whether or not should play looping.
-			*
-			*	\retval FAILURE GAudio has not filled out this object with GAudio's function: "CreateMusicStream", specified .wav file could not be found or encountered an error upon reading in data (This happens when "CreateMusicStream" fills out data), or internal object encountered an error. Unlikely to occur if GAudio's "CreateMusicStream" did not return an error upon filling out this object.
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn Pause() = 0;
-
-			//! Attempts to resume a currently paused music stream.
-			/*!
-			* Currently only supports .wav files.
-			* If a music stream is currently playing, will not attempt to play file without returning an error.
-			*
-			*	\retval FAILURE If internal object encounters an error.
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn Resume() = 0;
-
-			//! Attempts to stop playback of a music stream and reset it to beginning for future use.
-			/*!
-			* Currently only supports .wav files.
-			* Tells the previously launched thread to stop, calls join on it, and resets thread for future use.
-			* Will attempt to completely stop playback regardless of whether or not music is playing or paused.
-			*
-			*	\retval FAILURE If internal object encounters an error.
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn Stop() = 0;
-
-			//! Stores the .wav files internal amount of channels the sound was recorded with into the passed in unsigned int.
-			/*!
-			* This value is read and stored upon creation of GMusic.
-			*
-			*	\param [out] _outChannelNum The unsigned int which will be stored with the value.
-			*
-			*	\retval FAILURE GAudio has not filled out this object with GAudio's function: "CreateMusicStream".
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn GetSourceChannels(unsigned int& _outChannelNum) const = 0;
-
-			//! Stores the number of specified outputs into the passed in unsigned int.
-			/*!
-			* This value is obtained from G_NUM_OF_OUTPUTS macro.
-			* By default the number of output channels is 6 unless GAudio was created with a different amount (Currently Linux set to 2).
-			*
-			*	\param [out] _outChannelNum The unsigned int which will be stored with the value.
-			*
-			*	\retval FAILURE GAudio has not filled out this object with GAudio's function: "CreateMusicStream".
-			*	\retval SUCCESS Successfully ran without running into any of the above issues.
-			*/
-			virtual GReturn GetOutputChannels(unsigned int& _outChannelNum) const = 0;
-
-			//! Fills out the passed in bool with information as to if the music stream is playing or not.
-			/*!
-			* GMusic internally keeps track of whether or not it playing via the launched thread, as well as the Start/Pause/Resume/Stop functions.
-			*
-			*	\param [out] _outBool The bool which will be stored with the value.
-			*
-			*	\retval SUCCESS Always, boolean passed in will tell you if music is playing or not.
-			*/
-			virtual GReturn isPlaying(bool& _outBool) const = 0;
-#endif // DOXYGEN_ONLY
         };
     }
 }
@@ -81539,16 +70232,6 @@ namespace GW
 #ifndef GSOUND3D_H
 #define GSOUND3D_H
 
-/*!
-	File: GSound3D.h
-	Purpose: A Gateware interface that handles spacial sounds.
-	Dependencies: GSound
-	Author: Jacob Pendleton
-	Contributors: Alexandr Kozyrev (new arch), Ryan Powser
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -81928,19 +70611,15 @@ namespace GW
 #endif
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all Gateware audio libraries must belong.
 	namespace AUDIO
 	{
-		//! A Gateware interface that handles spacial sounds
 		class GSound3D final 
 			: public I::GProxy<I::GSound3DInterface, I::GSound3DImplementation, const char*, float, float, GW::AUDIO::GATTENUATION, GW::AUDIO::GAudio3D>
 		{
 		public:
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GSound3D);
 			GATEWARE_FUNCTION(UpdatePosition);
 			GATEWARE_FUNCTION(UpdateAttenuation);
@@ -81955,54 +70634,8 @@ namespace GW
 			GATEWARE_CONST_FUNCTION(GetSourceChannels);
 			GATEWARE_CONST_FUNCTION(GetOutputChannels);
 			GATEWARE_CONST_FUNCTION(isPlaying);
-			//! \endcond
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Creates a handle to GSound3D an internally fills out a GSound with data from provided .wav file.
-			/*!
-			*	Creates a GSound to return, attempts to initallize internal variables, and loads audio fully into memory.
-			*   Supports 16/32 bit uncompressed CD-quality .WAV format.
-			*	The sample has to be STEREO or better for surround to work (2+ channels). A mono sample can be easily transformed to Stereo by duplicating the track in L and R channels.
-			*
-			*   \param [in] _path A char array to the .wav path.
-			*   \param [in] _minRadius The radius at which the sound is at max volume.
-			*   \param [in] _maxRadius The radius at which the sound is silent.
-			*   \param [in] _attenuation The type of curve between _minRadius and _maxRadius.
-			*   \param [in] _audio3D A pointer to the GAudio3D handle.
-			*	\param [in] _volume (OPTIONAL) parameter to set sound volume (set to 1 by default).
-			*
-			*
-			*   \retval INVALID_ARGUMENT _path is a nullptr, _audio3D is an EMPTY_PROXY, or _volume is outside of 0.0f to 1.0f range.
-			*   \retval FAILURE Failed to create base GMusic instance, or failed to initialize internal variables. See Below for Platform
-			*	- On Linux
-			*		+ pa_main_loop or pa_context could not be created, pa_context could not be connected, pa_channel_map could not be created, pa_stream could not be created, or pa_stream could not be connected.
-			*	- On Mac
-			*		+ AvAudioPlayerNode could not be created or could not read in file.
-			*	\retval SUCCESS Successfully created GSound3D instance and proxy.
-			*/
-			GReturn Create(const char* _path, float _minRadius, float _maxRadius, GW::AUDIO::GATTENUATION _attenuation, GW::AUDIO::GAudio3D _audio3D, float _volume = 1.0f);
-
-			//! Updates the position of the sound source
-			/*!
-			*	\param [in] _position The position of the music as a GVECTORF.
-			*
-			*	\retval FAILURE Failed to spatialize/set correct volume.
-			*	\retval SUCCESS Position was successfully set and volume updated.
-			*/
-			virtual GReturn UpdatePosition(GW::MATH::GVECTORF _position) = 0;
-
-			//! Updates the attenuation curve of the sound between _minRadius and _maxRadius
-			/*!
-			*    \param [in] _minRadius The radius at which the sound is at max volume.
-			*    \param [in] _maxRadius The radius at which the sound is silent.
-			*    \param [in] _attenuation The type of curve between _minRadius and _maxRadius.
-			*
-			*    \retval INVALID_ARGUMENT _attenuation is not a defined GATTENUATION, or _minRadius is greater than _maxRadius.
-			*    \retval SUCCESS		  The attenuation was successfully set and volume updated.
-			*/
-			virtual GReturn UpdateAttenuation(float _minRadius, float _maxRadius, GW::AUDIO::GATTENUATION _attenuation) = 0;
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -82019,16 +70652,6 @@ namespace GW
 #ifndef GMUSIC3D_H
 #define GMUSIC3D_H
 
-/*!
-	File: GMusic3D.h
-	Purpose: A Gateware interface that handles spacial music.
-	Dependencies: GMusic
-	Author: Jacob Pendleton
-	Contributors: Alexandr Kozyrev (new arch), Ryan Powser
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -82412,19 +71035,15 @@ namespace GW
 #endif
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all Gateware audio libraries must belong.
 	namespace AUDIO
 	{
-		//! A Gateware interface that handles spacial music
 		class GMusic3D final 
 			: public I::GProxy<I::GMusic3DInterface, I::GMusic3DImplementation, const char*, float, float, GW::AUDIO::GATTENUATION, GW::AUDIO::GAudio3D>
 		{
 		public:
 			// proxy functions should be ignored by doxygen
-			//! \cond 
 			GATEWARE_PROXY_CLASS(GMusic3D)
 			GATEWARE_FUNCTION(UpdatePosition)
 			GATEWARE_FUNCTION(UpdateAttenuation)
@@ -82439,53 +71058,8 @@ namespace GW
 			GATEWARE_CONST_FUNCTION(GetSourceChannels)
 			GATEWARE_CONST_FUNCTION(GetOutputChannels)
 			GATEWARE_CONST_FUNCTION(isPlaying)
-			//! \endcond
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Creates a proxy to GMusic3D an internally fills out a GMusic with data from provided .wav file.
-			/*!
-			*	Creates a GMusic to return, attempts to initallize internal variables, and loads header information from .wav file for setup.
-			*   Supports 16/32 bit uncompressed CD-quality .WAV format.
-			*	The sample has to be STEREO or better for surround to work (2+ channels). A mono sample can be easily transformed to Stereo by duplicating the track in L and R channels.
-			*
-			*   \param [in] _path A char array to the .wav path.
-			*   \param [in] _minRadius The radius at which the music is at max volume.
-			*   \param [in] _maxRadius The radius at which the music is silent.
-			*   \param [in] _attenuation The type of curve between _minRadius and _maxRadius.
-			*   \param [in] _audio3D A pointer to the GAudio3D handle.
-			*	\param [in] _volume (OPTIONAL) parameter to set music volume (set to 1 by default).
-			*
-			*   \retval INVALID_ARGUMENT _path is a nullptr, _audio3D is an EMPTY_PROXY, or _volume is outside of 0.0f to 1.0f range.
-			*   \retval FAILURE Failed to create base GMusic instance, or failed to initialize internal variables. See Below for Platform
-			*	- On Linux
-			*		+ pa_main_loop or pa_context could not be created, pa_context could not be connected, pa_channel_map could not be created, pa_stream could not be created, or pa_stream could not be connected.
-			*	- On Mac
-			*		+ AvAudioPlayerNode could not be created or AvAudioPCMBuffers could not be initialized
-			*	\retval SUCCESS Successfully created GMusic3D instance and proxy.
-			*/
-			GReturn Create(const char* _path, float _minRadius, float _maxRadius, GW::AUDIO::GATTENUATION _attenuation, GW::AUDIO::GAudio3D _audio3D, float _volume = 1.0f);
-
-			//! Updates the position of the music source
-			/*!
-			*	\param [in] _position The position of the music as a GVECTORF.
-			*
-			*	\retval FAILURE Failed to spatialize/set correct volume.
-			*	\retval SUCCESS Position was successfully set and volume updated.
-			*/
-			virtual GReturn UpdatePosition(GW::MATH::GVECTORF _position) = 0;
-
-			//! Updates the attenuation curve of the music between _minRadius and _maxRadius
-			/*!
-			*    \param [in] _minRadius The radius at which the music is at max volume.
-			*    \param [in] _maxRadius The radius at which the music is silent.
-			*    \param [in] _attenuation The type of curve between _minRadius and _maxRadius.
-			*
-			*    \retval INVALID_ARGUMENT _attenuation is not a defined GATTENUATION, _minRadius is greater than _maxRadius.
-			*    \retval SUCCESS		  The attenuation was successfully set and volume updated.
-			*/
-			virtual GReturn UpdateAttenuation(float _minRadius, float _maxRadius, GW::AUDIO::GATTENUATION _attenuation) = 0;
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -82502,16 +71076,6 @@ namespace GW
 #ifndef GBUFFEREDINPUT_H
 #define GBUFFEREDINPUT_H
 
-/*!
-	File: GBufferedInput.h
-	Purpose: This Interface offers event based thread safe raw buffered input.
-	Asynchronus: YES
-	Author: Peter Farber
-	Contributors: Alexandr Kozyrev, Kai Huang, Ozzie Mercado, Ryan Powser
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -84952,19 +73516,15 @@ namespace GW
 #endif
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all Gateware Input interfaces must belong.
 	namespace INPUT
 	{
-		//! A Multi-threaded buffered input library. Register with a GBufferedInput to receive mouse and keyboard events.
 		class GBufferedInput final
 			: public I::GProxy<I::GBufferedInputInterface, I::GBufferedInputImplementation, GW::SYSTEM::UNIVERSAL_WINDOW_HANDLE>
 		{
 		public: // Only public functions are exposed via Proxy, never protected or private operations
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GBufferedInput)
 			GATEWARE_TYPEDEF(Events)
 			GATEWARE_TYPEDEF(EVENT_DATA)
@@ -84973,53 +73533,8 @@ namespace GW
 			GATEWARE_FUNCTION(Register)
 			GATEWARE_CONST_FUNCTION(Observers)
 			GATEWARE_FUNCTION(Push)
-			//! \endcond
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Creates a GBufferedInput Object.
-			/*!
-			*	\param [in] _uwh Universal window handle
-			*
-			*	\retval GReturn::INVALID_ARGUMENT _uwh.window is nullptr or _uwh.display is nullptr.
-			*	\retval GReturn::FAILURE could not make an BufferedInput Object.
-			*	\retval GReturn::SUCCESS no problems found.
-			*/
-			GReturn Create(GW::SYSTEM::UNIVERSAL_WINDOW_HANDLE _uwh);
-			
-			//! Creates a GBufferedInput Object.
-			/*!
-			*	Initializes a handle to a window based on the void* data passed in.
-			*
-			*	\param [in] _window GWindow
-			*
-			*	\retval GReturn::INVALID_ARGUMENT _window is emptys.
-			*	\retval GReturn::FAILURE could not make an BufferedInput Object.
-			*	\retval GReturn::SUCCESS no problems found.
-			*/
-			GReturn Create(GW::SYSTEM::GWindow _window);
-
-			//! Events generated by GBufferedInput. These messages are used to notify observers when tasks complete.
-			enum class Events {
-				Invalid,		//!< Invalid event. Should never be generated.
-				KEYPRESSED,		//!< A key pressed event.
-				KEYRELEASED,	//!< A key released event.
-				BUTTONPRESSED,	//!< A Mouse/Pointer Button pressed event.
-				BUTTONRELEASED,	//!< A Mouse/Pointer Button released event.
-				MOUSEMOVE,		//!< A Mouse/Pointer move event.
-				MOUSESCROLL		//!< A Mouse/Pointer scroll event.
-			};
-
-			/*! EVENT_DATA provided by GBufferedInput. See \ref GInputCodes for list of keyMask defines. */
-			struct EVENT_DATA {
-				int data;				/*!< Data storing the key/button information. */
-				int x;					/*!< Window Mouse position x when event is sent. */
-				int y;					/*!< Window Mouse position y when event is sent. */
-				int screenX;			/*!< Screen Mouse position x when event is sent. */
-				int screenY;			/*!< Screen Mouse position y when event is sent. */
-				unsigned int keyMask;	/*!< Bit flags for (CapsLock, NumLock, ScrollLock, Shift, and Control). */
-			};
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -85036,15 +73551,6 @@ namespace GW
 #ifndef GCONTROLLER_H
 #define GCONTROLLER_H
 
-/*!
-	File: GController.h
-	Purpose: A Gateware interface handles controller input and provides disconnection and connection events
-	Author: Devin Wright
-	Contributors: Chris Kennedy, Kai Huang, Lari Norri, Ozzie Mercado, Ryan Powser
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -85107,14 +73613,6 @@ namespace GW
 #ifndef GCONTROLLERTABLEROUTING_HPP
 #define GCONTROLLERTABLEROUTING_HPP
 
-/*!
-	Purpose: Provides macros to GController
-	Author: Devin Wright
-	Contributors: Kai Huang, Lari Norri, Ozzie Mercado
-	Last Modified: 10/02/2020
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 #define G_MAX_CONTROLLER_INDEX 16
 #define G_MAX_XBOX_CONTROLLER_INDEX 4
@@ -89300,25 +77798,15 @@ namespace GW
 #endif
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The INPUT namespace to which all Gateware input interfaces must belong.
 	namespace INPUT
 	{
-		//! A multi-threaded controller input library.
-		/*!
-		*	This library can be used to poll the current state of connected controllers.
-		*	The controllers are assigned indices in a array for the lifetime that they are connected.
-		*	It also provides events for controller connections and disconnections,
-		*	which a GListener can be writen to receive.
-		*/
 		class GController final
 			: public I::GProxy<I::GControllerInterface, I::GControllerImplementation>
 		{
 		public: // Only public functions are exposed via Proxy, never protected or private operations
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GController);
 			GATEWARE_TYPEDEF(Events);
 			GATEWARE_TYPEDEF(EVENT_DATA);
@@ -89337,165 +77825,8 @@ namespace GW
 			GATEWARE_FUNCTION(Register);
 			GATEWARE_CONST_FUNCTION(Observers);
 			GATEWARE_FUNCTION(Push);
-			//! \endcond
 
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Creates a new GController object
-			/*!
-			*	Initializes a handle to a GController object.
-			*	Created GController object will have its reference count initialized to one.
-			*
-			*	\retval SUCCESS GController was successfully created
-			*/
-			GReturn Create();
-
-			//! GControllerEvents holds the possible events that can be sent from GController
-			enum class Events
-			{
-				CONTROLLERBUTTONVALUECHANGED,		//!< Input event for button value change
-				CONTROLLERAXISVALUECHANGED,			//!< Input event for axis value changed
-				CONTROLLERCONNECTED,				//!< Connection event for a controller being connected
-				CONTROLLERDISCONNECTED				//!< Connection event for a controller being disconnected
-			};
-
-			//! GControllerDeadzoneTypes holds the diffrent type of deadzone calculations
-			enum class DeadZoneTypes
-			{
-				DEADZONESQUARE,	//!< Calulates the deadzone of x and y separately
-				DEADZONECIRCLE	//!< Calulates the deadzone of x and y as a single magnitude
-			};
-
-			/*! EVENT_DATA holds the information about a controller event. See \ref GControllerCodes for a list of inputCode defines.
-			*
-			*	If the corresponding event is an Input Event inputCode and inputValue will contain the input code and value
-			*	respectively for the detected input. If the corresponding event is an Connection event inputCode and inputValue will be 0.
-			*	isConnected will be 0 for false and 1 for true.
-			*/
-			struct EVENT_DATA
-			{
-				int controllerIndex;							/*!< The Controller index where the event took place */
-				GW::INPUT::GControllerType controllerID;		/*!<  The Controller ID of the controller that sent the event */
-				int inputCode;									/*!< The Code repsenting the Detected input */
-				float inputValue;								/*!< The value of the detected input */
-				int isConnected;								/*!< Value indicating whether the controller is connected */
-			};
-
-			//! Used to poll the current state of a button or axis on a controller
-			/*!
-			*	Use an Inputcode to check the state of a button or axis on the controller
-			*	at the selected index. If a button is being checked the _outState will be 0 for
-			*	up and 1 for down. If a axis is being checked the _outState will be between -1 and 1 inclusively.
-			*
-			*	\param [in] _controllerIndex The controller index to check
-			*	\param [in] _inputCode The input code for the button/axis to check
-			*	\param [out] _outState A reference to a float to store the state.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT	Ether _controllerIndex is out of range or _inputCode is invaild.
-			*	\retval GReturn::FAILURE			No controller is connected at the chosen index.
-			*	\retval GReturn::EMPTY_PROXY		The proxy is empty
-			*	\retval GReturn::SUCCESS			The button/axis state was was successfully stored in the out-param
-			*/
-			virtual GReturn GetState(unsigned int _controllerIndex, int _inputCode, float& _outState) = 0;
-
-			//! Used to check if a controller is connected at a specified index
-			/*!
-			*	\param [in] _controllerIndex The controller index to check.
-			*	\param [out] _outIsConnected A reference to a bool to store whether a controller is at the index.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT	_controllerIndex was out of range.
-			*	\retval GReturn::EMPTY_PROXY		The proxy is empty
-			*	\retval GReturn::SUCCESS			The out-param was successfully filled out
-			*/
-			virtual GReturn IsConnected(unsigned int _controllerIndex, bool& _outIsConnected) = 0;
-
-			//! Outputs the max index of the array of controllers.
-			/*!
-			*	The controllers will be stored in a constant array where the size of the array
-			*	is the maxium amnout of supported controllers.
-			*
-			*	\param [out] _outMax A reference to a int to store the max index.
-			*
-			*	\retval GReturn::EMPTY_PROXY	The proxy is empty
-			*	\retval GReturn::SUCCESS		The max index was successfully stored in the out-param
-			*/
-			virtual GReturn GetMaxIndex(int& _outMax) = 0;
-
-			//! Outputs the number of controllers connected
-			/*!
-			*	The number returned will be how many controllers are currently stored in the
-			*	controller array.
-			*
-			*	\param [out] _outConnectedCount A reference to a int to store the count of connected controllers
-			*
-			*	\retval GReturn::EMPTY_PROXY	The proxy is empty
-			*	\retval GReturn::SUCCESS		The count of connected controllers was successfully stored in the out-param
-			*/
-			virtual GReturn GetNumConnected(int& _outConnectedCount) = 0;
-
-			//! Set how the stick deadzones should be calculated
-			/*!
-			*	Default deadzone is _type = DEADZONESQUARE, _deadzonePercentage = .2f
-			*
-			*	\param [in] _type Specifies the dead zone calculation to be used.
-			*	\param [in] _deadzonePercentage The size of the deadzone.
-			*
-			*	\retval GReturn::INVALID_ARGUMENT	_deadzonePercentage is invaild
-			*	\retval GReturn::EMPTY_PROXY		The proxy is empty
-			*	\retval GReturn::SUCCESS			The deadzone was set to the new parameters
-			*/
-			virtual GReturn SetDeadZone(DeadZoneTypes _type, float _deadzonePercentage) = 0;
-
-			//! Start vibration in selected controller
-			/*!
-			*	This will not replace a currently running vibration, the previous vibration must end or be stopped first.
-			*	Controllers have diffrent start up times and strengths this method does not account for this.
-			*
-			*	\param [in] _controllerIndex The controller to vibrate.
-			*	\param [in] _pan -1 to 1 ratio where -1 is full left motor, 1 is full right motor.
-			*	\param [in] _duration In seconds how long the vibration will run.
-			*	\param [in] _strength 0 to 1 ratio of how strong the vibration will be.
-			*
-			*	\retval GReturn::FEATURE_UNSUPPORTED	Vibration for the current controller type is not supported.
-			*	\retval	GReturn::INVALID_ARGUMENT		One or more arguments are out of range.
-			*	\retval GReturn::FAILURE				Controller is currently vibrating.
-			*	\retval GReturn::EMPTY_PROXY			The proxy is empty
-			*	\retval GReturn::SUCCESS				The vibration has been started in the selected controller.
-			*/
-			virtual GReturn StartVibration(unsigned int _controllerIndex, float _pan, float _duration, float _strength) = 0;
-
-			//! Used to check if a controller is currently vibrating
-			/*!
-			*	\param [in] _controllerIndex The controller index to check.
-			*	\param [out] _outIsVibrating Is a reference to a bool to store whether a controller is vibrating.
-			*
-			*	\retval GReturn::FEATURE_UNSUPPORTED	Vibration for the current controller type is not supported.
-			*	\retval GReturn::INVALID_ARGUMENT		_controllerIndex was out of range.
-			*	\retval GReturn::EMPTY_PROXY			The proxy is empty
-			*	\retval GReturn::SUCCESS				The out-param was successfully filled out
-			*/
-			virtual GReturn IsVibrating(unsigned int _controllerIndex, bool& _outIsVibrating) = 0;
-
-			//! Used to stop a controller from vibrating 
-			/*!
-			*	\param [in] _controllerIndex The controller index to stop
-			*
-			*	\retval GReturn::INVALID_ARGUMENT		_controllerIndex was out of range.
-			*	\retval GReturn::FEATURE_UNSUPPORTED	Vibration for the current controller type is not supported.
-			*	\retval GReturn::EMPTY_PROXY			The proxy is empty
-			*	\retval GReturn::SUCCESS				The vibration was stop
-			*	\retval	GReturn::REDUNDANT				The controller was not vibrating.
-			*/
-			virtual GReturn StopVibration(unsigned int _controllerIndex) = 0;
-
-			//! Stops all currently vibrating controllers
-			/*!
-			*	\retval GReturn::FEATURE_UNSUPPORTED Vibration for the current controller type is not supported.
-			*	\retval GReturn::EMPTY_PROXY	The proxy is empty
-			*	\retval GReturn::SUCCESS All vibrations were stopped
-			*/
-			virtual GReturn StopAllVibrations() = 0;
-#endif
 		};
 	}// end SYSTEM namespace
 }// end GW namespace
@@ -89512,16 +77843,6 @@ namespace GW
 #ifndef GINPUT_H
 #define GINPUT_H
 
-/*!
-	File: GInput.h
-	Purpose: A Gateware interface that handles high-speed keyboard and mouse input.
-	Asynchronus: NO
-	Author: Peter Farber
-	Contributors: Lari Norri, Alexandr Kozyrev, Ryan Powser
-	Interface Status: Beta
-	Copyright: 7thGate Software LLC.
-	License: MIT
-*/
 
 
 
@@ -91028,103 +79349,22 @@ namespace GW {
 
 
 
-//! The core namespace to which all Gateware interfaces/structures/defines must belong.
 namespace GW
 {
-	//! The namespace to which all Gateware input interfaces must belong.
 	namespace INPUT
 	{
-		//! A Gateware interface that handles high-speed keyboard and mouse input.
 		class GInput final
 			: public I::GProxy<I::GInputInterface, I::GInputImplementation, SYSTEM::UNIVERSAL_WINDOW_HANDLE>
 		{
 		public: // Only public functions are exposed via Proxy, never protected or private operations
 			// proxy functions should be ignored by doxygen
-			//! \cond
 			GATEWARE_PROXY_CLASS(GInput)
 			GATEWARE_FUNCTION(GetState)
 			GATEWARE_FUNCTION(GetMouseDelta)
 			GATEWARE_CONST_FUNCTION(GetMousePosition)
 			GATEWARE_CONST_FUNCTION(GetKeyMask)
-			//! \endcond
 			
 			// This area does not contain actual code, it is only for the benefit of documentation generation.
-#ifdef DOXYGEN_ONLY
-			//! Creates a GInput Object.
-			/*!
-			*	Initializes a handle to a window based on the passed in universal handle.
-			*
-			*	\param [in] _windowHandle A universal window handle (defined in GSystemDefines.h) that contains a handle to a window (any platform).
-			*
-			*	\retval GReturn::INVALID_ARGUMENT A window handle in UNIVERSAL_WINDOW_HANDLE was a nullptr.
-			*	\retval GReturn::FAILURE Could not make an Input Object.
-			*	\retval GReturn::SUCCESS No problems found.
-			*/
-			GReturn Create(GW::SYSTEM::UNIVERSAL_WINDOW_HANDLE _windowHandle);
-
-			//! Creates a GInput Object.
-			/*!
-			*	Initializes a handle to a window based on the reference to a GWindow.
-			*
-			*	\param [in] _gWindow A reference to a GWindow proxy.
-			*
-			*	\retval GReturn::FAILURE Failed to obtain a window handle from GWindow.
-			*	\retval GReturn::SUCCESS No problems found.
-			*/
-			GReturn Create(const GW::SYSTEM::GWindow _gWindow);
-
-			//! Get the current state of any key.
-			/*!
-			*	Use keycodes in GInputDefines as input to this function to check the state
-			*	of a particular key or button.
-			*
-			*	\param [in] _keyCode The key code of the key to check.
-			*	\param [out] _outState value > 0 if the key was pressed.
-			*
-			*	\retval GReturn::SUCCESS no problems found. Values stored _outState
-			*/
-			virtual GReturn GetState(int _keyCode, float& _outState) = 0;
-
-			//! Get the change in mouse position.
-			/*!
-			*	\code
-			*	GReturn result = input.GetMouseDelta(x, y);
-			*	if (GPASS(result) && result != GReturn::REDUNDANT)
-			*	{
-			*	  // do cool stuff
-			*	}
-			*	\endcode
-			* 
-			*	\param [out] _x A reference to a float to store the mouse delta position x.
-			*	\param [out] _y A reference to a float to store the mouse delta position y.
-			*
-			*	\retval GReturn::SUCCESS No problems found. Values stored in _x and _y.
-			*	\retval GReturn::REDUNDANT There was no change in mouse position.
-			*/
-			virtual GReturn GetMouseDelta(float& _x, float& _y) = 0;
-
-			//! Get the most recent mouse position.
-			/*!
-			*
-			*	\param [out] _x a reference to a float to store the mouse position x.
-			*	\param [out] _y a reference to a float to store the mouse position y.
-			*
-			*	\retval GReturn::SUCCESS no problems found. Values stored in _x and _y.
-			*/
-			virtual GReturn GetMousePosition(float& _x, float& _y) const = 0;
-
-			//! Get the key mask.
-			/*!
-			*	The key mask lets the input object know which of the functions below are
-			*	active by manipulating individual bits of an unsigned int.
-			*	Values for G_MASK can be found in GInputDefines.
-			*
-			*	\param [out] _outKeyMask G_MASK (_SHIFT, _CONTROL, _CAPS_LOCK, _NUM_LOCK, _SCROLL_LOCK).
-			*
-			*	\retval GReturn::SUCCESS no problems found.
-			*/
-			virtual GReturn GetKeyMask(unsigned int& _outKeyMask) const = 0;
-#endif // DOXYGEN_ONLY
 		};
 	}
 }
@@ -91146,6 +79386,5 @@ namespace GW
 #pragma GCC diagnostic pop
 #endif
 #endif
-
 
 #endif // End of GATEWARE_H

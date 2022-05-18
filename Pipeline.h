@@ -4,6 +4,12 @@
 #include <string>
 #include <vector>
 
+struct StorageBuffer {
+	uint32_t binding;
+	size_t size;
+	VkBuffer buffer;
+};
+
 class Pipeline {
 private:
 	VkViewport viewport;
@@ -20,8 +26,10 @@ private:
 	uint32_t frameCount;
 	VkDescriptorPool descriptorPool;
 	VkDescriptorSetLayout descriptorSetLayout;
+	std::vector<VkDescriptorSet> descriptorSets;
+	StorageBuffer* storageBuffer;
 public:
-	Pipeline(VkDevice device, VkRenderPass renderPass, VkViewport viewport, VkRect2D scissor, std::vector<VkVertexInputAttributeDescription> attribs, uint32_t frameCount, size_t stride = 32, std::vector<VkPushConstantRange> pushConstantRanges = {}, VkPolygonMode polygonMode = VK_POLYGON_MODE_FILL, VkPrimitiveTopology topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST);
+	Pipeline(VkDevice device, VkRenderPass renderPass, VkViewport viewport, VkRect2D scissor, std::vector<VkVertexInputAttributeDescription> attribs, uint32_t frameCount, size_t stride = 32, StorageBuffer* storageBuffer = nullptr, std::vector<VkPushConstantRange> pushConstantRanges = {}, VkPolygonMode polygonMode = VK_POLYGON_MODE_FILL, VkPrimitiveTopology topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST);
 	~Pipeline();
 
 	void Create(VkShaderModule vertexShader, VkShaderModule pixelShader, std::string vertexEntry, std::string pixelEntry);

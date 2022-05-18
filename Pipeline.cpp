@@ -1,6 +1,6 @@
 #include "Pipeline.h"
 
-Pipeline::Pipeline(VkDevice device, VkRenderPass renderPass, VkViewport viewport, VkRect2D scissor, std::vector<VkVertexInputAttributeDescription> attribs, uint32_t frameCount, size_t stride, std::vector<VkPushConstantRange> pushConstantRanges, VkPolygonMode polygonMode, VkPrimitiveTopology topology) {
+Pipeline::Pipeline(VkDevice device, VkRenderPass renderPass, VkViewport viewport, VkRect2D scissor, std::vector<VkVertexInputAttributeDescription> attribs, uint32_t frameCount, size_t stride, StorageBuffer* storageBuffer, std::vector<VkPushConstantRange> pushConstantRanges, VkPolygonMode polygonMode, VkPrimitiveTopology topology) {
 	this->device = device;
 	this->renderPass = renderPass;
 	this->viewport = viewport;
@@ -8,12 +8,14 @@ Pipeline::Pipeline(VkDevice device, VkRenderPass renderPass, VkViewport viewport
 	this->attribs = attribs;
 	this->frameCount = frameCount;
 	this->stride = stride;
+	this->storageBuffer = storageBuffer;
 	this->pushConstantRanges = pushConstantRanges;
 	this->polygonMode = polygonMode;
 	this->topology = topology;
 }
 
 Pipeline::~Pipeline() {
+	vkDestroyDescriptorSetLayout(device, descriptorSetLayout, nullptr);
 	vkDestroyDescriptorPool(device, descriptorPool, nullptr);
 	vkDestroyPipelineLayout(device, layout, nullptr);
 	vkDestroyPipeline(device, pipeline, nullptr);
@@ -116,6 +118,17 @@ void Pipeline::Create(VkShaderModule vertexShader, VkShaderModule pixelShader, s
 	dynamicCreateInfo.dynamicStateCount = 2;
 	dynamicCreateInfo.pDynamicStates = dynamicState;
 
+	VkDescriptorSetLayoutBinding descriptorSetLayoutBinding = {};
+	descriptorSetLayoutBinding.binding = 0;
+	descriptorSetLayoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+	descriptorSetLayoutBinding.descriptorCount = 1;
+	descriptorSetLayoutBinding.stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
+	VkDescriptorSetLayoutCreateInfo descriptorSetLayoutCreateInfo = {};
+	descriptorSetLayoutCreateInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
+	descriptorSetLayoutCreateInfo.bindingCount = 1;
+	descriptorSetLayoutCreateInfo.pBindings = &descriptorSetLayoutBinding;
+	vkCreateDescriptorSetLayout(device, &descriptorSetLayoutCreateInfo, nullptr, &descriptorSetLayout);
+
 	VkDescriptorPoolSize poolSize = {};
 	poolSize.type = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
 	poolSize.descriptorCount = frameCount;
@@ -125,11 +138,37 @@ void Pipeline::Create(VkShaderModule vertexShader, VkShaderModule pixelShader, s
 	poolInfo.pPoolSizes = &poolSize;
 	poolInfo.maxSets = frameCount;
 	vkCreateDescriptorPool(device, &poolInfo, nullptr, &descriptorPool);
+	descriptorSets.resize(frameCount);
+
+	for (uint32_t i = 0; i < frameCount; i++) {
+		VkDescriptorSetAllocateInfo allocateInfo = { };
+		allocateInfo.descriptorPool = descriptorPool;
+		allocateInfo.descriptorSetCount = 1;
+		allocateInfo.pSetLayouts = &descriptorSetLayout;
+		allocateInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
+		vkAllocateDescriptorSets(device, &allocateInfo, &descriptorSets[i]);
+
+		if(storageBuffer) {
+			VkDescriptorBufferInfo descriptorBufferInfo = {};
+			descriptorBufferInfo.buffer = storageBuffer->buffer;
+			descriptorBufferInfo.offset = 0;
+			descriptorBufferInfo.range = storageBuffer->size;
+			VkWriteDescriptorSet writeDescriptorSet = {};
+			writeDescriptorSet.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+			writeDescriptorSet.dstSet = descriptorSets[i];
+			writeDescriptorSet.dstBinding = storageBuffer->binding;
+			writeDescriptorSet.dstArrayElement = 0;
+			writeDescriptorSet.descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+			writeDescriptorSet.descriptorCount = 1;
+			writeDescriptorSet.pBufferInfo = &descriptorBufferInfo;
+			vkUpdateDescriptorSets(device, 1, &writeDescriptorSet, 0, nullptr);
+		}
+	}
 
 	VkPipelineLayoutCreateInfo pipelineLayoutCreateInfo = {};
 	pipelineLayoutCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
-	pipelineLayoutCreateInfo.setLayoutCount = 0;
-	pipelineLayoutCreateInfo.pSetLayouts = nullptr;
+	pipelineLayoutCreateInfo.setLayoutCount = 1;
+	pipelineLayoutCreateInfo.pSetLayouts = &descriptorSetLayout;
 	pipelineLayoutCreateInfo.pushConstantRangeCount = pushConstantRanges.size();
 	pipelineLayoutCreateInfo.pPushConstantRanges = pushConstantRanges.data();
 	vkCreatePipelineLayout(device, &pipelineLayoutCreateInfo, nullptr, &layout);

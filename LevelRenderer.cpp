@@ -8,6 +8,8 @@ LevelRenderer::LevelRenderer(VkDevice device, VkPhysicalDevice phys, VkRenderPas
 	this->viewportPtr = viewportPtr;
 	this->scissorPtr = scissorPtr;
 	this->frameCount = frameCount;
+	matrixProxy.Create();
+	vectorProxy.Create();
 
 	storageBuffer.binding = 0;
 	storageBuffer.size = sizeof(SceneData);
@@ -35,9 +37,25 @@ LevelRenderer::LevelRenderer(VkDevice device, VkPhysicalDevice phys, VkRenderPas
 }
 
 LevelRenderer::~LevelRenderer() {
+	for (LevelMesh& lm : meshes) {
+		delete lm.mesh;
+	}
 	vkDestroyBuffer(device, storageBuffer.buffer, nullptr);
 	vkFreeMemory(device, storageBuffer.bufferMemory, nullptr);
 	vkDestroyShaderModule(device, vertexShader, nullptr);
 	vkDestroyShaderModule(device, pixelShader, nullptr);
 	delete pipeline;
+}
+
+void LevelRenderer::Draw(VkCommandBuffer commandBuffer, float aspectRatio) {
+	pipeline->Bind(commandBuffer, *viewportPtr, *scissorPtr);
+	for (LevelMesh& lm : meshes) {
+		SceneData sceneData;
+		sceneData.modelMatrix = lm.matrix;
+		matrixProxy.IdentityF(sceneData.viewMatrix);
+		matrixProxy.TranslateGlobalF(sceneData.viewMatrix, cameraPosition, sceneData.viewMatrix);
+		matrixProxy.ProjectionVulkanLHF(G_DEGREE_TO_RADIAN(90.0f), aspectRatio, 0.1f, 100.0f, sceneData.projectionMatrix);
+		GvkHelper::write_to_buffer(device, storageBuffer.bufferMemory, &sceneData, sizeof(SceneData));
+		lm.mesh->Draw(commandBuffer);
+	}
 }

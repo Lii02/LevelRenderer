@@ -7,9 +7,6 @@
 #define GATEWARE_DISABLE_GRASTERSURFACE
 #define GATEWARE_DISABLE_GOPENGLSURFACE
 #define GATEWARE_ENABLE_GRAPHICS
-#define GATEWARE_ENABLE_CORE
-#define GATEWARE_ENABLE_SYSTEM
-#define GATEWARE_ENABLE_GRAPHICS
 #define GATEWARE_ENABLE_MATH
 #define GATEWARE_ENABLE_INPUT
 #include "Gateware.h"
@@ -18,6 +15,11 @@ struct SceneData {
 	GW::MATH::GMATRIXF projectionMatrix;
 	GW::MATH::GMATRIXF viewMatrix;
 	GW::MATH::GMATRIXF modelMatrix;
+};
+
+struct LevelMesh {
+	Mesh* mesh;
+	GW::MATH::GMATRIXF matrix;
 };
 
 class LevelRenderer {
@@ -32,9 +34,13 @@ private:
 	GW::MATH::GMatrix matrixProxy;
 	GW::MATH::GVector vectorProxy;
 	StorageBuffer storageBuffer;
+	std::vector<LevelMesh> meshes;
+	GW::MATH::GVECTORF cameraPosition;
 public:
 	LevelRenderer(VkDevice device, VkPhysicalDevice phys, VkRenderPass renderPass, VkViewport* viewportPtr, VkRect2D* scissorPtr, uint32_t frameCount);
 	~LevelRenderer();
+
+	void Draw(VkCommandBuffer commandBuffer, float aspectRatio);
 };
 
 #endif

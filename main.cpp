@@ -10,14 +10,13 @@
 #define GATEWARE_DISABLE_GOPENGLSURFACE
 #include "Gateware.h"
 #include "Stopwatch.h"
-#include "Pipeline.h"
-#include "FileHelper.h"
-#include "ShaderCompiler.h"
-#include "Mesh.h"
+#include "h2bParser.h"
+#include "LevelRenderer.h"
 
 using namespace GW;
 using namespace CORE;
 using namespace SYSTEM;
+using namespace MATH;
 using namespace GRAPHICS;
 #ifdef _WIN32
 	#pragma comment(lib, "shaderc_combined.lib") 
@@ -59,14 +58,6 @@ int main(int argc, char** argv) {
 			VkPhysicalDeviceProperties deviceProperties;
 			vkGetPhysicalDeviceProperties(phys, &deviceProperties);
 			std::cout << "Using device: " << deviceProperties.deviceName << std::endl;
-
-			ShaderCompiler shaderCompiler;
-			std::string shaderSource;
-			FileHelper::LoadFile(shaderSource, "../DefaultShader.hlsl");
-			std::string vertexEntry = "VS";
-			std::string pixelEntry = "PS";
-			ShaderCompilerResult compiledShaders;
-			shaderCompiler.Compile(device, shaderSource, vertexEntry, pixelEntry, compiledShaders);
 			
 			auto getViewportScissor = [=](VkViewport& viewport, VkRect2D& scissor) {
 				unsigned int width, height;
@@ -80,49 +71,21 @@ int main(int argc, char** argv) {
 			
 			VkViewport viewport;
 			VkRect2D scissor;
-			getViewportScissor(viewport, scissor);
-			std::vector<VkVertexInputAttributeDescription> attribs = {
-				{ 0, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(Vertex, pos) },
-				{ 1, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(Vertex, uv) },
-				{ 2, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(Vertex, nrm) }
-			};
-
-			Pipeline* pipeline = new Pipeline(device, renderPass, viewport, scissor, attribs, frameCount);
-			pipeline->Create(compiledShaders.vertexShader, compiledShaders.pixelShader, vertexEntry, pixelEntry);
-			Mesh* mesh = new Mesh(device, phys);
 			
-			std::vector<Vertex> vertices = {
-				{{-0.5f, -0.5f, 0.0f}, {}, {}},
-				{{0.5f, 0.5f, 0.0f}, {}, {}},
-				{{-0.5f, 0.5f, 0.0f}, {}, {}}
-			};
-
-			std::vector<int> indices = {
-				0, 1, 2
-			};
-			mesh->SetData(vertices, indices);
-
 			shutdown.Create(vulkan, [&]() {
 				if (+shutdown.Find(GW::GRAPHICS::GVulkanSurface::Events::RELEASE_RESOURCES, true)) {
 					vkDeviceWaitIdle(device);
-					delete mesh;
-					vkDestroyShaderModule(device, compiledShaders.vertexShader, nullptr);
-					vkDestroyShaderModule(device, compiledShaders.pixelShader, nullptr);
-					delete pipeline;
 				}
 			});
 
 			while (+win.ProcessWindowEvents()) {
 				if (+vulkan.StartFrame(2, clrAndDepth)) {
 					deltaStopwatch.Begin();
-					unsigned int currentBuffer;
+					uint32_t currentBuffer;
 					vulkan.GetSwapchainCurrentImage(currentBuffer);
 					VkCommandBuffer commandBuffer;
 					vulkan.GetCommandBuffer(currentBuffer, (void**)&commandBuffer);
-
 					getViewportScissor(viewport, scissor);
-					pipeline->Bind(commandBuffer, viewport, scissor);
-					mesh->Draw(commandBuffer);
 
 					vulkan.EndFrame(true);
 					deltaStopwatch.End();

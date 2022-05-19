@@ -12,11 +12,22 @@ struct VS_INPUT
     float3 Norm : NORMAL;
 };
 
+struct StorageBuffer
+{
+    matrix projectionMatrix;
+    matrix viewMatrix;
+    matrix modelMatrix;
+};
+
+StructuredBuffer<StorageBuffer> SceneData;
+
 VS_OUTPUT VS(VS_INPUT input)
 {
     VS_OUTPUT output;
     float4 position = float4(input.Pos, 1);
-    output.Pos = position;
+    matrix viewProjection = mul(SceneData[0].projectionMatrix, SceneData[0].viewMatrix);
+    matrix mvp = mul(viewProjection, SceneData[0].modelMatrix);
+    output.Pos = mul(position, mvp);
     output.Norm = input.Norm;
     return output;
 }

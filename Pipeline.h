@@ -8,6 +8,7 @@ struct StorageBuffer {
 	uint32_t binding;
 	size_t size;
 	VkBuffer buffer;
+	VkDeviceMemory bufferMemory;
 };
 
 class Pipeline {

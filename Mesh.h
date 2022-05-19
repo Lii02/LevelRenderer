@@ -3,14 +3,14 @@
 #include <vulkan/vulkan.h>
 #include <vector>
 
-struct Vertex {
+struct MeshVertex {
 	float pos[3];
 	float uv[2];
 	float nrm[3];
 };
 
-typedef std::vector<Vertex> Vertices;
-typedef std::vector<int> Indices;
+typedef std::vector<MeshVertex> Vertices;
+typedef std::vector<unsigned int> Indices;
 
 class Mesh {
 private:
@@ -18,7 +18,7 @@ private:
 	VkPhysicalDevice phys;
 	VkBuffer vertexBuffer, indexBuffer;
 	VkDeviceMemory vertexMemory, indexMemory;
-	size_t indexCount;
+	uint32_t indexCount;
 public:
 	Mesh(VkDevice device, VkPhysicalDevice phys);
 	~Mesh();

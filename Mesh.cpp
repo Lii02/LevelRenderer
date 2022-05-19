@@ -22,10 +22,10 @@ Mesh::~Mesh() {
 
 void Mesh::SetData(const Vertices& vertices, const Indices& indices) {
 	this->indexCount = indices.size();
-	GvkHelper::create_buffer(phys, device, vertices.size() * sizeof(Vertex),
+	GvkHelper::create_buffer(phys, device, vertices.size() * sizeof(MeshVertex),
 		VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
 		VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, &vertexBuffer, &vertexMemory);
-	GvkHelper::write_to_buffer(device, vertexMemory, vertices.data(), vertices.size() * sizeof(Vertex));
+	GvkHelper::write_to_buffer(device, vertexMemory, vertices.data(), vertices.size() * sizeof(MeshVertex));
 
 	GvkHelper::create_buffer(phys, device, indices.size() * sizeof(int),
 		VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |

@@ -35,12 +35,13 @@ private:
 	GW::MATH::GVector vectorProxy;
 	StorageBuffer storageBuffer;
 	std::vector<LevelMesh> meshes;
-	GW::MATH::GVECTORF cameraPosition;
+	GW::MATH::GMATRIXF cameraMatrix;
 public:
 	LevelRenderer(VkDevice device, VkPhysicalDevice phys, VkRenderPass renderPass, VkViewport* viewportPtr, VkRect2D* scissorPtr, uint32_t frameCount);
 	~LevelRenderer();
 
 	void Draw(VkCommandBuffer commandBuffer, float aspectRatio);
+	void Load(std::string filename);
 };
 
 #endif

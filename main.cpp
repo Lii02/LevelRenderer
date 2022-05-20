@@ -10,7 +10,6 @@
 #define GATEWARE_DISABLE_GOPENGLSURFACE
 #include "Gateware.h"
 #include "Stopwatch.h"
-#include "h2bParser.h"
 #include "LevelRenderer.h"
 
 using namespace GW;

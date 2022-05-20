@@ -1,3 +1,5 @@
+#pragma pack_matrix(row_major)
+
 struct VS_OUTPUT
 {
     float4 Pos : SV_POSITION;
@@ -25,14 +27,15 @@ VS_OUTPUT VS(VS_INPUT input)
 {
     VS_OUTPUT output;
     float4 position = float4(input.Pos, 1);
-    matrix viewProjection = mul(SceneData[0].projectionMatrix, SceneData[0].viewMatrix);
-    matrix mvp = mul(viewProjection, SceneData[0].modelMatrix);
+    matrix viewProjection = mul(SceneData[0].viewMatrix, SceneData[0].projectionMatrix);
+    matrix mvp = mul(SceneData[0].modelMatrix, viewProjection);
     output.Pos = mul(position, mvp);
+    output.Tex = input.Tex;
     output.Norm = input.Norm;
     return output;
 }
 
 float4 PS(VS_OUTPUT input) : SV_TARGET
 {
-    return float4(1, 0, 0, 1);
+    return float4(input.Tex, 0, 1);
 }

@@ -27,8 +27,7 @@ VS_OUTPUT VS(VS_INPUT input)
 {
     VS_OUTPUT output;
     float4 position = float4(input.Pos, 1);
-    matrix viewProjection = mul(SceneData[0].viewMatrix, SceneData[0].projectionMatrix);
-    matrix mvp = mul(SceneData[0].modelMatrix, viewProjection);
+    matrix mvp = mul(SceneData[0].modelMatrix, mul(SceneData[0].viewMatrix, SceneData[0].projectionMatrix));
     output.Pos = mul(position, mvp);
     output.Tex = input.Tex;
     output.Norm = input.Norm;

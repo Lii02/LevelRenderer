@@ -37,6 +37,7 @@ public:
 	void Bind(VkCommandBuffer commandBuffer, VkViewport viewport, VkRect2D scissor);
 	void SetTopology(VkCommandBuffer commandBuffer, VkPrimitiveTopology topology);
 	void PushConstant(VkCommandBuffer commandBuffer, uint32_t rangeIndex, void* block);
+	void UpdateDescriptorSets(VkCommandBuffer commandBuffer);
 };
 
 #endif

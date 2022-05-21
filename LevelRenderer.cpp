@@ -61,16 +61,17 @@ LevelRenderer::~LevelRenderer() {
 void LevelRenderer::Draw(VkCommandBuffer commandBuffer, float aspectRatio) {
 	SceneData sceneData;
 	matrixProxy.ProjectionVulkanLHF(G_DEGREE_TO_RADIAN(65.0f), aspectRatio, 0.1f, 100.0f, sceneData.projectionMatrix);
+	sceneData.viewMatrix = cameraMatrix;
 	pipeline->Bind(commandBuffer, *viewportPtr, *scissorPtr);
 	for (LevelMesh& lm : meshes) {
 		sceneData.modelMatrix = lm.matrix;
-		sceneData.viewMatrix = cameraMatrix;
 		GvkHelper::write_to_buffer(device, storageBuffer.bufferMemory, &sceneData, sizeof(SceneData));
+		pipeline->UpdateDescriptorSets(commandBuffer);
 		lm.mesh->Draw(commandBuffer);
 	}
 }
 
-GW::MATH::GMATRIXF ParseMatrix(GW::MATH::GMatrix matrixProxy, std::istringstream& stream) {
+GW::MATH::GMATRIXF ParseMatrix(GW::MATH::GMatrix& matrixProxy, std::istringstream& stream) {
 	GW::MATH::GMATRIXF matrix;
 	for (int i = 0; i < 4; i++) {
 		std::string matrixLine;
@@ -79,11 +80,9 @@ GW::MATH::GMATRIXF ParseMatrix(GW::MATH::GMatrix matrixProxy, std::istringstream
 		GW::MATH::GVECTORF vec;
 		if (i == 0) {
 			std::sscanf(matrixLine.c_str(), "<Matrix4x4(%f,%f,%f,%f)", &vec.x, &vec.y, &vec.z, &vec.w);
-		}
-		else if (i == 3) {
+		} else if (i == 3) {
 			std::sscanf(matrixLine.c_str(), "(%f,%f,%f,%f)>", &vec.x, &vec.y, &vec.z, &vec.w);
-		}
-		else {
+		} else {
 			std::sscanf(matrixLine.c_str(), "(%f,%f,%f,%f)", &vec.x, &vec.y, &vec.z, &vec.w);
 		}
 
@@ -137,8 +136,8 @@ void LevelRenderer::Load(std::string filename) {
 		} else if (std::strcmp(line.c_str(), "CAMERA") == 0) {
 			std::string cameraName;
 			std::getline(input, cameraName);
-			cameraMatrix = ParseMatrix(matrixProxy, input);
-			matrixProxy.InverseF(cameraMatrix, cameraMatrix);
+			matrixProxy.IdentityF(cameraMatrix);
+			matrixProxy.InverseF(ParseMatrix(matrixProxy, input), cameraMatrix);
 		}
 
 		if (line.empty())

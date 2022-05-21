@@ -14,6 +14,22 @@ struct VS_INPUT
     float3 Norm : NORMAL;
 };
 
+struct LevelMeshMaterial
+{
+    float3 Kd;
+    float d;
+    float3 Ks;
+    float Ns;
+    float3 Ka;
+    float sharpness;
+    float3 Tf;
+    float Ni;
+    float3 Ke;
+	int illum;
+};
+
+StructuredBuffer<LevelMeshMaterial> material;
+
 [[vk::push_constant]]
 cbuffer MatrixPushConstant
 {
@@ -34,5 +50,5 @@ VS_OUTPUT VS(VS_INPUT input)
 
 float4 PS(VS_OUTPUT input) : SV_TARGET
 {
-    return float4(input.Tex, 0, 1);
+    return float4(input.Norm, 1);
 }

@@ -10,6 +10,7 @@
 #define GATEWARE_ENABLE_MATH
 #define GATEWARE_ENABLE_INPUT
 #include "Gateware.h"
+#include "h2bParser.h"
 
 struct MatrixPushConstant {
 	GW::MATH::GMATRIXF viewProjectionMatrix;
@@ -18,6 +19,7 @@ struct MatrixPushConstant {
 
 struct LevelMesh {
 	Mesh* mesh;
+	H2B::ATTRIBUTES material;
 	GW::MATH::GMATRIXF matrix;
 };
 
@@ -34,6 +36,7 @@ private:
 	GW::MATH::GVector vectorProxy;
 	std::vector<LevelMesh> meshes;
 	GW::MATH::GMATRIXF cameraMatrix;
+	StorageBuffer storageBuffer;
 public:
 	LevelRenderer(VkDevice device, VkPhysicalDevice phys, VkRenderPass renderPass, VkViewport* viewportPtr, VkRect2D* scissorPtr, uint32_t frameCount);
 	~LevelRenderer();

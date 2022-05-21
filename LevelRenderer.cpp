@@ -1,7 +1,6 @@
 #include "LevelRenderer.h"
 #include "FileHelper.h"
 #include "ShaderCompiler.h"
-#include "h2bParser.h"
 #include "Stopwatch.h"
 #include <sstream>
 #include "StringHelper.h"
@@ -23,9 +22,13 @@ LevelRenderer::LevelRenderer(VkDevice device, VkPhysicalDevice phys, VkRenderPas
 	std::vector<VkPushConstantRange> pushConstants = {
 		{VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(MatrixPushConstant)}
 	};
+	storageBuffer.binding = 0;
+	storageBuffer.size = sizeof(H2B::ATTRIBUTES);
+	GvkHelper::create_buffer(phys, device, sizeof(H2B::ATTRIBUTES),
+		VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
+		VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, &storageBuffer.buffer, &storageBuffer.bufferMemory);
 
-	pipeline = new Pipeline(device, renderPass, *viewportPtr, *scissorPtr, attribs, frameCount, sizeof(MeshVertex), nullptr, pushConstants);
-
+	pipeline = new Pipeline(device, renderPass, *viewportPtr, *scissorPtr, attribs, frameCount, sizeof(MeshVertex), &storageBuffer, pushConstants);
 	ShaderCompiler shaderCompiler;
 	std::string shaderSource;
 	FileHelper::LoadFile(shaderSource, "../DefaultShader.hlsl");
@@ -38,7 +41,6 @@ LevelRenderer::LevelRenderer(VkDevice device, VkPhysicalDevice phys, VkRenderPas
 	this->pixelShader = compiledShaders.pixelShader;
 
 	Stopwatch loadingWatch;
-
 	loadingWatch.Begin();
 	Load("../GameLevel.txt");
 	loadingWatch.End();
@@ -49,6 +51,8 @@ LevelRenderer::~LevelRenderer() {
 	for (LevelMesh& lm : meshes) {
 		delete lm.mesh;
 	}
+	vkFreeMemory(device, storageBuffer.bufferMemory, nullptr);
+	vkDestroyBuffer(device, storageBuffer.buffer, nullptr);
 	vkDestroyShaderModule(device, vertexShader, nullptr);
 	vkDestroyShaderModule(device, pixelShader, nullptr);
 	delete pipeline;
@@ -62,6 +66,7 @@ void LevelRenderer::Draw(VkCommandBuffer commandBuffer, float aspectRatio) {
 	pipeline->Bind(commandBuffer, *viewportPtr, *scissorPtr);
 	for (LevelMesh& lm : meshes) {
 		matrixData.modelMatrix = lm.matrix;
+		GvkHelper::write_to_buffer(device, storageBuffer.bufferMemory, &lm.material, sizeof(H2B::ATTRIBUTES));
 		pipeline->PushConstant(commandBuffer, 0, (void*)&matrixData);
 		lm.mesh->Draw(commandBuffer);
 	}
@@ -124,6 +129,7 @@ void LevelRenderer::Load(std::string filename) {
 				memcpy(&vertices[i].uv, &parser.vertices[i].uvw, sizeof(float) * 2);
 				memcpy(&vertices[i].nrm, &parser.vertices[i].nrm, sizeof(H2B::VECTOR));
 			}
+			levelMesh.material = parser.materials[0].attrib;
 			levelMesh.mesh->SetData(vertices, parser.indices);
 			levelMesh.matrix = ParseMatrix(matrixProxy, input);
 

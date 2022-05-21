@@ -1,5 +1,3 @@
-#pragma pack_matrix(row_major)
-
 struct VS_OUTPUT
 {
     float4 Pos : SV_POSITION;
@@ -14,21 +12,19 @@ struct VS_INPUT
     float3 Norm : NORMAL;
 };
 
-struct StorageBuffer
+[[vk::push_constant]]
+cbuffer MatrixPushConstant
 {
-    matrix projectionMatrix;
-    matrix viewMatrix;
+    matrix viewProjectionMatrix;
     matrix modelMatrix;
 };
-
-StructuredBuffer<StorageBuffer> SceneData;
 
 VS_OUTPUT VS(VS_INPUT input)
 {
     VS_OUTPUT output;
     float4 position = float4(input.Pos, 1);
-    matrix mvp = mul(SceneData[0].modelMatrix, mul(SceneData[0].viewMatrix, SceneData[0].projectionMatrix));
-    output.Pos = mul(position, mvp);
+    matrix mvp = mul(viewProjectionMatrix, modelMatrix);
+    output.Pos = mul(mvp, position);
     output.Tex = input.Tex;
     output.Norm = input.Norm;
     return output;

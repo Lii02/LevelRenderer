@@ -198,6 +198,9 @@ void Pipeline::Bind(VkCommandBuffer commandBuffer, VkViewport viewport, VkRect2D
 	vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
 	vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
 	vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline);
+	for (size_t i = 0; i < descriptorSets.size(); i++) {
+		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 0, 1, &descriptorSets[i], 0, nullptr);
+	}
 }
 
 void Pipeline::SetTopology(VkCommandBuffer commandBuffer, VkPrimitiveTopology topology) {
@@ -208,10 +211,4 @@ void Pipeline::SetTopology(VkCommandBuffer commandBuffer, VkPrimitiveTopology to
 void Pipeline::PushConstant(VkCommandBuffer commandBuffer, uint32_t rangeIndex, void* block) {
 	VkPushConstantRange range = pushConstantRanges[rangeIndex];
 	vkCmdPushConstants(commandBuffer, layout, range.stageFlags, range.offset, range.size, block);
-}
-
-void Pipeline::UpdateDescriptorSets(VkCommandBuffer commandBuffer) {
-	for (size_t i = 0; i < descriptorSets.size(); i++) {
-		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 0, 1, &descriptorSets[i], 0, nullptr);
-	}
 }

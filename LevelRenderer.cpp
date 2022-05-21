@@ -15,18 +15,16 @@ LevelRenderer::LevelRenderer(VkDevice device, VkPhysicalDevice phys, VkRenderPas
 	matrixProxy.Create();
 	vectorProxy.Create();
 
-	storageBuffer.binding = 0;
-	storageBuffer.size = sizeof(SceneData);
-	GvkHelper::create_buffer(phys, device, sizeof(SceneData),
-		VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
-		VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, &storageBuffer.buffer, &storageBuffer.bufferMemory);
-
 	std::vector<VkVertexInputAttributeDescription> attribs = {
-				{ 0, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(MeshVertex, pos) },
-				{ 1, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(MeshVertex, uv) },
-				{ 2, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(MeshVertex, nrm) }
+		{ 0, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(MeshVertex, pos) },
+		{ 1, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(MeshVertex, uv) },
+		{ 2, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(MeshVertex, nrm) }
 	};
-	pipeline = new Pipeline(device, renderPass, *viewportPtr, *scissorPtr, attribs, frameCount, sizeof(MeshVertex), &storageBuffer);
+	std::vector<VkPushConstantRange> pushConstants = {
+		{VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(MatrixPushConstant)}
+	};
+
+	pipeline = new Pipeline(device, renderPass, *viewportPtr, *scissorPtr, attribs, frameCount, sizeof(MeshVertex), nullptr, pushConstants);
 
 	ShaderCompiler shaderCompiler;
 	std::string shaderSource;
@@ -51,22 +49,20 @@ LevelRenderer::~LevelRenderer() {
 	for (LevelMesh& lm : meshes) {
 		delete lm.mesh;
 	}
-	vkDestroyBuffer(device, storageBuffer.buffer, nullptr);
-	vkFreeMemory(device, storageBuffer.bufferMemory, nullptr);
 	vkDestroyShaderModule(device, vertexShader, nullptr);
 	vkDestroyShaderModule(device, pixelShader, nullptr);
 	delete pipeline;
 }
 
 void LevelRenderer::Draw(VkCommandBuffer commandBuffer, float aspectRatio) {
-	SceneData sceneData;
-	matrixProxy.ProjectionVulkanLHF(G_DEGREE_TO_RADIAN(65.0f), aspectRatio, 0.1f, 100.0f, sceneData.projectionMatrix);
-	sceneData.viewMatrix = cameraMatrix;
+	MatrixPushConstant matrixData;
+	GW::MATH::GMATRIXF projectionMatrix;
+	matrixProxy.ProjectionVulkanLHF(G_DEGREE_TO_RADIAN(65.0f), aspectRatio, 0.1f, 100.0f, projectionMatrix);
+	matrixProxy.MultiplyMatrixF(cameraMatrix, projectionMatrix, matrixData.viewProjectionMatrix);
 	pipeline->Bind(commandBuffer, *viewportPtr, *scissorPtr);
 	for (LevelMesh& lm : meshes) {
-		sceneData.modelMatrix = lm.matrix;
-		GvkHelper::write_to_buffer(device, storageBuffer.bufferMemory, &sceneData, sizeof(SceneData));
-		pipeline->UpdateDescriptorSets(commandBuffer);
+		matrixData.modelMatrix = lm.matrix;
+		pipeline->PushConstant(commandBuffer, 0, (void*)&matrixData);
 		lm.mesh->Draw(commandBuffer);
 	}
 }

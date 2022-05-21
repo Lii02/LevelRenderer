@@ -11,9 +11,8 @@
 #define GATEWARE_ENABLE_INPUT
 #include "Gateware.h"
 
-struct SceneData {
-	GW::MATH::GMATRIXF projectionMatrix;
-	GW::MATH::GMATRIXF viewMatrix;
+struct MatrixPushConstant {
+	GW::MATH::GMATRIXF viewProjectionMatrix;
 	GW::MATH::GMATRIXF modelMatrix;
 };
 
@@ -33,7 +32,6 @@ private:
 	VkShaderModule vertexShader, pixelShader;
 	GW::MATH::GMatrix matrixProxy;
 	GW::MATH::GVector vectorProxy;
-	StorageBuffer storageBuffer;
 	std::vector<LevelMesh> meshes;
 	GW::MATH::GMATRIXF cameraMatrix;
 public:

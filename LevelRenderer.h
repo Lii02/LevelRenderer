@@ -29,10 +29,14 @@ struct LevelMeshMaterial {
 	int illum;
 };
 
-#define MAX_MATERIAL_COUNT 50
+#define MAX_MATERIAL_COUNT 100
 struct SceneData {
-	LevelMeshMaterial materials[MAX_MATERIAL_COUNT];
 	GW::MATH::GMATRIXF viewProjection;
+	LevelMeshMaterial* materials;
+
+	static size_t GetSize() {
+		return sizeof(GW::MATH::GMATRIXF) + (sizeof(LevelMeshMaterial) * MAX_MATERIAL_COUNT);
+	}
 };
 
 struct MiscData {

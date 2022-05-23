@@ -4,6 +4,7 @@
 #include "Stopwatch.h"
 #include <sstream>
 #include "StringHelper.h"
+#include "BufferHelper.h"
 
 LevelRenderer::LevelRenderer(VkDevice device, VkPhysicalDevice phys, VkRenderPass renderPass, VkViewport* viewportPtr, VkRect2D* scissorPtr, uint32_t frameCount) {
 	this->device = device;
@@ -26,8 +27,8 @@ LevelRenderer::LevelRenderer(VkDevice device, VkPhysicalDevice phys, VkRenderPas
 	range.stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
 	pushConstants.push_back(range);
 
-	storageBuffer.size = sizeof(SceneData);
-	GvkHelper::create_buffer(phys, device, sizeof(SceneData),
+	storageBuffer.size = SceneData::GetSize();
+	GvkHelper::create_buffer(phys, device, storageBuffer.size,
 		VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
 		VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, &storageBuffer.buffer, &storageBuffer.bufferMemory);
 
@@ -67,8 +68,18 @@ void LevelRenderer::Draw(VkCommandBuffer commandBuffer, float aspectRatio) {
 	matrixProxy.ProjectionVulkanLHF(G_DEGREE_TO_RADIAN(65.0f), aspectRatio, 0.1f, 100.0f, projection);
 	matrixProxy.MultiplyMatrixF(cameraMatrix, projection, sceneData.viewProjection);
 	MiscData miscData;
-	memcpy(&sceneData.materials, sceneMaterials.data(), sizeof(H2B::ATTRIBUTES) * MAX_MATERIAL_COUNT);
-	GvkHelper::write_to_buffer(device, storageBuffer.bufferMemory, &sceneData, sizeof(SceneData));
+	// Allocate on the heap to prevent stack overflow
+	sceneData.materials = new LevelMeshMaterial[MAX_MATERIAL_COUNT];
+	memcpy(sceneData.materials, sceneMaterials.data(), sizeof(LevelMeshMaterial) * MAX_MATERIAL_COUNT);
+	// Write the matrix
+	GvkHelper::write_to_buffer(device, storageBuffer.bufferMemory, &sceneData, sizeof(GW::MATH::GMATRIXF));
+	// Write the materials
+	size_t bufferOffset = sizeof(GW::MATH::GMATRIXF);
+	for (int i = 0; i < MAX_MATERIAL_COUNT; i++) {
+		BufferHelper::WriteToBuffer(device, storageBuffer.bufferMemory, &sceneData.materials[i], sizeof(LevelMeshMaterial), bufferOffset);
+		bufferOffset += sizeof(LevelMeshMaterial);
+	}
+	delete[] sceneData.materials;
 
 	pipeline->Bind(commandBuffer, *viewportPtr, *scissorPtr);
 	for (size_t i = 0; i < meshes.size(); i++) {

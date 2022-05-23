@@ -56,8 +56,12 @@ int main(int argc, char** argv) {
 			vulkan.GetSwapchainImageCount(frameCount);
 			VkPhysicalDeviceProperties deviceProperties;
 			vkGetPhysicalDeviceProperties(phys, &deviceProperties);
+			// Debug stats
 			std::cout << "Using device: " << deviceProperties.deviceName << std::endl;
 			std::cout << "Storage buffer alignment: " << deviceProperties.limits.minStorageBufferOffsetAlignment << std::endl;
+			std::cout << "Max storage buffer size: " << deviceProperties.limits.maxStorageBufferRange << std::endl;
+			std::cout << "Max uniform buffer size: " << deviceProperties.limits.maxUniformBufferRange << std::endl;
+			std::cout << "Max push constant size: " << deviceProperties.limits.maxPushConstantsSize << std::endl;
 			
 			auto getViewportScissor = [=](VkViewport& viewport, VkRect2D& scissor) {
 				unsigned int width, height;

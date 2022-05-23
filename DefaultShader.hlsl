@@ -26,11 +26,11 @@ struct LevelMeshMaterial
 	int illum;
 };
 
-#define MAX_MATERIAL_COUNT 50
+#define MAX_MATERIAL_COUNT 100
 struct SceneData
 {
-    LevelMeshMaterial materials[MAX_MATERIAL_COUNT];
     matrix viewProjection;
+    LevelMeshMaterial materials[MAX_MATERIAL_COUNT];
 };
 
 StructuredBuffer<SceneData> sceneData;

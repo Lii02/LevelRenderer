@@ -22,7 +22,6 @@ private:
 	shaderc_compile_options_t options;
 public:
 	ShaderCompiler(ShaderLanguage language = ShaderLanguage::HLSL, bool invertY = false);
-	ShaderCompiler(const ShaderCompiler&) = delete;
 	~ShaderCompiler();
 
 	bool Compile(VkDevice device, const std::string& shaderSource, std::string vertexEntry, std::string pixelEntry, ShaderCompilerResult& output);

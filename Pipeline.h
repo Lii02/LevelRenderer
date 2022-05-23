@@ -5,7 +5,6 @@
 #include <vector>
 
 struct StorageBuffer {
-	uint32_t binding;
 	size_t size;
 	VkBuffer buffer;
 	VkDeviceMemory bufferMemory;
@@ -38,6 +37,7 @@ public:
 	void SetTopology(VkCommandBuffer commandBuffer, VkPrimitiveTopology topology);
 	void PushConstant(VkCommandBuffer commandBuffer, uint32_t rangeIndex, void* block);
 	void BindDescriptors(VkCommandBuffer commandBuffer);
+	VkPipelineLayout GetLayout();
 };
 
 #endif

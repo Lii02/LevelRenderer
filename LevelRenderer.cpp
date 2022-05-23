@@ -22,11 +22,10 @@ LevelRenderer::LevelRenderer(VkDevice device, VkPhysicalDevice phys, VkRenderPas
 	std::vector<VkPushConstantRange> pushConstants;
 	VkPushConstantRange range;
 	range.offset = 0;
-	range.size = sizeof(MeshIndex);
+	range.size = sizeof(MiscData);
 	range.stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
 	pushConstants.push_back(range);
 
-	storageBuffer.binding = 0;
 	storageBuffer.size = sizeof(SceneData);
 	GvkHelper::create_buffer(phys, device, sizeof(SceneData),
 		VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
@@ -64,20 +63,25 @@ LevelRenderer::~LevelRenderer() {
 
 void LevelRenderer::Draw(VkCommandBuffer commandBuffer, float aspectRatio) {
 	SceneData sceneData;
-	sceneData.view = cameraMatrix;
-	matrixProxy.ProjectionVulkanLHF(G_DEGREE_TO_RADIAN(65.0f), aspectRatio, 0.1f, 100.0f, sceneData.projection);
+	GW::MATH::GMATRIXF projection;
+	matrixProxy.ProjectionVulkanLHF(G_DEGREE_TO_RADIAN(65.0f), aspectRatio, 0.1f, 100.0f, projection);
+	matrixProxy.MultiplyMatrixF(cameraMatrix, projection, sceneData.viewProjection);
+	MiscData miscData;
+	memcpy(&sceneData.materials, sceneMaterials.data(), sizeof(H2B::ATTRIBUTES) * MAX_MATERIAL_COUNT);
+	GvkHelper::write_to_buffer(device, storageBuffer.bufferMemory, &sceneData, sizeof(SceneData));
+
 	pipeline->Bind(commandBuffer, *viewportPtr, *scissorPtr);
-	for (LevelMesh& lm : meshes) {
-		sceneData.model = lm.model;
-		for (int i = 0; i < lm.batchCount; i++) {
-			sceneData.materials[i] = lm.materials[i];
-			H2B::BATCH batch = lm.batches[i];
+	for (size_t i = 0; i < meshes.size(); i++) {
+		LevelMesh& lm = meshes[i];
+		miscData.model = lm.model;
+		matrixProxy.GetTranslationF(cameraMatrix, miscData.cameraPosition);
+		for (int j = 0; j < lm.batchCount; j++) {
+			lm.mesh->Bind(commandBuffer);
+			miscData.index = j;
+			miscData.materialIndex = lm.firstMaterial + lm.materialIndices[j];
 			pipeline->BindDescriptors(commandBuffer);
-			MeshIndex index;
-			index.index = i;
-			pipeline->PushConstant(commandBuffer, 0, &index);
-			GvkHelper::write_to_buffer(device, storageBuffer.bufferMemory, &sceneData, sizeof(SceneData));
-			lm.mesh->DrawInstanced(commandBuffer, batch.indexCount, batch.indexOffset);
+			pipeline->PushConstant(commandBuffer, 0, &miscData);
+			lm.mesh->DrawInstanced(commandBuffer, lm.batches[j].indexCount, lm.batches[j].indexOffset);
 		}
 	}
 }
@@ -139,11 +143,14 @@ void LevelRenderer::Load(std::string filename) {
 				memcpy(&vertices[i].uv, &parser.vertices[i].uvw, sizeof(float) * 2);
 				memcpy(&vertices[i].nrm, &parser.vertices[i].nrm, sizeof(H2B::VECTOR));
 			}
+			levelMesh.materialCount = parser.materialCount;
+			levelMesh.firstMaterial = sceneMaterials.size();
 			for (size_t i = 0; i < parser.materialCount; i++) {
-				levelMesh.materials[i] = parser.materials[i].attrib;
-			}
-			for (size_t i = 0; i < parser.meshCount; i++) {
-				levelMesh.batches[i] = parser.batches[i];
+				LevelMeshMaterial material;
+				memcpy(&material, &parser.materials[i].attrib, sizeof(LevelMeshMaterial));
+				sceneMaterials.push_back(material);
+				levelMesh.batches.push_back(parser.batches[i]);
+				levelMesh.materialIndices.push_back(parser.meshes[i].materialIndex);
 			}
 			levelMesh.batchCount = parser.meshCount;
 			levelMesh.mesh->SetData(vertices, parser.indices);

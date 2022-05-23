@@ -5,7 +5,6 @@
 #include <set>
 
 namespace H2B {
-
 #pragma pack(push,1)
 	struct VECTOR { 
 		float x, y, z; 

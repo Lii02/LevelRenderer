@@ -12,26 +12,44 @@
 #include "Gateware.h"
 #include "h2bParser.h"
 
-#define MAX_MESH_COUNT 5
-struct alignas(16) SceneData {
-	GW::MATH::GMATRIXF view;
-	GW::MATH::GMATRIXF projection;
-	GW::MATH::GMATRIXF model;
+struct VectorImpl {
+	float x, y, z;
+};
+
+struct LevelMeshMaterial {
+	VectorImpl Kd;
+	float d;
+	VectorImpl Ks;
+	float Ns;
+	VectorImpl Ka;
+	float sharpness;
+	VectorImpl Tf;
+	float Ni;
+	VectorImpl Ke;
+	int illum;
+};
+
+#define MAX_MATERIAL_COUNT 50
+struct SceneData {
+	LevelMeshMaterial materials[MAX_MATERIAL_COUNT];
+	GW::MATH::GMATRIXF viewProjection;
+};
+
+struct MiscData {
+	int index;
+	int materialIndex;
+	alignas(16) GW::MATH::GMATRIXF model;
 	GW::MATH::GVECTORF cameraPosition;
-	H2B::ATTRIBUTES materials[MAX_MESH_COUNT];
 };
 
 struct LevelMesh {
 	Mesh* mesh;
-	H2B::ATTRIBUTES materials[MAX_MESH_COUNT];
+	std::vector<unsigned int> materialIndices;
+	int materialCount;
+	int firstMaterial;
 	GW::MATH::GMATRIXF model;
-	H2B::BATCH batches[MAX_MESH_COUNT];
+	std::vector<H2B::BATCH> batches;
 	size_t batchCount;
-};
-
-struct MeshIndex {
-	unsigned index;
-	int padding[31];
 };
 
 class LevelRenderer {
@@ -48,6 +66,7 @@ private:
 	std::vector<LevelMesh> meshes;
 	GW::MATH::GMATRIXF cameraMatrix;
 	StorageBuffer storageBuffer;
+	std::vector<LevelMeshMaterial> sceneMaterials;
 public:
 	LevelRenderer(VkDevice device, VkPhysicalDevice phys, VkRenderPass renderPass, VkViewport* viewportPtr, VkRect2D* scissorPtr, uint32_t frameCount);
 	~LevelRenderer();

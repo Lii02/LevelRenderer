@@ -30,13 +30,13 @@ int main(int argc, char** argv) {
 	if (+win.Create(100, 100, 1280, 720, GWindowStyle::WINDOWEDBORDERED)) {
 		win.SetWindowName("Luke Inlow - Vulkan");
 		VkClearValue clrAndDepth[2];
-		clrAndDepth[0].color = { {0.2f, 0.2f, 0.2f, 1} };
+		clrAndDepth[0].color = { {0.7f, 0.12f, 0.3f, 1} };
 		clrAndDepth[1].depthStencil = { 1.0f, 0u };
 		win.Register(msgs);
 #ifndef NDEBUG
 		const char* debugLayers[] = {
 			"VK_LAYER_KHRONOS_validation",
-			"VK_LAYER_RENDERDOC_Capture"
+			//"VK_LAYER_RENDERDOC_Capture"
 		};
 		if (+vulkan.Create(win, GW::GRAPHICS::DEPTH_BUFFER_SUPPORT,
 			sizeof(debugLayers) / sizeof(debugLayers[0]),

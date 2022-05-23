@@ -24,6 +24,7 @@ public:
 	~Mesh();
 
 	void SetData(const Vertices& vertices, const Indices& indices);
+	void Bind(VkCommandBuffer commandBuffer);
 	void Draw(VkCommandBuffer commandBuffer);
 	void DrawInstanced(VkCommandBuffer commandBuffer, uint32_t indexCount, uint32_t firstIndex);
 };

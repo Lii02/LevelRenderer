@@ -131,12 +131,12 @@ void Pipeline::Create(VkShaderModule vertexShader, VkShaderModule pixelShader, s
 
 	VkDescriptorPoolSize poolSize = {};
 	poolSize.type = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
-	poolSize.descriptorCount = static_cast<uint32_t>(frameCount);
+	poolSize.descriptorCount = frameCount;
 	VkDescriptorPoolCreateInfo descriptorPoolCreate = {};
 	descriptorPoolCreate.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
 	descriptorPoolCreate.poolSizeCount = 1;
 	descriptorPoolCreate.pPoolSizes = &poolSize;
-	descriptorPoolCreate.maxSets = static_cast<uint32_t>(frameCount);
+	descriptorPoolCreate.maxSets = frameCount;
 	vkCreateDescriptorPool(device, &descriptorPoolCreate, nullptr, &descriptorPool);
 
 	descriptorSets.resize(frameCount);
@@ -155,7 +155,7 @@ void Pipeline::Create(VkShaderModule vertexShader, VkShaderModule pixelShader, s
 		VkWriteDescriptorSet writeDescriptorSet = {};
 		writeDescriptorSet.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
 		writeDescriptorSet.dstSet = descriptorSets[i];
-		writeDescriptorSet.dstBinding = storageBuffer.binding;
+		writeDescriptorSet.dstBinding = 0;
 		writeDescriptorSet.dstArrayElement = 0;
 		writeDescriptorSet.descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
 		writeDescriptorSet.descriptorCount = 1;
@@ -212,4 +212,8 @@ void Pipeline::BindDescriptors(VkCommandBuffer commandBuffer) {
 	for (size_t i = 0; i < descriptorSets.size(); i++) {
 		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 0, 1, &descriptorSets[i], 0, nullptr);
 	}
+}
+
+VkPipelineLayout Pipeline::GetLayout() {
+	return layout;
 }

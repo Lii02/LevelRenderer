@@ -26,30 +26,29 @@ struct LevelMeshMaterial
 	int illum;
 };
 
-#define MAX_MESH_COUNT 5
+#define MAX_MATERIAL_COUNT 50
 struct SceneData
 {
-    matrix view;
-    matrix projection;
-    matrix model;
-    float4 cameraPosition;
-    LevelMeshMaterial materials[MAX_MESH_COUNT];
+    LevelMeshMaterial materials[MAX_MATERIAL_COUNT];
+    matrix viewProjection;
 };
 
 StructuredBuffer<SceneData> sceneData;
 
 [[vk::push_constant]]
-cbuffer MeshIndex
+cbuffer MiscData
 {
-    int meshIndex;
-    int padding[31];
+    int index;
+    int materialIndex;
+	matrix model;
+    matrix cameraPosition;
 };
 
 VS_OUTPUT VS(VS_INPUT input)
 {
     VS_OUTPUT output;
     float4 position = float4(input.Pos, 1);
-    matrix mvp = mul(mul(sceneData[0].projection, sceneData[0].view), sceneData[0].model);
+    matrix mvp = mul(sceneData[0].viewProjection, model);
     output.Pos = mul(mvp, position);
     output.Tex = input.Tex;
     output.Norm = input.Norm;
@@ -58,5 +57,5 @@ VS_OUTPUT VS(VS_INPUT input)
 
 float4 PS(VS_OUTPUT input) : SV_TARGET
 {
-    return float4(sceneData[0].materials[meshIndex].Kd, 1);
+    return float4(sceneData[0].materials[materialIndex].Kd, 1);
 }

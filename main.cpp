@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
 #ifndef NDEBUG
 		const char* debugLayers[] = {
 			"VK_LAYER_KHRONOS_validation",
-			//"VK_LAYER_RENDERDOC_Capture"
+			"VK_LAYER_RENDERDOC_Capture"
 		};
 		if (+vulkan.Create(win, GW::GRAPHICS::DEPTH_BUFFER_SUPPORT,
 			sizeof(debugLayers) / sizeof(debugLayers[0]),
@@ -57,6 +57,7 @@ int main(int argc, char** argv) {
 			VkPhysicalDeviceProperties deviceProperties;
 			vkGetPhysicalDeviceProperties(phys, &deviceProperties);
 			std::cout << "Using device: " << deviceProperties.deviceName << std::endl;
+			std::cout << "Storage buffer alignment: " << deviceProperties.limits.minStorageBufferOffsetAlignment << std::endl;
 			
 			auto getViewportScissor = [=](VkViewport& viewport, VkRect2D& scissor) {
 				unsigned int width, height;

@@ -1,5 +1,3 @@
-#pragma pack_matrix(row_major)
-
 struct VS_OUTPUT
 {
     float4 Pos : SV_POSITION;
@@ -28,21 +26,31 @@ struct LevelMeshMaterial
 	int illum;
 };
 
-StructuredBuffer<LevelMeshMaterial> material;
+#define MAX_MESH_COUNT 5
+struct SceneData
+{
+    matrix view;
+    matrix projection;
+    matrix model;
+    float4 cameraPosition;
+    LevelMeshMaterial materials[MAX_MESH_COUNT];
+};
+
+StructuredBuffer<SceneData> sceneData;
 
 [[vk::push_constant]]
-cbuffer MatrixPushConstant
+cbuffer MeshIndex
 {
-    matrix viewProjectionMatrix;
-    matrix modelMatrix;
+    int meshIndex;
+    int padding[31];
 };
 
 VS_OUTPUT VS(VS_INPUT input)
 {
     VS_OUTPUT output;
     float4 position = float4(input.Pos, 1);
-    matrix mvp = mul(modelMatrix, viewProjectionMatrix);
-    output.Pos = mul(position, mvp);
+    matrix mvp = mul(mul(sceneData[0].projection, sceneData[0].view), sceneData[0].model);
+    output.Pos = mul(mvp, position);
     output.Tex = input.Tex;
     output.Norm = input.Norm;
     return output;
@@ -50,5 +58,5 @@ VS_OUTPUT VS(VS_INPUT input)
 
 float4 PS(VS_OUTPUT input) : SV_TARGET
 {
-    return float4(input.Norm, 1);
+    return float4(sceneData[0].materials[meshIndex].Kd, 1);
 }

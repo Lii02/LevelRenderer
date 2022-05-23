@@ -25,6 +25,7 @@ public:
 
 	void SetData(const Vertices& vertices, const Indices& indices);
 	void Draw(VkCommandBuffer commandBuffer);
+	void DrawInstanced(VkCommandBuffer commandBuffer, uint32_t indexCount, uint32_t firstIndex);
 };
 
 #endif

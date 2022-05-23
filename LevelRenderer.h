@@ -12,15 +12,26 @@
 #include "Gateware.h"
 #include "h2bParser.h"
 
-struct MatrixPushConstant {
-	GW::MATH::GMATRIXF viewProjectionMatrix;
-	GW::MATH::GMATRIXF modelMatrix;
+#define MAX_MESH_COUNT 5
+struct alignas(16) SceneData {
+	GW::MATH::GMATRIXF view;
+	GW::MATH::GMATRIXF projection;
+	GW::MATH::GMATRIXF model;
+	GW::MATH::GVECTORF cameraPosition;
+	H2B::ATTRIBUTES materials[MAX_MESH_COUNT];
 };
 
 struct LevelMesh {
 	Mesh* mesh;
-	H2B::ATTRIBUTES material;
-	GW::MATH::GMATRIXF matrix;
+	H2B::ATTRIBUTES materials[MAX_MESH_COUNT];
+	GW::MATH::GMATRIXF model;
+	H2B::BATCH batches[MAX_MESH_COUNT];
+	size_t batchCount;
+};
+
+struct MeshIndex {
+	unsigned index;
+	int padding[31];
 };
 
 class LevelRenderer {

@@ -1,6 +1,6 @@
 #include "Pipeline.h"
 
-Pipeline::Pipeline(VkDevice device, VkRenderPass renderPass, VkViewport viewport, VkRect2D scissor, std::vector<VkVertexInputAttributeDescription> attribs, uint32_t frameCount, size_t stride, StorageBuffer* storageBuffer, std::vector<VkPushConstantRange> pushConstantRanges, VkPolygonMode polygonMode, VkPrimitiveTopology topology) {
+Pipeline::Pipeline(VkDevice device, VkRenderPass renderPass, VkViewport viewport, VkRect2D scissor, std::vector<VkVertexInputAttributeDescription> attribs, uint32_t frameCount, StorageBuffer storageBuffer, size_t stride, std::vector<VkPushConstantRange> pushConstantRanges, VkPolygonMode polygonMode, VkPrimitiveTopology topology) {
 	this->device = device;
 	this->renderPass = renderPass;
 	this->viewport = viewport;
@@ -123,24 +123,24 @@ void Pipeline::Create(VkShaderModule vertexShader, VkShaderModule pixelShader, s
 	descriptorSetLayoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
 	descriptorSetLayoutBinding.descriptorCount = 1;
 	descriptorSetLayoutBinding.stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
-	VkDescriptorSetLayoutCreateInfo descriptorSetLayoutCreateInfo = {};
-	descriptorSetLayoutCreateInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
-	descriptorSetLayoutCreateInfo.bindingCount = 1;
-	descriptorSetLayoutCreateInfo.pBindings = &descriptorSetLayoutBinding;
-	vkCreateDescriptorSetLayout(device, &descriptorSetLayoutCreateInfo, nullptr, &descriptorSetLayout);
+	VkDescriptorSetLayoutCreateInfo descriptorSetLayoutCreate = {};
+	descriptorSetLayoutCreate.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
+	descriptorSetLayoutCreate.bindingCount = 1;
+	descriptorSetLayoutCreate.pBindings = &descriptorSetLayoutBinding;
+	vkCreateDescriptorSetLayout(device, &descriptorSetLayoutCreate, nullptr, &descriptorSetLayout);
 
 	VkDescriptorPoolSize poolSize = {};
 	poolSize.type = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
-	poolSize.descriptorCount = frameCount;
-	VkDescriptorPoolCreateInfo poolInfo = {};
-	poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
-	poolInfo.poolSizeCount = 1;
-	poolInfo.pPoolSizes = &poolSize;
-	poolInfo.maxSets = frameCount;
-	vkCreateDescriptorPool(device, &poolInfo, nullptr, &descriptorPool);
-	descriptorSets.resize(frameCount);
+	poolSize.descriptorCount = static_cast<uint32_t>(frameCount);
+	VkDescriptorPoolCreateInfo descriptorPoolCreate = {};
+	descriptorPoolCreate.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
+	descriptorPoolCreate.poolSizeCount = 1;
+	descriptorPoolCreate.pPoolSizes = &poolSize;
+	descriptorPoolCreate.maxSets = static_cast<uint32_t>(frameCount);
+	vkCreateDescriptorPool(device, &descriptorPoolCreate, nullptr, &descriptorPool);
 
-	for (uint32_t i = 0; i < frameCount; i++) {
+	descriptorSets.resize(frameCount);
+	for (int i = 0; i < frameCount; i++) {
 		VkDescriptorSetAllocateInfo allocateInfo = { };
 		allocateInfo.descriptorPool = descriptorPool;
 		allocateInfo.descriptorSetCount = 1;
@@ -148,21 +148,19 @@ void Pipeline::Create(VkShaderModule vertexShader, VkShaderModule pixelShader, s
 		allocateInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
 		vkAllocateDescriptorSets(device, &allocateInfo, &descriptorSets[i]);
 
-		if(storageBuffer) {
-			VkDescriptorBufferInfo descriptorBufferInfo = {};
-			descriptorBufferInfo.buffer = storageBuffer->buffer;
-			descriptorBufferInfo.offset = 0;
-			descriptorBufferInfo.range = storageBuffer->size;
-			VkWriteDescriptorSet writeDescriptorSet = {};
-			writeDescriptorSet.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-			writeDescriptorSet.dstSet = descriptorSets[i];
-			writeDescriptorSet.dstBinding = storageBuffer->binding;
-			writeDescriptorSet.dstArrayElement = 0;
-			writeDescriptorSet.descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
-			writeDescriptorSet.descriptorCount = 1;
-			writeDescriptorSet.pBufferInfo = &descriptorBufferInfo;
-			vkUpdateDescriptorSets(device, 1, &writeDescriptorSet, 0, nullptr);
-		}
+		VkDescriptorBufferInfo descriptorBufferInfo = {};
+		descriptorBufferInfo.buffer = storageBuffer.buffer;
+		descriptorBufferInfo.offset = 0;
+		descriptorBufferInfo.range = storageBuffer.size;
+		VkWriteDescriptorSet writeDescriptorSet = {};
+		writeDescriptorSet.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+		writeDescriptorSet.dstSet = descriptorSets[i];
+		writeDescriptorSet.dstBinding = storageBuffer.binding;
+		writeDescriptorSet.dstArrayElement = 0;
+		writeDescriptorSet.descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+		writeDescriptorSet.descriptorCount = 1;
+		writeDescriptorSet.pBufferInfo = &descriptorBufferInfo;
+		vkUpdateDescriptorSets(device, 1, &writeDescriptorSet, 0, nullptr);
 	}
 
 	VkPipelineLayoutCreateInfo pipelineLayoutCreateInfo = {};
@@ -170,7 +168,7 @@ void Pipeline::Create(VkShaderModule vertexShader, VkShaderModule pixelShader, s
 	pipelineLayoutCreateInfo.setLayoutCount = 1;
 	pipelineLayoutCreateInfo.pSetLayouts = &descriptorSetLayout;
 	pipelineLayoutCreateInfo.pushConstantRangeCount = pushConstantRanges.size();
-	pipelineLayoutCreateInfo.pPushConstantRanges = pushConstantRanges.data();
+	pipelineLayoutCreateInfo.pPushConstantRanges = &pushConstantRanges[0];
 	vkCreatePipelineLayout(device, &pipelineLayoutCreateInfo, nullptr, &layout);
 
 	VkGraphicsPipelineCreateInfo pipelineCreateInfo = {};
@@ -198,9 +196,6 @@ void Pipeline::Bind(VkCommandBuffer commandBuffer, VkViewport viewport, VkRect2D
 	vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
 	vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
 	vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline);
-	for (size_t i = 0; i < descriptorSets.size(); i++) {
-		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 0, 1, &descriptorSets[i], 0, nullptr);
-	}
 }
 
 void Pipeline::SetTopology(VkCommandBuffer commandBuffer, VkPrimitiveTopology topology) {
@@ -211,4 +206,10 @@ void Pipeline::SetTopology(VkCommandBuffer commandBuffer, VkPrimitiveTopology to
 void Pipeline::PushConstant(VkCommandBuffer commandBuffer, uint32_t rangeIndex, void* block) {
 	VkPushConstantRange range = pushConstantRanges[rangeIndex];
 	vkCmdPushConstants(commandBuffer, layout, range.stageFlags, range.offset, range.size, block);
+}
+
+void Pipeline::BindDescriptors(VkCommandBuffer commandBuffer) {
+	for (size_t i = 0; i < descriptorSets.size(); i++) {
+		vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, layout, 0, 1, &descriptorSets[i], 0, nullptr);
+	}
 }

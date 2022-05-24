@@ -40,6 +40,7 @@ struct Light {
 	alignas(16) VectorImpl color;
 	alignas(16) VectorImpl positionDirection;
 	alignas(16) VectorImpl ambient;
+	alignas(16) VectorImpl falloff;
 	float intensity;
 	LightType type;
 };
@@ -57,6 +58,8 @@ struct MiscData {
 	int materialIndex;
 	alignas(16) GW::MATH::GMATRIXF model;
 	GW::MATH::GVECTORF cameraPosition;
+	// This should not be higher than MAX_LIGHT_COUNT
+	int lightsUsed;
 };
 
 struct LevelMesh {

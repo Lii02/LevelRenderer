@@ -1,5 +1,3 @@
-#pragma pack_matrix(row_major)
-
 struct VS_OUTPUT
 {
     float4 Pos : SV_POSITION;
@@ -23,6 +21,7 @@ struct Light
     float3 color;
     float3 positionDirection;
     float3 ambient;
+    float3 falloff;
     float intensity;
     int type;
 };
@@ -59,15 +58,16 @@ cbuffer MiscData
     int materialIndex;
 	matrix model;
     float4 cameraPosition;
+    int lightsUsed;
 };
 
 VS_OUTPUT VS(VS_INPUT input)
 {
     VS_OUTPUT output;
     float4 position = float4(input.Pos, 1);
-    matrix mvp = mul(model, sceneData[0].viewProjection);
-    output.Pos = mul(position, mvp);
-    output.Norm = mul(input.Norm, model);
+    matrix mvp = mul(sceneData[0].viewProjection, model);
+    output.Pos = mul(mvp, position);
+    output.Norm = mul(model, input.Norm);
     output.FragPos = mul(model, position);
     return output;
 }
@@ -79,11 +79,23 @@ float4 PS(VS_OUTPUT input) : SV_TARGET
     float3 diffuse = float3(0);
     float3 specular = float3(0);
     float3 ambient = float3(0);
-    for (int i = 0; i < 1; i++)
+    for (int i = 0; i < lightsUsed; i++)
     {
         Light light = sceneData[0].lights[i];
+        float3 lightDirection;
+        float attenuate;
         // Diffuse calculations
-        float3 lightDirection = normalize(-light.positionDirection);
+        if (light.type == DIRECTIONAL_LIGHT)
+        {
+            lightDirection = normalize(-light.positionDirection);
+            attenuate = 1;
+        }
+        else if (light.type == POINT_LIGHT)
+        {
+            lightDirection = normalize(light.positionDirection - input.FragPos);
+            float dist = length(light.positionDirection - input.FragPos);
+            attenuate = (light.falloff.x) + (light.falloff.y * dist) + (light.falloff.z * dist * dist);
+        }
         float3 lightDiffuse = saturate(dot(lightDirection, N)) * light.color * light.intensity;
     
         // Specular calculation
@@ -92,9 +104,9 @@ float4 PS(VS_OUTPUT input) : SV_TARGET
         float spec = pow(max(dot(viewDirection, reflectDirection), 0.0), sceneData[0].materials[materialIndex].Ns);
         float3 lightSpecular = (sceneData[0].materials[materialIndex].Ks + sceneData[0].materials[materialIndex].Ka) * spec * light.color;
         
-        diffuse += lightDiffuse;
+        diffuse += lightDiffuse / attenuate;
         ambient += light.ambient;
-        specular += lightSpecular;
+        specular += lightSpecular / attenuate;
     }
     
     // Final calculation

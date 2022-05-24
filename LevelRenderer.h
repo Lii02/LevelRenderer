@@ -31,15 +31,25 @@ struct LevelMeshMaterial {
 	int illum;
 };
 
+enum LightType : uint32_t {
+	POINT_LIGHT = 0,
+	DIRECTIONAL_LIGHT = 1
+};
+
 struct Light {
-	VectorImpl color;
+	alignas(16) VectorImpl color;
+	alignas(16) VectorImpl positionDirection;
+	alignas(16) VectorImpl ambient;
 	float intensity;
+	LightType type;
 };
 
 #define MAX_MATERIAL_COUNT 35
+#define MAX_LIGHT_COUNT 5
 struct SceneData {
 	GW::MATH::GMATRIXF viewProjection;
 	LevelMeshMaterial materials[MAX_MATERIAL_COUNT];
+	Light lights[MAX_LIGHT_COUNT];
 };
 
 struct MiscData {
@@ -75,6 +85,7 @@ private:
 	GW::MATH::GMATRIXF viewMatrix;
 	StorageBuffer storageBuffer;
 	std::vector<LevelMeshMaterial> sceneMaterials;
+	std::vector<Light> sceneLights;
 	GW::SYSTEM::GWindow* window;
 public:
 	LevelRenderer(GW::SYSTEM::GWindow* window, VkDevice device, VkPhysicalDevice phys, VkRenderPass renderPass, VkViewport* viewportPtr, VkRect2D* scissorPtr, uint32_t frameCount);

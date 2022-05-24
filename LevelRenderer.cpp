@@ -34,17 +34,27 @@ LevelRenderer::LevelRenderer(GW::SYSTEM::GWindow* window, VkDevice device, VkPhy
 		VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
 		VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, &storageBuffer.buffer, &storageBuffer.bufferMemory);
 
-	pipeline = new Pipeline(device, renderPass, *viewportPtr, *scissorPtr, attribs, frameCount, storageBuffer, sizeof(MeshVertex), pushConstants);
+	Stopwatch compileWatch;
+	compileWatch.Begin();
 	ShaderCompiler shaderCompiler;
 	std::string shaderSource;
 	FileHelper::LoadFile(shaderSource, "../DefaultShader.hlsl");
-	std::string vertexEntry = "VS";
-	std::string pixelEntry = "PS";
 	ShaderCompilerResult compiledShaders;
-	shaderCompiler.Compile(device, shaderSource, vertexEntry, pixelEntry, compiledShaders);
-	pipeline->Create(compiledShaders.vertexShader, compiledShaders.pixelShader, vertexEntry, pixelEntry);
+	shaderCompiler.Compile(device, shaderSource, "VS", "PS", compiledShaders);
+	compileWatch.End();
+	std::cout << "Shader compiling took " << compileWatch.GetDeltaMillis() << " milliseconds!" << std::endl;
+	pipeline = new Pipeline(device, renderPass, *viewportPtr, *scissorPtr, attribs, frameCount, storageBuffer, sizeof(MeshVertex), pushConstants);
+	pipeline->Create(compiledShaders.vertexShader, compiledShaders.pixelShader, "VS", "PS");
 	this->vertexShader = compiledShaders.vertexShader;
 	this->pixelShader = compiledShaders.pixelShader;
+
+	Light light;
+	light.type = LightType::POINT_LIGHT;
+	light.intensity = 1.0f;
+	light.color = { 1, 1, 1 };
+	light.ambient = { 0.1f, 0.1f, 0.1f };
+	light.positionDirection = { -1, -1, 2 };
+	sceneLights.push_back(light);
 
 	Stopwatch loadingWatch;
 	loadingWatch.Begin();
@@ -65,13 +75,15 @@ LevelRenderer::~LevelRenderer() {
 }
 
 void LevelRenderer::Draw(VkCommandBuffer commandBuffer, float aspectRatio) {
-	SceneData sceneData;
+	SceneData* sceneData = new SceneData;
 	GW::MATH::GMATRIXF projection;
 	matrixProxy.ProjectionVulkanLHF(G_DEGREE_TO_RADIAN(65.0f), aspectRatio, 0.1f, 100.0f, projection);
-	matrixProxy.MultiplyMatrixF(viewMatrix, projection, sceneData.viewProjection);
+	matrixProxy.MultiplyMatrixF(viewMatrix, projection, sceneData->viewProjection);
 	MiscData miscData;
-	memcpy(sceneData.materials, sceneMaterials.data(), sizeof(LevelMeshMaterial) * MAX_MATERIAL_COUNT);
-	BufferHelper::WriteToBuffer(device, storageBuffer.bufferMemory, &sceneData, sizeof(SceneData));
+	memcpy(sceneData->materials, sceneMaterials.data(), sizeof(LevelMeshMaterial) * MAX_MATERIAL_COUNT);
+	memcpy(sceneData->lights, sceneLights.data(), sizeof(Light) * MAX_LIGHT_COUNT);
+	BufferHelper::WriteToBuffer(device, storageBuffer.bufferMemory, sceneData, sizeof(SceneData));
+	delete sceneData;
 
 	pipeline->Bind(commandBuffer, *viewportPtr, *scissorPtr);
 	for (size_t i = 0; i < meshes.size(); i++) {

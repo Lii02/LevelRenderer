@@ -26,7 +26,7 @@ struct LevelMeshMaterial
 	int illum;
 };
 
-#define MAX_MATERIAL_COUNT 100
+#define MAX_MATERIAL_COUNT 35
 struct SceneData
 {
     matrix viewProjection;

@@ -6,7 +6,8 @@
 #include "StringHelper.h"
 #include "BufferHelper.h"
 
-LevelRenderer::LevelRenderer(VkDevice device, VkPhysicalDevice phys, VkRenderPass renderPass, VkViewport* viewportPtr, VkRect2D* scissorPtr, uint32_t frameCount) {
+LevelRenderer::LevelRenderer(GW::SYSTEM::GWindow* window, VkDevice device, VkPhysicalDevice phys, VkRenderPass renderPass, VkViewport* viewportPtr, VkRect2D* scissorPtr, uint32_t frameCount) {
+	this->window = window;
 	this->device = device;
 	this->phys = phys;
 	this->viewportPtr = viewportPtr;
@@ -14,6 +15,7 @@ LevelRenderer::LevelRenderer(VkDevice device, VkPhysicalDevice phys, VkRenderPas
 	this->frameCount = frameCount;
 	matrixProxy.Create();
 	vectorProxy.Create();
+	inputProxy.Create(*window);
 
 	std::vector<VkVertexInputAttributeDescription> attribs = {
 		{ 0, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(MeshVertex, pos) },
@@ -27,7 +29,7 @@ LevelRenderer::LevelRenderer(VkDevice device, VkPhysicalDevice phys, VkRenderPas
 	range.stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
 	pushConstants.push_back(range);
 
-	storageBuffer.size = SceneData::GetSize();
+	storageBuffer.size = sizeof(SceneData);
 	GvkHelper::create_buffer(phys, device, storageBuffer.size,
 		VK_BUFFER_USAGE_STORAGE_BUFFER_BIT, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT |
 		VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, &storageBuffer.buffer, &storageBuffer.bufferMemory);
@@ -66,26 +68,16 @@ void LevelRenderer::Draw(VkCommandBuffer commandBuffer, float aspectRatio) {
 	SceneData sceneData;
 	GW::MATH::GMATRIXF projection;
 	matrixProxy.ProjectionVulkanLHF(G_DEGREE_TO_RADIAN(65.0f), aspectRatio, 0.1f, 100.0f, projection);
-	matrixProxy.MultiplyMatrixF(cameraMatrix, projection, sceneData.viewProjection);
+	matrixProxy.MultiplyMatrixF(viewMatrix, projection, sceneData.viewProjection);
 	MiscData miscData;
-	// Allocate on the heap to prevent stack overflow
-	sceneData.materials = new LevelMeshMaterial[MAX_MATERIAL_COUNT];
 	memcpy(sceneData.materials, sceneMaterials.data(), sizeof(LevelMeshMaterial) * MAX_MATERIAL_COUNT);
-	// Write the matrix
-	GvkHelper::write_to_buffer(device, storageBuffer.bufferMemory, &sceneData, sizeof(GW::MATH::GMATRIXF));
-	// Write the materials
-	size_t bufferOffset = sizeof(GW::MATH::GMATRIXF);
-	for (int i = 0; i < MAX_MATERIAL_COUNT; i++) {
-		BufferHelper::WriteToBuffer(device, storageBuffer.bufferMemory, &sceneData.materials[i], sizeof(LevelMeshMaterial), bufferOffset);
-		bufferOffset += sizeof(LevelMeshMaterial);
-	}
-	delete[] sceneData.materials;
+	BufferHelper::WriteToBuffer(device, storageBuffer.bufferMemory, &sceneData, sizeof(SceneData));
 
 	pipeline->Bind(commandBuffer, *viewportPtr, *scissorPtr);
 	for (size_t i = 0; i < meshes.size(); i++) {
 		LevelMesh& lm = meshes[i];
 		miscData.model = lm.model;
-		matrixProxy.GetTranslationF(cameraMatrix, miscData.cameraPosition);
+		matrixProxy.GetTranslationF(viewMatrix, miscData.cameraPosition);
 		for (int j = 0; j < lm.batchCount; j++) {
 			lm.mesh->Bind(commandBuffer);
 			miscData.index = j;
@@ -95,6 +87,37 @@ void LevelRenderer::Draw(VkCommandBuffer commandBuffer, float aspectRatio) {
 			lm.mesh->DrawInstanced(commandBuffer, lm.batches[j].indexCount, lm.batches[j].indexOffset);
 		}
 	}
+}
+
+void LevelRenderer::Update(double deltaTime) {
+	const float speed = 10.0f;
+	const float mouseSpeed = 25.0f;
+
+	float mouseDeltaX, mouseDeltaY;
+	inputProxy.GetMouseDelta(mouseDeltaX, mouseDeltaY);
+	GW::MATH::GVECTORF delta = { 0, 0, 0, 0 };
+	GW::MATH::GMATRIXF cameraMatrix;
+	matrixProxy.InverseF(viewMatrix, cameraMatrix);
+	float spaceState = 0, shiftState = 0, wState = 0, sState = 0, dState = 0, aState = 0;
+	inputProxy.GetState(G_KEY_SPACE, spaceState);
+	inputProxy.GetState(G_KEY_LEFTSHIFT, shiftState);
+	inputProxy.GetState(G_KEY_W, wState);
+	inputProxy.GetState(G_KEY_A, aState);
+	inputProxy.GetState(G_KEY_S, sState);
+	inputProxy.GetState(G_KEY_D, dState);
+	delta.x = aState - dState;
+	delta.y = spaceState - shiftState;
+	delta.z = wState - sState;
+	GW::MATH::GVECTORF cameraPosition;
+	matrixProxy.GetTranslationF(viewMatrix, cameraPosition);
+	cameraPosition.x = -delta.x * speed * deltaTime;
+	cameraPosition.y = delta.y * speed * deltaTime;
+	cameraPosition.z = delta.z * speed * deltaTime;
+	matrixProxy.TranslateLocalF(cameraMatrix, cameraPosition, cameraMatrix);
+
+	matrixProxy.RotateXLocalF(cameraMatrix, G_DEGREE_TO_RADIAN(mouseDeltaY * mouseSpeed * deltaTime), cameraMatrix);
+	matrixProxy.RotateYGlobalF(cameraMatrix, G_DEGREE_TO_RADIAN(mouseDeltaX * mouseSpeed * deltaTime), cameraMatrix);
+	matrixProxy.InverseF(cameraMatrix, viewMatrix);
 }
 
 GW::MATH::GMATRIXF ParseMatrix(GW::MATH::GMatrix& matrixProxy, std::istringstream& stream) {
@@ -172,8 +195,8 @@ void LevelRenderer::Load(std::string filename) {
 		} else if (std::strcmp(line.c_str(), "CAMERA") == 0) {
 			std::string cameraName;
 			std::getline(input, cameraName);
-			matrixProxy.IdentityF(cameraMatrix);
-			matrixProxy.InverseF(ParseMatrix(matrixProxy, input), cameraMatrix);
+			matrixProxy.IdentityF(viewMatrix);
+			matrixProxy.InverseF(ParseMatrix(matrixProxy, input), viewMatrix);
 		}
 
 		if (line.empty())

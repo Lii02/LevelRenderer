@@ -76,7 +76,7 @@ int main(int argc, char** argv) {
 			VkViewport viewport;
 			VkRect2D scissor;
 
-			LevelRenderer* level = new LevelRenderer(device, phys, renderPass, &viewport, &scissor, frameCount);
+			LevelRenderer* level = new LevelRenderer(&win, device, phys, renderPass, &viewport, &scissor, frameCount);
 			
 			shutdown.Create(vulkan, [&]() {
 				if (+shutdown.Find(GW::GRAPHICS::GVulkanSurface::Events::RELEASE_RESOURCES, true)) {
@@ -97,6 +97,7 @@ int main(int argc, char** argv) {
 					float aspectRatio;
 					vulkan.GetAspectRatio(aspectRatio);
 					level->Draw(commandBuffer, aspectRatio);
+					level->Update(deltaStopwatch.GetDeltaSeconds());
 
 					vulkan.EndFrame(true);
 					deltaStopwatch.End();

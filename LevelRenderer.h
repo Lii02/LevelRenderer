@@ -72,6 +72,23 @@ struct LevelMesh {
 	size_t batchCount;
 };
 
+struct Transform {
+	GW::MATH::GVECTORF position;
+	GW::MATH::GQUATERNIONF rotation;
+	GW::MATH::GVECTORF scale;
+
+	GW::MATH::GMATRIXF GetTransform(GW::MATH::GMatrix& proxy) {
+		GW::MATH::GMATRIXF matrix;
+		proxy.IdentityF(matrix);
+		proxy.ScaleLocalF(matrix, scale, matrix);
+		proxy.RotateXGlobalF(matrix, G_DEGREE_TO_RADIAN(rotation.x), matrix);
+		proxy.RotateYGlobalF(matrix, G_DEGREE_TO_RADIAN(rotation.y), matrix);
+		proxy.RotateZGlobalF(matrix, G_DEGREE_TO_RADIAN(rotation.z), matrix);
+		proxy.TranslateLocalF(matrix, position, matrix);
+		return matrix;
+	}
+};
+
 class LevelRenderer {
 private:
 	VkDevice device;
@@ -85,7 +102,7 @@ private:
 	GW::MATH::GVector vectorProxy;
 	GW::INPUT::GInput inputProxy;
 	std::vector<LevelMesh> meshes;
-	GW::MATH::GMATRIXF viewMatrix;
+	Transform cameraTransform;
 	StorageBuffer storageBuffer;
 	std::vector<LevelMeshMaterial> sceneMaterials;
 	std::vector<Light> sceneLights;

@@ -99,7 +99,7 @@ float4 PS(VS_OUTPUT input) : SV_TARGET
         float3 lightDiffuse = saturate(dot(lightDirection, N)) * light.color * light.intensity;
     
         // Specular calculation
-        float3 viewDirection = normalize(cameraPosition - input.FragPos);
+        float3 viewDirection = normalize(-cameraPosition - input.FragPos);
         float3 reflectDirection = reflect(-lightDirection, N);
         float spec = pow(max(dot(viewDirection, reflectDirection), 0.0), sceneData[0].materials[materialIndex].Ns);
         float3 lightSpecular = (sceneData[0].materials[materialIndex].Ks + sceneData[0].materials[materialIndex].Ka) * spec * light.color;

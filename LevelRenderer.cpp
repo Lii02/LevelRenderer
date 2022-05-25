@@ -5,6 +5,7 @@
 #include <sstream>
 #include "StringHelper.h"
 #include "BufferHelper.h"
+#include "MatrixHelper.h"
 
 LevelRenderer::LevelRenderer(GW::SYSTEM::GWindow* window, VkDevice device, VkPhysicalDevice phys, VkRenderPass renderPass, VkViewport* viewportPtr, VkRect2D* scissorPtr, uint32_t frameCount) {
 	this->window = window;
@@ -82,6 +83,8 @@ LevelRenderer::~LevelRenderer() {
 }
 
 void LevelRenderer::Draw(VkCommandBuffer commandBuffer, float aspectRatio) {
+	GW::MATH::GMATRIXF viewMatrix = cameraTransform.GetTransform(matrixProxy);
+
 	SceneData* sceneData = new SceneData;
 	memset(sceneData, 0, sizeof(SceneData));
 	GW::MATH::GMATRIXF projection;
@@ -98,7 +101,7 @@ void LevelRenderer::Draw(VkCommandBuffer commandBuffer, float aspectRatio) {
 	for (size_t i = 0; i < meshes.size(); i++) {
 		LevelMesh& lm = meshes[i];
 		miscData.model = lm.model;
-		matrixProxy.GetTranslationF(viewMatrix, miscData.cameraPosition);
+		miscData.cameraPosition = cameraTransform.position;
 		for (int j = 0; j < lm.batchCount; j++) {
 			lm.mesh->Bind(commandBuffer);
 			miscData.index = j;
@@ -112,14 +115,49 @@ void LevelRenderer::Draw(VkCommandBuffer commandBuffer, float aspectRatio) {
 
 void LevelRenderer::Update(double deltaTime) {
 	const float speed = 10.0f;
-	const float mouseSpeed = 25.0f;
-	float spaceState = 0, shiftState = 0, wState = 0, sState = 0, dState = 0, aState = 0;
-	inputProxy.GetState(G_KEY_SPACE, spaceState);
-	inputProxy.GetState(G_KEY_LEFTSHIFT, shiftState);
+	const float rotationSpeed = 50.0f;
+	float wState = 0, sState = 0, dState = 0, aState = 0, shiftState = 0, spaceState, upState = 0, downState = 0, leftState = 0, rightState = 0;
 	inputProxy.GetState(G_KEY_W, wState);
 	inputProxy.GetState(G_KEY_A, aState);
 	inputProxy.GetState(G_KEY_S, sState);
 	inputProxy.GetState(G_KEY_D, dState);
+	inputProxy.GetState(G_KEY_SPACE, spaceState);
+	inputProxy.GetState(G_KEY_LEFTSHIFT, shiftState);
+	inputProxy.GetState(G_KEY_LEFT, leftState);
+	inputProxy.GetState(G_KEY_RIGHT, rightState);
+	inputProxy.GetState(G_KEY_UP, upState);
+	inputProxy.GetState(G_KEY_DOWN, downState);
+	GW::MATH::GMATRIXF viewMatrix = cameraTransform.GetTransform(matrixProxy);
+
+	auto forward = MatrixHelper::Forward(matrixProxy, vectorProxy, viewMatrix);
+	auto left = MatrixHelper::Left(matrixProxy, vectorProxy, viewMatrix);
+
+	float dt = speed * deltaTime;
+	if (wState)
+	{
+		cameraTransform.position.x += forward.x * -dt;
+		cameraTransform.position.z += forward.z * -dt;
+	} else if (sState) {
+		cameraTransform.position.x += forward.x * dt;
+		cameraTransform.position.z += forward.z * dt;
+	}
+
+	if (aState) {
+		cameraTransform.position.x += left.x * dt;
+		cameraTransform.position.z += -left.z * -dt;
+	} else if (dState) {
+		cameraTransform.position.x += left.x * -dt;
+		cameraTransform.position.z += left.z * -dt;
+	}
+
+	if (shiftState) {
+		cameraTransform.position.y += dt;
+	} else if (spaceState) {
+		cameraTransform.position.y -= dt;
+	}
+
+	cameraTransform.rotation.x += (upState - downState) * rotationSpeed * deltaTime;
+	cameraTransform.rotation.y += (leftState - rightState) * rotationSpeed * deltaTime;
 }
 
 GW::MATH::GMATRIXF ParseMatrix(GW::MATH::GMatrix& matrixProxy, std::istringstream& stream) {
@@ -197,8 +235,13 @@ void LevelRenderer::Load(std::string filename) {
 		} else if (std::strcmp(line.c_str(), "CAMERA") == 0) {
 			std::string cameraName;
 			std::getline(input, cameraName);
-			matrixProxy.IdentityF(viewMatrix);
-			matrixProxy.InverseF(ParseMatrix(matrixProxy, input), viewMatrix);
+			GW::MATH::GMATRIXF viewMatrix, parsedMatrix;
+			parsedMatrix = ParseMatrix(matrixProxy, input);
+			matrixProxy.InverseF(parsedMatrix, viewMatrix);
+			matrixProxy.GetTranslationF(parsedMatrix, cameraTransform.position);
+			cameraTransform.position = { -cameraTransform.position.x, -cameraTransform.position.y, -cameraTransform.position.z };
+			matrixProxy.GetRotationF(parsedMatrix, cameraTransform.rotation);
+			matrixProxy.GetScaleF(parsedMatrix, cameraTransform.scale);
 		}
 
 		if (line.empty())

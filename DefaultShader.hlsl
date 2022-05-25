@@ -47,6 +47,7 @@ struct SceneData
     matrix viewProjection;
     LevelMeshMaterial materials[MAX_MATERIAL_COUNT];
     Light lights[MAX_LIGHT_COUNT];
+    int lightsUsed;
 };
 
 StructuredBuffer<SceneData> sceneData;
@@ -58,7 +59,6 @@ cbuffer MiscData
     int materialIndex;
 	matrix model;
     float4 cameraPosition;
-    int lightsUsed;
 };
 
 VS_OUTPUT VS(VS_INPUT input)
@@ -79,7 +79,7 @@ float4 PS(VS_OUTPUT input) : SV_TARGET
     float3 diffuse = float3(0);
     float3 specular = float3(0);
     float3 ambient = float3(0);
-    for (int i = 0; i < lightsUsed; i++)
+    for (int i = 0; i < sceneData[0].lightsUsed; i++)
     {
         Light light = sceneData[0].lights[i];
         float3 lightDirection;

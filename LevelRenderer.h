@@ -51,6 +51,8 @@ struct SceneData {
 	GW::MATH::GMATRIXF viewProjection;
 	LevelMeshMaterial materials[MAX_MATERIAL_COUNT];
 	Light lights[MAX_LIGHT_COUNT];
+	// This should not be higher than MAX_LIGHT_COUNT
+	int lightsUsed;
 };
 
 struct MiscData {
@@ -58,8 +60,6 @@ struct MiscData {
 	int materialIndex;
 	alignas(16) GW::MATH::GMATRIXF model;
 	GW::MATH::GVECTORF cameraPosition;
-	// This should not be higher than MAX_LIGHT_COUNT
-	int lightsUsed;
 };
 
 struct LevelMesh {
@@ -81,9 +81,9 @@ struct Transform {
 		GW::MATH::GMATRIXF matrix;
 		proxy.IdentityF(matrix);
 		proxy.ScaleLocalF(matrix, scale, matrix);
-		proxy.RotateXGlobalF(matrix, G_DEGREE_TO_RADIAN(rotation.x), matrix);
-		proxy.RotateYGlobalF(matrix, G_DEGREE_TO_RADIAN(rotation.y), matrix);
-		proxy.RotateZGlobalF(matrix, G_DEGREE_TO_RADIAN(rotation.z), matrix);
+		proxy.RotateXLocalF(matrix, G_DEGREE_TO_RADIAN(rotation.x), matrix);
+		proxy.RotateYLocalF(matrix, G_DEGREE_TO_RADIAN(rotation.y), matrix);
+		proxy.RotateZLocalF(matrix, G_DEGREE_TO_RADIAN(rotation.z), matrix);
 		proxy.TranslateLocalF(matrix, position, matrix);
 		return matrix;
 	}
@@ -91,8 +91,10 @@ struct Transform {
 
 class LevelRenderer {
 private:
+	GW::GRAPHICS::GVulkanSurface* vulkan;
 	VkDevice device;
 	VkPhysicalDevice phys;
+	VkRenderPass renderPass;
 	VkViewport* viewportPtr;
 	VkRect2D* scissorPtr;
 	Pipeline* pipeline;
@@ -108,12 +110,13 @@ private:
 	std::vector<Light> sceneLights;
 	GW::SYSTEM::GWindow* window;
 public:
-	LevelRenderer(GW::SYSTEM::GWindow* window, VkDevice device, VkPhysicalDevice phys, VkRenderPass renderPass, VkViewport* viewportPtr, VkRect2D* scissorPtr, uint32_t frameCount);
+	LevelRenderer(GW::SYSTEM::GWindow* window, GW::GRAPHICS::GVulkanSurface* vulkan, VkViewport* viewportPtr, VkRect2D* scissorPtr);
 	~LevelRenderer();
 
 	void Draw(VkCommandBuffer commandBuffer, float aspectRatio);
-	void Update(double deltaTime);
+	void Update(uint32_t currentFrame, double deltaTime);
 	void Load(std::string filename);
+	void UnloadLevel();
 };
 
 #endif

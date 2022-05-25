@@ -3,20 +3,25 @@
 #include "ShaderCompiler.h"
 #include "Stopwatch.h"
 #include <sstream>
+#include <optional>
+#include <Windows.h>
+#include <commdlg.h>
 #include "StringHelper.h"
 #include "BufferHelper.h"
 #include "MatrixHelper.h"
 
-LevelRenderer::LevelRenderer(GW::SYSTEM::GWindow* window, VkDevice device, VkPhysicalDevice phys, VkRenderPass renderPass, VkViewport* viewportPtr, VkRect2D* scissorPtr, uint32_t frameCount) {
+LevelRenderer::LevelRenderer(GW::SYSTEM::GWindow* window, GW::GRAPHICS::GVulkanSurface* vulkan, VkViewport* viewportPtr, VkRect2D* scissorPtr) {
 	this->window = window;
-	this->device = device;
-	this->phys = phys;
+	this->vulkan = vulkan;
 	this->viewportPtr = viewportPtr;
 	this->scissorPtr = scissorPtr;
-	this->frameCount = frameCount;
 	matrixProxy.Create();
 	vectorProxy.Create();
 	inputProxy.Create(*window);
+	vulkan->GetDevice((void**)&device);
+	vulkan->GetPhysicalDevice((void**)&phys);
+	vulkan->GetRenderPass((void**)&renderPass);
+	vulkan->GetSwapchainImageCount(frameCount);
 
 	std::vector<VkVertexInputAttributeDescription> attribs = {
 		{ 0, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(MeshVertex, pos) },
@@ -72,9 +77,7 @@ LevelRenderer::LevelRenderer(GW::SYSTEM::GWindow* window, VkDevice device, VkPhy
 }
 
 LevelRenderer::~LevelRenderer() {
-	for (LevelMesh& lm : meshes) {
-		delete lm.mesh;
-	}
+	UnloadLevel();
 	vkFreeMemory(device, storageBuffer.bufferMemory, nullptr);
 	vkDestroyBuffer(device, storageBuffer.buffer, nullptr);
 	vkDestroyShaderModule(device, vertexShader, nullptr);
@@ -90,8 +93,7 @@ void LevelRenderer::Draw(VkCommandBuffer commandBuffer, float aspectRatio) {
 	GW::MATH::GMATRIXF projection;
 	matrixProxy.ProjectionVulkanLHF(G_DEGREE_TO_RADIAN(65.0f), aspectRatio, 0.1f, 100.0f, projection);
 	matrixProxy.MultiplyMatrixF(viewMatrix, projection, sceneData->viewProjection);
-	MiscData miscData;
-	miscData.lightsUsed = sceneLights.size();
+	sceneData->lightsUsed = sceneLights.size();
 	memcpy(sceneData->materials, sceneMaterials.data(), sizeof(LevelMeshMaterial) * sceneMaterials.size());
 	memcpy(sceneData->lights, sceneLights.data(), sizeof(Light) * sceneLights.size());
 	BufferHelper::WriteToBuffer(device, storageBuffer.bufferMemory, sceneData, sizeof(SceneData));
@@ -100,6 +102,7 @@ void LevelRenderer::Draw(VkCommandBuffer commandBuffer, float aspectRatio) {
 	pipeline->Bind(commandBuffer, *viewportPtr, *scissorPtr);
 	for (size_t i = 0; i < meshes.size(); i++) {
 		LevelMesh& lm = meshes[i];
+		MiscData miscData;
 		miscData.model = lm.model;
 		miscData.cameraPosition = cameraTransform.position;
 		for (int j = 0; j < lm.batchCount; j++) {
@@ -113,7 +116,29 @@ void LevelRenderer::Draw(VkCommandBuffer commandBuffer, float aspectRatio) {
 	}
 }
 
-void LevelRenderer::Update(double deltaTime) {
+std::optional<std::string> OpenFileDialog(const char* filter, GW::SYSTEM::GWindow* window) {
+	OPENFILENAMEA ofn;
+	char szFile[260] = { 0 };
+	char currentDir[256] = { 0 };
+	ZeroMemory(&ofn, sizeof(OPENFILENAME));
+	ofn.lStructSize = sizeof(OPENFILENAME);
+	GW::SYSTEM::UNIVERSAL_WINDOW_HANDLE handle;
+	window->GetWindowHandle(handle);
+	ofn.hwndOwner = (HWND)handle.window;
+	ofn.lpstrFile = szFile;
+	ofn.nMaxFile = sizeof(szFile);
+	if (GetCurrentDirectoryA(256, currentDir))
+		ofn.lpstrInitialDir = currentDir;
+	ofn.lpstrFilter = filter;
+	ofn.nFilterIndex = 1;
+	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST | OFN_NOCHANGEDIR;
+
+	if (GetOpenFileNameA(&ofn) == true)
+		return ofn.lpstrFile;
+	return std::nullopt;
+}
+
+void LevelRenderer::Update(uint32_t currentFrame, double deltaTime) {
 	const float speed = 10.0f;
 	const float rotationSpeed = 50.0f;
 	float wState = 0, sState = 0, dState = 0, aState = 0, shiftState = 0, spaceState, upState = 0, downState = 0, leftState = 0, rightState = 0;
@@ -156,8 +181,23 @@ void LevelRenderer::Update(double deltaTime) {
 		cameraTransform.position.y -= dt;
 	}
 
-	cameraTransform.rotation.x += (upState - downState) * rotationSpeed * deltaTime;
-	cameraTransform.rotation.y += (leftState - rightState) * rotationSpeed * deltaTime;
+	float yaw = (leftState - rightState);
+	float pitch = (upState - downState);
+	cameraTransform.rotation.x += pitch * rotationSpeed * deltaTime;
+	cameraTransform.rotation.y += yaw * rotationSpeed * deltaTime;
+
+	float f1State = 0;
+	inputProxy.GetState(G_KEY_F1, f1State);
+
+	if (f1State) {
+		std::optional<std::string> filePath = OpenFileDialog("*.txt", window);
+		VkFence fence;
+		vulkan->GetRenderFence(currentFrame, (void**)&fence);
+		if (filePath.has_value() && (vkGetFenceStatus(device, fence) == VK_SUCCESS)) {
+			UnloadLevel();
+			Load(filePath.value());
+		}
+	}
 }
 
 GW::MATH::GMATRIXF ParseMatrix(GW::MATH::GMatrix& matrixProxy, std::istringstream& stream) {
@@ -247,4 +287,12 @@ void LevelRenderer::Load(std::string filename) {
 		if (line.empty())
 			break;
 	}
+}
+
+void LevelRenderer::UnloadLevel() {
+	sceneMaterials.clear();
+	for (LevelMesh& lm : meshes) {
+		delete lm.mesh;
+	}
+	meshes.clear();
 }

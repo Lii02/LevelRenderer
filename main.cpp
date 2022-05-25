@@ -76,7 +76,7 @@ int main(int argc, char** argv) {
 			VkViewport viewport;
 			VkRect2D scissor;
 
-			LevelRenderer* level = new LevelRenderer(&win, device, phys, renderPass, &viewport, &scissor, frameCount);
+			LevelRenderer* level = new LevelRenderer(&win, &vulkan, &viewport, &scissor);
 			
 			shutdown.Create(vulkan, [&]() {
 				if (+shutdown.Find(GW::GRAPHICS::GVulkanSurface::Events::RELEASE_RESOURCES, true)) {
@@ -85,21 +85,22 @@ int main(int argc, char** argv) {
 				}
 			});
 
+			bool canUnloadLevel;
 			while (+win.ProcessWindowEvents()) {
 				if (+vulkan.StartFrame(2, clrAndDepth)) {
 					deltaStopwatch.Begin();
-					uint32_t currentBuffer;
-					vulkan.GetSwapchainCurrentImage(currentBuffer);
+					uint32_t currentFrame;
+					vulkan.GetSwapchainCurrentImage(currentFrame);
 					VkCommandBuffer commandBuffer;
-					vulkan.GetCommandBuffer(currentBuffer, (void**)&commandBuffer);
+					vulkan.GetCommandBuffer(currentFrame, (void**)&commandBuffer);
 					getViewportScissor(viewport, scissor);
 
 					float aspectRatio;
 					vulkan.GetAspectRatio(aspectRatio);
 					level->Draw(commandBuffer, aspectRatio);
-					level->Update(deltaStopwatch.GetDeltaSeconds());
-
 					vulkan.EndFrame(true);
+
+					level->Update(currentFrame, deltaStopwatch.GetDeltaSeconds());
 					deltaStopwatch.End();
 				}
 			}

@@ -68,6 +68,7 @@ VS_OUTPUT VS(VS_INPUT input)
     matrix mvp = mul(sceneData[0].viewProjection, model);
     output.Pos = mul(mvp, position);
     output.Norm = mul(model, input.Norm);
+    output.Tex = input.Tex;
     output.FragPos = mul(model, position);
     return output;
 }

@@ -7,7 +7,6 @@
 #include <Windows.h>
 #include <commdlg.h>
 #include "StringHelper.h"
-#include "BufferHelper.h"
 #include "MatrixHelper.h"
 
 LevelRenderer::LevelRenderer(GW::SYSTEM::GWindow* window, GW::GRAPHICS::GVulkanSurface* vulkan, VkViewport* viewportPtr, VkRect2D* scissorPtr) {
@@ -22,13 +21,14 @@ LevelRenderer::LevelRenderer(GW::SYSTEM::GWindow* window, GW::GRAPHICS::GVulkanS
 	vulkan->GetPhysicalDevice((void**)&phys);
 	vulkan->GetRenderPass((void**)&renderPass);
 	vulkan->GetSwapchainImageCount(frameCount);
+	vulkan->GetCommandPool((void**)&commandPool);
+	vulkan->GetGraphicsQueue((void**)&graphicsQueue);
 
-	std::vector<VkVertexInputAttributeDescription> attribs = {
+	attribs = {
 		{ 0, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(MeshVertex, pos) },
 		{ 1, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(MeshVertex, uv) },
 		{ 2, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(MeshVertex, nrm) }
 	};
-	std::vector<VkPushConstantRange> pushConstants;
 	VkPushConstantRange range;
 	range.offset = 0;
 	range.size = sizeof(MiscData);
@@ -86,17 +86,15 @@ LevelRenderer::~LevelRenderer() {
 }
 
 void LevelRenderer::Draw(VkCommandBuffer commandBuffer, float aspectRatio) {
-	GW::MATH::GMATRIXF viewMatrix = cameraTransform.GetTransform(matrixProxy);
-
 	SceneData* sceneData = new SceneData;
 	memset(sceneData, 0, sizeof(SceneData));
 	GW::MATH::GMATRIXF projection;
 	matrixProxy.ProjectionVulkanLHF(G_DEGREE_TO_RADIAN(65.0f), aspectRatio, 0.1f, 100.0f, projection);
-	matrixProxy.MultiplyMatrixF(viewMatrix, projection, sceneData->viewProjection);
+	matrixProxy.MultiplyMatrixF(cameraTransform.GetTransform(matrixProxy), projection, sceneData->viewProjection);
 	sceneData->lightsUsed = sceneLights.size();
 	memcpy(sceneData->materials, sceneMaterials.data(), sizeof(LevelMeshMaterial) * sceneMaterials.size());
 	memcpy(sceneData->lights, sceneLights.data(), sizeof(Light) * sceneLights.size());
-	BufferHelper::WriteToBuffer(device, storageBuffer.bufferMemory, sceneData, sizeof(SceneData));
+	GvkHelper::write_to_buffer(device, storageBuffer.bufferMemory, sceneData, sizeof(SceneData));
 	delete sceneData;
 
 	pipeline->Bind(commandBuffer, *viewportPtr, *scissorPtr);

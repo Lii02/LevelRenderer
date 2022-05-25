@@ -13,6 +13,7 @@
 #define GATEWARE_DISABLE_GOPENGLSURFACE
 #include "Gateware.h"
 #include "h2bParser.h"
+#include "Texture2D.h"
 
 struct VectorImpl {
 	float x, y, z;
@@ -99,6 +100,8 @@ private:
 	VkRect2D* scissorPtr;
 	Pipeline* pipeline;
 	uint32_t frameCount;
+	VkCommandPool commandPool;
+	VkQueue graphicsQueue;
 	VkShaderModule vertexShader, pixelShader;
 	GW::MATH::GMatrix matrixProxy;
 	GW::MATH::GVector vectorProxy;
@@ -107,6 +110,8 @@ private:
 	Transform cameraTransform;
 	StorageBuffer storageBuffer;
 	std::vector<LevelMeshMaterial> sceneMaterials;
+	std::vector<VkPushConstantRange> pushConstants;
+	std::vector<VkVertexInputAttributeDescription> attribs;
 	std::vector<Light> sceneLights;
 	GW::SYSTEM::GWindow* window;
 public:

@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
 #ifndef NDEBUG
 		const char* debugLayers[] = {
 			"VK_LAYER_KHRONOS_validation",
-			//"VK_LAYER_RENDERDOC_Capture"
+			"VK_LAYER_RENDERDOC_Capture"
 		};
 		if (+vulkan.Create(win, GW::GRAPHICS::DEPTH_BUFFER_SUPPORT,
 			sizeof(debugLayers) / sizeof(debugLayers[0]),
@@ -75,6 +75,7 @@ int main(int argc, char** argv) {
 			
 			VkViewport viewport;
 			VkRect2D scissor;
+			getViewportScissor(viewport, scissor);
 
 			LevelRenderer* level = new LevelRenderer(&win, &vulkan, &viewport, &scissor);
 			

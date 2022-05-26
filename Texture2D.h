@@ -15,6 +15,10 @@ private:
 public:
     Texture2D(std::string path, VkPhysicalDevice phys, VkDevice device, VkCommandPool commandPool, VkQueue graphicsQueue);
     ~Texture2D();
+
+    VkImage GetImage();
+    VkImageView GetImageView();
+    VkSampler GetSampler();
 };
 
 #endif

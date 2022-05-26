@@ -56,3 +56,15 @@ Texture2D::~Texture2D() {
 	vkDestroyImage(device, textureImage, nullptr);
 	vkFreeMemory(device, textureImageMemory, nullptr);
 }
+
+VkImage Texture2D::GetImage() {
+	return textureImage;
+}
+
+VkImageView Texture2D::GetImageView() {
+	return textureImageView;
+}
+
+VkSampler Texture2D::GetSampler() {
+	return textureSampler;
+}

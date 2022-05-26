@@ -50,7 +50,7 @@ LevelRenderer::LevelRenderer(GW::SYSTEM::GWindow* window, GW::GRAPHICS::GVulkanS
 	compileWatch.Begin();
 	ShaderCompiler shaderCompiler;
 	std::string shaderSource;
-	FileHelper::LoadFile(shaderSource, "../DefaultShader.hlsl");
+	FileHelper::LoadFile(shaderSource, AssetLocation + "DefaultShader.hlsl");
 	ShaderCompilerResult compiledShaders;
 	shaderCompiler.Compile(device, shaderSource, "VS", "PS", compiledShaders);
 	compileWatch.End();
@@ -72,7 +72,7 @@ LevelRenderer::LevelRenderer(GW::SYSTEM::GWindow* window, GW::GRAPHICS::GVulkanS
 
 	Stopwatch loadingWatch;
 	loadingWatch.Begin();
-	Load("../GameLevel.txt");
+	Load(AssetLocation + "GameLevel.txt");
 	loadingWatch.End();
 	std::cout << "Level loading took " << loadingWatch.GetDeltaMillis() << " milliseconds!" << std::endl;
 }

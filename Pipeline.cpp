@@ -21,7 +21,7 @@ Pipeline::~Pipeline() {
 	vkDestroyPipeline(device, pipeline, nullptr);
 }
 
-void Pipeline::Create(VkShaderModule vertexShader, VkShaderModule pixelShader, std::string vertexEntry, std::string pixelEntry) {
+void Pipeline::Create(VkShaderModule vertexShader, VkShaderModule pixelShader, std::string vertexEntry, std::string pixelEntry, Texture2D* diffuse, Texture2D* specular) {
 	VkPipelineShaderStageCreateInfo stageCreateInfo[2] = {};
 	stageCreateInfo[0].sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
 	stageCreateInfo[0].stage = VK_SHADER_STAGE_VERTEX_BIT;
@@ -117,25 +117,63 @@ void Pipeline::Create(VkShaderModule vertexShader, VkShaderModule pixelShader, s
 	dynamicCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
 	dynamicCreateInfo.dynamicStateCount = 2;
 	dynamicCreateInfo.pDynamicStates = dynamicState;
+	size_t descriptorSize = 1;
+	if (diffuse)
+		descriptorSize++;
+	if (specular)
+		descriptorSize++;
 
-	VkDescriptorSetLayoutBinding descriptorSetLayoutBinding = {};
-	descriptorSetLayoutBinding.binding = 0;
-	descriptorSetLayoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
-	descriptorSetLayoutBinding.descriptorCount = 1;
-	descriptorSetLayoutBinding.stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
+	std::vector<VkDescriptorSetLayoutBinding> descriptorSetLayoutBindings;
+	descriptorSetLayoutBindings.resize(descriptorSize);
+	descriptorSetLayoutBindings[0].binding = 0;
+	descriptorSetLayoutBindings[0].descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+	descriptorSetLayoutBindings[0].descriptorCount = 1;
+	descriptorSetLayoutBindings[0].stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
+	
+	if (diffuse) {
+		descriptorSetLayoutBindings[1].binding = 1;
+		descriptorSetLayoutBindings[1].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+		descriptorSetLayoutBindings[1].descriptorCount = 1;
+		descriptorSetLayoutBindings[1].stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
+	}
+
+	if (specular) {
+		int index = 2;
+		if (!diffuse)
+			index = 1;
+		descriptorSetLayoutBindings[index].binding = index;
+		descriptorSetLayoutBindings[index].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+		descriptorSetLayoutBindings[index].descriptorCount = 1;
+		descriptorSetLayoutBindings[index].stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
+	}
+
 	VkDescriptorSetLayoutCreateInfo descriptorSetLayoutCreate = {};
 	descriptorSetLayoutCreate.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
-	descriptorSetLayoutCreate.bindingCount = 1;
-	descriptorSetLayoutCreate.pBindings = &descriptorSetLayoutBinding;
+	descriptorSetLayoutCreate.bindingCount = descriptorSetLayoutBindings.size();
+	descriptorSetLayoutCreate.pBindings = &descriptorSetLayoutBindings[0];
 	vkCreateDescriptorSetLayout(device, &descriptorSetLayoutCreate, nullptr, &descriptorSetLayout);
 
-	VkDescriptorPoolSize poolSize = {};
-	poolSize.type = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
-	poolSize.descriptorCount = frameCount;
+	std::vector<VkDescriptorPoolSize> poolSizes;
+	poolSizes.resize(descriptorSize);
+	poolSizes[0].type = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+	poolSizes[0].descriptorCount = frameCount;
+	if(diffuse) {
+		poolSizes[1].type = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+		poolSizes[1].descriptorCount = frameCount;
+	}
+
+	if (specular) {
+		int index = 2;
+		if (!diffuse)
+			index = 1;
+		poolSizes[index].type = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+		poolSizes[index].descriptorCount = frameCount;
+	}
+
 	VkDescriptorPoolCreateInfo descriptorPoolCreate = {};
 	descriptorPoolCreate.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
-	descriptorPoolCreate.poolSizeCount = 1;
-	descriptorPoolCreate.pPoolSizes = &poolSize;
+	descriptorPoolCreate.poolSizeCount = poolSizes.size();
+	descriptorPoolCreate.pPoolSizes = &poolSizes[0];
 	descriptorPoolCreate.maxSets = frameCount;
 	vkCreateDescriptorPool(device, &descriptorPoolCreate, nullptr, &descriptorPool);
 
@@ -152,15 +190,51 @@ void Pipeline::Create(VkShaderModule vertexShader, VkShaderModule pixelShader, s
 		descriptorBufferInfo.buffer = storageBuffer.buffer;
 		descriptorBufferInfo.offset = 0;
 		descriptorBufferInfo.range = storageBuffer.size;
-		VkWriteDescriptorSet writeDescriptorSet = {};
-		writeDescriptorSet.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-		writeDescriptorSet.dstSet = descriptorSets[i];
-		writeDescriptorSet.dstBinding = 0;
-		writeDescriptorSet.dstArrayElement = 0;
-		writeDescriptorSet.descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
-		writeDescriptorSet.descriptorCount = 1;
-		writeDescriptorSet.pBufferInfo = &descriptorBufferInfo;
-		vkUpdateDescriptorSets(device, 1, &writeDescriptorSet, 0, nullptr);
+
+		std::vector<VkWriteDescriptorSet> writeDescriptorSets;
+		writeDescriptorSets.resize(descriptorSize);
+		writeDescriptorSets[0].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+		writeDescriptorSets[0].dstSet = descriptorSets[i];
+		writeDescriptorSets[0].dstBinding = 0;
+		writeDescriptorSets[0].dstArrayElement = 0;
+		writeDescriptorSets[0].descriptorType = VK_DESCRIPTOR_TYPE_STORAGE_BUFFER;
+		writeDescriptorSets[0].descriptorCount = 1;
+		writeDescriptorSets[0].pBufferInfo = &descriptorBufferInfo;
+
+		if(diffuse) {
+			VkDescriptorImageInfo imageInfo;
+			imageInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+			imageInfo.imageView = diffuse->GetImageView();
+			imageInfo.sampler = diffuse->GetSampler();
+
+			writeDescriptorSets[1].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+			writeDescriptorSets[1].dstSet = descriptorSets[i];
+			writeDescriptorSets[1].dstBinding = 1;
+			writeDescriptorSets[1].dstArrayElement = 0;
+			writeDescriptorSets[1].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+			writeDescriptorSets[1].descriptorCount = 1;
+			writeDescriptorSets[1].pImageInfo = &imageInfo;
+		}
+
+		if (specular) {
+			int index = 2;
+			if (!diffuse)
+				index = 1;
+			VkDescriptorImageInfo imageInfo;
+			imageInfo.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+			imageInfo.imageView = diffuse->GetImageView();
+			imageInfo.sampler = diffuse->GetSampler();
+
+			writeDescriptorSets[index].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+			writeDescriptorSets[index].dstSet = descriptorSets[i];
+			writeDescriptorSets[index].dstBinding = index;
+			writeDescriptorSets[index].dstArrayElement = 0;
+			writeDescriptorSets[index].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+			writeDescriptorSets[index].descriptorCount = 1;
+			writeDescriptorSets[index].pImageInfo = &imageInfo;
+		}
+		
+		vkUpdateDescriptorSets(device, writeDescriptorSets.size(), &writeDescriptorSets[0], 0, nullptr);
 	}
 
 	VkPipelineLayoutCreateInfo pipelineLayoutCreateInfo = {};

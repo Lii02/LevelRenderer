@@ -9,6 +9,12 @@
 #include "StringHelper.h"
 #include "MatrixHelper.h"
 
+#ifdef NDEBUG
+std::string AssetLocation = "./Assets/";
+#else
+std::string AssetLocation = "../Assets/";
+#endif
+
 LevelRenderer::LevelRenderer(GW::SYSTEM::GWindow* window, GW::GRAPHICS::GVulkanSurface* vulkan, VkViewport* viewportPtr, VkRect2D* scissorPtr) {
 	this->window = window;
 	this->vulkan = vulkan;
@@ -50,23 +56,18 @@ LevelRenderer::LevelRenderer(GW::SYSTEM::GWindow* window, GW::GRAPHICS::GVulkanS
 	compileWatch.End();
 	std::cout << "Shader compiling took " << compileWatch.GetDeltaMillis() << " milliseconds!" << std::endl;
 	pipeline = new Pipeline(device, renderPass, *viewportPtr, *scissorPtr, attribs, frameCount, storageBuffer, sizeof(MeshVertex), pushConstants);
-	pipeline->Create(compiledShaders.vertexShader, compiledShaders.pixelShader, "VS", "PS");
+	pipeline->Create(compiledShaders.vertexShader, compiledShaders.pixelShader, "VS", "PS", nullptr, nullptr);
 	this->vertexShader = compiledShaders.vertexShader;
 	this->pixelShader = compiledShaders.pixelShader;
-
+	
 	Light light;
-	light.type = LightType::DIRECTIONAL_LIGHT;
-	light.intensity = 1.0f;
+	light.intensity = 0.001f;
 	light.color = { 1, 1, 1 };
-	light.ambient = { 0.1f, 0.1f, 0.1f };
-	light.positionDirection = { -1, -1, 2 };
+	light.positionDirection = { 6.5f, 3.5f, -5 };
 	sceneLights.push_back(light);
-	light.type = LightType::POINT_LIGHT;
-	light.intensity = 1.0f;
+	light.intensity = 0.001f;
 	light.color = { 1, 0, 0 };
-	light.ambient = { 0.1f, 0.0f, 0.0f };
-	light.falloff = { 0.1f, 0.1f, 0.1f };
-	light.positionDirection = { -1, 2.5, -2 };
+	light.positionDirection = { -1, 2.5f, -2 };
 	sceneLights.push_back(light);
 
 	Stopwatch loadingWatch;
@@ -96,14 +97,31 @@ void LevelRenderer::Draw(VkCommandBuffer commandBuffer, float aspectRatio) {
 	memcpy(sceneData->lights, sceneLights.data(), sizeof(Light) * sceneLights.size());
 	GvkHelper::write_to_buffer(device, storageBuffer.bufferMemory, sceneData, sizeof(SceneData));
 	delete sceneData;
+	uint32_t currentFrame;
+	vulkan->GetSwapchainCurrentImage(currentFrame);
 
-	pipeline->Bind(commandBuffer, *viewportPtr, *scissorPtr);
 	for (size_t i = 0; i < meshes.size(); i++) {
 		LevelMesh& lm = meshes[i];
-		MiscData miscData;
-		miscData.model = lm.model;
-		miscData.cameraPosition = cameraTransform.position;
 		for (int j = 0; j < lm.batchCount; j++) {
+			MiscData miscData = {};
+			miscData.model = lm.model;
+			miscData.cameraPosition = cameraTransform.position;
+			miscData.usesDiffuseMap = lm.diffuseMapUsage[i];
+			miscData.useSpecularMap = lm.specularMapUsage[i];
+			if(lm.diffuseMapUsage[i]) {
+				Texture2D* texture = sceneTextures[lm.diffuseTextureIndices[i]];
+				pipelineTextures.push_back(texture);
+			}
+			if (lm.specularMapUsage[i]) {
+				Texture2D* texture = sceneTextures[lm.specularTextureIndices[i]];
+				pipelineTextures.push_back(texture);
+			}
+
+			if (lm.diffuseMapUsage[i] || lm.specularMapUsage[i]) {
+				RecreatePipeline(currentFrame);
+			}
+
+			pipeline->Bind(commandBuffer, *viewportPtr, *scissorPtr);
 			lm.mesh->Bind(commandBuffer);
 			miscData.index = j;
 			miscData.materialIndex = lm.firstMaterial + lm.materialIndices[j];
@@ -111,6 +129,7 @@ void LevelRenderer::Draw(VkCommandBuffer commandBuffer, float aspectRatio) {
 			pipeline->PushConstant(commandBuffer, 0, &miscData);
 			lm.mesh->DrawInstanced(commandBuffer, lm.batches[j].indexCount, lm.batches[j].indexOffset);
 		}
+		pipelineTextures.clear();
 	}
 }
 
@@ -245,7 +264,7 @@ void LevelRenderer::Load(std::string filename) {
 		if (std::strcmp(line.c_str(), "MESH") == 0) {
 			std::string meshName;
 			std::getline(input, meshName);
-			std::string meshPath = "../Assets/" + meshName + ".h2b";
+			std::string meshPath = AssetLocation + meshName + ".h2b";
 			parser.Parse(meshPath.c_str());
 			LevelMesh levelMesh;
 			levelMesh.mesh = new Mesh(device, phys);
@@ -258,9 +277,29 @@ void LevelRenderer::Load(std::string filename) {
 			levelMesh.materialCount = parser.materialCount;
 			levelMesh.firstMaterial = sceneMaterials.size();
 			for (size_t i = 0; i < parser.materialCount; i++) {
-				LevelMeshMaterial material;
-				memcpy(&material, &parser.materials[i].attrib, sizeof(LevelMeshMaterial));
-				sceneMaterials.push_back(material);
+				LevelMeshMaterial levelMaterial;
+				H2B::MATERIAL parsedMaterial = parser.materials[i];
+				memcpy(&levelMaterial, &parsedMaterial.attrib, sizeof(H2B::ATTRIBUTES));
+				if (parsedMaterial.map_Kd) {
+					levelMesh.diffuseMapUsage.push_back(true);
+					Texture2D* texture = new Texture2D(AssetLocation + std::string(parsedMaterial.map_Kd), phys, device, commandPool, graphicsQueue);
+					sceneTextures.push_back(texture);
+					levelMesh.diffuseTextureIndices.push_back(sceneTextures.size() - 1);
+				} else {
+					levelMesh.diffuseMapUsage.push_back(false);
+				}
+
+				if (parsedMaterial.map_Ns) {
+					levelMesh.specularMapUsage.push_back(true);
+					Texture2D* texture = new Texture2D(AssetLocation + std::string(parsedMaterial.map_Ns), phys, device, commandPool, graphicsQueue);
+					sceneTextures.push_back(texture);
+					levelMesh.specularTextureIndices.push_back(sceneTextures.size() - 1);
+				}
+				else {
+					levelMesh.specularMapUsage.push_back(false);
+				}
+				
+				sceneMaterials.push_back(levelMaterial);
 				levelMesh.batches.push_back(parser.batches[i]);
 				levelMesh.materialIndices.push_back(parser.meshes[i].materialIndex);
 			}
@@ -289,8 +328,24 @@ void LevelRenderer::Load(std::string filename) {
 
 void LevelRenderer::UnloadLevel() {
 	sceneMaterials.clear();
+	for (Texture2D* texture : sceneTextures) {
+		delete texture;
+	}
+	sceneTextures.clear();
 	for (LevelMesh& lm : meshes) {
 		delete lm.mesh;
 	}
 	meshes.clear();
+}
+
+void LevelRenderer::RecreatePipeline(uint32_t currentFrame) {
+	vkDeviceWaitIdle(device);
+	VkFence fence;
+	vulkan->GetRenderFence(currentFrame, (void**)&fence);
+	if (vkGetFenceStatus(device, fence) == VK_SUCCESS) {
+		delete pipeline;
+		vulkan->GetRenderPass((void**)&renderPass);
+		pipeline = new Pipeline(device, renderPass, *viewportPtr, *scissorPtr, attribs, frameCount, storageBuffer, sizeof(MeshVertex), pushConstants);
+		pipeline->Create(vertexShader, pixelShader, "VS", "PS", pipelineTextures[0], pipelineTextures[1]);
+	}
 }

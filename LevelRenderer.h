@@ -32,18 +32,10 @@ struct LevelMeshMaterial {
 	int illum;
 };
 
-enum LightType : uint32_t {
-	POINT_LIGHT = 0,
-	DIRECTIONAL_LIGHT = 1
-};
-
 struct Light {
 	alignas(16) VectorImpl color;
 	alignas(16) VectorImpl positionDirection;
-	alignas(16) VectorImpl ambient;
-	alignas(16) VectorImpl falloff;
 	float intensity;
-	LightType type;
 };
 
 #define MAX_MATERIAL_COUNT 35
@@ -61,16 +53,22 @@ struct MiscData {
 	int materialIndex;
 	alignas(16) GW::MATH::GMATRIXF model;
 	GW::MATH::GVECTORF cameraPosition;
+	alignas(4) bool usesDiffuseMap;
+	alignas(4) bool useSpecularMap;
 };
 
 struct LevelMesh {
 	Mesh* mesh;
 	std::vector<unsigned int> materialIndices;
+	std::vector<unsigned int> diffuseTextureIndices;
+	std::vector<unsigned int> specularTextureIndices;
 	int materialCount;
 	int firstMaterial;
 	GW::MATH::GMATRIXF model;
 	std::vector<H2B::BATCH> batches;
 	size_t batchCount;
+	std::vector<bool> diffuseMapUsage;
+	std::vector<bool> specularMapUsage;
 };
 
 struct Transform {
@@ -113,6 +111,8 @@ private:
 	std::vector<VkPushConstantRange> pushConstants;
 	std::vector<VkVertexInputAttributeDescription> attribs;
 	std::vector<Light> sceneLights;
+	std::vector<Texture2D*> sceneTextures;
+	std::vector<Texture2D*> pipelineTextures;
 	GW::SYSTEM::GWindow* window;
 public:
 	LevelRenderer(GW::SYSTEM::GWindow* window, GW::GRAPHICS::GVulkanSurface* vulkan, VkViewport* viewportPtr, VkRect2D* scissorPtr);
@@ -122,6 +122,7 @@ public:
 	void Update(uint32_t currentFrame, double deltaTime);
 	void Load(std::string filename);
 	void UnloadLevel();
+	void RecreatePipeline(uint32_t currentFrame);
 };
 
 #endif
